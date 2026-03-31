@@ -1,0 +1,7 @@
+.DS_Store
+.agent/
+.cursor/
+.gemini/
+_bmad-output/
+_bmad/
+requirement.md
