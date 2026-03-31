@@ -5,3 +5,5 @@
 _bmad-output/
 _bmad/
 requirement.md
+dist/
+node_modules/
