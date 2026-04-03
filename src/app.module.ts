@@ -3,6 +3,7 @@ import { AppController } from "./presentation/controllers/app.controller";
 import { AppService } from "./application/use-cases/app.service";
 import { PrismaModule } from "./infrastructure/database/prisma.module";
 import { AuthModule } from "./infrastructure/auth/auth.module";
+import { UsersModule } from "./infrastructure/users/users.module";
 import { ConfigModule } from "@nestjs/config";
 import { CacheModule } from "@nestjs/cache-manager";
 // import { redisStore } from 'cache-manager-redis-yet';
@@ -20,6 +21,7 @@ import { CacheModule } from "@nestjs/cache-manager";
     }),
     PrismaModule,
     AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

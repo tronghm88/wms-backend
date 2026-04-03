@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { PassportModule } from "@nestjs/passport";
 import { AuthController } from "../../presentation/controllers/auth.controller";
 import { LoginUseCase } from "../../application/use-cases/auth/login.use-case";
+import { ResetPasswordUseCase } from "../../application/use-cases/auth/reset-password.use-case";
 import { JwtTokenService } from "./jwt-token.service";
 import { BcryptPasswordHasher } from "./bcrypt-password-hasher.service";
 import { JwtStrategy } from "./jwt.strategy";
@@ -34,6 +35,7 @@ import { CACHE_SERVICE } from "../../domain/contracts/cache.service.interface";
   controllers: [AuthController],
   providers: [
     LoginUseCase,
+    ResetPasswordUseCase,
     JwtStrategy,
     {
       provide: USER_REPOSITORY,
@@ -52,6 +54,6 @@ import { CACHE_SERVICE } from "../../domain/contracts/cache.service.interface";
       useClass: RedisCacheService,
     },
   ],
-  exports: [JwtStrategy, PassportModule],
+  exports: [JwtStrategy, PassportModule, USER_REPOSITORY, PASSWORD_HASHER],
 })
 export class AuthModule {}

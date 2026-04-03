@@ -36,10 +36,43 @@ export class UserRepository implements IUserRepository {
     return this.mapToDomain(user);
   }
 
+  async findById(id: string): Promise<UserEntity | null> {
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+    });
+
+    if (!user) return null;
+    return this.mapToDomain(user);
+  }
+
+  async create(
+    user: Omit<UserEntity, "id" | "createdAt" | "updatedAt" | "isActive">,
+  ): Promise<UserEntity> {
+    const createdUser = await this.prisma.user.create({
+      data: {
+        email: user.email,
+        passwordHash: user.passwordHash,
+        fullName: user.fullName,
+        role: user.role,
+        customPermissions: user.customPermissions ?? undefined,
+        status: user.status,
+        lastLoginAt: user.lastLoginAt,
+      },
+    });
+    return this.mapToDomain(createdUser);
+  }
+
   async updateLastLogin(userId: string): Promise<void> {
     await this.prisma.user.update({
       where: { id: userId },
       data: { lastLoginAt: new Date() },
+    });
+  }
+
+  async updatePassword(userId: string, newPasswordHash: string): Promise<void> {
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { passwordHash: newPasswordHash },
     });
   }
 }

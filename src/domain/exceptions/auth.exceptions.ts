@@ -15,8 +15,35 @@ export class InvalidCredentialsException extends AuthException {
   }
 }
 
+export class InvalidOldPasswordException extends AuthException {
+  constructor() {
+    super("Invalid old password", "INVALID_OLD_PASSWORD");
+  }
+}
+
+export class UserNotFoundException extends AuthException {
+  constructor() {
+    super("User not found", "USER_NOT_FOUND");
+  }
+}
+
 export class UserInactiveException extends AuthException {
   constructor() {
     super("User account is inactive", "USER_INACTIVE");
+  }
+}
+
+export class EmailAlreadyExistsException extends AuthException {
+  constructor() {
+    super("Email already exists", "EMAIL_ALREADY_EXISTS");
+  }
+}
+
+export class CannotCreateSuperAdminException extends AuthException {
+  constructor() {
+    super(
+      "Cannot create a user with SUPER_ADMIN role",
+      "CANNOT_CREATE_SUPER_ADMIN",
+    );
   }
 }
