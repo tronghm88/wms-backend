@@ -1,0 +1,34 @@
+# Cursor Rules for WMS Backend Project
+
+You are an expert AI software engineer. When generating or modifying code for this project, you MUST adhere to the following rules to ensure strict architectural compliance and zero linting errors.
+
+## 1. Architecture (Clean Architecture)
+- **Domain Layer (`src/domain`):** MUST remain 100% pure TypeScript. NEVER import `@nestjs/common`, `@nestjs/swagger`, `@prisma/client`, or any other framework/infrastructure libraries here.
+- **Presentation Layer (`src/presentation`):** Contains Controllers, DTOs (`class-validator`), Exception Filters. DTOs must NOT leak into the Application or Domain layers.
+- **Application Layer (`src/application`):** Contains Use Cases. Orchestrates between Presentation and Domain/Infrastructure.
+- **Infrastructure Layer (`src/infrastructure`):** Contains Prisma repositories, Redis integrations, and third-party services. Only this layer talks to the database directly.
+
+## 2. ESLint & TypeScript Standards (CRITICAL)
+- **Unused Variables (`error`):** Unused variables cause hard linting errors. You MUST prefix any unused variables or arguments with `_` (e.g., `_req`, `_unusedParam`).
+- **Promises (`warn`):** Floating promises are forbidden. Always `await` promises or explicitly handle them to avoid warnings.
+- **Type Safety (`warn`):** Avoid `any`. Use strict typing. Avoid passing unsafe arguments.
+- **Formatting:** Code must be formatted using Prettier conventions.
+
+## 3. Data Types & Database
+- **Decimals & Money:** NEVER use floating-point `number` for metrics (weight, quantity, length, volume, currency).
+  - **Database:** Use PostgreSQL `NUMERIC(15,3)`.
+  - **Logic:** Use `decimal.js` for calculations.
+  - **API Responses:** Serialize all `NUMERIC(15,3)` values to `String` when returning them from the API to prevent client-side floating-point truncation.
+- **Naming Conventions:**
+  - Prisma Schema: `PascalCase` model names (e.g., `model GoodsReceipt`).
+  - Database Mapping: Use `@@map("snake_case_plural")` for tables and `@map("snake_case")` for columns.
+  - API Routes: Plural `kebab-case` (e.g., `/api/v1/price-policies`).
+  - API Queries: `camelCase` (e.g., `?customerId=123`).
+  - File Names: `kebab-case` with dot suffixes (e.g., `goods-receipt.controller.ts`, `create-goods-issue.use-case.ts`).
+
+## 4. API & Error Handling
+- **DTOs:** Must be strictly validated using `class-validator` and `class-transformer`.
+- **Swagger:** Decorate all controllers and endpoints with `@nestjs/swagger` annotations.
+- **Errors:** Throw domain-specific exceptions in Use Cases. Rely on the global NestJS `ExceptionFilter` to map them to standard HTTP responses.
+
+Follow these rules unconditionally to prevent CI pipeline failures and architectural debt.
