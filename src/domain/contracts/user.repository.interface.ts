@@ -8,6 +8,15 @@ export interface IUserRepository {
   create(
     user: Omit<UserEntity, "id" | "createdAt" | "updatedAt" | "isActive">,
   ): Promise<UserEntity>;
+  update(
+    userId: string,
+    data: Partial<
+      Omit<
+        UserEntity,
+        "id" | "createdAt" | "updatedAt" | "isActive" | "passwordHash"
+      >
+    >,
+  ): Promise<UserEntity>;
   updateLastLogin(userId: string): Promise<void>;
   updatePassword(userId: string, newPasswordHash: string): Promise<void>;
 }

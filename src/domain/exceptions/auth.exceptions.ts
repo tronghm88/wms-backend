@@ -47,3 +47,12 @@ export class CannotCreateSuperAdminException extends AuthException {
     );
   }
 }
+
+export class CannotModifySuperAdminException extends AuthException {
+  constructor() {
+    super(
+      "Cannot modify the core SUPER_ADMIN account",
+      "CANNOT_MODIFY_SUPER_ADMIN",
+    );
+  }
+}

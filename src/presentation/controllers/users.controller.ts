@@ -5,6 +5,8 @@ import {
   UseGuards,
   HttpCode,
   HttpStatus,
+  Patch,
+  Param,
 } from "@nestjs/common";
 import {
   ApiTags,
@@ -13,7 +15,9 @@ import {
   ApiBearerAuth,
 } from "@nestjs/swagger";
 import { CreateUserUseCase } from "../../application/use-cases/users/create-user.use-case";
+import { UpdateUserUseCase } from "../../application/use-cases/users/update-user.use-case";
 import { CreateUserDto } from "../dtos/users/create-user.dto";
+import { UpdateUserDto } from "../dtos/users/update-user.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RequirePermissions, RbacGuard } from "../guards/rbac.guard";
 import { Permissions } from "../../domain/constants/permissions.constant";
@@ -23,7 +27,10 @@ import { Permissions } from "../../domain/constants/permissions.constant";
 @UseGuards(JwtAuthGuard, RbacGuard)
 @Controller("v1/users")
 export class UsersController {
-  constructor(private readonly createUserUseCase: CreateUserUseCase) {}
+  constructor(
+    private readonly createUserUseCase: CreateUserUseCase,
+    private readonly updateUserUseCase: UpdateUserUseCase,
+  ) {}
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
@@ -44,6 +51,25 @@ export class UsersController {
       fullName: createUserDto.fullName,
       role: createUserDto.role,
       customPermissions: createUserDto.customPermissions,
+    });
+  }
+
+  @Patch(":id")
+  @HttpCode(HttpStatus.OK)
+  @RequirePermissions(Permissions.USERS_MANAGE)
+  @ApiOperation({ summary: "Update user information (Admin only)" })
+  @ApiResponse({ status: 200, description: "User successfully updated" })
+  @ApiResponse({ status: 400, description: "Bad request" })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  @ApiResponse({ status: 404, description: "User not found" })
+  async updateUser(@Param("id") id: string, @Body() dto: UpdateUserDto) {
+    return this.updateUserUseCase.execute({
+      userId: id,
+      fullName: dto.fullName,
+      role: dto.role,
+      customPermissions: dto.customPermissions,
+      status: dto.status,
     });
   }
 }
