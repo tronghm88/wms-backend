@@ -1,13 +1,53 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
 }
+
+// ──────────────────────────────────────────────
+// Enums
+// ──────────────────────────────────────────────
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  WAREHOUSE_STAFF
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+}
+
+// ──────────────────────────────────────────────
+// User
+// ──────────────────────────────────────────────
+
+/// Represents an authenticated system user.
+/// Roles are enforced in source-code constants; customPermissions is
+/// the "Total Override" RBAC mechanic (see architecture.md §Security).
+model User {
+  id           String     @id @default(uuid())
+  email        String     @unique
+  passwordHash String     @map("password_hash")
+  fullName     String     @map("full_name")
+  role         UserRole   @default(WAREHOUSE_STAFF)
+
+  /// NULL  → use hardcoded Role permissions
+  /// []    → block all permissions (no access)
+  /// [...] → use ONLY these permissions, bypassing the Role
+  customPermissions String[] @map("custom_permissions")
+
+  status      UserStatus @default(ACTIVE)
+  lastLoginAt DateTime?  @map("last_login_at")
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
