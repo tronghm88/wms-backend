@@ -4,12 +4,12 @@ export const USER_REPOSITORY = "USER_REPOSITORY";
 
 export interface IUserRepository {
   findByEmail(email: string): Promise<UserEntity | null>;
-  findById(id: string): Promise<UserEntity | null>;
+  findById(id: number): Promise<UserEntity | null>;
   create(
     user: Omit<UserEntity, "id" | "createdAt" | "updatedAt" | "isActive">,
   ): Promise<UserEntity>;
   update(
-    userId: string,
+    userId: number,
     data: Partial<
       Omit<
         UserEntity,
@@ -17,6 +17,6 @@ export interface IUserRepository {
       >
     >,
   ): Promise<UserEntity>;
-  updateLastLogin(userId: string): Promise<void>;
-  updatePassword(userId: string, newPasswordHash: string): Promise<void>;
+  updateLastLogin(userId: number): Promise<void>;
+  updatePassword(userId: number, newPasswordHash: string): Promise<void>;
 }

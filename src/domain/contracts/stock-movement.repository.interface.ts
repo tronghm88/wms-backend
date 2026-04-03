@@ -1,0 +1,8 @@
+import { StockMovementEntity } from '../entities/stock-movement.entity';
+
+export interface IStockMovementRepository {
+  findById(id: number): Promise<StockMovementEntity | null>;
+  findByProductId(productId: number): Promise<StockMovementEntity[]>;
+  findByReference(referenceId: number, referenceType: string): Promise<StockMovementEntity[]>;
+  create(movement: Omit<StockMovementEntity, 'id' | 'createdAt'>): Promise<StockMovementEntity>;
+}

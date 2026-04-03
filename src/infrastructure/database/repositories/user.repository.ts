@@ -3,28 +3,27 @@ import { PrismaService } from "../prisma.service";
 import type { User as PrismaUser } from "@prisma/client";
 import { IUserRepository } from "../../../domain/contracts/user.repository.interface";
 import {
-  UserEntity,
-  UserRole,
-  UserStatus,
+  UserEntity
 } from "../../../domain/entities/user.entity";
+import { UserRole, UserStatus } from "../../../domain/enums";
 
 @Injectable()
 export class UserRepository implements IUserRepository {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   private mapToDomain(user: PrismaUser): UserEntity {
-    return new UserEntity(
-      user.id,
-      user.email,
-      user.passwordHash,
-      user.fullName,
-      user.role as UserRole,
-      user.customPermissions,
-      user.status as UserStatus,
-      user.lastLoginAt,
-      user.createdAt,
-      user.updatedAt,
-    );
+    return new UserEntity({
+      id: user.id,
+      email: user.email,
+      passwordHash: user.passwordHash,
+      fullName: user.fullName,
+      role: user.role as UserRole,
+      customPermissions: user.customPermissions,
+      status: user.status as UserStatus,
+      lastLoginAt: user.lastLoginAt ?? undefined,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    });
   }
 
   async findByEmail(email: string): Promise<UserEntity | null> {
@@ -36,7 +35,7 @@ export class UserRepository implements IUserRepository {
     return this.mapToDomain(user);
   }
 
-  async findById(id: string): Promise<UserEntity | null> {
+  async findById(id: number): Promise<UserEntity | null> {
     const user = await this.prisma.user.findUnique({
       where: { id },
     });
@@ -63,7 +62,7 @@ export class UserRepository implements IUserRepository {
   }
 
   async update(
-    userId: string,
+    userId: number,
     data: Partial<
       Omit<
         UserEntity,
@@ -83,14 +82,14 @@ export class UserRepository implements IUserRepository {
     return this.mapToDomain(updatedUser);
   }
 
-  async updateLastLogin(userId: string): Promise<void> {
+  async updateLastLogin(userId: number): Promise<void> {
     await this.prisma.user.update({
       where: { id: userId },
       data: { lastLoginAt: new Date() },
     });
   }
 
-  async updatePassword(userId: string, newPasswordHash: string): Promise<void> {
+  async updatePassword(userId: number, newPasswordHash: string): Promise<void> {
     await this.prisma.user.update({
       where: { id: userId },
       data: { passwordHash: newPasswordHash },

@@ -4,11 +4,8 @@ import {
   UserNotFoundException,
   CannotModifySuperAdminException,
 } from "../../../domain/exceptions/auth.exceptions";
-import {
-  UserEntity,
-  UserRole,
-  UserStatus,
-} from "../../../domain/entities/user.entity";
+import { UserEntity } from "../../../domain/entities/user.entity";
+import { UserRole, UserStatus } from "../../../domain/enums";
 import { IUserRepository } from "../../../domain/contracts/user.repository.interface";
 import { IPasswordHasher } from "../../../domain/contracts/password-hasher.interface";
 import { ICacheService } from "../../../domain/contracts/cache.service.interface";
@@ -38,24 +35,24 @@ describe("AdminResetPasswordUseCase", () => {
   });
 
   it("should successfully reset a user password by admin", async () => {
-    const userId = "user-123";
+    const userId = 123;
     const request = {
       userId,
       newPasswordRaw: "NewSecurePass123",
     };
 
-    const existingUser = new UserEntity(
-      userId,
-      "staff@example.com",
-      "old-hash",
-      "Staff User",
-      UserRole.WAREHOUSE_STAFF,
-      null,
-      UserStatus.ACTIVE,
-      null,
-      new Date(),
-      new Date(),
-    );
+    const existingUser = new UserEntity({
+      id: userId,
+      email: "staff@example.com",
+      passwordHash: "old-hash",
+      fullName: "Staff User",
+      role: UserRole.WAREHOUSE_STAFF,
+      customPermissions: undefined,
+      status: UserStatus.ACTIVE,
+      lastLoginAt: undefined,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
 
     mockUserRepository.findById.mockResolvedValue(existingUser);
     mockPasswordHasher.hash.mockResolvedValue("new-hash");
@@ -78,24 +75,24 @@ describe("AdminResetPasswordUseCase", () => {
     mockUserRepository.findById.mockResolvedValue(null);
 
     await expect(
-      useCase.execute({ userId: "nonexistent", newPasswordRaw: "pass" }),
+      useCase.execute({ userId: 999, newPasswordRaw: "pass" }),
     ).rejects.toThrow(UserNotFoundException);
   });
 
   it("should throw CannotModifySuperAdminException if target is SUPER_ADMIN", async () => {
-    const userId = "super-admin-id";
-    const existingUser = new UserEntity(
-      userId,
-      "super@example.com",
-      "hash",
-      "Super Admin",
-      UserRole.SUPER_ADMIN,
-      null,
-      UserStatus.ACTIVE,
-      null,
-      new Date(),
-      new Date(),
-    );
+    const userId = 1;
+    const existingUser = new UserEntity({
+      id: userId,
+      email: "super@example.com",
+      passwordHash: "hash",
+      fullName: "Super Admin",
+      role: UserRole.SUPER_ADMIN,
+      customPermissions: undefined,
+      status: UserStatus.ACTIVE,
+      lastLoginAt: undefined,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
 
     mockUserRepository.findById.mockResolvedValue(existingUser);
 

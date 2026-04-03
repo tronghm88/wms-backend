@@ -8,7 +8,7 @@ import {
   MinLength,
   IsArray,
 } from "class-validator";
-import { UserRole } from "../../../domain/entities/user.entity";
+import { UserRole } from "../../../domain/enums";
 
 export class CreateUserDto {
   @ApiProperty({ example: "staff@warehouse.com" })

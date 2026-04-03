@@ -4,11 +4,8 @@ import {
   EmailAlreadyExistsException,
   CannotCreateSuperAdminException,
 } from "../../../domain/exceptions/auth.exceptions";
-import {
-  UserEntity,
-  UserRole,
-  UserStatus,
-} from "../../../domain/entities/user.entity";
+import { UserEntity } from "../../../domain/entities/user.entity";
+import { UserRole, UserStatus } from "../../../domain/enums";
 import { IUserRepository } from "../../../domain/contracts/user.repository.interface";
 import { IPasswordHasher } from "../../../domain/contracts/password-hasher.interface";
 
@@ -44,23 +41,23 @@ describe("CreateUserUseCase", () => {
     mockUserRepository.findByEmail.mockResolvedValue(null);
     mockPasswordHasher.hash.mockResolvedValue("hashed_password");
     mockUserRepository.create.mockResolvedValue(
-      new UserEntity(
-        "123",
-        request.email,
-        "hashed_password",
-        request.fullName,
-        request.role,
-        request.customPermissions,
-        UserStatus.ACTIVE,
-        null,
-        new Date(),
-        new Date(),
-      ),
+      new UserEntity({
+        id: 123,
+        email: request.email,
+        passwordHash: "hashed_password",
+        fullName: request.fullName,
+        role: request.role,
+        customPermissions: request.customPermissions,
+        status: UserStatus.ACTIVE,
+        lastLoginAt: undefined,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }),
     );
 
     const result = await useCase.execute(request);
 
-    expect(result.id).toBe("123");
+    expect(result.id).toBe(123);
     expect(result.email).toBe(request.email);
     expect(result.customPermissions).toEqual(request.customPermissions);
     expect(mockUserRepository.create).toHaveBeenCalledWith({
@@ -70,7 +67,7 @@ describe("CreateUserUseCase", () => {
       role: request.role,
       customPermissions: request.customPermissions,
       status: UserStatus.ACTIVE,
-      lastLoginAt: null,
+      lastLoginAt: undefined,
     });
   });
 
@@ -98,18 +95,18 @@ describe("CreateUserUseCase", () => {
     };
 
     mockUserRepository.findByEmail.mockResolvedValue(
-      new UserEntity(
-        "123",
-        request.email,
-        "hash",
-        "Name",
-        UserRole.WAREHOUSE_STAFF,
-        null,
-        UserStatus.ACTIVE,
-        null,
-        new Date(),
-        new Date(),
-      ),
+      new UserEntity({
+        id: 123,
+        email: request.email,
+        passwordHash: "hash",
+        fullName: "Name",
+        role: UserRole.WAREHOUSE_STAFF,
+        customPermissions: undefined,
+        status: UserStatus.ACTIVE,
+        lastLoginAt: undefined,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }),
     );
 
     await expect(useCase.execute(request)).rejects.toThrow(

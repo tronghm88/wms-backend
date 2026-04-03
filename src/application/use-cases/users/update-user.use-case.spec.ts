@@ -5,11 +5,8 @@ import {
   CannotModifySuperAdminException,
   CannotCreateSuperAdminException,
 } from "../../../domain/exceptions/auth.exceptions";
-import {
-  UserEntity,
-  UserRole,
-  UserStatus,
-} from "../../../domain/entities/user.entity";
+import { UserEntity } from "../../../domain/entities/user.entity";
+import { UserRole, UserStatus } from "../../../domain/enums";
 import { IUserRepository } from "../../../domain/contracts/user.repository.interface";
 import { ICacheService } from "../../../domain/contracts/cache.service.interface";
 
@@ -30,38 +27,38 @@ describe("UpdateUserUseCase", () => {
   });
 
   it("should successfully update a user", async () => {
-    const userId = "123";
+    const userId = 123;
     const request = {
       userId,
       fullName: "Updated Name",
       role: UserRole.ADMIN,
     };
 
-    const existingUser = new UserEntity(
-      userId,
-      "test@example.com",
-      "hash",
-      "Old Name",
-      UserRole.WAREHOUSE_STAFF,
-      null,
-      UserStatus.ACTIVE,
-      null,
-      new Date(),
-      new Date(),
-    );
+    const existingUser = new UserEntity({
+      id: userId,
+      email: "test@example.com",
+      passwordHash: "hash",
+      fullName: "Old Name",
+      role: UserRole.WAREHOUSE_STAFF,
+      customPermissions: undefined,
+      status: UserStatus.ACTIVE,
+      lastLoginAt: undefined,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
 
-    const updatedUser = new UserEntity(
-      userId,
-      "test@example.com",
-      "hash",
-      request.fullName,
-      request.role,
-      null,
-      UserStatus.ACTIVE,
-      null,
-      new Date(),
-      new Date(),
-    );
+    const updatedUser = new UserEntity({
+      id: userId,
+      email: "test@example.com",
+      passwordHash: "hash",
+      fullName: request.fullName,
+      role: request.role,
+      customPermissions: undefined,
+      status: UserStatus.ACTIVE,
+      lastLoginAt: undefined,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
 
     mockUserRepository.findById.mockResolvedValue(existingUser);
     mockUserRepository.update.mockResolvedValue(updatedUser);
@@ -87,25 +84,25 @@ describe("UpdateUserUseCase", () => {
   it("should throw UserNotFoundException if user does not exist", async () => {
     mockUserRepository.findById.mockResolvedValue(null);
 
-    await expect(useCase.execute({ userId: "nonexistent" })).rejects.toThrow(
+    await expect(useCase.execute({ userId: 999 })).rejects.toThrow(
       UserNotFoundException,
     );
   });
 
   it("should throw CannotModifySuperAdminException if user is SUPER_ADMIN", async () => {
-    const userId = "admin-id";
-    const existingUser = new UserEntity(
-      userId,
-      "super@example.com",
-      "hash",
-      "Super Admin",
-      UserRole.SUPER_ADMIN,
-      null,
-      UserStatus.ACTIVE,
-      null,
-      new Date(),
-      new Date(),
-    );
+    const userId = 1;
+    const existingUser = new UserEntity({
+      id: userId,
+      email: "super@example.com",
+      passwordHash: "hash",
+      fullName: "Super Admin",
+      role: UserRole.SUPER_ADMIN,
+      customPermissions: undefined,
+      status: UserStatus.ACTIVE,
+      lastLoginAt: undefined,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
 
     mockUserRepository.findById.mockResolvedValue(existingUser);
 
@@ -115,19 +112,19 @@ describe("UpdateUserUseCase", () => {
   });
 
   it("should throw CannotCreateSuperAdminException if role is being changed to SUPER_ADMIN", async () => {
-    const userId = "staff-id";
-    const existingUser = new UserEntity(
-      userId,
-      "staff@example.com",
-      "hash",
-      "Staff",
-      UserRole.WAREHOUSE_STAFF,
-      null,
-      UserStatus.ACTIVE,
-      null,
-      new Date(),
-      new Date(),
-    );
+    const userId = 2;
+    const existingUser = new UserEntity({
+      id: userId,
+      email: "staff@example.com",
+      passwordHash: "hash",
+      fullName: "Staff",
+      role: UserRole.WAREHOUSE_STAFF,
+      customPermissions: undefined,
+      status: UserStatus.ACTIVE,
+      lastLoginAt: undefined,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
 
     mockUserRepository.findById.mockResolvedValue(existingUser);
 

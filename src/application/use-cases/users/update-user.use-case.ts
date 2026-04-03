@@ -8,10 +8,10 @@ import {
   CannotModifySuperAdminException,
   CannotCreateSuperAdminException,
 } from "../../../domain/exceptions/auth.exceptions";
-import { UserRole, UserStatus } from "../../../domain/entities/user.entity";
+import { UserRole, UserStatus } from "../../../domain/enums";
 
 export interface UpdateUserRequest {
-  userId: string;
+  userId: number;
   fullName?: string;
   role?: UserRole;
   customPermissions?: string[];
@@ -19,11 +19,11 @@ export interface UpdateUserRequest {
 }
 
 export interface UpdateUserResponse {
-  id: string;
+  id: number;
   email: string;
   fullName: string;
   role: UserRole;
-  customPermissions: string[] | null;
+  customPermissions?: string[];
   status: UserStatus;
 }
 
@@ -32,7 +32,7 @@ export class UpdateUserUseCase {
   constructor(
     @Inject(USER_REPOSITORY) private readonly userRepository: IUserRepository,
     @Inject(CACHE_SERVICE) private readonly cacheService: ICacheService,
-  ) {}
+  ) { }
 
   async execute(request: UpdateUserRequest): Promise<UpdateUserResponse> {
     const user = await this.userRepository.findById(request.userId);

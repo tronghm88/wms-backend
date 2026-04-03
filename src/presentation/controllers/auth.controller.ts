@@ -49,7 +49,7 @@ export class AuthController {
   @ApiResponse({ status: 401, description: "Unauthorized" })
   async resetPassword(
     @Request()
-    req: { user: { id: string; role: string; permissions: string[] } },
+    req: { user: { id: number; role: string; permissions: string[] } },
     @Body() dto: ResetPasswordDto,
   ) {
     await this.resetPasswordUseCase.execute({

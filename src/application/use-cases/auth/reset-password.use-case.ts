@@ -10,7 +10,7 @@ import {
 } from "../../../domain/exceptions/auth.exceptions";
 
 export interface ResetPasswordRequest {
-  userId: string;
+  userId: number;
   oldPasswordRaw: string;
   newPasswordRaw: string;
 }

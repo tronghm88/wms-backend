@@ -6,7 +6,7 @@ export class UserEntity {
   passwordHash: string;
   fullName: string;
   role: UserRole;
-  customPermissions: string[];
+  customPermissions?: string[];
   status: UserStatus;
   lastLoginAt?: Date;
   createdAt: Date;
@@ -14,5 +14,9 @@ export class UserEntity {
 
   constructor(partial?: Partial<UserEntity>) {
     Object.assign(this, partial);
+  }
+
+  isActive(): boolean {
+    return this.status === UserStatus.ACTIVE;
   }
 }

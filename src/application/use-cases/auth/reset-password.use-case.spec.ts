@@ -1,10 +1,7 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { ResetPasswordUseCase } from "./reset-password.use-case";
-import {
-  UserEntity,
-  UserRole,
-  UserStatus,
-} from "../../../domain/entities/user.entity";
+import { UserEntity } from "../../../domain/entities/user.entity";
+import { UserRole, UserStatus } from "../../../domain/enums";
 import {
   UserNotFoundException,
   UserInactiveException,
@@ -34,18 +31,18 @@ describe("ResetPasswordUseCase", () => {
     useCase = new ResetPasswordUseCase(mockUserRepository, mockPasswordHasher);
   });
 
-  const mockUser = new UserEntity(
-    "user-1",
-    "test@example.com",
-    "hashed-old-password",
-    "Test User",
-    UserRole.WAREHOUSE_STAFF,
-    null,
-    UserStatus.ACTIVE,
-    null,
-    new Date(),
-    new Date(),
-  );
+  const mockUser = new UserEntity({
+    id: 1,
+    email: "test@example.com",
+    passwordHash: "hashed-old-password",
+    fullName: "Test User",
+    role: UserRole.WAREHOUSE_STAFF,
+    customPermissions: undefined,
+    status: UserStatus.ACTIVE,
+    lastLoginAt: undefined,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  });
 
   it("should successfully reset password", async () => {
     mockUserRepository.findById.mockResolvedValue(mockUser);
@@ -53,19 +50,19 @@ describe("ResetPasswordUseCase", () => {
     mockPasswordHasher.hash.mockResolvedValue("hashed-new-password");
 
     await useCase.execute({
-      userId: "user-1",
+      userId: 1,
       oldPasswordRaw: "old-password",
       newPasswordRaw: "new-password",
     });
 
-    expect(mockUserRepository.findById).toHaveBeenCalledWith("user-1");
+    expect(mockUserRepository.findById).toHaveBeenCalledWith(1);
     expect(mockPasswordHasher.compare).toHaveBeenCalledWith(
       "old-password",
       "hashed-old-password",
     );
     expect(mockPasswordHasher.hash).toHaveBeenCalledWith("new-password");
     expect(mockUserRepository.updatePassword).toHaveBeenCalledWith(
-      "user-1",
+      1,
       "hashed-new-password",
     );
   });
@@ -75,7 +72,7 @@ describe("ResetPasswordUseCase", () => {
 
     await expect(
       useCase.execute({
-        userId: "non-existent-user",
+        userId: 999,
         oldPasswordRaw: "old",
         newPasswordRaw: "new",
       }),
@@ -83,23 +80,23 @@ describe("ResetPasswordUseCase", () => {
   });
 
   it("should throw UserInactiveException if user is inactive", async () => {
-    const inactiveUser = new UserEntity(
-      "user-1",
-      "test@example.com",
-      "hashed-old-password",
-      "Test User",
-      UserRole.WAREHOUSE_STAFF,
-      null,
-      UserStatus.INACTIVE,
-      null,
-      new Date(),
-      new Date(),
-    );
+    const inactiveUser = new UserEntity({
+      id: 1,
+      email: "test@example.com",
+      passwordHash: "hashed-old-password",
+      fullName: "Test User",
+      role: UserRole.WAREHOUSE_STAFF,
+      customPermissions: undefined,
+      status: UserStatus.INACTIVE,
+      lastLoginAt: undefined,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
     mockUserRepository.findById.mockResolvedValue(inactiveUser);
 
     await expect(
       useCase.execute({
-        userId: "user-1",
+        userId: 1,
         oldPasswordRaw: "old",
         newPasswordRaw: "new",
       }),
@@ -112,7 +109,7 @@ describe("ResetPasswordUseCase", () => {
 
     await expect(
       useCase.execute({
-        userId: "user-1",
+        userId: 1,
         oldPasswordRaw: "wrong-old",
         newPasswordRaw: "new",
       }),

@@ -1,7 +1,7 @@
 export const TOKEN_SERVICE = "TOKEN_SERVICE";
 
 export interface ITokenPayload {
-  userId: string;
+  userId: number;
   email: string;
   role: string;
 }

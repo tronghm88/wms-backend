@@ -7,7 +7,7 @@ import {
   EmailAlreadyExistsException,
   CannotCreateSuperAdminException,
 } from "../../../domain/exceptions/auth.exceptions";
-import { UserRole, UserStatus } from "../../../domain/entities/user.entity";
+import { UserRole, UserStatus } from "../../../domain/enums";
 
 export interface CreateUserRequest {
   email: string;
@@ -18,11 +18,11 @@ export interface CreateUserRequest {
 }
 
 export interface CreateUserResponse {
-  id: string;
+  id: number;
   email: string;
   fullName: string;
   role: UserRole;
-  customPermissions: string[] | null;
+  customPermissions?: string[];
   status: UserStatus;
 }
 
@@ -31,7 +31,7 @@ export class CreateUserUseCase {
   constructor(
     @Inject(USER_REPOSITORY) private readonly userRepository: IUserRepository,
     @Inject(PASSWORD_HASHER) private readonly passwordHasher: IPasswordHasher,
-  ) {}
+  ) { }
 
   async execute(request: CreateUserRequest): Promise<CreateUserResponse> {
     if (request.role === UserRole.SUPER_ADMIN) {
@@ -50,9 +50,9 @@ export class CreateUserUseCase {
       passwordHash,
       fullName: request.fullName,
       role: request.role,
-      customPermissions: request.customPermissions ?? null,
+      customPermissions: request.customPermissions,
       status: UserStatus.ACTIVE,
-      lastLoginAt: null,
+      lastLoginAt: undefined,
     };
 
     const createdUser = await this.userRepository.create(newUserInfo);

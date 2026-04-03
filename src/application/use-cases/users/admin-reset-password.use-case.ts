@@ -9,10 +9,10 @@ import {
   UserNotFoundException,
   CannotModifySuperAdminException,
 } from "../../../domain/exceptions/auth.exceptions";
-import { UserRole } from "../../../domain/entities/user.entity";
+import { UserRole } from "../../../domain/enums";
 
 export interface AdminResetPasswordRequest {
-  userId: string;
+  userId: number;
   newPasswordRaw: string;
 }
 

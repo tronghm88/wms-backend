@@ -66,7 +66,7 @@ export class UsersController {
   @ApiResponse({ status: 401, description: "Unauthorized" })
   @ApiResponse({ status: 403, description: "Forbidden" })
   @ApiResponse({ status: 404, description: "User not found" })
-  async updateUser(@Param("id") id: string, @Body() dto: UpdateUserDto) {
+  async updateUser(@Param("id") id: number, @Body() dto: UpdateUserDto) {
     return this.updateUserUseCase.execute({
       userId: id,
       fullName: dto.fullName,
@@ -87,7 +87,7 @@ export class UsersController {
   @ApiResponse({ status: 403, description: "Forbidden" })
   @ApiResponse({ status: 404, description: "User not found" })
   async adminResetPassword(
-    @Param("id") id: string,
+    @Param("id") id: number,
     @Body() dto: AdminResetPasswordDto,
   ) {
     await this.adminResetPasswordUseCase.execute({

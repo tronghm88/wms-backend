@@ -54,6 +54,13 @@ import { CACHE_SERVICE } from "../../domain/contracts/cache.service.interface";
       useClass: RedisCacheService,
     },
   ],
-  exports: [JwtStrategy, PassportModule, USER_REPOSITORY, PASSWORD_HASHER],
+  exports: [
+    JwtStrategy,
+    PassportModule,
+    USER_REPOSITORY,
+    PASSWORD_HASHER,
+    CACHE_SERVICE,
+    TOKEN_SERVICE,
+  ],
 })
 export class AuthModule {}

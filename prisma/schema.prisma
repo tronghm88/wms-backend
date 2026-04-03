@@ -24,30 +24,317 @@ enum UserStatus {
   INACTIVE
 }
 
+enum TransactionStatus {
+  DRAFT
+  CONFIRMED
+  CANCELLED
+}
+
+enum DiscountType {
+  PERCENT
+  FIXED
+}
+
+enum StockMovementType {
+  IN
+  OUT
+  SPLIT_IN
+  SPLIT_OUT
+  ADJUST
+}
+
 // ──────────────────────────────────────────────
 // User
 // ──────────────────────────────────────────────
 
-/// Represents an authenticated system user.
-/// Roles are enforced in source-code constants; customPermissions is
-/// the "Total Override" RBAC mechanic (see architecture.md §Security).
 model User {
-  id           String     @id @default(uuid())
-  email        String     @unique
-  passwordHash String     @map("password_hash")
-  fullName     String     @map("full_name")
-  role         UserRole   @default(WAREHOUSE_STAFF)
+  id                Int        @id @default(autoincrement())
+  email             String     @unique
+  passwordHash      String     @map("password_hash")
+  fullName          String     @map("full_name")
+  role              UserRole   @default(WAREHOUSE_STAFF)
+  customPermissions String[]   @map("custom_permissions")
+  status            UserStatus @default(ACTIVE)
+  lastLoginAt       DateTime?  @map("last_login_at")
+  createdAt         DateTime   @default(now()) @map("created_at")
+  updatedAt         DateTime   @updatedAt @map("updated_at")
 
-  /// NULL  → use hardcoded Role permissions
-  /// []    → block all permissions (no access)
-  /// [...] → use ONLY these permissions, bypassing the Role
-  customPermissions String[] @map("custom_permissions")
-
-  status      UserStatus @default(ACTIVE)
-  lastLoginAt DateTime?  @map("last_login_at")
-  createdAt   DateTime   @default(now()) @map("created_at")
-  updatedAt   DateTime   @updatedAt @map("updated_at")
+  receiptTickets ReceiptTicket[]
+  issueTickets   IssueTicket[]
+  splitTickets   SplitTicket[]
+  stockMovements StockMovement[]
 
   @@map("users")
 }
 
+// ──────────────────────────────────────────────
+// Master Data
+// ──────────────────────────────────────────────
+
+model Unit {
+  code String @id // e.g., 'm2', 'kg', 'ton', 'package'
+
+  fromConversions    UnitConversion[]    @relation("FromUnit")
+  toConversions      UnitConversion[]    @relation("ToUnit")
+  products           Product[]           @relation("BaseUnit")
+  receiptTicketLines ReceiptTicketLine[]
+  issueTicketLines   IssueTicketLine[]
+  inventories        Inventory[]
+  splitTickets       SplitTicket[]
+
+  @@map("units")
+}
+
+model Category {
+  id        Int            @id @default(autoincrement())
+  code      String         @unique
+  name      String
+  createdAt DateTime       @default(now()) @map("created_at")
+  updatedAt DateTime       @updatedAt @map("updated_at")
+  products  Product[]
+  sizes     CategorySize[]
+
+  @@map("categories")
+}
+
+model CategorySize {
+  id         Int      @id @default(autoincrement())
+  categoryId Int      @map("category_id")
+  label      String // e.g., 'A1', 'A2', 'Large'
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  category Category @relation(fields: [categoryId], references: [id])
+
+  @@map("category_sizes")
+}
+
+model Product {
+  id         Int      @id @default(autoincrement())
+  code       String   @unique
+  name       String
+  categoryId Int      @map("category_id")
+  baseUnit   String   @map("base_unit")
+  basePrice  Decimal  @map("base_price") @db.Decimal(15, 3)
+  
+  // Dynamic dimensions
+  length     Decimal? @db.Decimal(15, 3)
+  width      Decimal? @db.Decimal(15, 3)
+  height     Decimal? @db.Decimal(15, 3)
+  
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  category           Category            @relation(fields: [categoryId], references: [id])
+  unit               Unit                @relation("BaseUnit", fields: [baseUnit], references: [code])
+  unitConversions    UnitConversion[]
+  receiptTicketLines ReceiptTicketLine[]
+  issueTicketLines   IssueTicketLine[]
+  inventory          Inventory?
+  stockMovements     StockMovement[]
+  splitSources       SplitTicket[]       @relation("SplitSource")
+  splitTargets       SplitTicketLine[]
+
+  @@map("products")
+}
+
+model UnitConversion {
+  id        Int      @id @default(autoincrement())
+  productId Int      @map("product_id")
+  fromUnit  String   @map("from_unit")
+  toUnit    String   @map("to_unit")
+  factor    Decimal  @db.Decimal(15, 3)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  product Product @relation(fields: [productId], references: [id])
+  from    Unit    @relation("FromUnit", fields: [fromUnit], references: [code])
+  to      Unit    @relation("ToUnit", fields: [toUnit], references: [code])
+
+  @@map("unit_conversions")
+}
+
+model Customer {
+  id        Int      @id @default(autoincrement())
+  code      String   @unique
+  name      String
+  address   String?
+  phone     String?
+  email     String?
+  note      String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  discountPolicies DiscountPolicy[]
+  issueTickets     IssueTicket[]
+
+  @@map("customers")
+}
+
+// ──────────────────────────────────────────────
+// Pricing Engine
+// ──────────────────────────────────────────────
+
+model DiscountPolicy {
+  id            Int          @id @default(autoincrement())
+  customerId    Int          @map("customer_id")
+  discountType  DiscountType @map("discount_type")
+  isAppliedAll  Boolean      @default(false) @map("is_applied_all")
+  productIds    Int[]        @map("product_ids") // PostgreSQL array of product IDs
+  discountValue Decimal      @map("discount_value") @db.Decimal(15, 3)
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+
+  customer Customer @relation(fields: [customerId], references: [id])
+
+  // Note: For true "Only one 'true' per customer but many 'false'", use a partial SQL index.
+  @@unique([customerId, isAppliedAll])
+  @@map("discount_policies")
+}
+
+// ──────────────────────────────────────────────
+// Transactions (Phiếu)
+// ──────────────────────────────────────────────
+
+model ReceiptTicket {
+  id        Int               @id @default(autoincrement())
+  ticketNo  String            @unique @map("ticket_no") // PN-xxxx
+  date      DateTime
+  status    TransactionStatus @default(DRAFT)
+  createdBy Int               @map("created_by")
+  note      String?
+  createdAt DateTime          @default(now()) @map("created_at")
+  updatedAt DateTime          @updatedAt @map("updated_at")
+
+  creator User                @relation(fields: [createdBy], references: [id])
+  lines   ReceiptTicketLine[]
+
+  @@map("receipt_tickets")
+}
+
+model ReceiptTicketLine {
+  id        Int      @id @default(autoincrement())
+  ticketId  Int      @map("ticket_id")
+  productId Int      @map("product_id")
+  quantity  Decimal  @db.Decimal(15, 3)
+  unitCode  String   @map("unit_code")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  ticket  ReceiptTicket @relation(fields: [ticketId], references: [id])
+  product Product       @relation(fields: [productId], references: [id])
+  unit    Unit          @relation(fields: [unitCode], references: [code])
+
+  @@map("receipt_ticket_lines")
+}
+
+model IssueTicket {
+  id          Int               @id @default(autoincrement())
+  ticketNo    String            @unique @map("ticket_no") // PX-xxxx
+  date        DateTime
+  customerId  Int               @map("customer_id")
+  status      TransactionStatus @default(DRAFT)
+  createdBy   Int               @map("created_by")
+  totalAmount Decimal           @map("total_amount") @db.Decimal(15, 3)
+  note        String?
+  createdAt   DateTime          @default(now()) @map("created_at")
+  updatedAt   DateTime          @updatedAt @map("updated_at")
+
+  customer Customer          @relation(fields: [customerId], references: [id])
+  creator  User              @relation(fields: [createdBy], references: [id])
+  lines    IssueTicketLine[]
+
+  @@map("issue_tickets")
+}
+
+model IssueTicketLine {
+  id            Int          @id @default(autoincrement())
+  ticketId      Int          @map("ticket_id")
+  productId     Int          @map("product_id")
+  quantity      Decimal      @db.Decimal(15, 3)
+  unitCode      String       @map("unit_code")
+  basePrice     Decimal      @map("base_price") @db.Decimal(15, 3)
+  discountType  DiscountType @map("discount_type")
+  discountValue Decimal      @map("discount_value") @db.Decimal(15, 3)
+  finalPrice    Decimal      @map("final_price") @db.Decimal(15, 3)
+  lineTotal     Decimal      @map("line_total") @db.Decimal(15, 3)
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+
+  ticket  IssueTicket @relation(fields: [ticketId], references: [id])
+  product Product     @relation(fields: [productId], references: [id])
+  unit    Unit        @relation(fields: [unitCode], references: [code])
+
+  @@map("issue_ticket_lines")
+}
+
+model SplitTicket {
+  id              Int               @id @default(autoincrement())
+  ticketNo        String            @unique @map("ticket_no") // PT-xxxx
+  date            DateTime
+  status          TransactionStatus @default(DRAFT)
+  createdBy       Int               @map("created_by")
+  sourceProductId Int               @map("source_product_id")
+  sourceQty       Decimal           @map("source_qty") @db.Decimal(15, 3)
+  sourceUnitCode  String            @map("source_unit_code")
+  note            String?
+  createdAt       DateTime          @default(now()) @map("created_at")
+  updatedAt       DateTime          @updatedAt @map("updated_at")
+
+  creator       User              @relation(fields: [createdBy], references: [id])
+  sourceProduct Product           @relation("SplitSource", fields: [sourceProductId], references: [id])
+  unit          Unit              @relation(fields: [sourceUnitCode], references: [code])
+  lines         SplitTicketLine[]
+
+  @@map("split_tickets")
+}
+
+model SplitTicketLine {
+  id              Int      @id @default(autoincrement())
+  ticketId        Int      @map("ticket_id")
+  targetProductId Int      @map("target_product_id")
+  quantity        Decimal  @db.Decimal(15, 3)
+  unitCode        String   @map("unit_code")
+  isNewProduct    Boolean  @default(false) @map("is_new_product")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  ticket        SplitTicket @relation(fields: [ticketId], references: [id])
+  targetProduct Product     @relation(fields: [targetProductId], references: [id])
+
+  @@map("split_ticket_lines")
+}
+
+// ──────────────────────────────────────────────
+// Inventory & Auditing
+// ──────────────────────────────────────────────
+
+model Inventory {
+  productId   Int      @id @map("product_id")
+  quantity    Decimal  @db.Decimal(15, 3)
+  unitCode    String   @map("unit_code")
+  lastUpdated DateTime @updatedAt @map("last_updated")
+
+  product Product @relation(fields: [productId], references: [id])
+  unit    Unit    @relation(fields: [unitCode], references: [code])
+
+  @@map("inventories")
+}
+
+model StockMovement {
+  id            Int               @id @default(autoincrement())
+  productId     Int               @map("product_id")
+  txType        StockMovementType @map("tx_type")
+  referenceId   Int               @map("reference_id")
+  referenceType String            @map("reference_type")
+  deltaQty      Decimal           @map("delta_qty") @db.Decimal(15, 3)
+  qtyAfter      Decimal           @map("qty_after") @db.Decimal(15, 3)
+  performedBy   Int               @map("performed_by")
+  note          String?
+  createdAt     DateTime          @default(now()) @map("created_at")
+
+  product   Product @relation(fields: [productId], references: [id])
+  performer User    @relation(fields: [performedBy], references: [id])
+
+  @@map("stock_movements")
+}

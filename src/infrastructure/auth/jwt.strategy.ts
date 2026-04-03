@@ -24,7 +24,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload: ITokenPayload) {
     const userData = await this.cacheService.get<{
-      id: string;
+      id: number;
       role: string;
       permissions: string[];
     }>(`session:user_data:${payload.userId}`);
