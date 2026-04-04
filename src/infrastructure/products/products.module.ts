@@ -8,6 +8,7 @@ import { CreateProductUseCase } from "../../application/use-cases/products/creat
 import { UpdateProductUseCase } from "../../application/use-cases/products/update-product.use-case";
 import { ListProductsUseCase } from "../../application/use-cases/products/list-products.use-case";
 import { GetProductUseCase } from "../../application/use-cases/products/get-product.use-case";
+import { DeleteProductUseCase } from "../../application/use-cases/products/delete-product.use-case";
 import { ProductsController } from "../../presentation/controllers/products.controller";
 
 @Module({
@@ -22,6 +23,7 @@ import { ProductsController } from "../../presentation/controllers/products.cont
     UpdateProductUseCase,
     ListProductsUseCase,
     GetProductUseCase,
+    DeleteProductUseCase,
   ],
   exports: [
     PRODUCT_REPOSITORY,
@@ -29,6 +31,7 @@ import { ProductsController } from "../../presentation/controllers/products.cont
     UpdateProductUseCase,
     ListProductsUseCase,
     GetProductUseCase,
+    DeleteProductUseCase,
   ],
 })
 export class ProductsModule {}

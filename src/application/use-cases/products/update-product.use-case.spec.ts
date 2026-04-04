@@ -31,6 +31,7 @@ describe("UpdateProductUseCase", () => {
       create: jest.fn(),
       update: jest.fn(),
       delete: jest.fn(),
+      hasHistory: jest.fn(),
     } as unknown as jest.Mocked<IProductRepository>;
 
     categoryRepository = {

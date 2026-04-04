@@ -7,6 +7,8 @@ import {
   Param,
   ParseIntPipe,
   Get,
+  Delete,
+  HttpCode,
 } from "@nestjs/common";
 import {
   ApiTags,
@@ -18,6 +20,7 @@ import { CreateProductUseCase } from "../../application/use-cases/products/creat
 import { UpdateProductUseCase } from "../../application/use-cases/products/update-product.use-case";
 import { ListProductsUseCase } from "../../application/use-cases/products/list-products.use-case";
 import { GetProductUseCase } from "../../application/use-cases/products/get-product.use-case";
+import { DeleteProductUseCase } from "../../application/use-cases/products/delete-product.use-case";
 import { CreateProductDto } from "../dtos/products/create-product.dto";
 import { UpdateProductDto } from "../dtos/products/update-product.dto";
 import { ProductResponseDto } from "../dtos/products/product-response.dto";
@@ -35,6 +38,7 @@ export class ProductsController {
     private readonly updateProductUseCase: UpdateProductUseCase,
     private readonly listProductsUseCase: ListProductsUseCase,
     private readonly getProductUseCase: GetProductUseCase,
+    private readonly deleteProductUseCase: DeleteProductUseCase,
   ) {}
 
   @Get()
@@ -107,5 +111,24 @@ export class ProductsController {
       id,
       ...updateProductDto,
     });
+  }
+
+  @Delete(":id")
+  @HttpCode(204)
+  @RequirePermissions(Permissions.PRODUCTS_MANAGE)
+  @ApiOperation({ summary: "Delete a product" })
+  @ApiResponse({
+    status: 204,
+    description: "The product has been successfully deleted.",
+  })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  @ApiResponse({ status: 404, description: "Product Not Found" })
+  @ApiResponse({
+    status: 422,
+    description: "Unprocessable Entity - Product has history",
+  })
+  async remove(@Param("id", ParseIntPipe) id: number): Promise<void> {
+    await this.deleteProductUseCase.execute(id);
   }
 }

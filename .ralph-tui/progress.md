@@ -276,3 +276,28 @@ after each iteration and it's included in prompts for context.
   - **Patterns discovered:** Reusing established Clean Architecture patterns for resource retrieval by ID (Controller -> Use Case -> Repository).
   - **Gotchas encountered:** Fixed linting errors in test files by using `jest.Mocked<IProductRepository>` and disabling `unbound-method` where necessary, which is a recurring theme in the codebase's test suites.
   ---
+
+  ## 2026-04-04 - US-014
+  - What was implemented:
+    - DELETE /api/v1/products/:id endpoint to delete a product.
+    - DeleteProductUseCase with validation to block deletion if product has history (Inventory, Transactions, Movements, etc.).
+    - ProductHasHistoryException in domain exceptions.
+    - Updated IProductRepository and ProductRepository to include hasHistory method checking multiple tables (Inventory, ReceiptTicketLine, IssueTicketLine, StockMovement, SplitTicket source/target).
+    - Swagger documentation for the new endpoint including 204 (No Content), 404 (Not Found), and 422 (Unprocessable Entity) for history blocks.
+    - Unit tests for DeleteProductUseCase and updated all existing product-related test files to satisfy the new repository interface.
+  - Files changed:
+    - src/domain/contracts/product.repository.interface.ts
+    - src/domain/exceptions/product.exceptions.ts
+    - src/infrastructure/database/repositories/product.repository.ts
+    - src/application/use-cases/products/delete-product.use-case.ts
+    - src/application/use-cases/products/delete-product.use-case.spec.ts
+    - src/infrastructure/products/products.module.ts
+    - src/presentation/controllers/products.controller.ts
+    - src/application/use-cases/products/create-product.use-case.spec.ts
+    - src/application/use-cases/products/update-product.use-case.spec.ts
+    - src/application/use-cases/products/get-product.use-case.spec.ts
+    - src/application/use-cases/products/list-products.use-case.spec.ts
+  - **Learnings:**
+    - **Patterns discovered:** Adding a method to an interface requires updating all mock definitions in test files, even if those tests don't use the new method, to maintain type safety.
+    - **Gotchas encountered:** The `@typescript-eslint/unbound-method` lint rule requires using `repository["methodName"]` or casting to `jest.Mock` when passing repository methods to Jest's `expect` calls.
+  ---

@@ -23,3 +23,12 @@ export class ProductNotFoundException extends ProductException {
     super(`Product '${id}' not found`, "PRODUCT_NOT_FOUND");
   }
 }
+
+export class ProductHasHistoryException extends ProductException {
+  constructor(id: number) {
+    super(
+      `Product '${id}' cannot be deleted because it has history`,
+      "PRODUCT_HAS_HISTORY",
+    );
+  }
+}

@@ -107,4 +107,31 @@ export class ProductRepository implements IProductRepository {
       where: { id },
     });
   }
+
+  async hasHistory(id: number): Promise<boolean> {
+    const [
+      inventory,
+      receiptLine,
+      issueLine,
+      movement,
+      splitSource,
+      splitTarget,
+    ] = await Promise.all([
+      this.prisma.inventory.findFirst({ where: { productId: id } }),
+      this.prisma.receiptTicketLine.findFirst({ where: { productId: id } }),
+      this.prisma.issueTicketLine.findFirst({ where: { productId: id } }),
+      this.prisma.stockMovement.findFirst({ where: { productId: id } }),
+      this.prisma.splitTicket.findFirst({ where: { sourceProductId: id } }),
+      this.prisma.splitTicketLine.findFirst({ where: { targetProductId: id } }),
+    ]);
+
+    return !!(
+      inventory ||
+      receiptLine ||
+      issueLine ||
+      movement ||
+      splitSource ||
+      splitTarget
+    );
+  }
 }

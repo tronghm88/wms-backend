@@ -33,6 +33,7 @@ describe("GetProductUseCase", () => {
       create: jest.fn(),
       update: jest.fn(),
       delete: jest.fn(),
+      hasHistory: jest.fn(),
     };
 
     const module: TestingModule = await Test.createTestingModule({

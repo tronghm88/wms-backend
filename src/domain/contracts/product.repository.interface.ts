@@ -11,4 +11,5 @@ export interface IProductRepository {
   ): Promise<ProductEntity>;
   update(id: number, product: Partial<ProductEntity>): Promise<ProductEntity>;
   delete(id: number): Promise<void>;
+  hasHistory(id: number): Promise<boolean>;
 }
