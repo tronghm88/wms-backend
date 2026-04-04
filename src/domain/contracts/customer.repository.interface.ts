@@ -1,5 +1,7 @@
 import { CustomerEntity } from "../entities/customer.entity";
 
+export const CUSTOMER_REPOSITORY = "CUSTOMER_REPOSITORY";
+
 export interface ICustomerRepository {
   findById(id: number): Promise<CustomerEntity | null>;
   findByCode(code: string): Promise<CustomerEntity | null>;

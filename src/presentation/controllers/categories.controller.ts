@@ -38,7 +38,7 @@ export class CategoriesController {
     private readonly getCategoriesUseCase: GetCategoriesUseCase,
     private readonly getCategoryByIdUseCase: GetCategoryByIdUseCase,
     private readonly deleteCategoryUseCase: DeleteCategoryUseCase,
-  ) { }
+  ) {}
 
   @Post()
   @RequirePermissions(Permissions.CATEGORIES_MANAGE)

@@ -3,7 +3,7 @@
   "branchName": "feature/customer-discount-module",
   "userStories": [
     {
-      "id": "US-001",
+      "id": "US-201",
       "title": "Customer CRUD Management - Create",
       "description": "As an Admin, I want to create the Customer registry so that I can maintain a clean list of commercial partners.",
       "acceptanceCriteria": [
@@ -16,11 +16,12 @@
         "Git commit performed after validation"
       ],
       "priority": 1,
-      "passes": false,
-      "dependsOn": []
+      "passes": true,
+      "dependsOn": [],
+      "completionNotes": "Completed by agent"
     },
     {
-      "id": "US-002",
+      "id": "US-202",
       "title": "Customer CRUD Management - Read",
       "description": "As an Admin, I want to read customer list, search and filter customer list",
       "acceptanceCriteria": [
@@ -33,11 +34,11 @@
       "priority": 1,
       "passes": false,
       "dependsOn": [
-        "US-001"
+        "US-201"
       ]
     },
     {
-      "id": "US-003",
+      "id": "US-203",
       "title": "Customer CRUD Management - Update",
       "description": "As an Admin, I want to update the Customer registry so that I can maintain a clean list of commercial partners.",
       "acceptanceCriteria": [
@@ -54,7 +55,7 @@
       "dependsOn": []
     },
     {
-      "id": "US-004",
+      "id": "US-204",
       "title": "Customer CRUD Management - Delete",
       "description": "As an Admin, I want to delete the Customer registry so that I can maintain a clean list of commercial partners.",
       "acceptanceCriteria": [
@@ -68,11 +69,11 @@
       "priority": 1,
       "passes": false,
       "dependsOn": [
-        "US-001"
+        "US-201"
       ]
     },
     {
-      "id": "US-005",
+      "id": "US-205",
       "title": "Customer CRUD Management - Get Detail",
       "description": "As an Admin, I want to get customer detail so that I can see customer information.",
       "acceptanceCriteria": [
@@ -85,11 +86,11 @@
       "priority": 1,
       "passes": false,
       "dependsOn": [
-        "US-001"
+        "US-201"
       ]
     },
     {
-      "id": "US-006",
+      "id": "US-206",
       "title": "Discount Policy Definition - Create Policies",
       "description": "As an Admin, I want to define discount policies for customers so that pricing can be automated.",
       "acceptanceCriteria": [
@@ -109,11 +110,11 @@
       "priority": 2,
       "passes": false,
       "dependsOn": [
-        "US-001"
+        "US-201"
       ]
     },
     {
-      "id": "US-007",
+      "id": "US-207",
       "title": "Discount Policy Definition - Read Policies",
       "description": "As an Admin, I want to get discount policies for a customer when i view profile of the customer",
       "acceptanceCriteria": [
@@ -129,11 +130,11 @@
       "priority": 2,
       "passes": false,
       "dependsOn": [
-        "US-006"
+        "US-206"
       ]
     },
     {
-      "id": "US-008",
+      "id": "US-208",
       "title": "Update Discount Policy",
       "description": "As an Admin, I want to update discount policies for a customer when i view profile of the customer",
       "acceptanceCriteria": [
@@ -154,11 +155,11 @@
       "priority": 3,
       "passes": false,
       "dependsOn": [
-        "US-002"
+        "US-202"
       ]
     },
     {
-      "id": "US-009",
+      "id": "US-209",
       "title": "Soft Delete and Usage Tracking for Policies",
       "description": "As an Admin, I want to track if a policy is used and prevent its modification to maintain historical integrity.",
       "acceptanceCriteria": [
@@ -174,8 +175,11 @@
       "priority": 3,
       "passes": false,
       "dependsOn": [
-        "US-002"
+        "US-202"
       ]
     }
-  ]
+  ],
+  "metadata": {
+    "updatedAt": "2026-04-04T13:38:49.998Z"
+  }
 }

@@ -1,317 +1,76 @@
 {
   "version": 1,
-  "sessionId": "2eabf967-8a4c-49ca-892b-4d28489b263a",
+  "sessionId": "a050cbfc-3e43-410f-902f-37e8f7e25688",
   "status": "running",
-  "startedAt": "2026-04-04T11:05:33.050Z",
-  "updatedAt": "2026-04-04T13:11:18.514Z",
-  "currentIteration": 18,
-  "maxIterations": 10,
-  "tasksCompleted": 18,
+  "startedAt": "2026-04-04T13:36:08.194Z",
+  "updatedAt": "2026-04-04T13:38:49.998Z",
+  "currentIteration": 0,
+  "maxIterations": 50,
+  "tasksCompleted": 0,
   "isPaused": false,
   "agentPlugin": "gemini",
   "trackerState": {
     "plugin": "json",
-    "prdPath": "./tasks/prd.json",
-    "totalTasks": 19,
+    "prdPath": "./tasks/prd-1.json",
+    "totalTasks": 9,
     "tasks": [
       {
-        "id": "US-001",
-        "title": "Create Unit API",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-201",
+        "title": "Customer CRUD Management - Create",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-002",
-        "title": "List Units API",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-202",
+        "title": "Customer CRUD Management - Read",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-003",
-        "title": "Get Unit by Code API",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-203",
+        "title": "Customer CRUD Management - Update",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-004",
-        "title": "Delete Unit API",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-204",
+        "title": "Customer CRUD Management - Delete",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-005",
-        "title": "Create Category API",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-205",
+        "title": "Customer CRUD Management - Get Detail",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-006",
-        "title": "Update Category API",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-206",
+        "title": "Discount Policy Definition - Create Policies",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-007",
-        "title": "List Categories API",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-207",
+        "title": "Discount Policy Definition - Read Policies",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-008",
-        "title": "Get Category by ID API",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-208",
+        "title": "Update Discount Policy",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-009",
-        "title": "Delete Category API",
-        "status": "completed",
-        "completedInSession": true
-      },
-      {
-        "id": "US-010",
-        "title": "Create Product API",
-        "status": "completed",
-        "completedInSession": true
-      },
-      {
-        "id": "US-011",
-        "title": "Update Product API",
-        "status": "completed",
-        "completedInSession": true
-      },
-      {
-        "id": "US-012",
-        "title": "List Products API",
-        "status": "completed",
-        "completedInSession": true
-      },
-      {
-        "id": "US-013",
-        "title": "Get Product by ID API",
-        "status": "completed",
-        "completedInSession": true
-      },
-      {
-        "id": "US-014",
-        "title": "Delete Product API",
-        "status": "completed",
-        "completedInSession": true
-      },
-      {
-        "id": "US-015",
-        "title": "Create Unit Conversion API",
-        "status": "completed",
-        "completedInSession": true
-      },
-      {
-        "id": "US-016",
-        "title": "Update Unit Conversion API",
-        "status": "completed",
-        "completedInSession": true
-      },
-      {
-        "id": "US-017",
-        "title": "List Unit Conversions API",
-        "status": "completed",
-        "completedInSession": true
-      },
-      {
-        "id": "US-018",
-        "title": "Get Unit Conversion by ID API",
-        "status": "completed",
-        "completedInSession": true
-      },
-      {
-        "id": "US-019",
-        "title": "Delete Unit Conversion API",
+        "id": "US-209",
+        "title": "Soft Delete and Usage Tracking for Policies",
         "status": "open",
         "completedInSession": false
       }
     ]
   },
-  "iterations": [
-    {
-      "iteration": 1,
-      "status": "completed",
-      "taskId": "US-001",
-      "taskTitle": "Create Unit API",
-      "taskCompleted": true,
-      "durationMs": 117850,
-      "startedAt": "2026-04-04T11:05:40.807Z",
-      "endedAt": "2026-04-04T11:07:38.657Z"
-    },
-    {
-      "iteration": 2,
-      "status": "completed",
-      "taskId": "US-005",
-      "taskTitle": "Create Category API",
-      "taskCompleted": true,
-      "durationMs": 236133,
-      "startedAt": "2026-04-04T11:07:39.782Z",
-      "endedAt": "2026-04-04T11:11:35.915Z"
-    },
-    {
-      "iteration": 3,
-      "status": "completed",
-      "taskId": "US-002",
-      "taskTitle": "List Units API",
-      "taskCompleted": true,
-      "durationMs": 120074,
-      "startedAt": "2026-04-04T11:11:37.010Z",
-      "endedAt": "2026-04-04T11:13:37.084Z"
-    },
-    {
-      "iteration": 4,
-      "status": "completed",
-      "taskId": "US-003",
-      "taskTitle": "Get Unit by Code API",
-      "taskCompleted": true,
-      "durationMs": 119504,
-      "startedAt": "2026-04-04T11:13:38.167Z",
-      "endedAt": "2026-04-04T11:15:37.671Z"
-    },
-    {
-      "iteration": 5,
-      "status": "completed",
-      "taskId": "US-004",
-      "taskTitle": "Delete Unit API",
-      "taskCompleted": true,
-      "durationMs": 171475,
-      "startedAt": "2026-04-04T11:15:38.760Z",
-      "endedAt": "2026-04-04T11:18:30.235Z"
-    },
-    {
-      "iteration": 6,
-      "status": "completed",
-      "taskId": "US-006",
-      "taskTitle": "Update Category API",
-      "taskCompleted": true,
-      "durationMs": 136075,
-      "startedAt": "2026-04-04T11:18:31.318Z",
-      "endedAt": "2026-04-04T11:20:47.393Z"
-    },
-    {
-      "iteration": 7,
-      "status": "completed",
-      "taskId": "US-007",
-      "taskTitle": "List Categories API",
-      "taskCompleted": true,
-      "durationMs": 128976,
-      "startedAt": "2026-04-04T11:20:48.482Z",
-      "endedAt": "2026-04-04T11:22:57.458Z"
-    },
-    {
-      "iteration": 8,
-      "status": "completed",
-      "taskId": "US-008",
-      "taskTitle": "Get Category by ID API",
-      "taskCompleted": true,
-      "durationMs": 119742,
-      "startedAt": "2026-04-04T11:22:58.547Z",
-      "endedAt": "2026-04-04T11:24:58.289Z"
-    },
-    {
-      "iteration": 9,
-      "status": "completed",
-      "taskId": "US-009",
-      "taskTitle": "Delete Category API",
-      "taskCompleted": true,
-      "durationMs": 186557,
-      "startedAt": "2026-04-04T11:24:59.377Z",
-      "endedAt": "2026-04-04T11:28:05.934Z"
-    },
-    {
-      "iteration": 10,
-      "status": "completed",
-      "taskId": "US-010",
-      "taskTitle": "Create Product API",
-      "taskCompleted": true,
-      "durationMs": 179628,
-      "startedAt": "2026-04-04T11:31:07.495Z",
-      "endedAt": "2026-04-04T11:34:07.123Z"
-    },
-    {
-      "iteration": 11,
-      "status": "completed",
-      "taskId": "US-011",
-      "taskTitle": "Update Product API",
-      "taskCompleted": true,
-      "durationMs": 137395,
-      "startedAt": "2026-04-04T12:35:55.426Z",
-      "endedAt": "2026-04-04T12:38:12.821Z"
-    },
-    {
-      "iteration": 12,
-      "status": "completed",
-      "taskId": "US-012",
-      "taskTitle": "List Products API",
-      "taskCompleted": true,
-      "durationMs": 394721,
-      "startedAt": "2026-04-04T12:41:43.784Z",
-      "endedAt": "2026-04-04T12:48:18.505Z"
-    },
-    {
-      "iteration": 13,
-      "status": "completed",
-      "taskId": "US-013",
-      "taskTitle": "Get Product by ID API",
-      "taskCompleted": true,
-      "durationMs": 114141,
-      "startedAt": "2026-04-04T12:48:19.609Z",
-      "endedAt": "2026-04-04T12:50:13.750Z"
-    },
-    {
-      "iteration": 14,
-      "status": "completed",
-      "taskId": "US-014",
-      "taskTitle": "Delete Product API",
-      "taskCompleted": true,
-      "durationMs": 217807,
-      "startedAt": "2026-04-04T12:50:14.839Z",
-      "endedAt": "2026-04-04T12:53:52.646Z"
-    },
-    {
-      "iteration": 15,
-      "status": "completed",
-      "taskId": "US-015",
-      "taskTitle": "Create Unit Conversion API",
-      "taskCompleted": true,
-      "durationMs": 256284,
-      "startedAt": "2026-04-04T12:53:53.748Z",
-      "endedAt": "2026-04-04T12:58:10.032Z"
-    },
-    {
-      "iteration": 16,
-      "status": "completed",
-      "taskId": "US-016",
-      "taskTitle": "Update Unit Conversion API",
-      "taskCompleted": true,
-      "durationMs": 160426,
-      "startedAt": "2026-04-04T13:02:12.338Z",
-      "endedAt": "2026-04-04T13:04:52.764Z"
-    },
-    {
-      "iteration": 17,
-      "status": "completed",
-      "taskId": "US-017",
-      "taskTitle": "List Unit Conversions API",
-      "taskCompleted": true,
-      "durationMs": 123761,
-      "startedAt": "2026-04-04T13:04:53.857Z",
-      "endedAt": "2026-04-04T13:06:57.618Z"
-    },
-    {
-      "iteration": 18,
-      "status": "completed",
-      "taskId": "US-018",
-      "taskTitle": "Get Unit Conversion by ID API",
-      "taskCompleted": true,
-      "durationMs": 142507,
-      "startedAt": "2026-04-04T13:06:58.722Z",
-      "endedAt": "2026-04-04T13:09:21.229Z"
-    }
-  ],
+  "iterations": [],
   "skippedTaskIds": [],
   "cwd": "/Users/windy/Work/wms",
   "activeTaskIds": [],

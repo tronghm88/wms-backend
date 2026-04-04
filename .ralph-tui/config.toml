@@ -5,7 +5,7 @@
 configVersion = "2.1"
 tracker = "json"
 agent = "gemini"
-maxIterations = 10
+maxIterations = 50
 autoCommit = true
 
 [trackerOptions]
