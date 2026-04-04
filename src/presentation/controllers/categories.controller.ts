@@ -28,7 +28,7 @@ import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
 import { Permissions } from "../../domain/constants/permissions.constant";
 
 @ApiTags("Categories")
-@Controller("api/v1/categories")
+@Controller("v1/categories")
 @UseGuards(JwtAuthGuard, RbacGuard)
 @ApiBearerAuth()
 export class CategoriesController {
@@ -38,7 +38,7 @@ export class CategoriesController {
     private readonly getCategoriesUseCase: GetCategoriesUseCase,
     private readonly getCategoryByIdUseCase: GetCategoryByIdUseCase,
     private readonly deleteCategoryUseCase: DeleteCategoryUseCase,
-  ) {}
+  ) { }
 
   @Post()
   @RequirePermissions(Permissions.CATEGORIES_MANAGE)
