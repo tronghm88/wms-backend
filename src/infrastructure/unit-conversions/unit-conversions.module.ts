@@ -6,6 +6,7 @@ import { UNIT_CONVERSION_REPOSITORY } from "../../domain/contracts/unit-conversi
 import { UnitConversionRepository } from "../database/repositories/unit-conversion.repository";
 import { CreateUnitConversionUseCase } from "../../application/use-cases/units/create-unit-conversion.use-case";
 import { UpdateUnitConversionUseCase } from "../../application/use-cases/units/update-unit-conversion.use-case";
+import { DeleteUnitConversionUseCase } from "../../application/use-cases/units/delete-unit-conversion.use-case";
 import { ListUnitConversionsUseCase } from "../../application/use-cases/units/list-unit-conversions.use-case";
 import { GetUnitConversionByIdUseCase } from "../../application/use-cases/units/get-unit-conversion-by-id.use-case";
 import { UnitConversionsController } from "../../presentation/controllers/unit-conversions.controller";
@@ -24,6 +25,7 @@ import { UnitConversionsController } from "../../presentation/controllers/unit-c
     },
     CreateUnitConversionUseCase,
     UpdateUnitConversionUseCase,
+    DeleteUnitConversionUseCase,
     ListUnitConversionsUseCase,
     GetUnitConversionByIdUseCase,
   ],
@@ -31,6 +33,7 @@ import { UnitConversionsController } from "../../presentation/controllers/unit-c
     UNIT_CONVERSION_REPOSITORY,
     CreateUnitConversionUseCase,
     UpdateUnitConversionUseCase,
+    DeleteUnitConversionUseCase,
     ListUnitConversionsUseCase,
     GetUnitConversionByIdUseCase,
   ],

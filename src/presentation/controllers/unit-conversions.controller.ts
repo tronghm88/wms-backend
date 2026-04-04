@@ -3,9 +3,11 @@ import {
   Get,
   Post,
   Patch,
+  Delete,
   Body,
   Param,
   Query,
+  HttpCode,
   ParseIntPipe,
   UseGuards,
 } from "@nestjs/common";
@@ -17,6 +19,7 @@ import {
 } from "@nestjs/swagger";
 import { CreateUnitConversionUseCase } from "../../application/use-cases/units/create-unit-conversion.use-case";
 import { UpdateUnitConversionUseCase } from "../../application/use-cases/units/update-unit-conversion.use-case";
+import { DeleteUnitConversionUseCase } from "../../application/use-cases/units/delete-unit-conversion.use-case";
 import { ListUnitConversionsUseCase } from "../../application/use-cases/units/list-unit-conversions.use-case";
 import { GetUnitConversionByIdUseCase } from "../../application/use-cases/units/get-unit-conversion-by-id.use-case";
 import { CreateUnitConversionDto } from "../dtos/units/create-unit-conversion.dto";
@@ -34,6 +37,7 @@ export class UnitConversionsController {
   constructor(
     private readonly createUnitConversionUseCase: CreateUnitConversionUseCase,
     private readonly updateUnitConversionUseCase: UpdateUnitConversionUseCase,
+    private readonly deleteUnitConversionUseCase: DeleteUnitConversionUseCase,
     private readonly listUnitConversionsUseCase: ListUnitConversionsUseCase,
     private readonly getUnitConversionByIdUseCase: GetUnitConversionByIdUseCase,
   ) {}
@@ -110,5 +114,20 @@ export class UnitConversionsController {
       ...result,
       factor: result.factor.toFixed(3),
     };
+  }
+
+  @Delete(":id")
+  @HttpCode(204)
+  @RequirePermissions(Permissions.UNITS_MANAGE)
+  @ApiOperation({ summary: "Delete a unit conversion" })
+  @ApiResponse({
+    status: 204,
+    description: "The unit conversion has been successfully deleted.",
+  })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  @ApiResponse({ status: 404, description: "Unit conversion Not Found" })
+  async remove(@Param("id", ParseIntPipe) id: number) {
+    await this.deleteUnitConversionUseCase.execute({ id });
   }
 }

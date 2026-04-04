@@ -384,3 +384,20 @@ after each iteration and it's included in prompts for context.
   - **Patterns discovered:** Reusing established Clean Architecture patterns for resource retrieval by ID (Controller -> Use Case -> Repository).
   - **Gotchas encountered:** Discovered that unit conversion use cases are currently located in `src/application/use-cases/units/` instead of a separate `unit-conversions` folder, maintaining consistency with existing structure.
 ---
+
+## 2026-04-04 - US-019
+- What was implemented:
+  - DELETE /api/v1/unit-conversions/:id endpoint to delete a unit conversion rule.
+  - DeleteUnitConversionUseCase with validation to ensure existence before deletion.
+  - Added `delete` method to `IUnitConversionRepository` and its Prisma implementation.
+  - Swagger documentation for the new endpoint including 204 (No Content) and 404 (Not Found) responses.
+- Files changed:
+  - src/domain/contracts/unit-conversion.repository.interface.ts
+  - src/infrastructure/database/repositories/unit-conversion.repository.ts
+  - src/application/use-cases/units/delete-unit-conversion.use-case.ts
+  - src/presentation/controllers/unit-conversions.controller.ts
+  - src/infrastructure/unit-conversions/unit-conversions.module.ts
+- **Learnings:**
+  - **Patterns discovered:** Following the established Clean Architecture pattern for resource deletion (Controller -> Use Case -> Repository).
+  - **Gotchas encountered:** When using the `replace` tool, avoid using `...` as it is not allowed and will cause the tool to fail to find the string. Always provide the exact literal text for replacement.
+---

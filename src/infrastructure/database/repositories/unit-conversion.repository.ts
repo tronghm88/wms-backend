@@ -95,4 +95,10 @@ export class UnitConversionRepository implements IUnitConversionRepository {
 
     return conversions.map((uc) => this.mapToDomain(uc));
   }
+
+  async delete(id: number): Promise<void> {
+    await this.prisma.unitConversion.delete({
+      where: { id },
+    });
+  }
 }
