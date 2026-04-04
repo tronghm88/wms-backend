@@ -147,3 +147,21 @@ after each iteration and it's included in prompts for context.
   - **Gotchas encountered:** Initial CategoriesController lacked a spec file, so it was created to ensure coverage for the new list endpoint.
   - Remembered to use `/* eslint-disable @typescript-eslint/unbound-method */` in new test files to satisfy project lint rules.
 ---
+
+## 2026-04-04 - US-008
+- What was implemented:
+  - GET /api/v1/categories/:id endpoint to retrieve a specific category by its unique numeric ID.
+  - GetCategoryByIdUseCase with unit tests (success and not found cases).
+  - CategoryNotFoundException was already present in domain exceptions, but used for error handling.
+  - Swagger documentation for the new endpoint including 404 response.
+  - CategoriesController unit tests updated to cover the new endpoint.
+- Files changed:
+  - src/application/use-cases/categories/get-category-by-id.use-case.ts
+  - src/application/use-cases/categories/get-category-by-id.use-case.spec.ts
+  - src/infrastructure/categories/categories.module.ts
+  - src/presentation/controllers/categories.controller.ts
+  - src/presentation/controllers/categories.controller.spec.ts
+- **Learnings:**
+  - **Patterns discovered:** Reusing established Clean Architecture patterns for resource retrieval by ID (Controller -> Use Case -> Repository).
+  - **Gotchas encountered:** When using the `replace` tool, avoid using `...` as it is not allowed and will cause the tool to fail to find the string. Always provide the exact literal text for replacement.
+---

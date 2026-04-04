@@ -17,6 +17,7 @@ import {
 import { CreateCategoryUseCase } from "../../application/use-cases/categories/create-category.use-case";
 import { UpdateCategoryUseCase } from "../../application/use-cases/categories/update-category.use-case";
 import { GetCategoriesUseCase } from "../../application/use-cases/categories/get-categories.use-case";
+import { GetCategoryByIdUseCase } from "../../application/use-cases/categories/get-category-by-id.use-case";
 import { CreateCategoryDto } from "../dtos/categories/create-category.dto";
 import { UpdateCategoryDto } from "../dtos/categories/update-category.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
@@ -32,6 +33,7 @@ export class CategoriesController {
     private readonly createCategoryUseCase: CreateCategoryUseCase,
     private readonly updateCategoryUseCase: UpdateCategoryUseCase,
     private readonly getCategoriesUseCase: GetCategoriesUseCase,
+    private readonly getCategoryByIdUseCase: GetCategoryByIdUseCase,
   ) {}
 
   @Post()
@@ -82,5 +84,19 @@ export class CategoriesController {
   @ApiResponse({ status: 403, description: "Forbidden" })
   async findAll() {
     return await this.getCategoriesUseCase.execute();
+  }
+
+  @Get(":id")
+  @RequirePermissions(Permissions.CATEGORIES_MANAGE)
+  @ApiOperation({ summary: "Get a product category by ID" })
+  @ApiResponse({
+    status: 200,
+    description: "Returns the category object.",
+  })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  @ApiResponse({ status: 404, description: "Not Found" })
+  async findOne(@Param("id", ParseIntPipe) id: number) {
+    return await this.getCategoryByIdUseCase.execute(id);
   }
 }
