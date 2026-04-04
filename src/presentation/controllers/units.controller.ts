@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards } from "@nestjs/common";
+import { Controller, Post, Body, UseGuards, Get } from "@nestjs/common";
 import {
   ApiTags,
   ApiOperation,
@@ -6,6 +6,7 @@ import {
   ApiBearerAuth,
 } from "@nestjs/swagger";
 import { CreateUnitUseCase } from "../../application/use-cases/units/create-unit.use-case";
+import { GetUnitsUseCase } from "../../application/use-cases/units/get-units.use-case";
 import { CreateUnitDto } from "../dtos/units/create-unit.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
@@ -16,7 +17,10 @@ import { Permissions } from "../../domain/constants/permissions.constant";
 @UseGuards(JwtAuthGuard, RbacGuard)
 @ApiBearerAuth()
 export class UnitsController {
-  constructor(private readonly createUnitUseCase: CreateUnitUseCase) {}
+  constructor(
+    private readonly createUnitUseCase: CreateUnitUseCase,
+    private readonly getUnitsUseCase: GetUnitsUseCase,
+  ) {}
 
   @Post()
   @RequirePermissions(Permissions.UNITS_MANAGE)
@@ -30,5 +34,18 @@ export class UnitsController {
   @ApiResponse({ status: 403, description: "Forbidden" })
   async create(@Body() createUnitDto: CreateUnitDto) {
     return await this.createUnitUseCase.execute(createUnitDto);
+  }
+
+  @Get()
+  @RequirePermissions(Permissions.UNITS_MANAGE)
+  @ApiOperation({ summary: "List all units" })
+  @ApiResponse({
+    status: 200,
+    description: "Returns an array of all available units.",
+  })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  async findAll() {
+    return await this.getUnitsUseCase.execute();
   }
 }

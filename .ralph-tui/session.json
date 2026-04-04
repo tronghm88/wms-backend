@@ -3,10 +3,10 @@
   "sessionId": "2eabf967-8a4c-49ca-892b-4d28489b263a",
   "status": "running",
   "startedAt": "2026-04-04T11:05:33.050Z",
-  "updatedAt": "2026-04-04T11:11:35.915Z",
-  "currentIteration": 1,
+  "updatedAt": "2026-04-04T11:13:37.085Z",
+  "currentIteration": 2,
   "maxIterations": 10,
-  "tasksCompleted": 1,
+  "tasksCompleted": 2,
   "isPaused": false,
   "agentPlugin": "gemini",
   "trackerState": {
@@ -41,8 +41,8 @@
       {
         "id": "US-005",
         "title": "Create Category API",
-        "status": "open",
-        "completedInSession": false
+        "status": "completed",
+        "completedInSession": true
       },
       {
         "id": "US-006",
@@ -140,6 +140,16 @@
       "durationMs": 117850,
       "startedAt": "2026-04-04T11:05:40.807Z",
       "endedAt": "2026-04-04T11:07:38.657Z"
+    },
+    {
+      "iteration": 2,
+      "status": "completed",
+      "taskId": "US-005",
+      "taskTitle": "Create Category API",
+      "taskCompleted": true,
+      "durationMs": 236133,
+      "startedAt": "2026-04-04T11:07:39.782Z",
+      "endedAt": "2026-04-04T11:11:35.915Z"
     }
   ],
   "skippedTaskIds": [],

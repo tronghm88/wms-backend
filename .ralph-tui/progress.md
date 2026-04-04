@@ -56,3 +56,18 @@ after each iteration and it's included in prompts for context.
   - **Patterns discovered:** Domain exceptions follow a pattern of having an `errorCode` property which can be leveraged in a global filter for uniform API error responses.
   - **Gotchas encountered:** Existing spec files had some linting issues (unbound-method and any-usage) that needed fixing to pass CI gates.
 ---
+
+## 2026-04-04 - US-002
+- Implemented GET /api/v1/units endpoint.
+- Created GetUnitsUseCase with unit tests.
+- Updated UnitsController and UnitsModule.
+- Files changed:
+  - src/application/use-cases/units/get-units.use-case.ts
+  - src/application/use-cases/units/get-units.use-case.spec.ts
+  - src/infrastructure/units/units.module.ts
+  - src/presentation/controllers/units.controller.ts
+- **Learnings:**
+  - **Patterns discovered:** Standard Clean Architecture pattern: Controller -> Use Case -> Repository (via Interface).
+  - **Gotchas encountered:** Importance of using "import type" for interfaces in NestJS use cases to satisfy linter and compiler (isolatedModules).
+  - Use of /* eslint-disable @typescript-eslint/unbound-method */ in test files when testing with jest-mocked repositories.
+---
