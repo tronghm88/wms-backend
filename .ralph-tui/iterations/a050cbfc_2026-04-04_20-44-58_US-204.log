@@ -1,0 +1,146 @@
+# Iteration 4 Log
+
+## Metadata
+
+- **Task ID**: US-204
+- **Task Title**: Customer CRUD Management - Delete
+- **Description**: As an Admin, I want to delete the Customer registry so that I can maintain a clean list of commercial partners.
+- **Status**: completed
+- **Task Completed**: Yes
+- **Promise Detected**: Yes
+- **Started At**: 2026-04-04T13:44:58.967Z
+- **Ended At**: 2026-04-04T13:48:03.530Z
+- **Duration**: 3m 4s
+- **Input Tokens**: 1121340
+- **Output Tokens**: 7096
+- **Total Tokens**: 1132802
+- **Agent**: gemini
+- **Model**: auto-gemini-3
+- **Sandbox Mode**: auto
+- **Sandbox Network**: Enabled
+--- RAW OUTPUT ---
+I will start by exploring the existing customer-related files and the issue ticket repository to understand the current implementation and constraints.
+
+I will now examine the `CustomerRepository` interface, the existing `CustomerExceptions`, and the
+ current `CustomersController` to understand how to implement the delete functionality and the standardized response format.
+
+I will check if `IssueTicketRepository` has a way to find by customer ID and
+ whether the repository implementation exists.
+
+I will
+ check the content of `src/infrastructure/database/repositories` to see if there is an implementation of the `IssueTicketRepository`.
+
+I will check the `Prisma` schema to understand the relation between customers and issue tickets, and also verify the permissions in `src/domain/constants/permissions.constant.ts`.
+
+I will check `src/infrastructure/database/repositories/customer.repository.ts` to see if the `delete` method
+ is implemented and if it includes the necessary check for existing issue tickets.
+
+I will add `CustomerHasIssueTicketsException` to `src/domain/exceptions/customer.exceptions.ts`, create the `DeleteCustomerUseCase`, and add a `hasIssueTickets` method to `ICustomerRepository` after
+ checking the `CustomerEntity`.
+
+I will add `countIssueTickets(customerId: number
+): Promise<number>` to `ICustomerRepository` and then implement it in `CustomerRepository`, as `IssueTicketRepository` hasn't been implemented yet.
+
+I will now
+ implement `countIssueTickets` in `CustomerRepository`.
+
+I will add `CustomerHas
+IssueTicketsException` to `src/domain/exceptions/customer.exceptions.ts`.
+
+I will create `src/application/use-cases/customers/delete-customer.
+use-case.ts`, following the pattern used in `create-customer.use-case.ts`.
+
+I will create 
+`DeleteCustomerUseCase`, following the established pattern of using a `Response` interface, even if it returns `void` for this specific case.
+
+I will update the
+ `CustomersController` to include the `DELETE` endpoint and register the new use case in the `CustomersModule`.
+
+I will add the `delete` method
+ to the controller.
+
+I will register `DeleteCustomerUseCase` in `src/infrastructure/customers/customers.module.ts`.
+
+I will register `DeleteCustomerUseCase` in the
+ `CustomersModule`.
+
+I will check for `src/presentation/filters/http-exception.filter.ts` to ensure that the global 
+`ExceptionFilter` handles the `CustomerHasIssueTicketsException`.
+
+I will examine `Global
+ExceptionFilter` to understand how it handles domain exceptions.
+
+I will rename the error code in `customer.exceptions.ts` to `CUSTOMER_CANNOT_DELETE_HAS_TICKETS` to ensure it maps to 
+`HttpStatus.BAD_REQUEST` (400), as per the requirements.
+
+I'll check `progress.md` to confirm the codebase pattern for success responses and ensure they're
+ being wrapped correctly in the Controller.
+
+I'll proceed with US-204, having
+ updated the `ICustomerRepository`, `CustomerRepository`, `customer.exceptions.ts`, `DeleteCustomerUseCase`, `CustomersController`, and `CustomersModule`. I'll now run the existing tests to ensure no regressions before moving on to `npm run lint` and `npx tsc --noEmit`.
+
+I will update `customers.controller.spec.ts` to include `DeleteCustomerUseCase` in the
+ test module, resolving the dependency error.
+
+I'll add `DeleteCustomerUseCase
+` to the test file and include a test for the `delete` method.
+
+I will add the `delete
+` test case to the spec file.
+
+I'm running the tests again.
+
+I'm
+ adding a `DeleteCustomerUseCase` test.
+
+I'll run all customer-related tests.
+
+I'll run final quality checks.
+
+I'll fix the
+ lint errors in `src/application/use-cases/customers/delete-customer.use-case.spec.ts` by checking `get-customers.use-case.spec.ts` for established standards on `@typescript-eslint
+/no-unsafe-assignment` and `@typescript-eslint/unbound-method`.
+
+I'll resolve the lint issues by using `jest.Mocked<Partial<ICustomerRepository>>` and `(mockRepo
+.method as jest.Mock)`. I'll also add `/* eslint-disable @typescript-eslint/unbound-method */` to the top of the test file, following the project's established pattern.
+
+Run lint again.
+
+I broke `update-customer.use-case.spec.ts` when
+ I added `countIssueTickets` to `ICustomerRepository`, so I'll fix the mock in the update test.
+
+I'll add
+ `countIssueTickets: jest.fn()` to the repository mock in `update-customer.use-case.spec.ts` and check for the existence of `create-customer.use-case.spec.ts`.
+
+I'll fix `update-customer.use-case.spec.ts`.
+
+Run quality checks again.
+
+I'll update `.ralph-tui/progress.md` with my changes for April 4, 2026
+.
+
+I'm done.
+
+The customer delete functionality (
+US-204) has been implemented following the clean architecture pattern. 
+
+- **Domain**: Added `countIssueTickets` to `ICustomerRepository` and created `CustomerHasIssueTicketsException`.
+- **Infrastructure**: Im
+plemented `countIssueTickets` in `CustomerRepository` using Prisma. Registered the new use case in `CustomersModule`.
+- **Application**: Created `DeleteCustomer
+UseCase` with validation logic (existence check and associated tickets check). Added unit tests.
+- **Presentation**: Updated `CustomersController` with a `DELETE` endpoint, using the new use case and wrapping the response in the required `{ statusCode, data }
+` format. Updated controller tests.
+
+Quality checks (lint, typecheck, tests) passed successfully.
+
+<promise>COMPLETE</promise>
+
+--- STDERR ---
+YOLO mode is enabled. All tool calls will be automatically approved.
+Keychain initialization encountered an error: Cannot find module '../build/Release/keytar.node'
+Require stack:
+- /opt/homebrew/Cellar/gemini-cli/0.36.0/libexec/lib/node_modules/@google/gemini-cli/node_modules/keytar/lib/keytar.js
+Using FileKeychain fallback for secure storage.
+Loaded cached credentials.
+YOLO mode is enabled. All tool calls will be automatically approved.

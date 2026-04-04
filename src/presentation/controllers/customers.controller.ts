@@ -17,6 +17,7 @@ import {
 } from "@nestjs/swagger";
 import { CreateCustomerUseCase } from "../../application/use-cases/customers/create-customer.use-case";
 import { GetCustomersUseCase } from "../../application/use-cases/customers/get-customers.use-case";
+import { GetCustomerUseCase } from "../../application/use-cases/customers/get-customer.use-case";
 import { UpdateCustomerUseCase } from "../../application/use-cases/customers/update-customer.use-case";
 import { DeleteCustomerUseCase } from "../../application/use-cases/customers/delete-customer.use-case";
 import { CreateCustomerDto } from "../dtos/customers/create-customer.dto";
@@ -35,6 +36,7 @@ export class CustomersController {
   constructor(
     private readonly createCustomerUseCase: CreateCustomerUseCase,
     private readonly getCustomersUseCase: GetCustomersUseCase,
+    private readonly getCustomerUseCase: GetCustomerUseCase,
     private readonly updateCustomerUseCase: UpdateCustomerUseCase,
     private readonly deleteCustomerUseCase: DeleteCustomerUseCase,
   ) {}
@@ -50,6 +52,24 @@ export class CustomersController {
   @ApiResponse({ status: 403, description: "Forbidden" })
   async findAll(@Query() query: GetCustomersDto) {
     const data = await this.getCustomersUseCase.execute(query);
+    return {
+      statusCode: 200,
+      data,
+    };
+  }
+
+  @Get(":id")
+  @RequirePermissions(Permissions.CUSTOMERS_VIEW)
+  @ApiOperation({ summary: "Get customer detail" })
+  @ApiResponse({
+    status: 200,
+    description: "Returns the customer detail.",
+  })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  @ApiResponse({ status: 404, description: "Not Found" })
+  async findOne(@Param("id", ParseIntPipe) id: number) {
+    const data = await this.getCustomerUseCase.execute(id);
     return {
       statusCode: 200,
       data,

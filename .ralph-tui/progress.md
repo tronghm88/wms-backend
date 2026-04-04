@@ -60,3 +60,16 @@ after each iteration and it's included in prompts for context.
   - Domain exceptions with error codes containing `CANNOT_` are mapped to `400 Bad Request` by the `GlobalExceptionFilter`.
   - Mocked repositories in tests must be updated when the repository interface changes.
 ---
+
+## [2026-04-04] - US-205
+- Implement Get customer detail API.
+- Files changed:
+  - src/application/use-cases/customers/get-customer.use-case.ts (created)
+  - src/application/use-cases/customers/get-customer.use-case.spec.ts (created)
+  - src/infrastructure/customers/customers.module.ts (modified)
+  - src/presentation/controllers/customers.controller.ts (modified)
+- **Learnings:**
+  - Followed existing patterns for customer management, including { statusCode, data } response wrapping.
+  - Used CustomerNotFoundException to handle missing customers, which maps to 404.
+  - Mocked ICustomerRepository in tests using jest.Mocked<Partial<ICustomerRepository>> to satisfy lint rules.
+---

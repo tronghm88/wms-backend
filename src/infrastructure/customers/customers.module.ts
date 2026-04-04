@@ -4,6 +4,7 @@ import { CUSTOMER_REPOSITORY } from "../../domain/contracts/customer.repository.
 import { CustomerRepository } from "../database/repositories/customer.repository";
 import { CreateCustomerUseCase } from "../../application/use-cases/customers/create-customer.use-case";
 import { GetCustomersUseCase } from "../../application/use-cases/customers/get-customers.use-case";
+import { GetCustomerUseCase } from "../../application/use-cases/customers/get-customer.use-case";
 import { UpdateCustomerUseCase } from "../../application/use-cases/customers/update-customer.use-case";
 import { DeleteCustomerUseCase } from "../../application/use-cases/customers/delete-customer.use-case";
 import { CustomersController } from "../../presentation/controllers/customers.controller";
@@ -18,6 +19,7 @@ import { CustomersController } from "../../presentation/controllers/customers.co
     },
     CreateCustomerUseCase,
     GetCustomersUseCase,
+    GetCustomerUseCase,
     UpdateCustomerUseCase,
     DeleteCustomerUseCase,
   ],
@@ -25,6 +27,7 @@ import { CustomersController } from "../../presentation/controllers/customers.co
     CUSTOMER_REPOSITORY,
     CreateCustomerUseCase,
     GetCustomersUseCase,
+    GetCustomerUseCase,
     UpdateCustomerUseCase,
     DeleteCustomerUseCase,
   ],
