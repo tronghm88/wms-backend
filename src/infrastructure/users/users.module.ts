@@ -4,12 +4,20 @@ import { PermissionsController } from "../../presentation/controllers/permission
 import { CreateUserUseCase } from "../../application/use-cases/users/create-user.use-case";
 import { UpdateUserUseCase } from "../../application/use-cases/users/update-user.use-case";
 import { AdminResetPasswordUseCase } from "../../application/use-cases/users/admin-reset-password.use-case";
+import { GetUsersUseCase } from "../../application/use-cases/users/get-users.use-case";
+import { GetUserByIdUseCase } from "../../application/use-cases/users/get-user-by-id.use-case";
 import { AuthModule } from "../auth/auth.module";
 import { PrismaModule } from "../database/prisma.module";
 
 @Module({
   imports: [AuthModule, PrismaModule],
   controllers: [UsersController, PermissionsController],
-  providers: [CreateUserUseCase, UpdateUserUseCase, AdminResetPasswordUseCase],
+  providers: [
+    CreateUserUseCase,
+    UpdateUserUseCase,
+    AdminResetPasswordUseCase,
+    GetUsersUseCase,
+    GetUserByIdUseCase,
+  ],
 })
 export class UsersModule {}

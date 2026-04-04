@@ -32,7 +32,7 @@ export class UpdateUserUseCase {
   constructor(
     @Inject(USER_REPOSITORY) private readonly userRepository: IUserRepository,
     @Inject(CACHE_SERVICE) private readonly cacheService: ICacheService,
-  ) { }
+  ) {}
 
   async execute(request: UpdateUserRequest): Promise<UpdateUserResponse> {
     const user = await this.userRepository.findById(request.userId);

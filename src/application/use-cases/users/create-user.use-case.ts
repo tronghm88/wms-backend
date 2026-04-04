@@ -31,7 +31,7 @@ export class CreateUserUseCase {
   constructor(
     @Inject(USER_REPOSITORY) private readonly userRepository: IUserRepository,
     @Inject(PASSWORD_HASHER) private readonly passwordHasher: IPasswordHasher,
-  ) { }
+  ) {}
 
   async execute(request: CreateUserRequest): Promise<CreateUserResponse> {
     if (request.role === UserRole.SUPER_ADMIN) {

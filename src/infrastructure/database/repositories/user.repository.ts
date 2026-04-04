@@ -1,15 +1,16 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
-import type { User as PrismaUser } from "@prisma/client";
-import { IUserRepository } from "../../../domain/contracts/user.repository.interface";
+import { Prisma, User as PrismaUser } from "@prisma/client";
 import {
-  UserEntity
-} from "../../../domain/entities/user.entity";
+  FindUsersParams,
+  IUserRepository,
+} from "../../../domain/contracts/user.repository.interface";
+import { UserEntity } from "../../../domain/entities/user.entity";
 import { UserRole, UserStatus } from "../../../domain/enums";
 
 @Injectable()
 export class UserRepository implements IUserRepository {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   private mapToDomain(user: PrismaUser): UserEntity {
     return new UserEntity({
@@ -24,6 +25,37 @@ export class UserRepository implements IUserRepository {
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     });
+  }
+
+  async findAndCount(params: FindUsersParams): Promise<[UserEntity[], number]> {
+    const { skip, take, search, role, sortBy, sortOrder } = params;
+
+    const where: Prisma.UserWhereInput = {};
+
+    if (role) {
+      where.role = role;
+    }
+
+    if (search) {
+      where.OR = [
+        { email: { contains: search, mode: "insensitive" } },
+        { fullName: { contains: search, mode: "insensitive" } },
+      ];
+    }
+
+    const [users, total] = await Promise.all([
+      this.prisma.user.findMany({
+        where,
+        skip,
+        take,
+        orderBy: {
+          [sortBy]: sortOrder,
+        },
+      }),
+      this.prisma.user.count({ where }),
+    ]);
+
+    return [users.map((user) => this.mapToDomain(user)), total];
   }
 
   async findByEmail(email: string): Promise<UserEntity | null> {
