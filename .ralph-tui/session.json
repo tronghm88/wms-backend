@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "sessionId": "2eabf967-8a4c-49ca-892b-4d28489b263a",
+  "status": "running",
+  "startedAt": "2026-04-04T11:05:33.050Z",
+  "updatedAt": "2026-04-04T11:07:38.658Z",
+  "currentIteration": 0,
+  "maxIterations": 10,
+  "tasksCompleted": 0,
+  "isPaused": false,
+  "agentPlugin": "gemini",
+  "trackerState": {
+    "plugin": "json",
+    "prdPath": "./tasks/prd.json",
+    "totalTasks": 19,
+    "tasks": [
+      {
+        "id": "US-001",
+        "title": "Create Unit API",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-002",
+        "title": "List Units API",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-003",
+        "title": "Get Unit by Code API",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-004",
+        "title": "Delete Unit API",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-005",
+        "title": "Create Category API",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-006",
+        "title": "Update Category API",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-007",
+        "title": "List Categories API",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-008",
+        "title": "Get Category by ID API",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-009",
+        "title": "Delete Category API",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-010",
+        "title": "Create Product API",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-011",
+        "title": "Update Product API",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-012",
+        "title": "List Products API",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-013",
+        "title": "Get Product by ID API",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-014",
+        "title": "Delete Product API",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-015",
+        "title": "Create Unit Conversion API",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-016",
+        "title": "Update Unit Conversion API",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-017",
+        "title": "List Unit Conversions API",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-018",
+        "title": "Get Unit Conversion by ID API",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-019",
+        "title": "Delete Unit Conversion API",
+        "status": "open",
+        "completedInSession": false
+      }
+    ]
+  },
+  "iterations": [],
+  "skippedTaskIds": [],
+  "cwd": "/Users/windy/Work/wms",
+  "activeTaskIds": [],
+  "subagentPanelVisible": false
+}

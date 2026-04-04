@@ -1,5 +1,5 @@
-import { Decimal } from 'decimal.js';
-import { StockMovementType } from '../enums';
+import { Decimal } from "decimal.js";
+import { StockMovementType } from "../enums";
 
 export class StockMovementEntity {
   constructor(

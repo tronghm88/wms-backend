@@ -1,0 +1,181 @@
+{
+  "name": "Customer Management & Discount Policy Module",
+  "branchName": "feature/customer-discount-module",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Customer CRUD Management - Create",
+      "description": "As an Admin, I want to create the Customer registry so that I can maintain a clean list of commercial partners.",
+      "acceptanceCriteria": [
+        "Implement Create customer api",
+        "Fields required: code (unique), name, address, phone, email, note.",
+        "Validate that code is unique and follows project naming conventions.",
+        "Standardized JSON responses with statusCode and data.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes",
+        "Git commit performed after validation"
+      ],
+      "priority": 1,
+      "passes": false,
+      "dependsOn": []
+    },
+    {
+      "id": "US-002",
+      "title": "Customer CRUD Management - Read",
+      "description": "As an Admin, I want to read customer list, search and filter customer list",
+      "acceptanceCriteria": [
+        "Implement GET customers api, with pagination, 20 items per page, search by name or code by `search` parameter",
+        "Standardized JSON responses with statusCode and data.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes",
+        "Git commit performed after validation"
+      ],
+      "priority": 1,
+      "passes": false,
+      "dependsOn": [
+        "US-001"
+      ]
+    },
+    {
+      "id": "US-003",
+      "title": "Customer CRUD Management - Update",
+      "description": "As an Admin, I want to update the Customer registry so that I can maintain a clean list of commercial partners.",
+      "acceptanceCriteria": [
+        "Implement Update endpoints for Customer.",
+        "Fields required: code (unique), name, address, phone, email, note.",
+        "Validate that code is unique and follows project naming conventions.",
+        "Standardized JSON responses with statusCode and data.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes",
+        "Git commit performed after validation"
+      ],
+      "priority": 1,
+      "passes": false,
+      "dependsOn": []
+    },
+    {
+      "id": "US-004",
+      "title": "Customer CRUD Management - Delete",
+      "description": "As an Admin, I want to delete the Customer registry so that I can maintain a clean list of commercial partners.",
+      "acceptanceCriteria": [
+        "Implement Delete endpoints for Customer.",
+        "Only can delete if customer has no IssueTicket.",
+        "Standardized JSON responses with statusCode and data.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes",
+        "Git commit performed after validation"
+      ],
+      "priority": 1,
+      "passes": false,
+      "dependsOn": [
+        "US-001"
+      ]
+    },
+    {
+      "id": "US-005",
+      "title": "Customer CRUD Management - Get Detail",
+      "description": "As an Admin, I want to get customer detail so that I can see customer information.",
+      "acceptanceCriteria": [
+        "Implement Get customer detail api",
+        "Standardized JSON responses with statusCode and data.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes",
+        "Git commit performed after validation"
+      ],
+      "priority": 1,
+      "passes": false,
+      "dependsOn": [
+        "US-001"
+      ]
+    },
+    {
+      "id": "US-006",
+      "title": "Discount Policy Definition - Create Policies",
+      "description": "As an Admin, I want to define discount policies for customers so that pricing can be automated.",
+      "acceptanceCriteria": [
+        "Implement Create DiscountPolicy api for a customer.",
+        "The api receives and validate an object that contains: discountType, isAppliedAll, productIds, discountValue.",
+        "If isAppliedAll is true, productIds must be empty array.",
+        "If isAppliedAll is false, productIds must be an array of product ids and product id must be exist in Product table.",
+        "Support discountType (NONE, PERCENT, AMOUNT).",
+        "discountValue must be stored as NUMERIC(15,3) in DB and serialized as String in API.",
+        "A policy is linked to exactly and existed customer.",
+        "A customer can only have one general discount policy.",
+        "A customer can only have one discount policy for each product.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes",
+        "Git commit performed after validation"
+      ],
+      "priority": 2,
+      "passes": false,
+      "dependsOn": [
+        "US-001"
+      ]
+    },
+    {
+      "id": "US-007",
+      "title": "Discount Policy Definition - Read Policies",
+      "description": "As an Admin, I want to get discount policies for a customer when i view profile of the customer",
+      "acceptanceCriteria": [
+        "Implement Get all DiscountPolicies api for a customer.",
+        "The response must include product names for each policy if the policy is applied to specific products.",
+        "The response must include isAppliedAll (General discount) and productIds for specific overrides.",
+        "discountValue must be stored as NUMERIC(15,3) in DB and serialized as String in API.",
+        "A policy is linked to exactly and existed customer.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes",
+        "Git commit performed after validation"
+      ],
+      "priority": 2,
+      "passes": false,
+      "dependsOn": [
+        "US-006"
+      ]
+    },
+    {
+      "id": "US-008",
+      "title": "Update Discount Policy",
+      "description": "As an Admin, I want to update discount policies for a customer when i view profile of the customer",
+      "acceptanceCriteria": [
+        "Implement Update DiscountPolicy api for a customer.",
+        "The api receives and validate an object that contains: id, discountType, isAppliedAll, productIds, discountValue.",
+        "If isAppliedAll is true, productIds must be empty array.",
+        "If isAppliedAll is false, productIds must be an array of product ids and product id must be exist in Product table.",
+        "Support discountType (NONE, PERCENT, AMOUNT).",
+        "discountValue must be stored as NUMERIC(15,3) in DB and serialized as String in API.",
+        "Only policy that is not used can be updated.",
+        "A policy is linked to exactly and existed customer.",
+        "A customer can only have one general discount policy.",
+        "A customer can only have one discount policy for each product.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes",
+        "Git commit performed after validation"
+      ],
+      "priority": 3,
+      "passes": false,
+      "dependsOn": [
+        "US-002"
+      ]
+    },
+    {
+      "id": "US-009",
+      "title": "Soft Delete and Usage Tracking for Policies",
+      "description": "As an Admin, I want to track if a policy is used and prevent its modification to maintain historical integrity.",
+      "acceptanceCriteria": [
+        "Add deletedAt (Date/Null) to DiscountPolicy table for soft deletes.",
+        "Add isUsed (Boolean) flag to DiscountPolicy (defaults to false).",
+        "Only policy that is not used can be deleted.",
+        "Prevent Update operations on any DiscountPolicy where isUsed is true.",
+        "Delete operation must perform a soft delete (setting deletedAt) instead of a hard delete.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes",
+        "Git commit performed after validation"
+      ],
+      "priority": 3,
+      "passes": false,
+      "dependsOn": [
+        "US-002"
+      ]
+    }
+  ]
+}

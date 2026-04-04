@@ -1,4 +1,6 @@
-import { UnitEntity } from '../entities/unit.entity';
+import { UnitEntity } from "../entities/unit.entity";
+
+export const UNIT_REPOSITORY = "UNIT_REPOSITORY";
 
 export interface IUnitRepository {
   findByCode(code: string): Promise<UnitEntity | null>;

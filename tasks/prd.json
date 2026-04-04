@@ -1,0 +1,338 @@
+{
+  "name": "Product Management Module (M2)",
+  "branchName": "ralph/product-management-m2",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Create Unit API",
+      "description": "As an Admin, I want to create a new Unit (e.g., 'm2', 'kg') so that it can be used in product definitions.",
+      "acceptanceCriteria": [
+        "Implement POST /api/v1/units endpoint.",
+        "DTO includes code (string, required, unique).",
+        "Validate code is unique in the database.",
+        "Follow Clean Architecture: Domain Entity, Repository Interface, Use Case, Infrastructure Repository, and Presentation Controller.",
+        "Document endpoint with Swagger.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 1,
+      "passes": true,
+      "dependsOn": [],
+      "completionNotes": "Completed by agent"
+    },
+    {
+      "id": "US-002",
+      "title": "List Units API",
+      "description": "As a User, I want to list all available Units.",
+      "acceptanceCriteria": [
+        "Implement GET /api/v1/units endpoint.",
+        "Return an array of Unit objects.",
+        "Document endpoint with Swagger.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "dependsOn": [
+        "US-001"
+      ]
+    },
+    {
+      "id": "US-003",
+      "title": "Get Unit by Code API",
+      "description": "As a User, I want to retrieve details of a specific Unit by its code.",
+      "acceptanceCriteria": [
+        "Implement GET /api/v1/units/:code endpoint.",
+        "Return Unit object or 404 if not found.",
+        "Document endpoint with Swagger.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "dependsOn": [
+        "US-001"
+      ]
+    },
+    {
+      "id": "US-004",
+      "title": "Delete Unit API",
+      "description": "As an Admin, I want to delete a Unit that is no longer needed.",
+      "acceptanceCriteria": [
+        "Implement DELETE /api/v1/units/:code endpoint.",
+        "Block deletion if the Unit is referenced by any Product or UnitConversion (Foreign Key constraint).",
+        "Document endpoint with Swagger.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "dependsOn": [
+        "US-001"
+      ]
+    },
+    {
+      "id": "US-005",
+      "title": "Create Category API",
+      "description": "As an Admin, I want to create a new Product Category with a manual code.",
+      "acceptanceCriteria": [
+        "Implement POST /api/v1/categories endpoint.",
+        "DTO includes code (unique, required) and name (required).",
+        "Validate code uniqueness.",
+        "Follow Clean Architecture patterns.",
+        "Document endpoint with Swagger.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "dependsOn": []
+    },
+    {
+      "id": "US-006",
+      "title": "Update Category API",
+      "description": "As an Admin, I want to update an existing Category's name or code.",
+      "acceptanceCriteria": [
+        "Implement PATCH /api/v1/categories/:id endpoint.",
+        "Allow updating code (with uniqueness check) and name.",
+        "Document endpoint with Swagger.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "dependsOn": [
+        "US-005"
+      ]
+    },
+    {
+      "id": "US-007",
+      "title": "List Categories API",
+      "description": "As a User, I want to list all product categories.",
+      "acceptanceCriteria": [
+        "Implement GET /api/v1/categories endpoint.",
+        "Support basic pagination/sorting if applicable (optional for MVP).",
+        "Document endpoint with Swagger.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "dependsOn": [
+        "US-005"
+      ]
+    },
+    {
+      "id": "US-008",
+      "title": "Get Category by ID API",
+      "description": "As a User, I want to retrieve a specific category by its ID.",
+      "acceptanceCriteria": [
+        "Implement GET /api/v1/categories/:id endpoint.",
+        "Return Category object or 404.",
+        "Document endpoint with Swagger.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "dependsOn": [
+        "US-005"
+      ]
+    },
+    {
+      "id": "US-009",
+      "title": "Delete Category API",
+      "description": "As an Admin, I want to delete a category.",
+      "acceptanceCriteria": [
+        "Implement DELETE /api/v1/categories/:id endpoint.",
+        "Block deletion if Category has associated Products.",
+        "Document endpoint with Swagger.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "dependsOn": [
+        "US-005"
+      ]
+    },
+    {
+      "id": "US-010",
+      "title": "Create Product API",
+      "description": "As an Admin, I want to create a new Product with manual code and physical metrics.",
+      "acceptanceCriteria": [
+        "Implement POST /api/v1/products endpoint.",
+        "DTO includes code (unique), name, categoryId, baseUnit, basePrice (string for decimal), length, width, height.",
+        "Validate categoryId and baseUnit exist.",
+        "Validate code uniqueness.",
+        "Ensure Decimal fields are handled correctly (stored as NUMERIC(15,3)).",
+        "Document endpoint with Swagger.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 3,
+      "passes": false,
+      "dependsOn": [
+        "US-001",
+        "US-005"
+      ]
+    },
+    {
+      "id": "US-011",
+      "title": "Update Product API",
+      "description": "As an Admin, I want to update product details.",
+      "acceptanceCriteria": [
+        "Implement PATCH /api/v1/products/:id endpoint.",
+        "Allow updating all fields (code, name, metrics, etc.).",
+        "Validate code uniqueness if changed.",
+        "Document endpoint with Swagger.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 4,
+      "passes": false,
+      "dependsOn": [
+        "US-010"
+      ]
+    },
+    {
+      "id": "US-012",
+      "title": "List Products API",
+      "description": "As a User, I want to list all products.",
+      "acceptanceCriteria": [
+        "Implement GET /api/v1/products endpoint.",
+        "Include Category name and Unit code in response (Join/Include).",
+        "Document endpoint with Swagger.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 4,
+      "passes": false,
+      "dependsOn": [
+        "US-010"
+      ]
+    },
+    {
+      "id": "US-013",
+      "title": "Get Product by ID API",
+      "description": "As a User, I want to retrieve details of a specific product.",
+      "acceptanceCriteria": [
+        "Implement GET /api/v1/products/:id endpoint.",
+        "Return Product object with relations or 404.",
+        "Document endpoint with Swagger.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 4,
+      "passes": false,
+      "dependsOn": [
+        "US-010"
+      ]
+    },
+    {
+      "id": "US-014",
+      "title": "Delete Product API",
+      "description": "As an Admin, I want to delete a product.",
+      "acceptanceCriteria": [
+        "Implement DELETE /api/v1/products/:id endpoint.",
+        "Block deletion if Product has Inventory or Transaction history.",
+        "Document endpoint with Swagger.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 4,
+      "passes": false,
+      "dependsOn": [
+        "US-010"
+      ]
+    },
+    {
+      "id": "US-015",
+      "title": "Create Unit Conversion API",
+      "description": "As an Admin, I want to define a conversion rule between units for a product.",
+      "acceptanceCriteria": [
+        "Implement POST /api/v1/unit-conversions endpoint.",
+        "DTO includes productId, fromUnit, toUnit, factor (string for decimal).",
+        "Validate productId, fromUnit, and toUnit exist.",
+        "Document endpoint with Swagger.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 5,
+      "passes": false,
+      "dependsOn": [
+        "US-010",
+        "US-001"
+      ]
+    },
+    {
+      "id": "US-016",
+      "title": "Update Unit Conversion API",
+      "description": "As an Admin, I want to update an existing conversion rule.",
+      "acceptanceCriteria": [
+        "Implement PATCH /api/v1/unit-conversions/:id endpoint.",
+        "Allow updating factor.",
+        "Document endpoint with Swagger.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 6,
+      "passes": false,
+      "dependsOn": [
+        "US-015"
+      ]
+    },
+    {
+      "id": "US-017",
+      "title": "List Unit Conversions API",
+      "description": "As a User, I want to list all unit conversion rules.",
+      "acceptanceCriteria": [
+        "Implement GET /api/v1/unit-conversions endpoint.",
+        "Support filtering by productId.",
+        "Document endpoint with Swagger.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 6,
+      "passes": false,
+      "dependsOn": [
+        "US-015"
+      ]
+    },
+    {
+      "id": "US-018",
+      "title": "Get Unit Conversion by ID API",
+      "description": "As a User, I want to retrieve a specific conversion rule.",
+      "acceptanceCriteria": [
+        "Implement GET /api/v1/unit-conversions/:id endpoint.",
+        "Document endpoint with Swagger.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 6,
+      "passes": false,
+      "dependsOn": [
+        "US-015"
+      ]
+    },
+    {
+      "id": "US-019",
+      "title": "Delete Unit Conversion API",
+      "description": "As an Admin, I want to delete a conversion rule.",
+      "acceptanceCriteria": [
+        "Implement DELETE /api/v1/unit-conversions/:id endpoint.",
+        "Document endpoint with Swagger.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 6,
+      "passes": false,
+      "dependsOn": [
+        "US-015"
+      ]
+    }
+  ],
+  "metadata": {
+    "updatedAt": "2026-04-04T11:07:38.658Z"
+  }
+}
