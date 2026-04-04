@@ -5,6 +5,7 @@ import { UnitsModule } from "../units/units.module";
 import { PRODUCT_REPOSITORY } from "../../domain/contracts/product.repository.interface";
 import { ProductRepository } from "../database/repositories/product.repository";
 import { CreateProductUseCase } from "../../application/use-cases/products/create-product.use-case";
+import { UpdateProductUseCase } from "../../application/use-cases/products/update-product.use-case";
 import { ProductsController } from "../../presentation/controllers/products.controller";
 
 @Module({
@@ -16,7 +17,8 @@ import { ProductsController } from "../../presentation/controllers/products.cont
       useClass: ProductRepository,
     },
     CreateProductUseCase,
+    UpdateProductUseCase,
   ],
-  exports: [PRODUCT_REPOSITORY, CreateProductUseCase],
+  exports: [PRODUCT_REPOSITORY, CreateProductUseCase, UpdateProductUseCase],
 })
 export class ProductsModule {}

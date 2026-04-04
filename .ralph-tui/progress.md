@@ -211,3 +211,21 @@ after each iteration and it's included in prompts for context.
   - **Patterns discovered:** Reused the domain exception mapping pattern in `GlobalExceptionFilter` (automatic 409/404/422/400 mapping based on error code suffix).
   - **Gotchas encountered:** `Decimal.toString()` trims trailing zeros, so `toFixed(3)` must be used to strictly adhere to the `NUMERIC(15,3)` precision requirement in API responses.
 ---
+
+## 2026-04-04 - US-011
+- What was implemented:
+  - PATCH /api/v1/products/:id endpoint to update an existing product.
+  - UpdateProductUseCase with checks for unique code (if changed), existing category, and existing unit.
+  - UpdateProductDto with optional fields and Swagger documentation.
+  - ProductNotFoundException handling for missing products during update.
+  - Unit tests for UpdateProductUseCase covering success, not found, and conflict scenarios.
+- Files changed:
+  - src/application/use-cases/products/update-product.use-case.ts
+  - src/application/use-cases/products/update-product.use-case.spec.ts
+  - src/presentation/dtos/products/update-product.dto.ts
+  - src/presentation/controllers/products.controller.ts
+  - src/infrastructure/products/products.module.ts
+- **Learnings:**
+  - **Patterns discovered:** Reusing established Clean Architecture patterns for resource updates with conditional uniqueness and existence checks for related entities.
+  - **Gotchas encountered:** Ensure `toFixed(3)` is used for all `Decimal` fields in responses to maintain consistent precision. Fixed lint errors related to unused imports and missing `await` in tests.
+---
