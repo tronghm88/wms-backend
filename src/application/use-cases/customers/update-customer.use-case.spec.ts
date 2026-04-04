@@ -22,6 +22,7 @@ describe("UpdateCustomerUseCase", () => {
       findAndCount: jest.fn(),
       create: jest.fn(),
       delete: jest.fn(),
+      countIssueTickets: jest.fn(),
     };
 
     const module: TestingModule = await Test.createTestingModule({

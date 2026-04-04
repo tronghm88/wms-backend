@@ -42,3 +42,21 @@ after each iteration and it's included in prompts for context.
   - Repository `findAndCount` pattern is used for pagination, returning a tuple `[Entity[], number]`.
   - Pagination DTOs should include `page` and `limit` with sensible defaults (e.g., page 1, limit 20).
 ---
+
+## [2026-04-04] - US-204
+- Implement Delete customer API.
+- Files changed:
+  - src/domain/exceptions/customer.exceptions.ts (modified)
+  - src/domain/contracts/customer.repository.interface.ts (modified)
+  - src/infrastructure/database/repositories/customer.repository.ts (modified)
+  - src/application/use-cases/customers/delete-customer.use-case.ts (created)
+  - src/application/use-cases/customers/delete-customer.use-case.spec.ts (created)
+  - src/presentation/controllers/customers.controller.ts (modified)
+  - src/presentation/controllers/customers.controller.spec.ts (modified)
+  - src/infrastructure/customers/customers.module.ts (modified)
+  - src/application/use-cases/customers/update-customer.use-case.spec.ts (modified)
+- **Learnings:**
+  - Before deleting a customer, check for associated `IssueTicket`s to maintain data integrity.
+  - Domain exceptions with error codes containing `CANNOT_` are mapped to `400 Bad Request` by the `GlobalExceptionFilter`.
+  - Mocked repositories in tests must be updated when the repository interface changes.
+---

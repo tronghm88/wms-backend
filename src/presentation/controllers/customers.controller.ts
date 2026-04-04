@@ -18,12 +18,14 @@ import {
 import { CreateCustomerUseCase } from "../../application/use-cases/customers/create-customer.use-case";
 import { GetCustomersUseCase } from "../../application/use-cases/customers/get-customers.use-case";
 import { UpdateCustomerUseCase } from "../../application/use-cases/customers/update-customer.use-case";
+import { DeleteCustomerUseCase } from "../../application/use-cases/customers/delete-customer.use-case";
 import { CreateCustomerDto } from "../dtos/customers/create-customer.dto";
 import { GetCustomersDto } from "../dtos/customers/get-customers.dto";
 import { UpdateCustomerDto } from "../dtos/customers/update-customer.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
 import { Permissions } from "../../domain/constants/permissions.constant";
+import { Delete, HttpCode, HttpStatus } from "@nestjs/common";
 
 @ApiTags("Customers")
 @Controller("api/v1/customers")
@@ -34,6 +36,7 @@ export class CustomersController {
     private readonly createCustomerUseCase: CreateCustomerUseCase,
     private readonly getCustomersUseCase: GetCustomersUseCase,
     private readonly updateCustomerUseCase: UpdateCustomerUseCase,
+    private readonly deleteCustomerUseCase: DeleteCustomerUseCase,
   ) {}
 
   @Get()
@@ -95,6 +98,29 @@ export class CustomersController {
     return {
       statusCode: 200,
       data,
+    };
+  }
+
+  @Delete(":id")
+  @RequirePermissions(Permissions.CUSTOMERS_MANAGE)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: "Delete an existing customer" })
+  @ApiResponse({
+    status: 200,
+    description: "The customer has been successfully deleted.",
+  })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  @ApiResponse({ status: 404, description: "Not Found" })
+  @ApiResponse({
+    status: 400,
+    description: "Bad Request - Customer has associated tickets",
+  })
+  async delete(@Param("id", ParseIntPipe) id: number) {
+    await this.deleteCustomerUseCase.execute(id);
+    return {
+      statusCode: 200,
+      data: null,
     };
   }
 }

@@ -23,3 +23,12 @@ export class CustomerNotFoundException extends CustomerException {
     super(`Customer '${id}' not found`, "CUSTOMER_NOT_FOUND");
   }
 }
+
+export class CustomerHasIssueTicketsException extends CustomerException {
+  constructor(id: number) {
+    super(
+      `Customer '${id}' cannot be deleted because it has associated issue tickets`,
+      "CUSTOMER_CANNOT_DELETE_HAS_TICKETS",
+    );
+  }
+}

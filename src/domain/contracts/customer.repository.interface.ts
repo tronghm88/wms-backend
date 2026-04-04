@@ -26,4 +26,5 @@ export interface ICustomerRepository {
     customer: Partial<CustomerEntity>,
   ): Promise<CustomerEntity>;
   delete(id: number): Promise<void>;
+  countIssueTickets(id: number): Promise<number>;
 }

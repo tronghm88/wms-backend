@@ -119,4 +119,10 @@ export class CustomerRepository implements ICustomerRepository {
       where: { id },
     });
   }
+
+  async countIssueTickets(id: number): Promise<number> {
+    return this.prisma.issueTicket.count({
+      where: { customerId: id },
+    });
+  }
 }
