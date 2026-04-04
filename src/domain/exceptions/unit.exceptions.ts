@@ -23,3 +23,12 @@ export class UnitNotFoundException extends UnitException {
     super(`Unit with code '${code}' not found`, "UNIT_NOT_FOUND");
   }
 }
+
+export class UnitInUseException extends UnitException {
+  constructor(code: string) {
+    super(
+      `Unit with code '${code}' is in use and cannot be deleted`,
+      "UNIT_IN_USE",
+    );
+  }
+}

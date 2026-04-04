@@ -1,0 +1,77 @@
+# Iteration 4 Log
+
+## Metadata
+
+- **Task ID**: US-003
+- **Task Title**: Get Unit by Code API
+- **Description**: As a User, I want to retrieve details of a specific Unit by its code.
+- **Status**: completed
+- **Task Completed**: Yes
+- **Promise Detected**: Yes
+- **Started At**: 2026-04-04T11:13:38.167Z
+- **Ended At**: 2026-04-04T11:15:37.671Z
+- **Duration**: 1m 59s
+- **Input Tokens**: 679779
+- **Output Tokens**: 6585
+- **Total Tokens**: 688002
+- **Agent**: gemini
+- **Model**: auto-gemini-3
+- **Sandbox Mode**: auto
+- **Sandbox Network**: Enabled
+--- RAW OUTPUT ---
+I will start by exploring the existing implementation of units to understand
+ the codebase patterns and ensure consistency.
+I'll examine `units.controller.ts` and `unit.repository.interface.ts` to check
+ if the `GET /api/v1/units/:code` endpoint is already implemented and understand how to integrate the new use case.
+I'll create the `GetUnitByCodeUseCase` and its spec, update the `UnitsController`, and register the new
+ use case in the `UnitsModule`, after verifying the existing infrastructure.
+I'll check `src/domain/exceptions/
+unit.exceptions.ts` for a `UnitNotFoundException` before creating the `GetUnitByCodeUseCase`, as the repository's `findByCode
+` method is already implemented.
+I'll add a `UnitNotFoundException` to the codebase since it
+'s currently missing.
+I'll create
+ the `GetUnitByCodeUseCase` now.
+I'll create the unit test for `GetUnitByCodeUseCase` now
+.
+I'
+ll register the new use case by updating the `UnitsModule`.
+I'll add the
+ `GET /api/v1/units/:code` endpoint to the `UnitsController`.
+I'll re-examine `src/presentation/controllers/units.
+controller.ts` to ensure my changes to the imports and endpoint additions didn't break anything.
+Duplicated imports from `@nestjs/common` need to be fixed.
+I messed up the imports in `UnitsController.ts`. I need to fix them.
+Changes implemented. Quality checks, go.
+Linter's complaining about 
+`any` in the tests. I'll swap it for a real type for the mock repository.
+I'm questioning my `jest.Mocked` usage. I'll check `get-units
+.use-case.spec.ts` to see their approach and decide if I should switch to something like `Record<keyof IUnitRepository, jest.Mock>`.
+I'll follow their lead: `as unknown as jest.Mocked<IUnitRepository>` and `/* eslint-disable @typescript
+-eslint/unbound-method */`.
+Re-running quality checks.
+`isolatedModules` and `emitDecoratorMetadata` are acting up. I need `import type` for those interface injections.
+Checking `create-unit.use-case.ts` and `get-units.use-case.ts` for `import type` usage
+.
+Separ
+ated `import type` it is. Following the pattern.
+Quality checks, take three.
+Lint
+ and type check finished with zero output—usually a good sign. I'll re-run them individually to confirm.
+`tsc`.
+Passed. Testing my units now.
+Unit tests passed. Requirements met: endpoint implemented, returns unit or 404, Swagger documented, linting and type checking clean. Updating `.ralph-tui/progress.md` now.
+Appending US-003 progress.
+Task finished, log updated. Double
+-checking the controller one last time.
+I'm done. Sending
+ the signal.<promise>COMPLETE</promise>
+
+--- STDERR ---
+YOLO mode is enabled. All tool calls will be automatically approved.
+Keychain initialization encountered an error: Cannot find module '../build/Release/keytar.node'
+Require stack:
+- /opt/homebrew/Cellar/gemini-cli/0.36.0/libexec/lib/node_modules/@google/gemini-cli/node_modules/keytar/lib/keytar.js
+Using FileKeychain fallback for secure storage.
+Loaded cached credentials.
+YOLO mode is enabled. All tool calls will be automatically approved.

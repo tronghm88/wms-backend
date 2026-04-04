@@ -89,3 +89,23 @@ after each iteration and it's included in prompts for context.
   - **Gotchas encountered:** Ensure "import type" is used for injected interfaces to satisfy `isolatedModules`.
   - Consolidating imports in controllers after multiple manual edits is necessary to prevent duplication and maintain code cleanliness.
 ---
+
+## 2026-04-04 - US-004
+- What was implemented:
+  - DELETE /api/v1/units/:code endpoint to remove a unit by its unique code.
+  - DeleteUnitUseCase with unit tests (success, not found, and in-use cases).
+  - UnitInUseException in domain exceptions to handle foreign key constraint violations.
+  - Swagger documentation for the new endpoint including 204 (No Content) and 400 (Bad Request for in-use) responses.
+  - Unit tests for both the Use Case and the Controller.
+- Files changed:
+  - src/domain/exceptions/unit.exceptions.ts
+  - src/application/use-cases/units/delete-unit.use-case.ts
+  - src/application/use-cases/units/delete-unit.use-case.spec.ts
+  - src/infrastructure/units/units.module.ts
+  - src/presentation/controllers/units.controller.ts
+  - src/presentation/controllers/units.controller.spec.ts
+- **Learnings:**
+  - **Patterns discovered:** Prisma P2003 error code (Foreign key constraint failed on the field) should be caught and re-thrown as a domain-specific `InUseException` to provide clear feedback to the API client.
+  - **Gotchas encountered:** When using `@Inject` with a constructor parameter, TypeScript requires using `import type` for the interface if `emitDecoratorMetadata` and `isolatedModules` are enabled, to prevent runtime crashes/compilation errors.
+  - Handling `unknown` error types in `catch` blocks with type guards (`(error as { code: string }).code === "P2003"`) is required to satisfy `typescript-eslint/no-unsafe-member-access`.
+---
