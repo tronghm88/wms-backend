@@ -254,50 +254,74 @@ after each iteration and it's included in prompts for context.
   - src/infrastructure/products/products.module.ts
   - src/domain/constants/permissions.constant.ts
 - **Learnings:**
-  - **Prisma Includes:** When adding relations to Prisma queries, ensure the repository's \`mapToDomain\` method handles the joined data correctly and the Domain Entity is updated to reflect these fields if they are essential to the domain or presentation layers.
+  - **Prisma Includes:** When adding relations to Prisma queries, ensure the repository's `mapToDomain` method handles the joined data correctly and the Domain Entity is updated to reflect these fields if they are essential to the domain or presentation layers.
   - **Entity Consistency:** Making a property required in a Domain Entity requires updating all use cases that instantiate that entity, including their respective unit tests.
-  - **API Precision:** Always follow the project mandate of serializing numeric fields as strings with specific precision (e.g., \`.toFixed(3)\`) to prevent floating-point issues in frontend clients.
+  - **API Precision:** Always follow the project mandate of serializing numeric fields as strings with specific precision (e.g., `.toFixed(3)`) to prevent floating-point issues in frontend clients.
   - **Permission Granularity:** Adding new `_VIEW` permissions alongside `_MANAGE` permissions provides better control over access, especially for read-only operations like listing.
-  ---
+---
 
-  ## 2026-04-04 - US-013
-  - What was implemented:
+## 2026-04-04 - US-013
+- What was implemented:
   - GET /api/v1/products/:id endpoint to retrieve a specific product by its ID.
   - GetProductUseCase with unit tests (success and not found cases).
   - Swagger documentation for the new endpoint including 404 response.
   - Fixed lint errors in `list-products.use-case.spec.ts` by properly typing the repository mock.
-  - Files changed:
+- Files changed:
   - src/application/use-cases/products/get-product.use-case.ts
   - src/application/use-cases/products/get-product.use-case.spec.ts
   - src/application/use-cases/products/list-products.use-case.spec.ts
   - src/infrastructure/products/products.module.ts
   - src/presentation/controllers/products.controller.ts
-  - **Learnings:**
+- **Learnings:**
   - **Patterns discovered:** Reusing established Clean Architecture patterns for resource retrieval by ID (Controller -> Use Case -> Repository).
   - **Gotchas encountered:** Fixed linting errors in test files by using `jest.Mocked<IProductRepository>` and disabling `unbound-method` where necessary, which is a recurring theme in the codebase's test suites.
-  ---
+---
 
-  ## 2026-04-04 - US-014
-  - What was implemented:
-    - DELETE /api/v1/products/:id endpoint to delete a product.
-    - DeleteProductUseCase with validation to block deletion if product has history (Inventory, Transactions, Movements, etc.).
-    - ProductHasHistoryException in domain exceptions.
-    - Updated IProductRepository and ProductRepository to include hasHistory method checking multiple tables (Inventory, ReceiptTicketLine, IssueTicketLine, StockMovement, SplitTicket source/target).
-    - Swagger documentation for the new endpoint including 204 (No Content), 404 (Not Found), and 422 (Unprocessable Entity) for history blocks.
-    - Unit tests for DeleteProductUseCase and updated all existing product-related test files to satisfy the new repository interface.
-  - Files changed:
-    - src/domain/contracts/product.repository.interface.ts
-    - src/domain/exceptions/product.exceptions.ts
-    - src/infrastructure/database/repositories/product.repository.ts
-    - src/application/use-cases/products/delete-product.use-case.ts
-    - src/application/use-cases/products/delete-product.use-case.spec.ts
-    - src/infrastructure/products/products.module.ts
-    - src/presentation/controllers/products.controller.ts
-    - src/application/use-cases/products/create-product.use-case.spec.ts
-    - src/application/use-cases/products/update-product.use-case.spec.ts
-    - src/application/use-cases/products/get-product.use-case.spec.ts
-    - src/application/use-cases/products/list-products.use-case.spec.ts
-  - **Learnings:**
-    - **Patterns discovered:** Adding a method to an interface requires updating all mock definitions in test files, even if those tests don't use the new method, to maintain type safety.
-    - **Gotchas encountered:** The `@typescript-eslint/unbound-method` lint rule requires using `repository["methodName"]` or casting to `jest.Mock` when passing repository methods to Jest's `expect` calls.
-  ---
+## 2026-04-04 - US-014
+- What was implemented:
+  - DELETE /api/v1/products/:id endpoint to delete a product.
+  - DeleteProductUseCase with validation to block deletion if product has history (Inventory, Transactions, Movements, etc.).
+  - ProductHasHistoryException in domain exceptions.
+  - Updated IProductRepository and ProductRepository to include hasHistory method checking multiple tables (Inventory, ReceiptTicketLine, IssueTicketLine, StockMovement, SplitTicket source/target).
+  - Swagger documentation for the new endpoint including 204 (No Content), 404 (Not Found), and 422 (Unprocessable Entity) for history blocks.
+  - Unit tests for DeleteProductUseCase and updated all existing product-related test files to satisfy the new repository interface.
+- Files changed:
+  - src/domain/contracts/product.repository.interface.ts
+  - src/domain/exceptions/product.exceptions.ts
+  - src/infrastructure/database/repositories/product.repository.ts
+  - src/application/use-cases/products/delete-product.use-case.ts
+  - src/application/use-cases/products/delete-product.use-case.spec.ts
+  - src/infrastructure/products/products.module.ts
+  - src/presentation/controllers/products.controller.ts
+  - src/application/use-cases/products/create-product.use-case.spec.ts
+  - src/application/use-cases/products/update-product.use-case.spec.ts
+  - src/application/use-cases/products/get-product.use-case.spec.ts
+  - src/application/use-cases/products/list-products.use-case.spec.ts
+- **Learnings:**
+  - **Patterns discovered:** Adding a method to an interface requires updating all mock definitions in test files, even if those tests don't use the new method, to maintain type safety.
+  - **Gotchas encountered:** The `@typescript-eslint/unbound-method` lint rule requires using `repository["methodName"]` or casting to `jest.Mock` when passing repository methods to Jest's `expect` calls.
+---
+
+## 2026-04-04 - US-015
+- What was implemented:
+  - POST /api/v1/unit-conversions endpoint to define conversion rules between units for a product.
+  - CreateUnitConversionUseCase with validation for existing product, fromUnit, and toUnit.
+  - UnitConversionRepository implemented with Prisma.
+  - UnitConversionAlreadyExistsException for handling duplicate conversion rules.
+  - UnitConversionsModule created to handle dependencies and avoid circularity between Products and Units.
+  - Swagger documentation for the new endpoint.
+  - Unit tests for CreateUnitConversionUseCase.
+- Files changed:
+  - src/domain/contracts/unit-conversion.repository.interface.ts
+  - src/infrastructure/database/repositories/unit-conversion.repository.ts
+  - src/domain/exceptions/unit.exceptions.ts
+  - src/application/use-cases/units/create-unit-conversion.use-case.ts
+  - src/application/use-cases/units/create-unit-conversion.use-case.spec.ts
+  - src/presentation/dtos/units/create-unit-conversion.dto.ts
+  - src/presentation/controllers/unit-conversions.controller.ts
+  - src/infrastructure/unit-conversions/unit-conversions.module.ts
+  - src/app.module.ts
+- **Learnings:**
+  - **Patterns discovered:** Used `forwardRef()` in `UnitConversionsModule` to resolve potential circular dependencies between `ProductsModule` and `UnitsModule` while still being able to use their exported repositories.
+  - **Gotchas encountered:** When defining a new module that sits between two others (like `UnitConversions` between `Products` and `Units`), careful consideration of the dependency graph is needed to prevent NestJS from failing to resolve providers.
+---

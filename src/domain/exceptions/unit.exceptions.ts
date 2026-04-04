@@ -32,3 +32,12 @@ export class UnitInUseException extends UnitException {
     );
   }
 }
+
+export class UnitConversionAlreadyExistsException extends UnitException {
+  constructor(productId: number, fromUnit: string, toUnit: string) {
+    super(
+      `Unit conversion for product ${productId} from '${fromUnit}' to '${toUnit}' already exists`,
+      "UNIT_CONVERSION_ALREADY_EXISTS",
+    );
+  }
+}
