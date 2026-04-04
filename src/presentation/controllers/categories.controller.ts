@@ -2,6 +2,7 @@ import {
   Controller,
   Post,
   Patch,
+  Get,
   Body,
   Param,
   ParseIntPipe,
@@ -15,6 +16,7 @@ import {
 } from "@nestjs/swagger";
 import { CreateCategoryUseCase } from "../../application/use-cases/categories/create-category.use-case";
 import { UpdateCategoryUseCase } from "../../application/use-cases/categories/update-category.use-case";
+import { GetCategoriesUseCase } from "../../application/use-cases/categories/get-categories.use-case";
 import { CreateCategoryDto } from "../dtos/categories/create-category.dto";
 import { UpdateCategoryDto } from "../dtos/categories/update-category.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
@@ -29,6 +31,7 @@ export class CategoriesController {
   constructor(
     private readonly createCategoryUseCase: CreateCategoryUseCase,
     private readonly updateCategoryUseCase: UpdateCategoryUseCase,
+    private readonly getCategoriesUseCase: GetCategoriesUseCase,
   ) {}
 
   @Post()
@@ -66,5 +69,18 @@ export class CategoriesController {
       id,
       ...updateCategoryDto,
     });
+  }
+
+  @Get()
+  @RequirePermissions(Permissions.CATEGORIES_MANAGE)
+  @ApiOperation({ summary: "List all product categories" })
+  @ApiResponse({
+    status: 200,
+    description: "Returns an array of all available product categories.",
+  })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  async findAll() {
+    return await this.getCategoriesUseCase.execute();
   }
 }

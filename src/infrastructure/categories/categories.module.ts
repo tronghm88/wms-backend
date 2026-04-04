@@ -4,6 +4,7 @@ import { CATEGORY_REPOSITORY } from "../../domain/contracts/category.repository.
 import { CategoryRepository } from "../database/repositories/category.repository";
 import { CreateCategoryUseCase } from "../../application/use-cases/categories/create-category.use-case";
 import { UpdateCategoryUseCase } from "../../application/use-cases/categories/update-category.use-case";
+import { GetCategoriesUseCase } from "../../application/use-cases/categories/get-categories.use-case";
 import { CategoriesController } from "../../presentation/controllers/categories.controller";
 
 @Module({
@@ -16,7 +17,13 @@ import { CategoriesController } from "../../presentation/controllers/categories.
     },
     CreateCategoryUseCase,
     UpdateCategoryUseCase,
+    GetCategoriesUseCase,
   ],
-  exports: [CATEGORY_REPOSITORY, CreateCategoryUseCase, UpdateCategoryUseCase],
+  exports: [
+    CATEGORY_REPOSITORY,
+    CreateCategoryUseCase,
+    UpdateCategoryUseCase,
+    GetCategoriesUseCase,
+  ],
 })
 export class CategoriesModule {}

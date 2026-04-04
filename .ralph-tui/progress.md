@@ -129,3 +129,21 @@ after each iteration and it's included in prompts for context.
   - **Gotchas encountered:** When editing multiple files, ensure imports are consistent across related components (Module, Controller, Use Case).
   - Fixed an existing lint error in `units.controller.spec.ts` where `HttpStatus` was imported but unused, and accidentally removed `JwtAuthGuard` during the fix, which was quickly corrected.
 ---
+
+## 2026-04-04 - US-007
+- What was implemented:
+  - GET /api/v1/categories endpoint to list all product categories.
+  - GetCategoriesUseCase with unit tests.
+  - Swagger documentation for the new endpoint.
+  - CategoriesController unit tests (initial spec).
+- Files changed:
+  - src/application/use-cases/categories/get-categories.use-case.ts
+  - src/application/use-cases/categories/get-categories.use-case.spec.ts
+  - src/infrastructure/categories/categories.module.ts
+  - src/presentation/controllers/categories.controller.ts
+  - src/presentation/controllers/categories.controller.spec.ts
+- **Learnings:**
+  - **Patterns discovered:** Following the established Clean Architecture pattern for listing resources (Controller -> Use Case -> Repository).
+  - **Gotchas encountered:** Initial CategoriesController lacked a spec file, so it was created to ensure coverage for the new list endpoint.
+  - Remembered to use `/* eslint-disable @typescript-eslint/unbound-method */` in new test files to satisfy project lint rules.
+---

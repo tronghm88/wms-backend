@@ -3,10 +3,10 @@
   "sessionId": "2eabf967-8a4c-49ca-892b-4d28489b263a",
   "status": "running",
   "startedAt": "2026-04-04T11:05:33.050Z",
-  "updatedAt": "2026-04-04T11:20:47.394Z",
-  "currentIteration": 5,
+  "updatedAt": "2026-04-04T11:22:57.458Z",
+  "currentIteration": 6,
   "maxIterations": 10,
-  "tasksCompleted": 5,
+  "tasksCompleted": 6,
   "isPaused": false,
   "agentPlugin": "gemini",
   "trackerState": {
@@ -47,8 +47,8 @@
       {
         "id": "US-006",
         "title": "Update Category API",
-        "status": "open",
-        "completedInSession": false
+        "status": "completed",
+        "completedInSession": true
       },
       {
         "id": "US-007",
@@ -180,6 +180,16 @@
       "durationMs": 171475,
       "startedAt": "2026-04-04T11:15:38.760Z",
       "endedAt": "2026-04-04T11:18:30.235Z"
+    },
+    {
+      "iteration": 6,
+      "status": "completed",
+      "taskId": "US-006",
+      "taskTitle": "Update Category API",
+      "taskCompleted": true,
+      "durationMs": 136075,
+      "startedAt": "2026-04-04T11:18:31.318Z",
+      "endedAt": "2026-04-04T11:20:47.393Z"
     }
   ],
   "skippedTaskIds": [],
