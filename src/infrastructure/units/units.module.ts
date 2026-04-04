@@ -4,6 +4,7 @@ import { UNIT_REPOSITORY } from "../../domain/contracts/unit.repository.interfac
 import { UnitRepository } from "../database/repositories/unit.repository";
 import { CreateUnitUseCase } from "../../application/use-cases/units/create-unit.use-case";
 import { GetUnitsUseCase } from "../../application/use-cases/units/get-units.use-case";
+import { GetUnitByCodeUseCase } from "../../application/use-cases/units/get-unit-by-code.use-case";
 import { UnitsController } from "../../presentation/controllers/units.controller";
 
 @Module({
@@ -16,7 +17,13 @@ import { UnitsController } from "../../presentation/controllers/units.controller
     },
     CreateUnitUseCase,
     GetUnitsUseCase,
+    GetUnitByCodeUseCase,
   ],
-  exports: [UNIT_REPOSITORY, CreateUnitUseCase, GetUnitsUseCase],
+  exports: [
+    UNIT_REPOSITORY,
+    CreateUnitUseCase,
+    GetUnitsUseCase,
+    GetUnitByCodeUseCase,
+  ],
 })
 export class UnitsModule {}

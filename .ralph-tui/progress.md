@@ -71,3 +71,21 @@ after each iteration and it's included in prompts for context.
   - **Gotchas encountered:** Importance of using "import type" for interfaces in NestJS use cases to satisfy linter and compiler (isolatedModules).
   - Use of /* eslint-disable @typescript-eslint/unbound-method */ in test files when testing with jest-mocked repositories.
 ---
+
+## 2026-04-04 - US-003
+- What was implemented:
+  - GET /api/v1/units/:code endpoint to retrieve a specific unit by its unique code.
+  - GetUnitByCodeUseCase with unit tests (success and not found cases).
+  - UnitNotFoundException in domain exceptions.
+  - Swagger documentation for the new endpoint including 404 response.
+- Files changed:
+  - src/domain/exceptions/unit.exceptions.ts
+  - src/application/use-cases/units/get-unit-by-code.use-case.ts
+  - src/application/use-cases/units/get-unit-by-code.use-case.spec.ts
+  - src/infrastructure/units/units.module.ts
+  - src/presentation/controllers/units.controller.ts
+- **Learnings:**
+  - **Patterns discovered:** Consistent with existing GetUnitsUseCase, but with added error handling for non-existent resources.
+  - **Gotchas encountered:** Ensure "import type" is used for injected interfaces to satisfy `isolatedModules`.
+  - Consolidating imports in controllers after multiple manual edits is necessary to prevent duplication and maintain code cleanliness.
+---

@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards, Get } from "@nestjs/common";
+import { Controller, Post, Body, UseGuards, Get, Param } from "@nestjs/common";
 import {
   ApiTags,
   ApiOperation,
@@ -7,6 +7,7 @@ import {
 } from "@nestjs/swagger";
 import { CreateUnitUseCase } from "../../application/use-cases/units/create-unit.use-case";
 import { GetUnitsUseCase } from "../../application/use-cases/units/get-units.use-case";
+import { GetUnitByCodeUseCase } from "../../application/use-cases/units/get-unit-by-code.use-case";
 import { CreateUnitDto } from "../dtos/units/create-unit.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
@@ -20,6 +21,7 @@ export class UnitsController {
   constructor(
     private readonly createUnitUseCase: CreateUnitUseCase,
     private readonly getUnitsUseCase: GetUnitsUseCase,
+    private readonly getUnitByCodeUseCase: GetUnitByCodeUseCase,
   ) {}
 
   @Post()
@@ -47,5 +49,19 @@ export class UnitsController {
   @ApiResponse({ status: 403, description: "Forbidden" })
   async findAll() {
     return await this.getUnitsUseCase.execute();
+  }
+
+  @Get(":code")
+  @RequirePermissions(Permissions.UNITS_MANAGE)
+  @ApiOperation({ summary: "Get a unit by code" })
+  @ApiResponse({
+    status: 200,
+    description: "Returns the unit with the specified code.",
+  })
+  @ApiResponse({ status: 404, description: "Unit not found" })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  async findOne(@Param("code") code: string) {
+    return await this.getUnitByCodeUseCase.execute(code);
   }
 }

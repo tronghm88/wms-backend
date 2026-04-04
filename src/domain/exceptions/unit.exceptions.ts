@@ -17,3 +17,9 @@ export class UnitCodeAlreadyExistsException extends UnitException {
     );
   }
 }
+
+export class UnitNotFoundException extends UnitException {
+  constructor(code: string) {
+    super(`Unit with code '${code}' not found`, "UNIT_NOT_FOUND");
+  }
+}
