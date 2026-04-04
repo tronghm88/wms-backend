@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards } from "@nestjs/common";
+import { Controller, Post, Body, UseGuards, Get, Query } from "@nestjs/common";
 import {
   ApiTags,
   ApiOperation,
@@ -6,7 +6,9 @@ import {
   ApiBearerAuth,
 } from "@nestjs/swagger";
 import { CreateCustomerUseCase } from "../../application/use-cases/customers/create-customer.use-case";
+import { GetCustomersUseCase } from "../../application/use-cases/customers/get-customers.use-case";
 import { CreateCustomerDto } from "../dtos/customers/create-customer.dto";
+import { GetCustomersDto } from "../dtos/customers/get-customers.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
 import { Permissions } from "../../domain/constants/permissions.constant";
@@ -16,7 +18,27 @@ import { Permissions } from "../../domain/constants/permissions.constant";
 @UseGuards(JwtAuthGuard, RbacGuard)
 @ApiBearerAuth()
 export class CustomersController {
-  constructor(private readonly createCustomerUseCase: CreateCustomerUseCase) {}
+  constructor(
+    private readonly createCustomerUseCase: CreateCustomerUseCase,
+    private readonly getCustomersUseCase: GetCustomersUseCase,
+  ) {}
+
+  @Get()
+  @RequirePermissions(Permissions.CUSTOMERS_VIEW)
+  @ApiOperation({ summary: "Get customer list with pagination and search" })
+  @ApiResponse({
+    status: 200,
+    description: "Returns the customer list.",
+  })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  async findAll(@Query() query: GetCustomersDto) {
+    const data = await this.getCustomersUseCase.execute(query);
+    return {
+      statusCode: 200,
+      data,
+    };
+  }
 
   @Post()
   @RequirePermissions(Permissions.CUSTOMERS_MANAGE)

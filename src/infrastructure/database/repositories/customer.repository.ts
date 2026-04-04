@@ -1,7 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
-import { Customer as PrismaCustomer } from "@prisma/client";
-import { ICustomerRepository } from "../../../domain/contracts/customer.repository.interface";
+import { Customer as PrismaCustomer, Prisma } from "@prisma/client";
+import {
+  FindCustomersParams,
+  ICustomerRepository,
+} from "../../../domain/contracts/customer.repository.interface";
 import { CustomerEntity } from "../../../domain/entities/customer.entity";
 
 @Injectable()
@@ -20,6 +23,35 @@ export class CustomerRepository implements ICustomerRepository {
       createdAt: customer.createdAt,
       updatedAt: customer.updatedAt,
     });
+  }
+
+  async findAndCount(
+    params: FindCustomersParams,
+  ): Promise<[CustomerEntity[], number]> {
+    const { skip, take, search } = params;
+
+    const where: Prisma.CustomerWhereInput = {};
+
+    if (search) {
+      where.OR = [
+        { code: { contains: search, mode: "insensitive" } },
+        { name: { contains: search, mode: "insensitive" } },
+      ];
+    }
+
+    const [customers, total] = await Promise.all([
+      this.prisma.customer.findMany({
+        where,
+        skip,
+        take,
+        orderBy: {
+          createdAt: "desc",
+        },
+      }),
+      this.prisma.customer.count({ where }),
+    ]);
+
+    return [customers.map((c) => this.mapToDomain(c)), total];
   }
 
   async findById(id: number): Promise<CustomerEntity | null> {

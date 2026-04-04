@@ -3,6 +3,7 @@ import { PrismaModule } from "../database/prisma.module";
 import { CUSTOMER_REPOSITORY } from "../../domain/contracts/customer.repository.interface";
 import { CustomerRepository } from "../database/repositories/customer.repository";
 import { CreateCustomerUseCase } from "../../application/use-cases/customers/create-customer.use-case";
+import { GetCustomersUseCase } from "../../application/use-cases/customers/get-customers.use-case";
 import { CustomersController } from "../../presentation/controllers/customers.controller";
 
 @Module({
@@ -14,7 +15,8 @@ import { CustomersController } from "../../presentation/controllers/customers.co
       useClass: CustomerRepository,
     },
     CreateCustomerUseCase,
+    GetCustomersUseCase,
   ],
-  exports: [CUSTOMER_REPOSITORY, CreateCustomerUseCase],
+  exports: [CUSTOMER_REPOSITORY, CreateCustomerUseCase, GetCustomersUseCase],
 })
 export class CustomersModule {}
