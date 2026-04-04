@@ -325,3 +325,26 @@ after each iteration and it's included in prompts for context.
   - **Patterns discovered:** Used `forwardRef()` in `UnitConversionsModule` to resolve potential circular dependencies between `ProductsModule` and `UnitsModule` while still being able to use their exported repositories.
   - **Gotchas encountered:** When defining a new module that sits between two others (like `UnitConversions` between `Products` and `Units`), careful consideration of the dependency graph is needed to prevent NestJS from failing to resolve providers.
 ---
+
+## 2026-04-04 - US-016
+- What was implemented:
+  - PATCH /api/v1/unit-conversions/:id endpoint to update existing conversion rules.
+  - UpdateUnitConversionUseCase with validation for existence.
+  - Added findById and update methods to IUnitConversionRepository and its Prisma implementation.
+  - UnitConversionNotFoundException in domain exceptions.
+  - Swagger documentation for the new endpoint.
+  - Unit tests for UpdateUnitConversionUseCase.
+- Files changed:
+  - src/domain/contracts/unit-conversion.repository.interface.ts
+  - src/infrastructure/database/repositories/unit-conversion.repository.ts
+  - src/domain/exceptions/unit.exceptions.ts
+  - src/application/use-cases/units/update-unit-conversion.use-case.ts
+  - src/application/use-cases/units/update-unit-conversion.use-case.spec.ts
+  - src/presentation/dtos/units/update-unit-conversion.dto.ts
+  - src/presentation/controllers/unit-conversions.controller.ts
+  - src/infrastructure/unit-conversions/unit-conversions.module.ts
+  - src/application/use-cases/units/create-unit-conversion.use-case.spec.ts (lint fix)
+- **Learnings:**
+  - **Patterns discovered:** Reused the strict mocking pattern `as unknown as jest.Mocked<Interface>` in tests to satisfy `@typescript-eslint/no-unsafe-*` rules.
+  - **Gotchas encountered:** NestJS/TypeScript requires `import type` for interfaces used in decorated constructors when `isolatedModules` is enabled.
+---

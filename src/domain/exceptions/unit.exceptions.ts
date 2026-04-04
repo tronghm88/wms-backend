@@ -41,3 +41,12 @@ export class UnitConversionAlreadyExistsException extends UnitException {
     );
   }
 }
+
+export class UnitConversionNotFoundException extends UnitException {
+  constructor(id: number) {
+    super(
+      `Unit conversion with ID ${id} not found`,
+      "UNIT_CONVERSION_NOT_FOUND",
+    );
+  }
+}
