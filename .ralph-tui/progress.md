@@ -188,3 +188,26 @@ after each iteration and it's included in prompts for context.
   - **Patterns discovered:** Using `repository["methodName"]` in tests to bypass `@typescript-eslint/unbound-method` when passing methods to `expect`.
   - **Gotchas encountered:** Ensure that `GlobalExceptionFilter` mapping is updated when adding new types of domain exceptions that should return specific HTTP status codes (like 422).
 ---
+
+## 2026-04-04 - US-010
+- What was implemented:
+  - POST /api/v1/products endpoint for creating new products with manual code and physical metrics.
+  - CreateProductUseCase with validation for unique code, existing category, and existing unit.
+  - Decimal fields (basePrice, length, width, height) are handled with `decimal.js` and serialized with 3-decimal precision (`toFixed(3)`) in the API response.
+  - PrismaProductRepository implementation.
+  - ProductsModule registered in AppModule.
+  - Unit tests for CreateProductUseCase covering success, code conflict, and missing dependencies (category/unit).
+- Files changed:
+  - src/domain/exceptions/product.exceptions.ts
+  - src/domain/contracts/product.repository.interface.ts
+  - src/application/use-cases/products/create-product.use-case.ts
+  - src/infrastructure/database/repositories/product.repository.ts
+  - src/presentation/dtos/products/create-product.dto.ts
+  - src/presentation/controllers/products.controller.ts
+  - src/infrastructure/products/products.module.ts
+  - src/app.module.ts
+  - src/application/use-cases/products/create-product.use-case.spec.ts
+- **Learnings:**
+  - **Patterns discovered:** Reused the domain exception mapping pattern in `GlobalExceptionFilter` (automatic 409/404/422/400 mapping based on error code suffix).
+  - **Gotchas encountered:** `Decimal.toString()` trims trailing zeros, so `toFixed(3)` must be used to strictly adhere to the `NUMERIC(15,3)` precision requirement in API responses.
+---

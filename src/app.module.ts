@@ -6,6 +6,7 @@ import { AuthModule } from "./infrastructure/auth/auth.module";
 import { UsersModule } from "./infrastructure/users/users.module";
 import { UnitsModule } from "./infrastructure/units/units.module";
 import { CategoriesModule } from "./infrastructure/categories/categories.module";
+import { ProductsModule } from "./infrastructure/products/products.module";
 import { ConfigModule } from "@nestjs/config";
 import { CacheModule } from "@nestjs/cache-manager";
 // import { redisStore } from 'cache-manager-redis-yet';
@@ -26,6 +27,7 @@ import { CacheModule } from "@nestjs/cache-manager";
     UsersModule,
     UnitsModule,
     CategoriesModule,
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

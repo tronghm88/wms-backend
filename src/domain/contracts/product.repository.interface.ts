@@ -1,5 +1,7 @@
 import { ProductEntity } from "../entities/product.entity";
 
+export const PRODUCT_REPOSITORY = "PRODUCT_REPOSITORY";
+
 export interface IProductRepository {
   findById(id: number): Promise<ProductEntity | null>;
   findByCode(code: string): Promise<ProductEntity | null>;
