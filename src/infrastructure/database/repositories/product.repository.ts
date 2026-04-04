@@ -9,12 +9,18 @@ import { Decimal } from "decimal.js";
 export class ProductRepository implements IProductRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  private mapToDomain(product: PrismaProduct): ProductEntity {
+  private mapToDomain(
+    product: PrismaProduct & { category?: { name: string } },
+  ): ProductEntity {
+    if (!product.category) {
+      throw new Error(`Category not found for product ${product.id}`);
+    }
     return new ProductEntity({
       id: product.id,
       code: product.code,
       name: product.name,
       categoryId: product.categoryId,
+      categoryName: product.category.name,
       baseUnit: product.baseUnit,
       basePrice: new Decimal(product.basePrice.toString()),
       length: product.length
@@ -32,6 +38,7 @@ export class ProductRepository implements IProductRepository {
   async findById(id: number): Promise<ProductEntity | null> {
     const product = await this.prisma.product.findUnique({
       where: { id },
+      include: { category: true },
     });
 
     if (!product) return null;
@@ -41,6 +48,7 @@ export class ProductRepository implements IProductRepository {
   async findByCode(code: string): Promise<ProductEntity | null> {
     const product = await this.prisma.product.findUnique({
       where: { code },
+      include: { category: true },
     });
 
     if (!product) return null;
@@ -48,7 +56,9 @@ export class ProductRepository implements IProductRepository {
   }
 
   async findAll(): Promise<ProductEntity[]> {
-    const products = await this.prisma.product.findMany();
+    const products = await this.prisma.product.findMany({
+      include: { category: true },
+    });
     return products.map((p) => this.mapToDomain(p));
   }
 
@@ -66,6 +76,7 @@ export class ProductRepository implements IProductRepository {
         width: product.width?.toString(),
         height: product.height?.toString(),
       },
+      include: { category: true },
     });
     return this.mapToDomain(created);
   }
@@ -86,6 +97,7 @@ export class ProductRepository implements IProductRepository {
         width: product.width?.toString(),
         height: product.height?.toString(),
       },
+      include: { category: true },
     });
     return this.mapToDomain(updated);
   }

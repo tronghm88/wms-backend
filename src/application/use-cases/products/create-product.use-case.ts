@@ -67,6 +67,7 @@ export class CreateProductUseCase {
       code: request.code,
       name: request.name,
       categoryId: request.categoryId,
+      categoryName: category.name,
       baseUnit: request.baseUnit,
       basePrice: new Decimal(request.basePrice),
       length: request.length ? new Decimal(request.length) : undefined,

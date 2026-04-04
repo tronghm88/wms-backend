@@ -88,13 +88,14 @@ describe("CreateProductUseCase", () => {
 
     productRepository.findByCode.mockResolvedValue(null);
     categoryRepository.findById.mockResolvedValue(
-      new CategoryEntity({ id: 1 }),
+      new CategoryEntity({ id: 1, name: "Category 1" }),
     );
     unitRepository.findByCode.mockResolvedValue(new UnitEntity({ code: "m2" }));
     productRepository.create.mockResolvedValue(
       new ProductEntity({
         id: 1,
         ...request,
+        categoryName: "Category 1",
         basePrice: new Decimal(request.basePrice),
         length: new Decimal(request.length),
         width: new Decimal(request.width),

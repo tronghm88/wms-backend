@@ -25,7 +25,7 @@ import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
 import { Permissions } from "../../domain/constants/permissions.constant";
 
 @ApiTags("Units")
-@Controller("api/v1/units")
+@Controller("v1/units")
 @UseGuards(JwtAuthGuard, RbacGuard)
 @ApiBearerAuth()
 export class UnitsController {

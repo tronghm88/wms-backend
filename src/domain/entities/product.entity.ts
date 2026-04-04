@@ -5,6 +5,7 @@ export class ProductEntity {
   code: string;
   name: string;
   categoryId: number;
+  categoryName: string;
   baseUnit: string;
   basePrice: Decimal;
   length?: Decimal;

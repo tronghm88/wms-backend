@@ -78,6 +78,7 @@ export class UpdateProductUseCase {
         throw new CategoryNotFoundException(request.categoryId);
       }
       product.categoryId = request.categoryId;
+      product.categoryName = category.name;
     }
 
     if (request.baseUnit !== undefined) {

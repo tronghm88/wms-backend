@@ -4,9 +4,13 @@ export const Permissions = {
   SYSTEM_CONFIG_MANAGE: "system:config:manage",
 
   // Catalog
+  PRODUCTS_VIEW: "products:view",
   PRODUCTS_MANAGE: "products:manage",
+  CATEGORIES_VIEW: "categories:view",
   CATEGORIES_MANAGE: "categories:manage",
+  CUSTOMERS_VIEW: "customers:view",
   CUSTOMERS_MANAGE: "customers:manage",
+  UNITS_VIEW: "units:view",
   UNITS_MANAGE: "units:manage",
 
   // Inventory & Operations
@@ -29,6 +33,10 @@ export const RolePermissions: Record<string, string[]> = {
   SUPER_ADMIN: Object.values(Permissions),
   ADMIN: Object.values(Permissions),
   WAREHOUSE_STAFF: [
+    Permissions.PRODUCTS_VIEW,
+    Permissions.CATEGORIES_VIEW,
+    Permissions.UNITS_VIEW,
+    Permissions.CUSTOMERS_VIEW,
     Permissions.INVENTORY_VIEW,
     Permissions.RECEIPTS_CREATE,
     Permissions.RECEIPTS_CONFIRM,

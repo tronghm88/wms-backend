@@ -1,0 +1,42 @@
+import { ApiProperty } from "@nestjs/swagger";
+
+export class ProductResponseDto {
+  @ApiProperty({ example: 1 })
+  id: number;
+
+  @ApiProperty({ example: "PROD-001" })
+  code: string;
+
+  @ApiProperty({ example: "Example Product" })
+  name: string;
+
+  @ApiProperty({ example: 1 })
+  categoryId: number;
+
+  @ApiProperty({ example: "General Category" })
+  categoryName: string;
+
+  @ApiProperty({ example: "kg" })
+  baseUnit: string;
+
+  @ApiProperty({
+    example: "100.000",
+    description: "Base price formatted as string",
+  })
+  basePrice: string;
+
+  @ApiProperty({ example: "1.500", required: false, nullable: true })
+  length?: string;
+
+  @ApiProperty({ example: "2.000", required: false, nullable: true })
+  width?: string;
+
+  @ApiProperty({ example: "0.500", required: false, nullable: true })
+  height?: string;
+
+  @ApiProperty({ example: "2026-03-30T10:00:00Z" })
+  createdAt: Date;
+
+  @ApiProperty({ example: "2026-03-30T10:00:00Z" })
+  updatedAt: Date;
+}

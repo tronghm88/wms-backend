@@ -229,3 +229,33 @@ after each iteration and it's included in prompts for context.
   - **Patterns discovered:** Reusing established Clean Architecture patterns for resource updates with conditional uniqueness and existence checks for related entities.
   - **Gotchas encountered:** Ensure `toFixed(3)` is used for all `Decimal` fields in responses to maintain consistent precision. Fixed lint errors related to unused imports and missing `await` in tests.
 ---
+
+## 2026-04-04 - US-012
+- What was implemented:
+  - GET /api/v1/products endpoint for listing products.
+  - Included Category name in the product listing (joined via Prisma).
+  - Updated ProductEntity to include categoryName as a required property.
+  - Added PRODUCTS_VIEW, CATEGORIES_VIEW, UNITS_VIEW, CUSTOMERS_VIEW permissions and updated role-based access control.
+  - Created ListProductsUseCase with formatted numeric fields (serialized as strings).
+  - Created ProductResponseDto for Swagger documentation.
+  - Updated ProductRepository to include Category relation in all methods.
+  - Added unit tests for ListProductsUseCase and updated existing product use case tests to handle the new categoryName requirement.
+- Files changed:
+  - src/domain/entities/product.entity.ts
+  - src/infrastructure/database/repositories/product.repository.ts
+  - src/application/use-cases/products/list-products.use-case.ts
+  - src/application/use-cases/products/list-products.use-case.spec.ts
+  - src/application/use-cases/products/create-product.use-case.ts
+  - src/application/use-cases/products/create-product.use-case.spec.ts
+  - src/application/use-cases/products/update-product.use-case.ts
+  - src/application/use-cases/products/update-product.use-case.spec.ts
+  - src/presentation/controllers/products.controller.ts
+  - src/presentation/dtos/products/product-response.dto.ts
+  - src/infrastructure/products/products.module.ts
+  - src/domain/constants/permissions.constant.ts
+- **Learnings:**
+  - **Prisma Includes:** When adding relations to Prisma queries, ensure the repository's \`mapToDomain\` method handles the joined data correctly and the Domain Entity is updated to reflect these fields if they are essential to the domain or presentation layers.
+  - **Entity Consistency:** Making a property required in a Domain Entity requires updating all use cases that instantiate that entity, including their respective unit tests.
+  - **API Precision:** Always follow the project mandate of serializing numeric fields as strings with specific precision (e.g., \`.toFixed(3)\`) to prevent floating-point issues in frontend clients.
+  - **Permission Granularity:** Adding new \`_VIEW\` permissions alongside \`_MANAGE\` permissions provides better control over access, especially for read-only operations like listing.
+---
