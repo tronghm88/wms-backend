@@ -257,5 +257,22 @@ after each iteration and it's included in prompts for context.
   - **Prisma Includes:** When adding relations to Prisma queries, ensure the repository's \`mapToDomain\` method handles the joined data correctly and the Domain Entity is updated to reflect these fields if they are essential to the domain or presentation layers.
   - **Entity Consistency:** Making a property required in a Domain Entity requires updating all use cases that instantiate that entity, including their respective unit tests.
   - **API Precision:** Always follow the project mandate of serializing numeric fields as strings with specific precision (e.g., \`.toFixed(3)\`) to prevent floating-point issues in frontend clients.
-  - **Permission Granularity:** Adding new \`_VIEW\` permissions alongside \`_MANAGE\` permissions provides better control over access, especially for read-only operations like listing.
----
+  - **Permission Granularity:** Adding new `_VIEW` permissions alongside `_MANAGE` permissions provides better control over access, especially for read-only operations like listing.
+  ---
+
+  ## 2026-04-04 - US-013
+  - What was implemented:
+  - GET /api/v1/products/:id endpoint to retrieve a specific product by its ID.
+  - GetProductUseCase with unit tests (success and not found cases).
+  - Swagger documentation for the new endpoint including 404 response.
+  - Fixed lint errors in `list-products.use-case.spec.ts` by properly typing the repository mock.
+  - Files changed:
+  - src/application/use-cases/products/get-product.use-case.ts
+  - src/application/use-cases/products/get-product.use-case.spec.ts
+  - src/application/use-cases/products/list-products.use-case.spec.ts
+  - src/infrastructure/products/products.module.ts
+  - src/presentation/controllers/products.controller.ts
+  - **Learnings:**
+  - **Patterns discovered:** Reusing established Clean Architecture patterns for resource retrieval by ID (Controller -> Use Case -> Repository).
+  - **Gotchas encountered:** Fixed linting errors in test files by using `jest.Mocked<IProductRepository>` and disabling `unbound-method` where necessary, which is a recurring theme in the codebase's test suites.
+  ---

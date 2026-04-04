@@ -143,7 +143,7 @@ describe("UpdateProductUseCase", () => {
     expect(result.categoryId).toBe(2);
     expect(categoryRepository.findById).toHaveBeenCalledWith(2);
     expect(productRepository.update).toHaveBeenCalled();
-    // We can't easily check the updated product's categoryName here 
+    // We can't easily check the updated product's categoryName here
     // because result is UpdateProductResponse which doesn't have categoryName yet
     // but the entity passed to update should have it.
   });

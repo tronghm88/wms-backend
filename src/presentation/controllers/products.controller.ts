@@ -17,6 +17,7 @@ import {
 import { CreateProductUseCase } from "../../application/use-cases/products/create-product.use-case";
 import { UpdateProductUseCase } from "../../application/use-cases/products/update-product.use-case";
 import { ListProductsUseCase } from "../../application/use-cases/products/list-products.use-case";
+import { GetProductUseCase } from "../../application/use-cases/products/get-product.use-case";
 import { CreateProductDto } from "../dtos/products/create-product.dto";
 import { UpdateProductDto } from "../dtos/products/update-product.dto";
 import { ProductResponseDto } from "../dtos/products/product-response.dto";
@@ -33,6 +34,7 @@ export class ProductsController {
     private readonly createProductUseCase: CreateProductUseCase,
     private readonly updateProductUseCase: UpdateProductUseCase,
     private readonly listProductsUseCase: ListProductsUseCase,
+    private readonly getProductUseCase: GetProductUseCase,
   ) {}
 
   @Get()
@@ -47,6 +49,23 @@ export class ProductsController {
   @ApiResponse({ status: 403, description: "Forbidden" })
   async findAll(): Promise<ProductResponseDto[]> {
     return await this.listProductsUseCase.execute();
+  }
+
+  @Get(":id")
+  @RequirePermissions(Permissions.PRODUCTS_VIEW)
+  @ApiOperation({ summary: "Get a product by ID" })
+  @ApiResponse({
+    status: 200,
+    description: "Returns the product details.",
+    type: ProductResponseDto,
+  })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  @ApiResponse({ status: 404, description: "Product Not Found" })
+  async findOne(
+    @Param("id", ParseIntPipe) id: number,
+  ): Promise<ProductResponseDto> {
+    return await this.getProductUseCase.execute(id);
   }
 
   @Post()

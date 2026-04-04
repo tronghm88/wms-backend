@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { Test, TestingModule } from "@nestjs/testing";
-import { ListProductsUseCase } from "./list-products.use-case";
+import { GetProductUseCase } from "./get-product.use-case";
 import {
   PRODUCT_REPOSITORY,
   IProductRepository,
 } from "../../../domain/contracts/product.repository.interface";
 import { ProductEntity } from "../../../domain/entities/product.entity";
+import { ProductNotFoundException } from "../../../domain/exceptions/product.exceptions";
 import { Decimal } from "decimal.js";
 
-describe("ListProductsUseCase", () => {
-  let useCase: ListProductsUseCase;
+describe("GetProductUseCase", () => {
+  let useCase: GetProductUseCase;
   let repository: jest.Mocked<IProductRepository>;
 
   const mockProduct = new ProductEntity({
@@ -26,9 +27,9 @@ describe("ListProductsUseCase", () => {
 
   beforeEach(async () => {
     repository = {
-      findAll: jest.fn().mockResolvedValue([mockProduct]),
       findById: jest.fn(),
       findByCode: jest.fn(),
+      findAll: jest.fn(),
       create: jest.fn(),
       update: jest.fn(),
       delete: jest.fn(),
@@ -36,7 +37,7 @@ describe("ListProductsUseCase", () => {
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        ListProductsUseCase,
+        GetProductUseCase,
         {
           provide: PRODUCT_REPOSITORY,
           useValue: repository,
@@ -44,19 +45,20 @@ describe("ListProductsUseCase", () => {
       ],
     }).compile();
 
-    useCase = module.get<ListProductsUseCase>(ListProductsUseCase);
+    useCase = module.get<GetProductUseCase>(GetProductUseCase);
   });
 
   it("should be defined", () => {
     expect(useCase).toBeDefined();
   });
 
-  it("should return a list of products with formatted decimals", async () => {
-    const result = await useCase.execute();
+  it("should return product details when product exists", async () => {
+    repository.findById.mockResolvedValue(mockProduct);
 
-    expect(repository.findAll).toHaveBeenCalled();
-    expect(result).toHaveLength(1);
-    expect(result[0]).toEqual({
+    const result = await useCase.execute(1);
+
+    expect(repository.findById).toHaveBeenCalledWith(1);
+    expect(result).toEqual({
       id: mockProduct.id,
       code: mockProduct.code,
       name: mockProduct.name,
@@ -70,5 +72,14 @@ describe("ListProductsUseCase", () => {
       createdAt: mockProduct.createdAt,
       updatedAt: mockProduct.updatedAt,
     });
+  });
+
+  it("should throw ProductNotFoundException when product does not exist", async () => {
+    repository.findById.mockResolvedValue(null);
+
+    await expect(useCase.execute(999)).rejects.toThrow(
+      ProductNotFoundException,
+    );
+    expect(repository.findById).toHaveBeenCalledWith(999);
   });
 });

@@ -1,0 +1,141 @@
+# Iteration 12 Log
+
+## Metadata
+
+- **Task ID**: US-012
+- **Task Title**: List Products API
+- **Description**: As a User, I want to list all products.
+- **Status**: completed
+- **Task Completed**: Yes
+- **Promise Detected**: Yes
+- **Started At**: 2026-04-04T12:41:43.784Z
+- **Ended At**: 2026-04-04T12:48:18.505Z
+- **Duration**: 6m 34s
+- **Input Tokens**: 2078091
+- **Output Tokens**: 18340
+- **Total Tokens**: 2103733
+- **Agent**: gemini
+- **Model**: auto-gemini-3
+- **Sandbox Mode**: auto
+- **Sandbox Network**: Enabled
+--- RAW OUTPUT ---
+I will start by exploring the codebase to understand
+ the existing product-related implementation and identify the necessary changes for the `GET /api/v1/products` endpoint.
+I will read the product repository interface and its implementation, as well as the products controller
+, to identify the missing functionality for listing products.
+I will read the product entity to
+ see its current structure and determine if I need to add fields for the category name and unit code.
+I will check the Prisma schema to understand the relationships between product, category, and unit.
+I will read the category repository to see how it handles related data
+ and if it follows a specific pattern for including joins.
+I will update the `ProductEntity` to include the `categoryName` property, which is required for the response.
+I will update the `ProductRepository`'s `mapToDomain` method to handle the optional category name and then update the `findAll` method to include the category information from the database.
+I will update
+ the `create` and `update` methods in the `ProductRepository` to include the `category` relation, ensuring that the `mapToDomain` method can access the category name.
+I will create the `ListProducts
+UseCase` in `src/application/use-cases/products/list-
+products.use-case.ts`, which will fetch all products from the repository.
+I will update the `ProductsController` to
+ include the `findAll` method, which will use the `ListProductsUseCase` to fetch and return all products. I will also add the necessary Swagger documentation.
+I will read the products module file to ensure that the `ListProductsUseCase` is correctly registered.
+I will update
+ the `ProductsModule` to include the `ListProductsUseCase` in the providers
+ and exports.
+I will check the permissions constants to ensure that 
+`PRODUCTS_VIEW` is correctly defined.
+I will add `PRODUCTS_VIEW`, `CATEGORIES_VIEW`, and `UNITS_VIEW` to the `Permissions` object and assign them to the appropriate roles in the `permissions.constant.ts` file.
+I will check the `CategoriesController` and `UnitsController` to see if they have list endpoints and
+ should be updated with the new view permissions.
+I will run a type check and lint to ensure that my changes haven't introduced any errors and that the code adheres to the project's standards.
+I will check the `create-product.use-case.ts` file to see how it imports the `IProductRepository` and avoid the decorator metadata error.
+I will update the `ListProductsUseCase
+` to use `import type` for the `IProductRepository` interface, resolving the decorator metadata error.
+I will run the type check
+ and linting again to ensure that the changes have resolved the error and that the
+ code is correct.
+I will check the existing product DTOs to see if there is any reusable `ProductResponse` or if I should create one.
+I will check the `GetCategoriesUseCase` and `CategoriesController` to see how they handle response formatting and whether they use a specific DTO or interface.
+I will update the `ListProductsUseCase` to define a `ListProductsResponse` interface and return
+ formatted data from the `execute` method, ensuring that numeric fields are serialized as strings.
+I will create a `ProductResponseDto` in `src/presentation/
+dtos/products/product-response.dto.ts` to be used for Swagger's `@ApiResponse`.
+I will update the `ProductsController` to use `ProductResponseDto` in the Swagger
+ `@ApiResponse` and update the `findAll` method to return an array of `ProductResponseDto`.
+I will run the type check and linting one last time to ensure that everything is correct and that
+ no new errors have been introduced.
+I will update `ProductEntity`, `ListProductsResponse`,
+ and `ProductResponseDto` to make `categoryName` a required string, reflecting the database constraint where every product must have a category.
+I will update the `ListProducts
+Response` interface to make `categoryName` a required string, ensuring consistency with the 
+`ProductEntity`.
+I will update the `mapToDomain` method in `ProductRepository` to ensure that `categoryName` is correctly handled, reflecting that it
+ is a required property in the `ProductEntity`.
+I will check the `CreateProductUseCase` and `UpdateProductUseCase` to see if the changes to the `ProductEntity` have broken them, specifically regarding the required `categoryName`.
+I will update the `CreateProductUseCase` to pass
+ the `categoryName` to the `ProductEntity` constructor, ensuring that the new required property is populated.
+I will update the `UpdateProductUseCase` to correctly
+ handle changes to `categoryId` by updating the `categoryName` on the product entity.
+I will run the type check
+ and linting again to ensure that my changes to `CreateProductUseCase` and `Update
+ProductUseCase` have correctly addressed the requirements and fixed any type issues.
+I will check the `ListProductsUseCase` to see if `ProductEntity` is indeed unused and remove the import if necessary.
+I will remove the unused `ProductEntity` import from the `ListProductsUseCase
+` to satisfy the ESLint rule.
+I will run the final type check and linting to ensure that everything
+ is correct and that the `ProductEntity` import was the only remaining issue.
+I will check the `src/presentation/controllers/` directory to see if `products.controller
+.spec.ts` exists, and then I will create or update the tests as needed.
+I will create a unit test for the
+ `ListProductsUseCase` in `src/application/use-cases/products/list-products.use-case.spec.ts`.
+I will run the unit tests to verify
+ that the `ListProductsUseCase` is working as expected and returns correctly formatted product
+ data.
+I will run all the product use case tests to ensure that the changes to `ProductEntity` haven't broken any existing functionality.
+I will examine `create-product.use-case.spec.ts` to see how `ProductEntity` is being instantiated and why the tests are
+ still passing.
+I will update `create-product.use-case.spec.ts` to include `categoryName` in the mocked responses, maintaining consistency with the updated `ProductEntity`.
+I will read
+ `update-product.use-case.spec.ts` and then update it to include
+ `categoryName` in the mocked responses.
+I
+ will update `UpdateProductUseCase.spec.ts` to include `categoryName
+` in the `ProductEntity` instantiations, ensuring consistency with the updated entity.
+I will update the remaining `it
+` blocks in `UpdateProductUseCase.spec.ts` to include `categoryName` in the `ProductEntity` instantiations.
+I will add a test case to `UpdateProductUseCase.spec.ts` to verify that a product's category can be successfully updated.
+I will run
+ the product use case tests again to ensure that everything is still passing after the updates.
+I will add the `CategoryEntity` import to 
+`update-product.use-case.spec.ts` to resolve the `ReferenceError`.
+I will run
+ the product use case tests once more to confirm that the `CategoryEntity` import has
+ fixed the failure.
+I will add a `basePrice` to the `existingProduct` in the `should update category successfully` test to prevent the `TypeError`.
+I will run
+ the product use case tests again to ensure that the added `basePrice` has fixed the 
+`TypeError`.
+I have completed all the requirements for US-012, including implementing the endpoint, joining with categories, adding Swagger documentation, and ensuring all tests and quality checks pass. I will now record my learnings in the progress file.
+I will attempt to append my learnings to the progress file again, ensuring the command is correctly formatted
+.
+I will read the `progress.md` file to append my learnings and then write the entire content back to
+ the file using `write_file`.
+I will append
+ the US-012 entry to the `progress.md` file content and then
+ use `write_file` to save the updated log.
+I have successfully implemented the `GET /api/v
+1/products` endpoint, fulfilling all acceptance criteria. This included joining with the
+ category to include the category name, ensuring correct unit code representation, providing full Swagger documentation, and verifying the implementation with both new and updated unit tests. All quality gates (lint
+ing and type checking) have been passed.
+
+<promise>COMPLETE</promise>
+
+--- STDERR ---
+YOLO mode is enabled. All tool calls will be automatically approved.
+Keychain initialization encountered an error: Cannot find module '../build/Release/keytar.node'
+Require stack:
+- /opt/homebrew/Cellar/gemini-cli/0.36.0/libexec/lib/node_modules/@google/gemini-cli/node_modules/keytar/lib/keytar.js
+Using FileKeychain fallback for secure storage.
+Loaded cached credentials.
+YOLO mode is enabled. All tool calls will be automatically approved.
+missing pgrep output
+missing pgrep output
