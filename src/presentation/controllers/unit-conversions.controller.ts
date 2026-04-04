@@ -18,6 +18,7 @@ import {
 import { CreateUnitConversionUseCase } from "../../application/use-cases/units/create-unit-conversion.use-case";
 import { UpdateUnitConversionUseCase } from "../../application/use-cases/units/update-unit-conversion.use-case";
 import { ListUnitConversionsUseCase } from "../../application/use-cases/units/list-unit-conversions.use-case";
+import { GetUnitConversionByIdUseCase } from "../../application/use-cases/units/get-unit-conversion-by-id.use-case";
 import { CreateUnitConversionDto } from "../dtos/units/create-unit-conversion.dto";
 import { UpdateUnitConversionDto } from "../dtos/units/update-unit-conversion.dto";
 import { ListUnitConversionsDto } from "../dtos/units/list-unit-conversions.dto";
@@ -34,6 +35,7 @@ export class UnitConversionsController {
     private readonly createUnitConversionUseCase: CreateUnitConversionUseCase,
     private readonly updateUnitConversionUseCase: UpdateUnitConversionUseCase,
     private readonly listUnitConversionsUseCase: ListUnitConversionsUseCase,
+    private readonly getUnitConversionByIdUseCase: GetUnitConversionByIdUseCase,
   ) {}
 
   @Get()
@@ -47,6 +49,20 @@ export class UnitConversionsController {
   @ApiResponse({ status: 403, description: "Forbidden" })
   async findAll(@Query() query: ListUnitConversionsDto) {
     return await this.listUnitConversionsUseCase.execute(query);
+  }
+
+  @Get(":id")
+  @RequirePermissions(Permissions.UNITS_VIEW)
+  @ApiOperation({ summary: "Get unit conversion by ID" })
+  @ApiResponse({
+    status: 200,
+    description: "The unit conversion has been successfully retrieved.",
+  })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  @ApiResponse({ status: 404, description: "Unit conversion not found" })
+  async findOne(@Param("id", ParseIntPipe) id: number) {
+    return await this.getUnitConversionByIdUseCase.execute({ id });
   }
 
   @Post()

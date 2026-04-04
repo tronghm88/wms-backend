@@ -369,3 +369,18 @@ after each iteration and it's included in prompts for context.
   - **Gotchas encountered:** When using Prisma `findMany` with optional filters, using `undefined` for the filter value effectively ignores it, which is useful for optional query parameters.
   - Ensured factor is serialized as a string with 3 decimal places using `toFixed(3)` as per project mandates.
 ---
+
+## 2026-04-04 - US-018
+- What was implemented:
+  - GET /api/v1/unit-conversions/:id endpoint to retrieve a specific unit conversion by its ID.
+  - GetUnitConversionByIdUseCase with unit tests (success and not found cases).
+  - Swagger documentation for the new endpoint including 404 response.
+- Files changed:
+  - src/application/use-cases/units/get-unit-conversion-by-id.use-case.ts
+  - src/application/use-cases/units/get-unit-conversion-by-id.use-case.spec.ts
+  - src/infrastructure/unit-conversions/unit-conversions.module.ts
+  - src/presentation/controllers/unit-conversions.controller.ts
+- **Learnings:**
+  - **Patterns discovered:** Reusing established Clean Architecture patterns for resource retrieval by ID (Controller -> Use Case -> Repository).
+  - **Gotchas encountered:** Discovered that unit conversion use cases are currently located in `src/application/use-cases/units/` instead of a separate `unit-conversions` folder, maintaining consistency with existing structure.
+---
