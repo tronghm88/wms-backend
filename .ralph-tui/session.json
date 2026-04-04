@@ -3,10 +3,10 @@
   "sessionId": "2eabf967-8a4c-49ca-892b-4d28489b263a",
   "status": "running",
   "startedAt": "2026-04-04T11:05:33.050Z",
-  "updatedAt": "2026-04-04T11:18:30.235Z",
-  "currentIteration": 4,
+  "updatedAt": "2026-04-04T11:20:47.394Z",
+  "currentIteration": 5,
   "maxIterations": 10,
-  "tasksCompleted": 4,
+  "tasksCompleted": 5,
   "isPaused": false,
   "agentPlugin": "gemini",
   "trackerState": {
@@ -35,8 +35,8 @@
       {
         "id": "US-004",
         "title": "Delete Unit API",
-        "status": "open",
-        "completedInSession": false
+        "status": "completed",
+        "completedInSession": true
       },
       {
         "id": "US-005",
@@ -170,6 +170,16 @@
       "durationMs": 119504,
       "startedAt": "2026-04-04T11:13:38.167Z",
       "endedAt": "2026-04-04T11:15:37.671Z"
+    },
+    {
+      "iteration": 5,
+      "status": "completed",
+      "taskId": "US-004",
+      "taskTitle": "Delete Unit API",
+      "taskCompleted": true,
+      "durationMs": 171475,
+      "startedAt": "2026-04-04T11:15:38.760Z",
+      "endedAt": "2026-04-04T11:18:30.235Z"
     }
   ],
   "skippedTaskIds": [],

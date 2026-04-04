@@ -1,4 +1,12 @@
-import { Controller, Post, Body, UseGuards } from "@nestjs/common";
+import {
+  Controller,
+  Post,
+  Patch,
+  Body,
+  Param,
+  ParseIntPipe,
+  UseGuards,
+} from "@nestjs/common";
 import {
   ApiTags,
   ApiOperation,
@@ -6,7 +14,9 @@ import {
   ApiBearerAuth,
 } from "@nestjs/swagger";
 import { CreateCategoryUseCase } from "../../application/use-cases/categories/create-category.use-case";
+import { UpdateCategoryUseCase } from "../../application/use-cases/categories/update-category.use-case";
 import { CreateCategoryDto } from "../dtos/categories/create-category.dto";
+import { UpdateCategoryDto } from "../dtos/categories/update-category.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
 import { Permissions } from "../../domain/constants/permissions.constant";
@@ -16,7 +26,10 @@ import { Permissions } from "../../domain/constants/permissions.constant";
 @UseGuards(JwtAuthGuard, RbacGuard)
 @ApiBearerAuth()
 export class CategoriesController {
-  constructor(private readonly createCategoryUseCase: CreateCategoryUseCase) {}
+  constructor(
+    private readonly createCategoryUseCase: CreateCategoryUseCase,
+    private readonly updateCategoryUseCase: UpdateCategoryUseCase,
+  ) {}
 
   @Post()
   @RequirePermissions(Permissions.CATEGORIES_MANAGE)
@@ -31,5 +44,27 @@ export class CategoriesController {
   @ApiResponse({ status: 409, description: "Conflict - Code already exists" })
   async create(@Body() createCategoryDto: CreateCategoryDto) {
     return await this.createCategoryUseCase.execute(createCategoryDto);
+  }
+
+  @Patch(":id")
+  @RequirePermissions(Permissions.CATEGORIES_MANAGE)
+  @ApiOperation({ summary: "Update an existing product category" })
+  @ApiResponse({
+    status: 200,
+    description: "The category has been successfully updated.",
+  })
+  @ApiResponse({ status: 400, description: "Bad Request" })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  @ApiResponse({ status: 404, description: "Not Found" })
+  @ApiResponse({ status: 409, description: "Conflict - Code already exists" })
+  async update(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() updateCategoryDto: UpdateCategoryDto,
+  ) {
+    return await this.updateCategoryUseCase.execute({
+      id,
+      ...updateCategoryDto,
+    });
   }
 }

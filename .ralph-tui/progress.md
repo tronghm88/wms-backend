@@ -109,3 +109,23 @@ after each iteration and it's included in prompts for context.
   - **Gotchas encountered:** When using `@Inject` with a constructor parameter, TypeScript requires using `import type` for the interface if `emitDecoratorMetadata` and `isolatedModules` are enabled, to prevent runtime crashes/compilation errors.
   - Handling `unknown` error types in `catch` blocks with type guards (`(error as { code: string }).code === "P2003"`) is required to satisfy `typescript-eslint/no-unsafe-member-access`.
 ---
+
+## 2026-04-04 - US-006
+- What was implemented:
+  - PATCH /api/v1/categories/:id endpoint to update an existing category.
+  - UpdateCategoryUseCase with uniqueness check for manual code (if changed).
+  - UpdateCategoryDto with optional fields and Swagger documentation.
+  - CategoryNotFoundException for handling missing categories during update.
+  - Unit tests for UpdateCategoryUseCase covering success, not found, and conflict scenarios.
+- Files changed:
+  - src/application/use-cases/categories/update-category.use-case.ts
+  - src/application/use-cases/categories/update-category.use-case.spec.ts
+  - src/infrastructure/categories/categories.module.ts
+  - src/presentation/dtos/categories/update-category.dto.ts
+  - src/presentation/controllers/categories.controller.ts
+  - src/presentation/controllers/units.controller.spec.ts (lint fix)
+- **Learnings:**
+  - **Patterns discovered:** Conditional uniqueness checks in `execute` method: only query for existing code if the requested code is different from the current entity's code.
+  - **Gotchas encountered:** When editing multiple files, ensure imports are consistent across related components (Module, Controller, Use Case).
+  - Fixed an existing lint error in `units.controller.spec.ts` where `HttpStatus` was imported but unused, and accidentally removed `JwtAuthGuard` during the fix, which was quickly corrected.
+---

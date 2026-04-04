@@ -4,9 +4,8 @@ import { CreateUnitUseCase } from "../../application/use-cases/units/create-unit
 import { GetUnitsUseCase } from "../../application/use-cases/units/get-units.use-case";
 import { GetUnitByCodeUseCase } from "../../application/use-cases/units/get-unit-by-code.use-case";
 import { DeleteUnitUseCase } from "../../application/use-cases/units/delete-unit.use-case";
-import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard } from "../guards/rbac.guard";
-import { HttpStatus } from "@nestjs/common";
+import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 
 describe("UnitsController", () => {
   let controller: UnitsController;
@@ -51,7 +50,9 @@ describe("UnitsController", () => {
   describe("remove", () => {
     it("should call deleteUnitUseCase.execute with correct code", async () => {
       const code = "kg";
-      const spy = jest.spyOn(deleteUseCase, "execute").mockResolvedValue(undefined);
+      const spy = jest
+        .spyOn(deleteUseCase, "execute")
+        .mockResolvedValue(undefined);
 
       await controller.remove(code);
 
