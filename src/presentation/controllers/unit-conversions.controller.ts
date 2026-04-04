@@ -1,9 +1,11 @@
 import {
   Controller,
+  Get,
   Post,
   Patch,
   Body,
   Param,
+  Query,
   ParseIntPipe,
   UseGuards,
 } from "@nestjs/common";
@@ -15,8 +17,10 @@ import {
 } from "@nestjs/swagger";
 import { CreateUnitConversionUseCase } from "../../application/use-cases/units/create-unit-conversion.use-case";
 import { UpdateUnitConversionUseCase } from "../../application/use-cases/units/update-unit-conversion.use-case";
+import { ListUnitConversionsUseCase } from "../../application/use-cases/units/list-unit-conversions.use-case";
 import { CreateUnitConversionDto } from "../dtos/units/create-unit-conversion.dto";
 import { UpdateUnitConversionDto } from "../dtos/units/update-unit-conversion.dto";
+import { ListUnitConversionsDto } from "../dtos/units/list-unit-conversions.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
 import { Permissions } from "../../domain/constants/permissions.constant";
@@ -29,7 +33,21 @@ export class UnitConversionsController {
   constructor(
     private readonly createUnitConversionUseCase: CreateUnitConversionUseCase,
     private readonly updateUnitConversionUseCase: UpdateUnitConversionUseCase,
+    private readonly listUnitConversionsUseCase: ListUnitConversionsUseCase,
   ) {}
+
+  @Get()
+  @RequirePermissions(Permissions.UNITS_VIEW)
+  @ApiOperation({ summary: "List all unit conversions" })
+  @ApiResponse({
+    status: 200,
+    description: "List of unit conversions.",
+  })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  async findAll(@Query() query: ListUnitConversionsDto) {
+    return await this.listUnitConversionsUseCase.execute(query);
+  }
 
   @Post()
   @RequirePermissions(Permissions.UNITS_MANAGE)

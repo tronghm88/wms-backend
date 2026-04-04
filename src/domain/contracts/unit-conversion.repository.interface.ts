@@ -15,4 +15,5 @@ export interface IUnitConversionRepository {
     toUnit: string,
   ): Promise<UnitConversionEntity | null>;
   findByProductId(productId: number): Promise<UnitConversionEntity[]>;
+  findAll(productId?: number): Promise<UnitConversionEntity[]>;
 }

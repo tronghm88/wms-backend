@@ -348,3 +348,24 @@ after each iteration and it's included in prompts for context.
   - **Patterns discovered:** Reused the strict mocking pattern `as unknown as jest.Mocked<Interface>` in tests to satisfy `@typescript-eslint/no-unsafe-*` rules.
   - **Gotchas encountered:** NestJS/TypeScript requires `import type` for interfaces used in decorated constructors when `isolatedModules` is enabled.
 ---
+
+## 2026-04-04 - US-017
+- What was implemented:
+  - GET /api/v1/unit-conversions endpoint to list all unit conversion rules.
+  - Support for filtering by productId via query parameters.
+  - ListUnitConversionsUseCase with unit tests covering success and filtered cases.
+  - Added findAll method to IUnitConversionRepository and its Prisma implementation.
+  - Swagger documentation for the new endpoint.
+- Files changed:
+  - src/domain/contracts/unit-conversion.repository.interface.ts
+  - src/infrastructure/database/repositories/unit-conversion.repository.ts
+  - src/application/use-cases/units/list-unit-conversions.use-case.ts
+  - src/application/use-cases/units/list-unit-conversions.use-case.spec.ts
+  - src/presentation/dtos/units/list-unit-conversions.dto.ts
+  - src/presentation/controllers/unit-conversions.controller.ts
+  - src/infrastructure/unit-conversions/unit-conversions.module.ts
+- **Learnings:**
+  - **Patterns discovered:** Following the established Clean Architecture pattern for listing resources with optional filters (Controller -> Use Case -> Repository).
+  - **Gotchas encountered:** When using Prisma `findMany` with optional filters, using `undefined` for the filter value effectively ignores it, which is useful for optional query parameters.
+  - Ensured factor is serialized as a string with 3 decimal places using `toFixed(3)` as per project mandates.
+---

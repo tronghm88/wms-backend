@@ -84,4 +84,15 @@ export class UnitConversionRepository implements IUnitConversionRepository {
 
     return conversions.map((uc) => this.mapToDomain(uc));
   }
+
+  async findAll(productId?: number): Promise<UnitConversionEntity[]> {
+    const conversions = await this.prisma.unitConversion.findMany({
+      where: {
+        productId: productId ? productId : undefined,
+      },
+      orderBy: { id: "asc" },
+    });
+
+    return conversions.map((uc) => this.mapToDomain(uc));
+  }
 }
