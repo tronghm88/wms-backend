@@ -13,7 +13,8 @@ after each iteration and it's included in prompts for context.
     - **Presentation**: Controllers, DTOs with `class-validator` and `nestjs/swagger`.
 - **Data Mapping**: Repositories use a private `mapToDomain` method to convert Prisma models to Domain Entities.
 - **RBAC**: Use `RequirePermissions(Permissions.XXX)` decorator on controller methods to enforce permissions.
-- **Exceptions**: Custom domain exceptions extending a base exception (e.g., `AuthException`, `UnitException`) with an `errorCode`.
+- **Exceptions**: Custom domain exceptions extending a base exception (e.g., `AuthException`, `UnitException`, `CategoryException`) with an `errorCode`.
+- **Global Error Handling**: `GlobalExceptionFilter` maps domain exceptions (by `errorCode`) to proper HTTP status codes.
 
 ## 2026-04-04 - US-001
 - Implemented `POST /api/v1/units` endpoint for creating units.
@@ -29,5 +30,29 @@ after each iteration and it's included in prompts for context.
 - **Learnings:**
   - `Unit` table uses `code` as its primary key (String).
   - RBAC is enforced via `RequirePermissions` decorator which checks against `user.permissions` or `user.role === 'ADMIN'`.
----
 
+## 2026-04-04 - US-005
+- What was implemented:
+  - Categories management module foundation.
+  - POST /api/v1/categories endpoint with Swagger documentation and RBAC (CATEGORIES_MANAGE).
+  - CreateCategoryUseCase with uniqueness check for manual code.
+  - CategoryRepository implementation with Prisma.
+  - Custom CategoryExceptions for better error handling.
+  - Improved GlobalExceptionFilter to automatically map domain exceptions to proper HTTP statuses.
+- Files changed:
+  - src/domain/constants/permissions.constant.ts
+  - src/domain/contracts/category.repository.interface.ts
+  - src/domain/exceptions/category.exceptions.ts
+  - src/infrastructure/database/repositories/category.repository.ts
+  - src/application/use-cases/categories/create-category.use-case.ts
+  - src/application/use-cases/categories/create-category.use-case.spec.ts
+  - src/presentation/dtos/categories/create-category.dto.ts
+  - src/presentation/controllers/categories.controller.ts
+  - src/infrastructure/categories/categories.module.ts
+  - src/app.module.ts
+  - src/presentation/filters/global-exception.filter.ts
+  - src/application/use-cases/units/create-unit.use-case.spec.ts (lint fix)
+- **Learnings:**
+  - **Patterns discovered:** Domain exceptions follow a pattern of having an `errorCode` property which can be leveraged in a global filter for uniform API error responses.
+  - **Gotchas encountered:** Existing spec files had some linting issues (unbound-method and any-usage) that needed fixing to pass CI gates.
+---

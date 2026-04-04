@@ -1,18 +1,23 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import { Test, TestingModule } from "@nestjs/testing";
 import { CreateUnitUseCase } from "./create-unit.use-case";
 import { UNIT_REPOSITORY } from "../../../domain/contracts/unit.repository.interface";
+import type { IUnitRepository } from "../../../domain/contracts/unit.repository.interface";
 import { UnitCodeAlreadyExistsException } from "../../../domain/exceptions/unit.exceptions";
 import { UnitEntity } from "../../../domain/entities/unit.entity";
 
 describe("CreateUnitUseCase", () => {
   let useCase: CreateUnitUseCase;
-  let repository: any;
+  let repository: jest.Mocked<IUnitRepository>;
 
   beforeEach(async () => {
     repository = {
       findByCode: jest.fn(),
       create: jest.fn(),
-    };
+      findAll: jest.fn(),
+      update: jest.fn(),
+      delete: jest.fn(),
+    } as unknown as jest.Mocked<IUnitRepository>;
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [

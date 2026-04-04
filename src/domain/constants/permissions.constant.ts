@@ -5,6 +5,7 @@ export const Permissions = {
 
   // Catalog
   PRODUCTS_MANAGE: "products:manage",
+  CATEGORIES_MANAGE: "categories:manage",
   CUSTOMERS_MANAGE: "customers:manage",
   UNITS_MANAGE: "units:manage",
 

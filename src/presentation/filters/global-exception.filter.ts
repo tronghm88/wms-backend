@@ -17,15 +17,50 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 
-    const status =
-      exception instanceof HttpException
-        ? exception.getStatus()
-        : HttpStatus.INTERNAL_SERVER_ERROR;
+    const isDomainException = (ex: unknown): boolean => {
+      return (
+        ex instanceof Error &&
+        "errorCode" in ex &&
+        typeof (ex as Record<string, unknown>).errorCode === "string"
+      );
+    };
 
-    const message =
-      exception instanceof HttpException
-        ? exception.getResponse()
-        : "Internal server error";
+    let status = HttpStatus.INTERNAL_SERVER_ERROR;
+    let message: string | object = "Internal server error";
+    let errorCode: string | undefined = undefined;
+
+    if (exception instanceof HttpException) {
+      status = exception.getStatus();
+      message = exception.getResponse();
+    } else if (isDomainException(exception)) {
+      errorCode = (exception as Record<string, unknown>).errorCode as string;
+      message = (exception as Error).message;
+
+      // Map common domain error codes to HTTP status codes
+      if (
+        errorCode?.includes("ALREADY_EXISTS") ||
+        errorCode?.includes("CONFLICT")
+      ) {
+        status = HttpStatus.CONFLICT;
+      } else if (errorCode?.includes("NOT_FOUND")) {
+        status = HttpStatus.NOT_FOUND;
+      } else if (
+        errorCode?.includes("INVALID") ||
+        errorCode?.includes("REQUIRED") ||
+        errorCode?.includes("CANNOT")
+      ) {
+        status = HttpStatus.BAD_REQUEST;
+      } else if (
+        errorCode?.includes("UNAUTHORIZED") ||
+        errorCode?.includes("CREDENTIALS")
+      ) {
+        status = HttpStatus.UNAUTHORIZED;
+      } else if (errorCode?.includes("FORBIDDEN")) {
+        status = HttpStatus.FORBIDDEN;
+      } else {
+        status = HttpStatus.BAD_REQUEST;
+      }
+    }
 
     const getMessage = (msg: string | object): string => {
       if (typeof msg === "string") return msg;
@@ -41,9 +76,10 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       timestamp: new Date().toISOString(),
       path: request.url,
       message: getMessage(message),
+      ...(errorCode ? { errorCode } : {}),
     };
 
-    if (status === (HttpStatus.INTERNAL_SERVER_ERROR as number)) {
+    if (Number(status) === (HttpStatus.INTERNAL_SERVER_ERROR as number)) {
       this.logger.error(
         `${request.method} ${request.url}`,
         exception instanceof Error

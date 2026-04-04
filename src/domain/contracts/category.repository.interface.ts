@@ -1,5 +1,7 @@
 import { CategoryEntity } from "../entities/category.entity";
 
+export const CATEGORY_REPOSITORY = "CATEGORY_REPOSITORY";
+
 export interface ICategoryRepository {
   findById(id: number): Promise<CategoryEntity | null>;
   findByCode(code: string): Promise<CategoryEntity | null>;

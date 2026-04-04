@@ -3,10 +3,10 @@
   "sessionId": "2eabf967-8a4c-49ca-892b-4d28489b263a",
   "status": "running",
   "startedAt": "2026-04-04T11:05:33.050Z",
-  "updatedAt": "2026-04-04T11:07:38.658Z",
-  "currentIteration": 0,
+  "updatedAt": "2026-04-04T11:11:35.915Z",
+  "currentIteration": 1,
   "maxIterations": 10,
-  "tasksCompleted": 0,
+  "tasksCompleted": 1,
   "isPaused": false,
   "agentPlugin": "gemini",
   "trackerState": {
@@ -17,8 +17,8 @@
       {
         "id": "US-001",
         "title": "Create Unit API",
-        "status": "open",
-        "completedInSession": false
+        "status": "completed",
+        "completedInSession": true
       },
       {
         "id": "US-002",
@@ -130,7 +130,18 @@
       }
     ]
   },
-  "iterations": [],
+  "iterations": [
+    {
+      "iteration": 1,
+      "status": "completed",
+      "taskId": "US-001",
+      "taskTitle": "Create Unit API",
+      "taskCompleted": true,
+      "durationMs": 117850,
+      "startedAt": "2026-04-04T11:05:40.807Z",
+      "endedAt": "2026-04-04T11:07:38.657Z"
+    }
+  ],
   "skippedTaskIds": [],
   "cwd": "/Users/windy/Work/wms",
   "activeTaskIds": [],
