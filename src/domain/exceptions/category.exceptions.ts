@@ -23,3 +23,21 @@ export class CategoryNotFoundException extends CategoryException {
     super(`Category '${id}' not found`, "CATEGORY_NOT_FOUND");
   }
 }
+
+export class CategoryHasProductsException extends CategoryException {
+  constructor(id: number) {
+    super(
+      `Category '${id}' cannot be deleted because it has associated products`,
+      "CATEGORY_HAS_PRODUCTS",
+    );
+  }
+}
+
+export class CategoryHasSizesException extends CategoryException {
+  constructor(id: number) {
+    super(
+      `Category '${id}' cannot be deleted because it has associated sizes`,
+      "CATEGORY_HAS_SIZES",
+    );
+  }
+}

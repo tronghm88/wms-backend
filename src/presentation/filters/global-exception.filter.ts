@@ -44,6 +44,8 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         status = HttpStatus.CONFLICT;
       } else if (errorCode?.includes("NOT_FOUND")) {
         status = HttpStatus.NOT_FOUND;
+      } else if (errorCode?.includes("HAS_")) {
+        status = HttpStatus.UNPROCESSABLE_ENTITY;
       } else if (
         errorCode?.includes("INVALID") ||
         errorCode?.includes("REQUIRED") ||

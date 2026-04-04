@@ -17,4 +17,6 @@ export interface ICategoryRepository {
     category: Partial<CategoryEntity>,
   ): Promise<CategoryEntity>;
   delete(id: number): Promise<void>;
+  hasProducts(id: number): Promise<boolean>;
+  hasSizes(id: number): Promise<boolean>;
 }

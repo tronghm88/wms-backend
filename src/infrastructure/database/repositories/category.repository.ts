@@ -75,4 +75,18 @@ export class CategoryRepository implements ICategoryRepository {
       where: { id },
     });
   }
+
+  async hasProducts(id: number): Promise<boolean> {
+    const count = await this.prisma.product.count({
+      where: { categoryId: id },
+    });
+    return count > 0;
+  }
+
+  async hasSizes(id: number): Promise<boolean> {
+    const count = await this.prisma.categorySize.count({
+      where: { categoryId: id },
+    });
+    return count > 0;
+  }
 }

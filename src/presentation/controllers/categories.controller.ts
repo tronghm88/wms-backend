@@ -2,11 +2,13 @@ import {
   Controller,
   Post,
   Patch,
+  Delete,
   Get,
   Body,
   Param,
   ParseIntPipe,
   UseGuards,
+  HttpCode,
 } from "@nestjs/common";
 import {
   ApiTags,
@@ -18,6 +20,7 @@ import { CreateCategoryUseCase } from "../../application/use-cases/categories/cr
 import { UpdateCategoryUseCase } from "../../application/use-cases/categories/update-category.use-case";
 import { GetCategoriesUseCase } from "../../application/use-cases/categories/get-categories.use-case";
 import { GetCategoryByIdUseCase } from "../../application/use-cases/categories/get-category-by-id.use-case";
+import { DeleteCategoryUseCase } from "../../application/use-cases/categories/delete-category.use-case";
 import { CreateCategoryDto } from "../dtos/categories/create-category.dto";
 import { UpdateCategoryDto } from "../dtos/categories/update-category.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
@@ -34,6 +37,7 @@ export class CategoriesController {
     private readonly updateCategoryUseCase: UpdateCategoryUseCase,
     private readonly getCategoriesUseCase: GetCategoriesUseCase,
     private readonly getCategoryByIdUseCase: GetCategoryByIdUseCase,
+    private readonly deleteCategoryUseCase: DeleteCategoryUseCase,
   ) {}
 
   @Post()
@@ -98,5 +102,25 @@ export class CategoriesController {
   @ApiResponse({ status: 404, description: "Not Found" })
   async findOne(@Param("id", ParseIntPipe) id: number) {
     return await this.getCategoryByIdUseCase.execute(id);
+  }
+
+  @Delete(":id")
+  @HttpCode(204)
+  @RequirePermissions(Permissions.CATEGORIES_MANAGE)
+  @ApiOperation({ summary: "Delete a product category" })
+  @ApiResponse({
+    status: 204,
+    description: "The category has been successfully deleted.",
+  })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  @ApiResponse({ status: 404, description: "Not Found" })
+  @ApiResponse({
+    status: 422,
+    description:
+      "Unprocessable Entity - Category has associated products or sizes",
+  })
+  async delete(@Param("id", ParseIntPipe) id: number) {
+    return await this.deleteCategoryUseCase.execute(id);
   }
 }

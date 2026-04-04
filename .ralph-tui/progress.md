@@ -165,3 +165,26 @@ after each iteration and it's included in prompts for context.
   - **Patterns discovered:** Reusing established Clean Architecture patterns for resource retrieval by ID (Controller -> Use Case -> Repository).
   - **Gotchas encountered:** When using the `replace` tool, avoid using `...` as it is not allowed and will cause the tool to fail to find the string. Always provide the exact literal text for replacement.
 ---
+
+## 2026-04-04 - US-009
+- What was implemented:
+  - DELETE /api/v1/categories/:id endpoint to remove a category.
+  - DeleteCategoryUseCase with check for associated products and sizes.
+  - CategoryHasProductsException and CategoryHasSizesException in domain exceptions.
+  - Updated ICategoryRepository and CategoryRepository to include hasProducts and hasSizes methods.
+  - Updated GlobalExceptionFilter to map "HAS_" error codes to 422 Unprocessable Entity.
+  - Swagger documentation for the new endpoint including 204 (No Content), 404 (Not Found), and 422 (Unprocessable Entity) responses.
+  - Unit tests for DeleteCategoryUseCase covering success, not found, and in-use scenarios.
+- Files changed:
+  - src/domain/contracts/category.repository.interface.ts
+  - src/domain/exceptions/category.exceptions.ts
+  - src/infrastructure/database/repositories/category.repository.ts
+  - src/application/use-cases/categories/delete-category.use-case.ts
+  - src/application/use-cases/categories/delete-category.use-case.spec.ts
+  - src/infrastructure/categories/categories.module.ts
+  - src/presentation/controllers/categories.controller.ts
+  - src/presentation/filters/global-exception.filter.ts
+- **Learnings:**
+  - **Patterns discovered:** Using `repository["methodName"]` in tests to bypass `@typescript-eslint/unbound-method` when passing methods to `expect`.
+  - **Gotchas encountered:** Ensure that `GlobalExceptionFilter` mapping is updated when adding new types of domain exceptions that should return specific HTTP status codes (like 422).
+---

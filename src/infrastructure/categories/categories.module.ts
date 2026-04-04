@@ -6,6 +6,7 @@ import { CreateCategoryUseCase } from "../../application/use-cases/categories/cr
 import { UpdateCategoryUseCase } from "../../application/use-cases/categories/update-category.use-case";
 import { GetCategoriesUseCase } from "../../application/use-cases/categories/get-categories.use-case";
 import { GetCategoryByIdUseCase } from "../../application/use-cases/categories/get-category-by-id.use-case";
+import { DeleteCategoryUseCase } from "../../application/use-cases/categories/delete-category.use-case";
 import { CategoriesController } from "../../presentation/controllers/categories.controller";
 
 @Module({
@@ -20,6 +21,7 @@ import { CategoriesController } from "../../presentation/controllers/categories.
     UpdateCategoryUseCase,
     GetCategoriesUseCase,
     GetCategoryByIdUseCase,
+    DeleteCategoryUseCase,
   ],
   exports: [
     CATEGORY_REPOSITORY,
@@ -27,6 +29,7 @@ import { CategoriesController } from "../../presentation/controllers/categories.
     UpdateCategoryUseCase,
     GetCategoriesUseCase,
     GetCategoryByIdUseCase,
+    DeleteCategoryUseCase,
   ],
 })
 export class CategoriesModule {}
