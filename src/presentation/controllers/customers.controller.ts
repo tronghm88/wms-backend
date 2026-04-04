@@ -1,4 +1,14 @@
-import { Controller, Post, Body, UseGuards, Get, Query } from "@nestjs/common";
+import {
+  Controller,
+  Post,
+  Body,
+  UseGuards,
+  Get,
+  Query,
+  Patch,
+  Param,
+  ParseIntPipe,
+} from "@nestjs/common";
 import {
   ApiTags,
   ApiOperation,
@@ -7,8 +17,10 @@ import {
 } from "@nestjs/swagger";
 import { CreateCustomerUseCase } from "../../application/use-cases/customers/create-customer.use-case";
 import { GetCustomersUseCase } from "../../application/use-cases/customers/get-customers.use-case";
+import { UpdateCustomerUseCase } from "../../application/use-cases/customers/update-customer.use-case";
 import { CreateCustomerDto } from "../dtos/customers/create-customer.dto";
 import { GetCustomersDto } from "../dtos/customers/get-customers.dto";
+import { UpdateCustomerDto } from "../dtos/customers/update-customer.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
 import { Permissions } from "../../domain/constants/permissions.constant";
@@ -21,6 +33,7 @@ export class CustomersController {
   constructor(
     private readonly createCustomerUseCase: CreateCustomerUseCase,
     private readonly getCustomersUseCase: GetCustomersUseCase,
+    private readonly updateCustomerUseCase: UpdateCustomerUseCase,
   ) {}
 
   @Get()
@@ -55,6 +68,32 @@ export class CustomersController {
     const data = await this.createCustomerUseCase.execute(createCustomerDto);
     return {
       statusCode: 201,
+      data,
+    };
+  }
+
+  @Patch(":id")
+  @RequirePermissions(Permissions.CUSTOMERS_MANAGE)
+  @ApiOperation({ summary: "Update an existing customer" })
+  @ApiResponse({
+    status: 200,
+    description: "The customer has been successfully updated.",
+  })
+  @ApiResponse({ status: 400, description: "Bad Request" })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  @ApiResponse({ status: 404, description: "Not Found" })
+  @ApiResponse({ status: 409, description: "Conflict - Code already exists" })
+  async update(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() updateCustomerDto: UpdateCustomerDto,
+  ) {
+    const data = await this.updateCustomerUseCase.execute({
+      id,
+      ...updateCustomerDto,
+    });
+    return {
+      statusCode: 200,
       data,
     };
   }

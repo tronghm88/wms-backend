@@ -3,12 +3,14 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { CustomersController } from "./customers.controller";
 import { CreateCustomerUseCase } from "../../application/use-cases/customers/create-customer.use-case";
 import { GetCustomersUseCase } from "../../application/use-cases/customers/get-customers.use-case";
+import { UpdateCustomerUseCase } from "../../application/use-cases/customers/update-customer.use-case";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard } from "../guards/rbac.guard";
 
 describe("CustomersController", () => {
   let controller: CustomersController;
   let getCustomersUseCase: GetCustomersUseCase;
+  let updateCustomerUseCase: UpdateCustomerUseCase;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -22,6 +24,10 @@ describe("CustomersController", () => {
           provide: GetCustomersUseCase,
           useValue: { execute: jest.fn() },
         },
+        {
+          provide: UpdateCustomerUseCase,
+          useValue: { execute: jest.fn() },
+        },
       ],
     })
       .overrideGuard(JwtAuthGuard)
@@ -32,6 +38,9 @@ describe("CustomersController", () => {
 
     controller = module.get<CustomersController>(CustomersController);
     getCustomersUseCase = module.get<GetCustomersUseCase>(GetCustomersUseCase);
+    updateCustomerUseCase = module.get<UpdateCustomerUseCase>(
+      UpdateCustomerUseCase,
+    );
   });
 
   it("should be defined", () => {
@@ -60,10 +69,7 @@ describe("CustomersController", () => {
           lastPage: 1,
         },
       };
-      jest
-        .spyOn(getCustomersUseCase, "execute")
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        .mockResolvedValue(mockResult as any);
+      jest.spyOn(getCustomersUseCase, "execute").mockResolvedValue(mockResult);
 
       const query = { page: 1, limit: 20 };
       const result = await controller.findAll(query);
@@ -73,6 +79,41 @@ describe("CustomersController", () => {
         data: mockResult,
       });
       expect(getCustomersUseCase.execute).toHaveBeenCalledWith(query);
+    });
+  });
+
+  describe("update", () => {
+    it("should update and return the customer", async () => {
+      const mockResult = {
+        id: 1,
+        code: "C001-UPD",
+        name: "Customer 1 Updated",
+        address: "Address 1 Updated",
+        phone: "0123456789",
+        email: "c1@example.com",
+        note: "note",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      jest
+        .spyOn(updateCustomerUseCase, "execute")
+        .mockResolvedValue(mockResult);
+
+      const updateDto = {
+        code: "C001-UPD",
+        name: "Customer 1 Updated",
+        address: "Address 1 Updated",
+      };
+      const result = await controller.update(1, updateDto);
+
+      expect(result).toEqual({
+        statusCode: 200,
+        data: mockResult,
+      });
+      expect(updateCustomerUseCase.execute).toHaveBeenCalledWith({
+        id: 1,
+        ...updateDto,
+      });
     });
   });
 });
