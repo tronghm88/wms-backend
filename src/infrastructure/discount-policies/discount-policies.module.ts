@@ -7,6 +7,7 @@ import { DiscountPolicyRepository } from "../database/repositories/discount-poli
 import { CustomerRepository } from "../database/repositories/customer.repository";
 import { ProductRepository } from "../database/repositories/product.repository";
 import { CreateDiscountPolicyUseCase } from "../../application/use-cases/discount-policies/create-discount-policy.use-case";
+import { GetDiscountPoliciesByCustomerUseCase } from "../../application/use-cases/discount-policies/get-discount-policies-by-customer.use-case";
 import { DiscountPoliciesController } from "../../presentation/controllers/discount-policies.controller";
 
 @Module({
@@ -26,7 +27,12 @@ import { DiscountPoliciesController } from "../../presentation/controllers/disco
       useClass: ProductRepository,
     },
     CreateDiscountPolicyUseCase,
+    GetDiscountPoliciesByCustomerUseCase,
   ],
-  exports: [DISCOUNT_POLICY_REPOSITORY, CreateDiscountPolicyUseCase],
+  exports: [
+    DISCOUNT_POLICY_REPOSITORY,
+    CreateDiscountPolicyUseCase,
+    GetDiscountPoliciesByCustomerUseCase,
+  ],
 })
 export class DiscountPoliciesModule {}

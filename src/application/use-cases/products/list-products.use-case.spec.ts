@@ -28,6 +28,7 @@ describe("ListProductsUseCase", () => {
     repository = {
       findAll: jest.fn().mockResolvedValue([mockProduct]),
       findById: jest.fn(),
+      findByIds: jest.fn(),
       findByCode: jest.fn(),
       create: jest.fn(),
       update: jest.fn(),

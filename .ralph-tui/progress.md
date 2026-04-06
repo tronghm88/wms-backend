@@ -26,3 +26,22 @@ after each iteration and it's included in prompts for context.
   - Enforced mutual exclusivity between general and specific policies to maintain data integrity.
 
 ---
+
+## 2026-04-06 - US-207
+- Implemented Get all DiscountPolicies API for a customer.
+- Added `findByIds` to `IProductRepository` and `ProductRepository` to support batch fetching of product details.
+- Updated `DiscountPolicyResponseDto` to include optional `products` array with names.
+- Files changed:
+  - `src/domain/contracts/product.repository.interface.ts`
+  - `src/infrastructure/database/repositories/product.repository.ts`
+  - `src/presentation/dtos/discount-policies/discount-policy-response.dto.ts`
+  - `src/application/use-cases/discount-policies/get-discount-policies-by-customer.use-case.ts`
+  - `src/infrastructure/discount-policies/discount-policies.module.ts`
+  - `src/presentation/controllers/discount-policies.controller.ts`
+  - Multiple `.spec.ts` files updated to include `findByIds` mock.
+- **Learnings:**
+  - Standardized batch fetching of product details in use cases to minimize DB roundtrips.
+  - Using `Set` to collect unique IDs from multiple objects before batch fetching is an efficient pattern.
+  - Ensuring repository interface changes are reflected across all existing mock objects in tests is critical for type safety.
+
+---

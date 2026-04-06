@@ -1,10 +1,13 @@
 import {
   Controller,
   Post,
+  Get,
   Body,
+  Param,
   UseGuards,
   HttpCode,
   HttpStatus,
+  ParseIntPipe,
 } from "@nestjs/common";
 import {
   ApiTags,
@@ -13,6 +16,7 @@ import {
   ApiBearerAuth,
 } from "@nestjs/swagger";
 import { CreateDiscountPolicyUseCase } from "../../application/use-cases/discount-policies/create-discount-policy.use-case";
+import { GetDiscountPoliciesByCustomerUseCase } from "../../application/use-cases/discount-policies/get-discount-policies-by-customer.use-case";
 import { CreateDiscountPolicyDto } from "../dtos/discount-policies/create-discount-policy.dto";
 import { DiscountPolicyResponseDto } from "../dtos/discount-policies/discount-policy-response.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
@@ -26,6 +30,7 @@ import { Permissions } from "../../domain/constants/permissions.constant";
 export class DiscountPoliciesController {
   constructor(
     private readonly createDiscountPolicyUseCase: CreateDiscountPolicyUseCase,
+    private readonly getDiscountPoliciesByCustomerUseCase: GetDiscountPoliciesByCustomerUseCase,
   ) {}
 
   @Post()
@@ -47,5 +52,22 @@ export class DiscountPoliciesController {
     return await this.createDiscountPolicyUseCase.execute(
       createDiscountPolicyDto,
     );
+  }
+
+  @Get("customers/:customerId")
+  @RequirePermissions(Permissions.DISCOUNT_POLICIES_VIEW)
+  @ApiOperation({ summary: "Get all discount policies for a customer" })
+  @ApiResponse({
+    status: 200,
+    description: "Returns the discount policies for the customer.",
+    type: [DiscountPolicyResponseDto],
+  })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  @ApiResponse({ status: 404, description: "Not Found - Customer" })
+  async getByCustomer(
+    @Param("customerId", ParseIntPipe) customerId: number,
+  ): Promise<DiscountPolicyResponseDto[]> {
+    return await this.getDiscountPoliciesByCustomerUseCase.execute(customerId);
   }
 }

@@ -28,6 +28,7 @@ describe("CreateUnitConversionUseCase", () => {
       findById: jest.fn(),
       findByCode: jest.fn(),
       findAll: jest.fn(),
+      findByIds: jest.fn(),
       create: jest.fn(),
       update: jest.fn(),
       delete: jest.fn(),

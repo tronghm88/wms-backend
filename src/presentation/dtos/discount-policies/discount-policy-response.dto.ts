@@ -17,6 +17,13 @@ export class DiscountPolicyResponseDto {
   @ApiProperty({ example: [1, 2] })
   productIds: number[];
 
+  @ApiProperty({
+    example: [{ id: 1, name: "Product A" }],
+    description: "List of products applied to this policy",
+    required: false,
+  })
+  products?: { id: number; name: string }[];
+
   @ApiProperty({ example: "10.000", description: "Discount value as string" })
   discountValue: string;
 

@@ -4,6 +4,7 @@ export const PRODUCT_REPOSITORY = "PRODUCT_REPOSITORY";
 
 export interface IProductRepository {
   findById(id: number): Promise<ProductEntity | null>;
+  findByIds(ids: number[]): Promise<ProductEntity[]>;
   findByCode(code: string): Promise<ProductEntity | null>;
   findAll(): Promise<ProductEntity[]>;
   create(

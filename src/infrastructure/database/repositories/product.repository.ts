@@ -45,6 +45,16 @@ export class ProductRepository implements IProductRepository {
     return this.mapToDomain(product);
   }
 
+  async findByIds(ids: number[]): Promise<ProductEntity[]> {
+    const products = await this.prisma.product.findMany({
+      where: {
+        id: { in: ids },
+      },
+      include: { category: true },
+    });
+    return products.map((p) => this.mapToDomain(p));
+  }
+
   async findByCode(code: string): Promise<ProductEntity | null> {
     const product = await this.prisma.product.findUnique({
       where: { code },

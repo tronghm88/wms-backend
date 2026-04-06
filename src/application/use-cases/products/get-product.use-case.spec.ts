@@ -28,6 +28,7 @@ describe("GetProductUseCase", () => {
   beforeEach(async () => {
     repository = {
       findById: jest.fn(),
+      findByIds: jest.fn(),
       findByCode: jest.fn(),
       findAll: jest.fn(),
       create: jest.fn(),
