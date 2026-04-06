@@ -1,29 +1,27 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { DISCOUNT_POLICY_REPOSITORY } from "../../../domain/contracts/discount-policy.repository.interface";
 import type { IDiscountPolicyRepository } from "../../../domain/contracts/discount-policy.repository.interface";
-import { CUSTOMER_REPOSITORY } from "../../../domain/contracts/customer.repository.interface";
-import type { ICustomerRepository } from "../../../domain/contracts/customer.repository.interface";
 import { PRODUCT_REPOSITORY } from "../../../domain/contracts/product.repository.interface";
 import type { IProductRepository } from "../../../domain/contracts/product.repository.interface";
 import { DiscountType } from "../../../domain/enums";
 import {
+  DiscountPolicyNotFoundException,
+  DiscountPolicyUsedException,
   DuplicateGeneralDiscountPolicyException,
   InvalidDiscountPolicyConfigurationException,
   ProductAlreadyHasDiscountPolicyException,
 } from "../../../domain/exceptions/discount-policy.exceptions";
-import { CustomerNotFoundException } from "../../../domain/exceptions/customer.exceptions";
 import { ProductNotFoundException } from "../../../domain/exceptions/product.exceptions";
 import { Decimal } from "decimal.js";
 
-export interface CreateDiscountPolicyDto {
-  customerId: number;
+export interface UpdateDiscountPolicyDto {
   discountType: DiscountType;
   isAppliedAll: boolean;
-  productIds: number[];
+  productIds?: number[];
   discountValue: string;
 }
 
-export interface CreateDiscountPolicyResponse {
+export interface UpdateDiscountPolicyResponse {
   id: number;
   customerId: number;
   discountType: DiscountType;
@@ -36,39 +34,45 @@ export interface CreateDiscountPolicyResponse {
 }
 
 @Injectable()
-export class CreateDiscountPolicyUseCase {
+export class UpdateDiscountPolicyUseCase {
   constructor(
     @Inject(DISCOUNT_POLICY_REPOSITORY)
     private readonly discountPolicyRepository: IDiscountPolicyRepository,
-    @Inject(CUSTOMER_REPOSITORY)
-    private readonly customerRepository: ICustomerRepository,
     @Inject(PRODUCT_REPOSITORY)
     private readonly productRepository: IProductRepository,
   ) {}
 
   async execute(
-    dto: CreateDiscountPolicyDto,
-  ): Promise<CreateDiscountPolicyResponse> {
-    // 1. Validate Customer existence
-    const customer = await this.customerRepository.findById(dto.customerId);
-    if (!customer) {
-      throw new CustomerNotFoundException(dto.customerId);
+    id: number,
+    dto: UpdateDiscountPolicyDto,
+  ): Promise<UpdateDiscountPolicyResponse> {
+    // 1. Fetch existing policy
+    const policy = await this.discountPolicyRepository.findById(id);
+    if (!policy) {
+      throw new DiscountPolicyNotFoundException(id);
     }
 
-    // 2. Validate isAppliedAll vs productIds
-    if (dto.isAppliedAll && dto.productIds.length > 0) {
+    // 2. Check if it's used
+    if (policy.isUsed) {
+      throw new DiscountPolicyUsedException(id);
+    }
+
+    const productIds = dto.productIds || [];
+
+    // 3. Validate isAppliedAll vs productIds
+    if (dto.isAppliedAll && productIds.length > 0) {
       throw new InvalidDiscountPolicyConfigurationException(
         "If isAppliedAll is true, productIds must be an empty array",
       );
     }
 
-    if (!dto.isAppliedAll && dto.productIds.length === 0) {
+    if (!dto.isAppliedAll && productIds.length === 0) {
       throw new InvalidDiscountPolicyConfigurationException(
         "If isAppliedAll is false, productIds must be a non-empty array",
       );
     }
 
-    // 3. Validate DiscountType vs DiscountValue
+    // 4. Validate DiscountType vs DiscountValue
     const discountValue = new Decimal(dto.discountValue);
     if (dto.discountType === DiscountType.NONE && discountValue.gt(0)) {
       throw new InvalidDiscountPolicyConfigurationException(
@@ -76,65 +80,68 @@ export class CreateDiscountPolicyUseCase {
       );
     }
 
-    // 4. Validate and check for existing policies (Ensure one policy per product)
+    // 5. Check for conflicts with other policies of the same customer
     const existingPolicies =
-      await this.discountPolicyRepository.findByCustomerId(dto.customerId);
-    const hasGeneral = existingPolicies.some((p) => p.isAppliedAll);
+      await this.discountPolicyRepository.findByCustomerId(policy.customerId);
+
+    // Filter out the current policy being updated
+    const otherPolicies = existingPolicies.filter((p) => p.id !== id);
 
     if (dto.isAppliedAll) {
-      if (hasGeneral) {
-        throw new DuplicateGeneralDiscountPolicyException(dto.customerId);
+      const hasOtherGeneral = otherPolicies.some((p) => p.isAppliedAll);
+      if (hasOtherGeneral) {
+        throw new DuplicateGeneralDiscountPolicyException(policy.customerId);
       }
-      if (existingPolicies.length > 0) {
+      if (otherPolicies.length > 0) {
         throw new InvalidDiscountPolicyConfigurationException(
-          "Cannot create a general discount policy when specific product discount policies already exist for this customer",
+          "Cannot update to a general discount policy when other specific product discount policies already exist for this customer",
         );
       }
     } else {
+      const hasGeneral = otherPolicies.some((p) => p.isAppliedAll);
       if (hasGeneral) {
         throw new InvalidDiscountPolicyConfigurationException(
-          "Cannot create specific product discount policies when a general discount policy already exists for this customer",
+          "Cannot update to specific product discount policies when a general discount policy already exists for this customer",
         );
       }
 
-      for (const productId of dto.productIds) {
+      for (const productId of productIds) {
         const product = await this.productRepository.findById(productId);
         if (!product) {
           throw new ProductNotFoundException(productId);
         }
 
-        const productAlreadyHasPolicy = existingPolicies.some((p) =>
+        const productAlreadyHasPolicy = otherPolicies.some((p) =>
           p.productIds.includes(productId),
         );
         if (productAlreadyHasPolicy) {
           throw new ProductAlreadyHasDiscountPolicyException(
-            dto.customerId,
+            policy.customerId,
             productId,
           );
         }
       }
     }
 
-    // 5. Create the policy
-    const created = await this.discountPolicyRepository.create({
-      customerId: dto.customerId,
+    // 6. Perform update
+    const updated = await this.discountPolicyRepository.update(id, {
       discountType: dto.discountType,
       isAppliedAll: dto.isAppliedAll,
-      productIds: dto.productIds,
+      productIds: productIds,
       discountValue: discountValue,
     });
 
-    // 6. Return formatted response
+    // 7. Return formatted response
     return {
-      id: created.id,
-      customerId: created.customerId,
-      discountType: created.discountType,
-      isAppliedAll: created.isAppliedAll,
-      productIds: created.productIds,
-      discountValue: created.discountValue.toFixed(3),
-      isUsed: created.isUsed,
-      createdAt: created.createdAt,
-      updatedAt: created.updatedAt,
+      id: updated.id,
+      customerId: updated.customerId,
+      discountType: updated.discountType,
+      isAppliedAll: updated.isAppliedAll,
+      productIds: updated.productIds,
+      discountValue: updated.discountValue.toFixed(3),
+      isUsed: updated.isUsed,
+      createdAt: updated.createdAt,
+      updatedAt: updated.updatedAt,
     };
   }
 }

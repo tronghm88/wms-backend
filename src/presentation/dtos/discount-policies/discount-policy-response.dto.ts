@@ -27,6 +27,9 @@ export class DiscountPolicyResponseDto {
   @ApiProperty({ example: "10.000", description: "Discount value as string" })
   discountValue: string;
 
+  @ApiProperty({ example: false })
+  isUsed: boolean;
+
   @ApiProperty({ example: "2026-03-30T10:00:00Z" })
   createdAt: Date;
 

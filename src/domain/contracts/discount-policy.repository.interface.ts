@@ -9,7 +9,10 @@ export interface IDiscountPolicyRepository {
     customerId: number,
   ): Promise<DiscountPolicyEntity | null>;
   create(
-    policy: Omit<DiscountPolicyEntity, "id" | "createdAt" | "updatedAt">,
+    policy: Omit<
+      DiscountPolicyEntity,
+      "id" | "createdAt" | "updatedAt" | "isUsed" | "deletedAt"
+    >,
   ): Promise<DiscountPolicyEntity>;
   update(
     id: number,

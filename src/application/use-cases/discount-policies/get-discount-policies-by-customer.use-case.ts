@@ -16,6 +16,7 @@ export interface DiscountPolicyWithProductsResponse {
   productIds: number[];
   products?: { id: number; name: string }[];
   discountValue: string;
+  isUsed: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -78,6 +79,7 @@ export class GetDiscountPoliciesByCustomerUseCase {
               name: productMap.get(id) || "Unknown Product",
             })),
         discountValue: policy.discountValue.toFixed(3),
+        isUsed: policy.isUsed,
         createdAt: policy.createdAt,
         updatedAt: policy.updatedAt,
       }))

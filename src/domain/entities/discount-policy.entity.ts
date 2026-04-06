@@ -8,6 +8,8 @@ export class DiscountPolicyEntity {
   isAppliedAll: boolean;
   productIds: number[];
   discountValue: Decimal;
+  isUsed: boolean;
+  deletedAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
 

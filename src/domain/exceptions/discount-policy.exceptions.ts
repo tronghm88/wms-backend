@@ -38,3 +38,12 @@ export class InvalidDiscountPolicyConfigurationException extends DiscountPolicyE
     super(message, "INVALID_DISCOUNT_POLICY_CONFIGURATION");
   }
 }
+
+export class DiscountPolicyUsedException extends DiscountPolicyException {
+  constructor(id: number) {
+    super(
+      `Discount policy '${id}' is already used and cannot be modified`,
+      "DISCOUNT_POLICY_USED",
+    );
+  }
+}

@@ -22,14 +22,16 @@ export class DiscountPolicyRepository implements IDiscountPolicyRepository {
       isAppliedAll: policy.isAppliedAll,
       productIds: policy.productIds,
       discountValue: new Decimal(policy.discountValue.toString()),
+      isUsed: policy.isUsed,
+      deletedAt: policy.deletedAt,
       createdAt: policy.createdAt,
       updatedAt: policy.updatedAt,
     });
   }
 
   async findById(id: number): Promise<DiscountPolicyEntity | null> {
-    const policy = await this.prisma.discountPolicy.findUnique({
-      where: { id },
+    const policy = await this.prisma.discountPolicy.findFirst({
+      where: { id, deletedAt: null },
     });
 
     if (!policy) return null;
@@ -38,7 +40,7 @@ export class DiscountPolicyRepository implements IDiscountPolicyRepository {
 
   async findByCustomerId(customerId: number): Promise<DiscountPolicyEntity[]> {
     const policies = await this.prisma.discountPolicy.findMany({
-      where: { customerId },
+      where: { customerId, deletedAt: null },
       orderBy: { createdAt: "desc" },
     });
 
@@ -52,6 +54,7 @@ export class DiscountPolicyRepository implements IDiscountPolicyRepository {
       where: {
         customerId,
         isAppliedAll: true,
+        deletedAt: null,
       },
     });
 
@@ -60,7 +63,10 @@ export class DiscountPolicyRepository implements IDiscountPolicyRepository {
   }
 
   async create(
-    policy: Omit<DiscountPolicyEntity, "id" | "createdAt" | "updatedAt">,
+    policy: Omit<
+      DiscountPolicyEntity,
+      "id" | "createdAt" | "updatedAt" | "isUsed" | "deletedAt"
+    >,
   ): Promise<DiscountPolicyEntity> {
     const created = await this.prisma.discountPolicy.create({
       data: {
@@ -91,6 +97,12 @@ export class DiscountPolicyRepository implements IDiscountPolicyRepository {
     }
     if (policy.discountType !== undefined) {
       data.discountType = policy.discountType as unknown as PrismaDiscountType;
+    }
+    if (policy.isUsed !== undefined) {
+      data.isUsed = policy.isUsed;
+    }
+    if (policy.deletedAt !== undefined) {
+      data.deletedAt = policy.deletedAt;
     }
     if (policy.customerId !== undefined) {
       data.customer = { connect: { id: policy.customerId } };
