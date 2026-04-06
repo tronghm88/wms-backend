@@ -3,6 +3,7 @@ import {
   Post,
   Get,
   Patch,
+  Delete,
   Body,
   Param,
   UseGuards,
@@ -19,6 +20,7 @@ import {
 import { CreateDiscountPolicyUseCase } from "../../application/use-cases/discount-policies/create-discount-policy.use-case";
 import { GetDiscountPoliciesByCustomerUseCase } from "../../application/use-cases/discount-policies/get-discount-policies-by-customer.use-case";
 import { UpdateDiscountPolicyUseCase } from "../../application/use-cases/discount-policies/update-discount-policy.use-case";
+import { DeleteDiscountPolicyUseCase } from "../../application/use-cases/discount-policies/delete-discount-policy.use-case";
 import { CreateDiscountPolicyDto } from "../dtos/discount-policies/create-discount-policy.dto";
 import { UpdateDiscountPolicyDto } from "../dtos/discount-policies/update-discount-policy.dto";
 import { DiscountPolicyResponseDto } from "../dtos/discount-policies/discount-policy-response.dto";
@@ -35,6 +37,7 @@ export class DiscountPoliciesController {
     private readonly createDiscountPolicyUseCase: CreateDiscountPolicyUseCase,
     private readonly getDiscountPoliciesByCustomerUseCase: GetDiscountPoliciesByCustomerUseCase,
     private readonly updateDiscountPolicyUseCase: UpdateDiscountPolicyUseCase,
+    private readonly deleteDiscountPolicyUseCase: DeleteDiscountPolicyUseCase,
   ) {}
 
   @Post()
@@ -99,5 +102,21 @@ export class DiscountPoliciesController {
       id,
       updateDiscountPolicyDto,
     );
+  }
+
+  @Delete(":id")
+  @RequirePermissions(Permissions.DISCOUNT_POLICIES_MANAGE)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: "Soft delete a discount policy" })
+  @ApiResponse({
+    status: 204,
+    description: "The discount policy has been successfully deleted.",
+  })
+  @ApiResponse({ status: 400, description: "Bad Request - Policy is used" })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  @ApiResponse({ status: 404, description: "Not Found" })
+  async delete(@Param("id", ParseIntPipe) id: number): Promise<void> {
+    await this.deleteDiscountPolicyUseCase.execute(id);
   }
 }

@@ -116,8 +116,9 @@ export class DiscountPolicyRepository implements IDiscountPolicyRepository {
   }
 
   async delete(id: number): Promise<void> {
-    await this.prisma.discountPolicy.delete({
+    await this.prisma.discountPolicy.update({
       where: { id },
+      data: { deletedAt: new Date() },
     });
   }
 }

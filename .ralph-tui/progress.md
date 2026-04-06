@@ -9,6 +9,7 @@ after each iteration and it's included in prompts for context.
 
 - **Decimal Serialization:** Always format `Decimal` fields as strings in Use Case responses (using `toFixed(3)`) to satisfy the `NUMERIC(15,3)` requirement and ensure API consistency.
 - **Mutual Exclusivity in Discount Policies:** Ensure that a customer cannot have both a "General" (isAppliedAll=true) and "Specific" (productIds list) discount policy to simplify the "one policy per product" logic.
+- **Soft Delete with Unique Constraints:** When implementing soft delete in Prisma, consider removing `@@unique` constraints that don't account for `deletedAt` and replacing them with application-level checks to allow multiple soft-deleted records for the same keys.
 
 ---
 
@@ -71,4 +72,25 @@ after each iteration and it's included in prompts for context.
   - Adding a usage tracking flag (`isUsed`) early is essential for maintaining historical pricing integrity.
   - Prisma 7+ handles datasource configuration differently (managed via `prisma.config.ts`), requiring removal of the `url` property from the schema file in some environments.
   - When updating enums in a shared environment, ensure all code paths are updated to use the new enum values (`NONE`, `PERCENT`, `AMOUNT` instead of `PERCENT`, `FIXED`).
+
+---
+
+## 2026-04-06 - US-209
+- Implemented Soft Delete for DiscountPolicies.
+- Created `DeleteDiscountPolicyUseCase` with usage tracking check (only unused policies can be deleted).
+- Updated `DiscountPolicyRepository` to perform soft delete (setting `deleted_at`) instead of hard delete.
+- Added `DELETE` endpoint to `DiscountPoliciesController`.
+- Refactored `update-discount-policy.use-case.spec.ts` to fix lint errors and use proper types.
+- Removed unique constraint `@@unique([customerId, isAppliedAll])` from `prisma/schema.prisma` to support multiple soft-deleted policies for the same customer.
+- Files changed:
+  - `src/infrastructure/database/repositories/discount-policy.repository.ts`
+  - `src/application/use-cases/discount-policies/delete-discount-policy.use-case.ts`
+  - `src/application/use-cases/discount-policies/delete-discount-policy.use-case.spec.ts`
+  - `src/infrastructure/discount-policies/discount-policies.module.ts`
+  - `src/presentation/controllers/discount-policies.controller.ts`
+  - `prisma/schema.prisma`
+  - `src/application/use-cases/discount-policies/update-discount-policy.use-case.spec.ts`
+- **Learnings:**
+  - Soft delete logic should be handled both at the repository level (to filter queries) and the application level (to enforce domain rules like "only unused policies can be deleted").
+  - Prisma unique constraints must be carefully evaluated when implementing soft delete; often application-level checks or partial indexes (if supported) are better than a simple unique index on the table.
 ---

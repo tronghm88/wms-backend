@@ -1,32 +1,37 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { UpdateDiscountPolicyUseCase } from "./update-discount-policy.use-case";
 import { DISCOUNT_POLICY_REPOSITORY } from "../../../domain/contracts/discount-policy.repository.interface";
+import type { IDiscountPolicyRepository } from "../../../domain/contracts/discount-policy.repository.interface";
 import { PRODUCT_REPOSITORY } from "../../../domain/contracts/product.repository.interface";
+import type { IProductRepository } from "../../../domain/contracts/product.repository.interface";
 import { DiscountType } from "../../../domain/enums";
 import {
   DiscountPolicyNotFoundException,
   DiscountPolicyUsedException,
   DuplicateGeneralDiscountPolicyException,
   InvalidDiscountPolicyConfigurationException,
-  ProductAlreadyHasDiscountPolicyException,
 } from "../../../domain/exceptions/discount-policy.exceptions";
 import { DiscountPolicyEntity } from "../../../domain/entities/discount-policy.entity";
 import { Decimal } from "decimal.js";
 
 describe("UpdateDiscountPolicyUseCase", () => {
   let useCase: UpdateDiscountPolicyUseCase;
-  let discountPolicyRepository: any;
-  let productRepository: any;
+  let discountPolicyRepository: jest.Mocked<IDiscountPolicyRepository>;
+  let productRepository: jest.Mocked<IProductRepository>;
 
   beforeEach(async () => {
     discountPolicyRepository = {
       findById: jest.fn(),
       findByCustomerId: jest.fn(),
+      findAppliedAllByCustomerId: jest.fn(),
+      create: jest.fn(),
       update: jest.fn(),
-    };
+      delete: jest.fn(),
+    } as unknown as jest.Mocked<IDiscountPolicyRepository>;
+
     productRepository = {
       findById: jest.fn(),
-    };
+    } as unknown as jest.Mocked<IProductRepository>;
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -42,7 +47,9 @@ describe("UpdateDiscountPolicyUseCase", () => {
       ],
     }).compile();
 
-    useCase = module.get<UpdateDiscountPolicyUseCase>(UpdateDiscountPolicyUseCase);
+    useCase = module.get<UpdateDiscountPolicyUseCase>(
+      UpdateDiscountPolicyUseCase,
+    );
   });
 
   const existingPolicy = new DiscountPolicyEntity({
@@ -56,46 +63,74 @@ describe("UpdateDiscountPolicyUseCase", () => {
   });
 
   it("should throw DiscountPolicyNotFoundException if policy does not exist", async () => {
-    discountPolicyRepository.findById.mockResolvedValue(null);
-    await expect(useCase.execute(1, {} as any)).rejects.toThrow(
-      DiscountPolicyNotFoundException,
-    );
+    (discountPolicyRepository.findById as jest.Mock).mockResolvedValue(null);
+    await expect(
+      useCase.execute(1, {
+        discountType: DiscountType.PERCENT,
+        isAppliedAll: true,
+        discountValue: "10",
+      }),
+    ).rejects.toThrow(DiscountPolicyNotFoundException);
   });
 
   it("should throw DiscountPolicyUsedException if policy is already used", async () => {
-    discountPolicyRepository.findById.mockResolvedValue(
+    (discountPolicyRepository.findById as jest.Mock).mockResolvedValue(
       new DiscountPolicyEntity({ ...existingPolicy, isUsed: true }),
     );
-    await expect(useCase.execute(1, {} as any)).rejects.toThrow(
-      DiscountPolicyUsedException,
-    );
+    await expect(
+      useCase.execute(1, {
+        discountType: DiscountType.PERCENT,
+        isAppliedAll: true,
+        discountValue: "10",
+      }),
+    ).rejects.toThrow(DiscountPolicyUsedException);
   });
 
   it("should throw InvalidDiscountPolicyConfigurationException if isAppliedAll is true and productIds is not empty", async () => {
-    discountPolicyRepository.findById.mockResolvedValue(existingPolicy);
+    (discountPolicyRepository.findById as jest.Mock).mockResolvedValue(
+      existingPolicy,
+    );
     await expect(
-      useCase.execute(1, { isAppliedAll: true, productIds: [1] } as any),
+      useCase.execute(1, {
+        isAppliedAll: true,
+        productIds: [1],
+        discountType: DiscountType.PERCENT,
+        discountValue: "10",
+      }),
     ).rejects.toThrow(InvalidDiscountPolicyConfigurationException);
   });
 
   it("should throw DuplicateGeneralDiscountPolicyException if updating to general and another one exists", async () => {
-    discountPolicyRepository.findById.mockResolvedValue(
-      new DiscountPolicyEntity({ ...existingPolicy, isAppliedAll: false, productIds: [1] }),
+    (discountPolicyRepository.findById as jest.Mock).mockResolvedValue(
+      new DiscountPolicyEntity({
+        ...existingPolicy,
+        isAppliedAll: false,
+        productIds: [1],
+      }),
     );
-    discountPolicyRepository.findByCustomerId.mockResolvedValue([
+    (discountPolicyRepository.findByCustomerId as jest.Mock).mockResolvedValue([
       new DiscountPolicyEntity({ id: 1, isAppliedAll: false, productIds: [1] }),
       new DiscountPolicyEntity({ id: 2, isAppliedAll: true, productIds: [] }),
     ]);
 
     await expect(
-      useCase.execute(1, { isAppliedAll: true, productIds: [], discountType: DiscountType.PERCENT, discountValue: "10" }),
+      useCase.execute(1, {
+        isAppliedAll: true,
+        productIds: [],
+        discountType: DiscountType.PERCENT,
+        discountValue: "10",
+      }),
     ).rejects.toThrow(DuplicateGeneralDiscountPolicyException);
   });
 
   it("should successfully update a discount policy", async () => {
-    discountPolicyRepository.findById.mockResolvedValue(existingPolicy);
-    discountPolicyRepository.findByCustomerId.mockResolvedValue([existingPolicy]);
-    discountPolicyRepository.update.mockResolvedValue(
+    (discountPolicyRepository.findById as jest.Mock).mockResolvedValue(
+      existingPolicy,
+    );
+    (discountPolicyRepository.findByCustomerId as jest.Mock).mockResolvedValue([
+      existingPolicy,
+    ]);
+    (discountPolicyRepository.update as jest.Mock).mockResolvedValue(
       new DiscountPolicyEntity({
         ...existingPolicy,
         discountValue: new Decimal("15.000"),
@@ -110,6 +145,7 @@ describe("UpdateDiscountPolicyUseCase", () => {
     });
 
     expect(result.discountValue).toBe("15.000");
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(discountPolicyRepository.update).toHaveBeenCalled();
   });
 });

@@ -190,7 +190,6 @@ model DiscountPolicy {
 
   customer Customer @relation(fields: [customerId], references: [id])
 
-  @@unique([customerId, isAppliedAll])
   @@map("discount_policies")
 }
 

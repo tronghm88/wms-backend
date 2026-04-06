@@ -9,6 +9,7 @@ import { ProductRepository } from "../database/repositories/product.repository";
 import { CreateDiscountPolicyUseCase } from "../../application/use-cases/discount-policies/create-discount-policy.use-case";
 import { GetDiscountPoliciesByCustomerUseCase } from "../../application/use-cases/discount-policies/get-discount-policies-by-customer.use-case";
 import { UpdateDiscountPolicyUseCase } from "../../application/use-cases/discount-policies/update-discount-policy.use-case";
+import { DeleteDiscountPolicyUseCase } from "../../application/use-cases/discount-policies/delete-discount-policy.use-case";
 import { DiscountPoliciesController } from "../../presentation/controllers/discount-policies.controller";
 
 @Module({
@@ -30,12 +31,14 @@ import { DiscountPoliciesController } from "../../presentation/controllers/disco
     CreateDiscountPolicyUseCase,
     GetDiscountPoliciesByCustomerUseCase,
     UpdateDiscountPolicyUseCase,
+    DeleteDiscountPolicyUseCase,
   ],
   exports: [
     DISCOUNT_POLICY_REPOSITORY,
     CreateDiscountPolicyUseCase,
     GetDiscountPoliciesByCustomerUseCase,
     UpdateDiscountPolicyUseCase,
+    DeleteDiscountPolicyUseCase,
   ],
 })
 export class DiscountPoliciesModule {}
