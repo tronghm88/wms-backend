@@ -31,8 +31,9 @@ enum TransactionStatus {
 }
 
 enum DiscountType {
+  NONE
   PERCENT
-  FIXED
+  AMOUNT
 }
 
 enum StockMovementType {
@@ -187,8 +188,6 @@ model DiscountPolicy {
 
   customer Customer @relation(fields: [customerId], references: [id])
 
-  // Note: For true "Only one 'true' per customer but many 'false'", use a partial SQL index.
-  @@unique([customerId, isAppliedAll])
   @@map("discount_policies")
 }
 

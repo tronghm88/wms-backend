@@ -9,6 +9,7 @@ import { CategoriesModule } from "./infrastructure/categories/categories.module"
 import { ProductsModule } from "./infrastructure/products/products.module";
 import { UnitConversionsModule } from "./infrastructure/unit-conversions/unit-conversions.module";
 import { CustomersModule } from "./infrastructure/customers/customers.module";
+import { DiscountPoliciesModule } from "./infrastructure/discount-policies/discount-policies.module";
 import { ConfigModule } from "@nestjs/config";
 import { CacheModule } from "@nestjs/cache-manager";
 // import { redisStore } from 'cache-manager-redis-yet';
@@ -32,6 +33,7 @@ import { CacheModule } from "@nestjs/cache-manager";
     ProductsModule,
     UnitConversionsModule,
     CustomersModule,
+    DiscountPoliciesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

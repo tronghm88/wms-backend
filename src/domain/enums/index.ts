@@ -16,8 +16,9 @@ export enum TransactionStatus {
 }
 
 export enum DiscountType {
+  NONE = "NONE",
   PERCENT = "PERCENT",
-  FIXED = "FIXED",
+  AMOUNT = "AMOUNT",
 }
 
 export enum StockMovementType {

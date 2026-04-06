@@ -10,6 +10,8 @@ export const Permissions = {
   CATEGORIES_MANAGE: "categories:manage",
   CUSTOMERS_VIEW: "customers:view",
   CUSTOMERS_MANAGE: "customers:manage",
+  DISCOUNT_POLICIES_VIEW: "discount-policies:view",
+  DISCOUNT_POLICIES_MANAGE: "discount-policies:manage",
   UNITS_VIEW: "units:view",
   UNITS_MANAGE: "units:manage",
 
@@ -37,6 +39,7 @@ export const RolePermissions: Record<string, string[]> = {
     Permissions.CATEGORIES_VIEW,
     Permissions.UNITS_VIEW,
     Permissions.CUSTOMERS_VIEW,
+    Permissions.DISCOUNT_POLICIES_VIEW,
     Permissions.INVENTORY_VIEW,
     Permissions.RECEIPTS_CREATE,
     Permissions.RECEIPTS_CONFIRM,

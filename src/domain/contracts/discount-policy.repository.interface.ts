@@ -1,5 +1,7 @@
 import { DiscountPolicyEntity } from "../entities/discount-policy.entity";
 
+export const DISCOUNT_POLICY_REPOSITORY = "DISCOUNT_POLICY_REPOSITORY";
+
 export interface IDiscountPolicyRepository {
   findById(id: number): Promise<DiscountPolicyEntity | null>;
   findByCustomerId(customerId: number): Promise<DiscountPolicyEntity[]>;

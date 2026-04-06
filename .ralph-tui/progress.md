@@ -5,71 +5,24 @@ after each iteration and it's included in prompts for context.
 
 ## Codebase Patterns (Study These First)
 
-- **Standardized Response Wrapping:** For certain stories, controllers manually wrap responses in `{ statusCode, data }` to meet specific API contract requirements.
-- **Repository Pagination:** Use `findAndCount(params): Promise<[Entity[], number]>` pattern for paginated search in repositories.
+*Add reusable patterns discovered during development here.*
+
+- **Decimal Serialization:** Always format `Decimal` fields as strings in Use Case responses (using `toFixed(3)`) to satisfy the `NUMERIC(15,3)` requirement and ensure API consistency.
+- **Mutual Exclusivity in Discount Policies:** Ensure that a customer cannot have both a "General" (isAppliedAll=true) and "Specific" (productIds list) discount policy to simplify the "one policy per product" logic.
 
 ---
 
-## [2026-04-04] - US-201
-- Implement Create customer API.
+## 2026-04-06 - US-206
+- Implemented Create DiscountPolicy API for customers.
+- Added stricter conflict checks to ensure "one discount policy per product" rule, even when mixing general and specific policies.
+- Created `DiscountPolicyResponseDto` and updated controller to return formatted decimals as strings.
 - Files changed:
-  - src/domain/exceptions/customer.exceptions.ts (created)
-  - src/domain/contracts/customer.repository.interface.ts (modified)
-  - src/infrastructure/database/repositories/customer.repository.ts (created)
-  - src/application/use-cases/customers/create-customer.use-case.ts (created)
-  - src/presentation/dtos/customers/create-customer.dto.ts (created)
-  - src/presentation/controllers/customers.controller.ts (created)
-  - src/infrastructure/customers/customers.module.ts (created)
-  - src/app.module.ts (modified)
+  - `src/application/use-cases/discount-policies/create-discount-policy.use-case.ts`
+  - `src/application/use-cases/discount-policies/create-discount-policy.use-case.spec.ts`
+  - `src/presentation/dtos/discount-policies/discount-policy-response.dto.ts`
+  - `src/presentation/controllers/discount-policies.controller.ts`
 - **Learnings:**
-  - Standardized response pattern for this story requires manual wrapping in controller: `{ statusCode, data }`.
-  - Uniqueness checks should be performed in the Use Case layer to keep Domain logic pure but orchestration in Application layer.
----
+  - Standardized decimal serialization as strings in use cases before returning to presentation layer.
+  - Enforced mutual exclusivity between general and specific policies to maintain data integrity.
 
-## [2026-04-04] - US-202
-- Implement Get customers API with pagination and search.
-- Files changed:
-  - src/domain/contracts/customer.repository.interface.ts (modified)
-  - src/infrastructure/database/repositories/customer.repository.ts (modified)
-  - src/presentation/dtos/customers/get-customers.dto.ts (created)
-  - src/application/use-cases/customers/get-customers.use-case.ts (created)
-  - src/application/use-cases/customers/get-customers.use-case.spec.ts (created)
-  - src/infrastructure/customers/customers.module.ts (modified)
-  - src/presentation/controllers/customers.controller.ts (modified)
-  - src/presentation/controllers/customers.controller.spec.ts (created)
-- **Learnings:**
-  - Standardized response pattern for Customer module requires `{ statusCode, data }` wrapping in the controller.
-  - Repository `findAndCount` pattern is used for pagination, returning a tuple `[Entity[], number]`.
-  - Pagination DTOs should include `page` and `limit` with sensible defaults (e.g., page 1, limit 20).
----
-
-## [2026-04-04] - US-204
-- Implement Delete customer API.
-- Files changed:
-  - src/domain/exceptions/customer.exceptions.ts (modified)
-  - src/domain/contracts/customer.repository.interface.ts (modified)
-  - src/infrastructure/database/repositories/customer.repository.ts (modified)
-  - src/application/use-cases/customers/delete-customer.use-case.ts (created)
-  - src/application/use-cases/customers/delete-customer.use-case.spec.ts (created)
-  - src/presentation/controllers/customers.controller.ts (modified)
-  - src/presentation/controllers/customers.controller.spec.ts (modified)
-  - src/infrastructure/customers/customers.module.ts (modified)
-  - src/application/use-cases/customers/update-customer.use-case.spec.ts (modified)
-- **Learnings:**
-  - Before deleting a customer, check for associated `IssueTicket`s to maintain data integrity.
-  - Domain exceptions with error codes containing `CANNOT_` are mapped to `400 Bad Request` by the `GlobalExceptionFilter`.
-  - Mocked repositories in tests must be updated when the repository interface changes.
----
-
-## [2026-04-04] - US-205
-- Implement Get customer detail API.
-- Files changed:
-  - src/application/use-cases/customers/get-customer.use-case.ts (created)
-  - src/application/use-cases/customers/get-customer.use-case.spec.ts (created)
-  - src/infrastructure/customers/customers.module.ts (modified)
-  - src/presentation/controllers/customers.controller.ts (modified)
-- **Learnings:**
-  - Followed existing patterns for customer management, including { statusCode, data } response wrapping.
-  - Used CustomerNotFoundException to handle missing customers, which maps to 404.
-  - Mocked ICustomerRepository in tests using jest.Mocked<Partial<ICustomerRepository>> to satisfy lint rules.
 ---
