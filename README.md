@@ -36,9 +36,15 @@ You can easily deploy the entire stack (PostgreSQL, Redis, and the Node.js API) 
 - The `postgres` and `redis` containers will start and initialize.
 - The `api` Node.js container image is built locally.
 - The `api` container waits for the database to establish a healthy connection.
-- A startup script runs within the API container that executes `npx prisma migrate deploy` and the `npm run seed:admin` scripts sequentially to bootstrap the database.
+- A startup script runs within the API container that executes `npx prisma migrate deploy` to ensure the database schema is up-to-date.
 - The Node.js application boots up and connects all dependencies.
 - The NestJS app, natively on port `3000`, is exposed to the host machine on port `4000`.
+
+### Manual Super Admin Seeding
+Since this is a staging/production-like deployment, database seeding is not automatic upon container start. Whenever you need to manually seed the Super Admin, execute:
+```bash
+docker-compose exec api npm run seed:admin
+```
 
 ### Accessing the System
 - **API URL Base:** `http://<your-vps-ip>:4000`
