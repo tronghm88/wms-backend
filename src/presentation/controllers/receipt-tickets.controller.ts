@@ -23,6 +23,7 @@ import { AddReceiptLineUseCase } from "../../application/use-cases/receipt-ticke
 import { ListReceiptTicketsUseCase } from "../../application/use-cases/receipt-tickets/list-receipt-tickets.use-case";
 import { CreateReceiptTicketDto } from "../../application/dtos/create-receipt-ticket.dto";
 import { GetReceiptTicketsDto } from "../dtos/receipt-tickets/get-receipt-tickets.dto";
+import { GetReceiptTicketsResponseDto } from "../dtos/receipt-tickets/get-receipt-tickets-response.dto";
 import { AddReceiptLineRequestDto } from "../dtos/receipt-tickets/add-receipt-line-request.dto";
 import { ReceiptTicketResponseDto } from "../dtos/receipt-ticket-response.dto";
 import { ReceiptTicketLineResponseDto } from "../dtos/receipt-tickets/receipt-ticket-line-response.dto";
@@ -47,8 +48,11 @@ export class ReceiptTicketsController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: "Returns a paginated list of Goods Receipts",
+    type: GetReceiptTicketsResponseDto,
   })
-  async findAll(@Query() query: GetReceiptTicketsDto) {
+  async findAll(
+    @Query() query: GetReceiptTicketsDto,
+  ): Promise<GetReceiptTicketsResponseDto> {
     const result = await this.listReceiptTicketsUseCase.execute({
       ...query,
       fromDate: query.fromDate ? new Date(query.fromDate) : undefined,

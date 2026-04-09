@@ -3,10 +3,10 @@
   "sessionId": "8efda914-750f-442d-ab93-d2e8b5958112",
   "status": "running",
   "startedAt": "2026-04-09T04:00:38.493Z",
-  "updatedAt": "2026-04-09T04:11:37.181Z",
-  "currentIteration": 0,
+  "updatedAt": "2026-04-09T04:21:55.777Z",
+  "currentIteration": 1,
   "maxIterations": 50,
-  "tasksCompleted": 0,
+  "tasksCompleted": 1,
   "isPaused": false,
   "agentPlugin": "gemini",
   "trackerState": {
@@ -23,8 +23,8 @@
       {
         "id": "US-302",
         "title": "Add Line Item to Receipt (with Unit Engine)",
-        "status": "open",
-        "completedInSession": false
+        "status": "completed",
+        "completedInSession": true
       },
       {
         "id": "US-303",
@@ -58,7 +58,18 @@
       }
     ]
   },
-  "iterations": [],
+  "iterations": [
+    {
+      "iteration": 1,
+      "status": "completed",
+      "taskId": "US-302",
+      "taskTitle": "Add Line Item to Receipt (with Unit Engine)",
+      "taskCompleted": true,
+      "durationMs": 231822,
+      "startedAt": "2026-04-09T04:07:45.358Z",
+      "endedAt": "2026-04-09T04:11:37.180Z"
+    }
+  ],
   "skippedTaskIds": [],
   "cwd": "/Users/windy/Work/wms",
   "activeTaskIds": [],
