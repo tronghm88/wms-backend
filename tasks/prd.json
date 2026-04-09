@@ -1,17 +1,19 @@
 {
-  "name": "Product Management Module (M2)",
-  "branchName": "ralph/product-management-m2",
+  "name": "Epic 3 - Inbound Operations & Stock Generation",
+  "branchName": "feature/inbound-operations-stock-generation",
   "userStories": [
     {
-      "id": "US-001",
-      "title": "Create Unit API",
-      "description": "As an Admin, I want to create a new Unit (e.g., 'm2', 'kg') so that it can be used in product definitions.",
+      "id": "US-301",
+      "title": "Create Goods Receipt Draft",
+      "description": "As a Warehouse Staff member, I want to initiate a new Goods Receipt for an incoming shipment so that I can begin drafting the manifest.",
       "acceptanceCriteria": [
-        "Implement POST /api/v1/units endpoint.",
-        "DTO includes code (string, required, unique).",
-        "Validate code is unique in the database.",
-        "Follow Clean Architecture: Domain Entity, Repository Interface, Use Case, Infrastructure Repository, and Presentation Controller.",
-        "Document endpoint with Swagger.",
+        "Create POST /api/v1/receipt-tickets endpoint.",
+        "Accept notes (optional) and automatically link the creatorId (from authenticated user).",
+        "Generate a unique ID following PN-YYYYMM-N format (e.g., PN-202604-1).",
+        "N must be a sequential increment resetting at the start of each month.",
+        "Set initial status to DRAFT.",
+        "Return the created ticket object with its ID and timestamp.",
+        "Ensure the Ticket ID sequence is transaction-safe and handles concurrency.",
         "npm run lint passes",
         "npx tsc --noEmit passes"
       ],
@@ -21,336 +23,121 @@
       "completionNotes": "Completed by agent"
     },
     {
-      "id": "US-002",
-      "title": "List Units API",
-      "description": "As a User, I want to list all available Units.",
+      "id": "US-302",
+      "title": "Add Line Item to Receipt (with Unit Engine)",
+      "description": "As a Warehouse Staff member, I want to add a product roll to my receipt draft and see its converted metrics (m2, kg) immediately.",
       "acceptanceCriteria": [
-        "Implement GET /api/v1/units endpoint.",
-        "Return an array of Unit objects.",
-        "Document endpoint with Swagger.",
+        "Create POST /api/v1/receipt-tickets/{id}/lines endpoint.",
+        "Validate that the parent Ticket is in DRAFT status.",
+        "Accept productId and physical dimensions (e.g., length_m).",
+        "Invoke the UnitConversionEngine (Domain Layer) to calculate area_m2 and weight_kg based on product category rules.",
+        "Persist the line item and return the calculated metrics in the response for real-time UI feedback.",
+        "All numeric fields must be handled as Decimal (decimal.js) and stored as NUMERIC(15,3).",
         "npm run lint passes",
         "npx tsc --noEmit passes"
       ],
       "priority": 2,
-      "passes": true,
+      "passes": false,
       "dependsOn": [
-        "US-001"
-      ],
-      "completionNotes": "Completed by agent"
+        "US-301"
+      ]
     },
     {
-      "id": "US-003",
-      "title": "Get Unit by Code API",
-      "description": "As a User, I want to retrieve details of a specific Unit by its code.",
+      "id": "US-303",
+      "title": "Update Line Item in Receipt",
+      "description": "As a Warehouse Staff member, I want to edit a previously added line item if I made a mistake during entry.",
       "acceptanceCriteria": [
-        "Implement GET /api/v1/units/:code endpoint.",
-        "Return Unit object or 404 if not found.",
-        "Document endpoint with Swagger.",
-        "npm run lint passes",
-        "npx tsc --noEmit passes"
-      ],
-      "priority": 2,
-      "passes": true,
-      "dependsOn": [
-        "US-001"
-      ],
-      "completionNotes": "Completed by agent"
-    },
-    {
-      "id": "US-004",
-      "title": "Delete Unit API",
-      "description": "As an Admin, I want to delete a Unit that is no longer needed.",
-      "acceptanceCriteria": [
-        "Implement DELETE /api/v1/units/:code endpoint.",
-        "Block deletion if the Unit is referenced by any Product or UnitConversion (Foreign Key constraint).",
-        "Document endpoint with Swagger.",
-        "npm run lint passes",
-        "npx tsc --noEmit passes"
-      ],
-      "priority": 2,
-      "passes": true,
-      "dependsOn": [
-        "US-001"
-      ],
-      "completionNotes": "Completed by agent"
-    },
-    {
-      "id": "US-005",
-      "title": "Create Category API",
-      "description": "As an Admin, I want to create a new Product Category with a manual code.",
-      "acceptanceCriteria": [
-        "Implement POST /api/v1/categories endpoint.",
-        "DTO includes code (unique, required) and name (required).",
-        "Validate code uniqueness.",
-        "Follow Clean Architecture patterns.",
-        "Document endpoint with Swagger.",
-        "npm run lint passes",
-        "npx tsc --noEmit passes"
-      ],
-      "priority": 1,
-      "passes": true,
-      "dependsOn": [],
-      "completionNotes": "Completed by agent"
-    },
-    {
-      "id": "US-006",
-      "title": "Update Category API",
-      "description": "As an Admin, I want to update an existing Category's name or code.",
-      "acceptanceCriteria": [
-        "Implement PATCH /api/v1/categories/:id endpoint.",
-        "Allow updating code (with uniqueness check) and name.",
-        "Document endpoint with Swagger.",
-        "npm run lint passes",
-        "npx tsc --noEmit passes"
-      ],
-      "priority": 2,
-      "passes": true,
-      "dependsOn": [
-        "US-005"
-      ],
-      "completionNotes": "Completed by agent"
-    },
-    {
-      "id": "US-007",
-      "title": "List Categories API",
-      "description": "As a User, I want to list all product categories.",
-      "acceptanceCriteria": [
-        "Implement GET /api/v1/categories endpoint.",
-        "Support basic pagination/sorting if applicable (optional for MVP).",
-        "Document endpoint with Swagger.",
-        "npm run lint passes",
-        "npx tsc --noEmit passes"
-      ],
-      "priority": 2,
-      "passes": true,
-      "dependsOn": [
-        "US-005"
-      ],
-      "completionNotes": "Completed by agent"
-    },
-    {
-      "id": "US-008",
-      "title": "Get Category by ID API",
-      "description": "As a User, I want to retrieve a specific category by its ID.",
-      "acceptanceCriteria": [
-        "Implement GET /api/v1/categories/:id endpoint.",
-        "Return Category object or 404.",
-        "Document endpoint with Swagger.",
-        "npm run lint passes",
-        "npx tsc --noEmit passes"
-      ],
-      "priority": 2,
-      "passes": true,
-      "dependsOn": [
-        "US-005"
-      ],
-      "completionNotes": "Completed by agent"
-    },
-    {
-      "id": "US-009",
-      "title": "Delete Category API",
-      "description": "As an Admin, I want to delete a category.",
-      "acceptanceCriteria": [
-        "Implement DELETE /api/v1/categories/:id endpoint.",
-        "Block deletion if Category has associated Products.",
-        "Document endpoint with Swagger.",
-        "npm run lint passes",
-        "npx tsc --noEmit passes"
-      ],
-      "priority": 2,
-      "passes": true,
-      "dependsOn": [
-        "US-005"
-      ],
-      "completionNotes": "Completed by agent"
-    },
-    {
-      "id": "US-010",
-      "title": "Create Product API",
-      "description": "As an Admin, I want to create a new Product with manual code and physical metrics.",
-      "acceptanceCriteria": [
-        "Implement POST /api/v1/products endpoint.",
-        "DTO includes code (unique), name, categoryId, baseUnit, basePrice (string for decimal), length, width, height.",
-        "Validate categoryId and baseUnit exist.",
-        "Validate code uniqueness.",
-        "Ensure Decimal fields are handled correctly (stored as NUMERIC(15,3)).",
-        "Document endpoint with Swagger.",
+        "Create PATCH /api/v1/receipt-tickets/{id}/lines/{lineId} endpoint.",
+        "Re-trigger the UnitConversionEngine if physical dimensions are changed.",
+        "Update the line item record in the database.",
+        "Return the updated line with fresh calculations.",
+        "Block updates if the parent Ticket status is no longer DRAFT (unless current user is Admin).",
         "npm run lint passes",
         "npx tsc --noEmit passes"
       ],
       "priority": 3,
-      "passes": true,
+      "passes": false,
       "dependsOn": [
-        "US-001",
-        "US-005"
-      ],
-      "completionNotes": "Completed by agent"
+        "US-302"
+      ]
     },
     {
-      "id": "US-011",
-      "title": "Update Product API",
-      "description": "As an Admin, I want to update product details.",
+      "id": "US-304",
+      "title": "Delete Line Item from Receipt",
+      "description": "As a Warehouse Staff member, I want to remove a line item from my draft receipt.",
       "acceptanceCriteria": [
-        "Implement PATCH /api/v1/products/:id endpoint.",
-        "Allow updating all fields (code, name, metrics, etc.).",
-        "Validate code uniqueness if changed.",
-        "Document endpoint with Swagger.",
+        "Create DELETE /api/v1/receipt-tickets/{id}/lines/{lineId} endpoint.",
+        "Verify the line belongs to the specified ticket.",
+        "Block deletion if ticket is not DRAFT (unless current user is Admin).",
+        "Perform a hard delete for line items belonging to draft tickets.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 3,
+      "passes": false,
+      "dependsOn": [
+        "US-302"
+      ]
+    },
+    {
+      "id": "US-305",
+      "title": "Get Goods Receipt Details",
+      "description": "As a Warehouse Staff member, I want to view the full details of a specific receipt, including all its line items.",
+      "acceptanceCriteria": [
+        "Create GET /api/v1/receipt-tickets/{id} endpoint.",
+        "Include all related line items and calculated totals (total m2, total kg, total rolls).",
+        "Include notes and creatorId in the response.",
+        "Ensure proper serialization of NUMERIC fields as String in the JSON response.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 3,
+      "passes": false,
+      "dependsOn": [
+        "US-302"
+      ]
+    },
+    {
+      "id": "US-306",
+      "title": "List Goods Receipts",
+      "description": "As a Manager, I want to browse and filter past and current receipt tickets.",
+      "acceptanceCriteria": [
+        "Create GET /api/v1/receipt-tickets endpoint.",
+        "Support pagination (page, limit).",
+        "Support filtering by: status (DRAFT, CONFIRMED, VOIDED), creatorId, and Date range (fromDate, toDate).",
+        "Support searching by Ticket ID.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "dependsOn": [
+        "US-301"
+      ]
+    },
+    {
+      "id": "US-307",
+      "title": "Confirm Goods Receipt (Stock & Audit)",
+      "description": "As a Warehouse Staff member, I want to confirm the finalized receipt so that the items are officially added to the warehouse stock.",
+      "acceptanceCriteria": [
+        "Create POST /api/v1/receipt-tickets/{id}/confirm endpoint.",
+        "Transition ticket status from DRAFT to CONFIRMED.",
+        "Data Integrity: Once confirmed, the ticket and its lines become immutable for standard users.",
+        "Admin Override: Admins can edit or delete confirmed tickets with stock diff adjustment.",
+        "Stock Update: For each line item, create/update records in the Stock Balance table.",
+        "Audit Trail: Generate StockMovement records (Insert-Only) linked to the Ticket ID and user.",
+        "Wrap status change, stock update, and audit log creation in a single database transaction.",
         "npm run lint passes",
         "npx tsc --noEmit passes"
       ],
       "priority": 4,
-      "passes": true,
+      "passes": false,
       "dependsOn": [
-        "US-010"
-      ],
-      "completionNotes": "Completed by agent"
-    },
-    {
-      "id": "US-012",
-      "title": "List Products API",
-      "description": "As a User, I want to list all products.",
-      "acceptanceCriteria": [
-        "Implement GET /api/v1/products endpoint.",
-        "Include Category name and Unit code in response (Join/Include).",
-        "Document endpoint with Swagger.",
-        "npm run lint passes",
-        "npx tsc --noEmit passes"
-      ],
-      "priority": 4,
-      "passes": true,
-      "dependsOn": [
-        "US-010"
-      ],
-      "completionNotes": "Completed by agent"
-    },
-    {
-      "id": "US-013",
-      "title": "Get Product by ID API",
-      "description": "As a User, I want to retrieve details of a specific product.",
-      "acceptanceCriteria": [
-        "Implement GET /api/v1/products/:id endpoint.",
-        "Return Product object with relations or 404.",
-        "Document endpoint with Swagger.",
-        "npm run lint passes",
-        "npx tsc --noEmit passes"
-      ],
-      "priority": 4,
-      "passes": true,
-      "dependsOn": [
-        "US-010"
-      ],
-      "completionNotes": "Completed by agent"
-    },
-    {
-      "id": "US-014",
-      "title": "Delete Product API",
-      "description": "As an Admin, I want to delete a product.",
-      "acceptanceCriteria": [
-        "Implement DELETE /api/v1/products/:id endpoint.",
-        "Block deletion if Product has Inventory or Transaction history.",
-        "Document endpoint with Swagger.",
-        "npm run lint passes",
-        "npx tsc --noEmit passes"
-      ],
-      "priority": 4,
-      "passes": true,
-      "dependsOn": [
-        "US-010"
-      ],
-      "completionNotes": "Completed by agent"
-    },
-    {
-      "id": "US-015",
-      "title": "Create Unit Conversion API",
-      "description": "As an Admin, I want to define a conversion rule between units for a product.",
-      "acceptanceCriteria": [
-        "Implement POST /api/v1/unit-conversions endpoint.",
-        "DTO includes productId, fromUnit, toUnit, factor (string for decimal).",
-        "Validate productId, fromUnit, and toUnit exist.",
-        "Document endpoint with Swagger.",
-        "npm run lint passes",
-        "npx tsc --noEmit passes"
-      ],
-      "priority": 5,
-      "passes": true,
-      "dependsOn": [
-        "US-010",
-        "US-001"
-      ],
-      "completionNotes": "Completed by agent"
-    },
-    {
-      "id": "US-016",
-      "title": "Update Unit Conversion API",
-      "description": "As an Admin, I want to update an existing conversion rule.",
-      "acceptanceCriteria": [
-        "Implement PATCH /api/v1/unit-conversions/:id endpoint.",
-        "Allow updating factor.",
-        "Document endpoint with Swagger.",
-        "npm run lint passes",
-        "npx tsc --noEmit passes"
-      ],
-      "priority": 6,
-      "passes": true,
-      "dependsOn": [
-        "US-015"
-      ],
-      "completionNotes": "Completed by agent"
-    },
-    {
-      "id": "US-017",
-      "title": "List Unit Conversions API",
-      "description": "As a User, I want to list all unit conversion rules.",
-      "acceptanceCriteria": [
-        "Implement GET /api/v1/unit-conversions endpoint.",
-        "Support filtering by productId.",
-        "Document endpoint with Swagger.",
-        "npm run lint passes",
-        "npx tsc --noEmit passes"
-      ],
-      "priority": 6,
-      "passes": true,
-      "dependsOn": [
-        "US-015"
-      ],
-      "completionNotes": "Completed by agent"
-    },
-    {
-      "id": "US-018",
-      "title": "Get Unit Conversion by ID API",
-      "description": "As a User, I want to retrieve a specific conversion rule.",
-      "acceptanceCriteria": [
-        "Implement GET /api/v1/unit-conversions/:id endpoint.",
-        "Document endpoint with Swagger.",
-        "npm run lint passes",
-        "npx tsc --noEmit passes"
-      ],
-      "priority": 6,
-      "passes": true,
-      "dependsOn": [
-        "US-015"
-      ],
-      "completionNotes": "Completed by agent"
-    },
-    {
-      "id": "US-019",
-      "title": "Delete Unit Conversion API",
-      "description": "As an Admin, I want to delete a conversion rule.",
-      "acceptanceCriteria": [
-        "Implement DELETE /api/v1/unit-conversions/:id endpoint.",
-        "Document endpoint with Swagger.",
-        "npm run lint passes",
-        "npx tsc --noEmit passes"
-      ],
-      "priority": 6,
-      "passes": true,
-      "dependsOn": [
-        "US-015"
-      ],
-      "completionNotes": "Completed by agent"
+        "US-305"
+      ]
     }
   ],
   "metadata": {
-    "updatedAt": "2026-04-04T13:11:18.514Z"
+    "updatedAt": "2026-04-09T02:38:54.303Z"
   }
 }
