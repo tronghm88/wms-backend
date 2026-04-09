@@ -192,4 +192,43 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
       weightKg: newLine.weightKg ?? undefined,
     });
   }
+
+  async findLineById(lineId: number): Promise<ReceiptTicketLineEntity | null> {
+    const line = await this.prisma.receiptTicketLine.findUnique({
+      where: { id: lineId },
+    });
+    if (!line) return null;
+    return new ReceiptTicketLineEntity({
+      ...line,
+      quantity: line.quantity,
+      lengthM: line.lengthM ?? undefined,
+      areaM2: line.areaM2 ?? undefined,
+      weightKg: line.weightKg ?? undefined,
+    });
+  }
+
+  async updateLine(
+    lineId: number,
+    line: Partial<ReceiptTicketLineEntity>,
+  ): Promise<ReceiptTicketLineEntity> {
+    const updatedLine = await this.prisma.receiptTicketLine.update({
+      where: { id: lineId },
+      data: {
+        productId: line.productId,
+        quantity: line.quantity,
+        unitCode: line.unitCode,
+        lengthM: line.lengthM,
+        areaM2: line.areaM2,
+        weightKg: line.weightKg,
+      },
+    });
+
+    return new ReceiptTicketLineEntity({
+      ...updatedLine,
+      quantity: updatedLine.quantity,
+      lengthM: updatedLine.lengthM ?? undefined,
+      areaM2: updatedLine.areaM2 ?? undefined,
+      weightKg: updatedLine.weightKg ?? undefined,
+    });
+  }
 }

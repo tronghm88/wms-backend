@@ -28,4 +28,9 @@ export interface IReceiptTicketRepository {
   addLine(
     line: Omit<ReceiptTicketLineEntity, "id" | "createdAt" | "updatedAt">,
   ): Promise<ReceiptTicketLineEntity>;
+  findLineById(lineId: number): Promise<ReceiptTicketLineEntity | null>;
+  updateLine(
+    lineId: number,
+    line: Partial<ReceiptTicketLineEntity>,
+  ): Promise<ReceiptTicketLineEntity>;
 }

@@ -55,3 +55,23 @@ after each iteration and it's included in prompts for context.
   - `src/presentation/controllers/receipt-tickets.controller.ts`
 - **Learnings:**
   - **Swagger Schema Completeness:** Using dedicated DTOs for paginated responses (including `data` and `meta`) significantly improves API discoverability and frontend integration.
+---
+
+## [2026-04-09] - US-303
+- Implemented PATCH /api/v1/receipt-tickets/{id}/lines/{lineId} endpoint.
+- Added UpdateReceiptLineUseCase to handle line updates with automatic metric recalculation.
+- Implemented findLineById and updateLine in ReceiptTicketRepository.
+- Enforced DRAFT-only updates for non-admin users.
+- Files changed:
+  - src/application/dtos/update-receipt-line.dto.ts
+  - src/presentation/dtos/receipt-tickets/update-receipt-line-request.dto.ts
+  - src/application/use-cases/receipt-tickets/update-receipt-line.use-case.ts
+  - src/application/use-cases/receipt-tickets/update-receipt-line.use-case.spec.ts
+  - src/domain/contracts/receipt-ticket.repository.interface.ts
+  - src/infrastructure/database/repositories/receipt-ticket.repository.ts
+  - src/infrastructure/receipt-tickets/receipt-tickets.module.ts
+  - src/presentation/controllers/receipt-tickets.controller.ts
+- **Learnings:**
+  - **Conditional Logic in PATCH:** When updating entities that depend on related data (like product dimensions), ensure that changing a foreign key (productId) also triggers a refresh of the dependent default values if they aren't explicitly provided in the update payload.
+  - **Role-Based Authorization in Use Cases:** For business rules that depend on roles (e.g., "unless admin"), passing a boolean flag like 'isAdmin' to the use case keeps the domain logic decoupled from specific authentication frameworks while still enforcing the requirement.
+---
