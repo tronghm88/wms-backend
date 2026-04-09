@@ -3,7 +3,10 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { CreateReceiptTicketUseCase } from "./create-receipt-ticket.use-case";
 import { ReceiptTicketEntity } from "../../../domain/entities/receipt-ticket.entity";
 import { TransactionStatus } from "../../../domain/enums";
-import type { IReceiptTicketRepository } from "../../../domain/contracts/receipt-ticket.repository.interface";
+import {
+  RECEIPT_TICKET_REPOSITORY,
+  type IReceiptTicketRepository,
+} from "../../../domain/contracts/receipt-ticket.repository.interface";
 
 describe("CreateReceiptTicketUseCase", () => {
   let useCase: CreateReceiptTicketUseCase;
@@ -23,7 +26,7 @@ describe("CreateReceiptTicketUseCase", () => {
       providers: [
         CreateReceiptTicketUseCase,
         {
-          provide: "IReceiptTicketRepository",
+          provide: RECEIPT_TICKET_REPOSITORY,
           useValue: repository,
         },
       ],

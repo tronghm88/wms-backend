@@ -16,6 +16,7 @@ export const Permissions = {
   UNITS_MANAGE: "units:manage",
 
   // Inventory & Operations
+  RECEIPTS_VIEW: "receipts:view",
   RECEIPTS_CREATE: "receipts:create",
   RECEIPTS_CONFIRM: "receipts:confirm",
   ISSUES_CREATE: "issues:create",
@@ -41,6 +42,7 @@ export const RolePermissions: Record<string, string[]> = {
     Permissions.CUSTOMERS_VIEW,
     Permissions.DISCOUNT_POLICIES_VIEW,
     Permissions.INVENTORY_VIEW,
+    Permissions.RECEIPTS_VIEW,
     Permissions.RECEIPTS_CREATE,
     Permissions.RECEIPTS_CONFIRM,
     Permissions.ISSUES_CREATE,

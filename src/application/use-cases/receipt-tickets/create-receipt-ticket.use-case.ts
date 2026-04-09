@@ -1,5 +1,8 @@
 import { Inject, Injectable } from "@nestjs/common";
-import type { IReceiptTicketRepository } from "../../../domain/contracts/receipt-ticket.repository.interface";
+import {
+  RECEIPT_TICKET_REPOSITORY,
+  type IReceiptTicketRepository,
+} from "../../../domain/contracts/receipt-ticket.repository.interface";
 import { ReceiptTicketEntity } from "../../../domain/entities/receipt-ticket.entity";
 import { TransactionStatus } from "../../../domain/enums";
 import { CreateReceiptTicketDto } from "../../dtos/create-receipt-ticket.dto";
@@ -7,7 +10,7 @@ import { CreateReceiptTicketDto } from "../../dtos/create-receipt-ticket.dto";
 @Injectable()
 export class CreateReceiptTicketUseCase {
   constructor(
-    @Inject("IReceiptTicketRepository")
+    @Inject(RECEIPT_TICKET_REPOSITORY)
     private readonly receiptTicketRepository: IReceiptTicketRepository,
   ) {}
 

@@ -219,6 +219,11 @@ model ReceiptTicketLine {
   productId Int      @map("product_id")
   quantity  Decimal  @db.Decimal(15, 3)
   unitCode  String   @map("unit_code")
+  
+  lengthM   Decimal? @map("length_m") @db.Decimal(15, 3)
+  areaM2    Decimal? @map("area_m2") @db.Decimal(15, 3)
+  weightKg  Decimal? @map("weight_kg") @db.Decimal(15, 3)
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
