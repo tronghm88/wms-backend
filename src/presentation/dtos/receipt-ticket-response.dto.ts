@@ -18,6 +18,9 @@ export class ReceiptTicketResponseDto {
   @ApiProperty({ example: 1 })
   createdBy: number;
 
+  @ApiProperty({ example: 1 })
+  creatorId: number;
+
   @ApiPropertyOptional({ example: "Shipment from Vendor A" })
   note?: string;
 
@@ -33,6 +36,7 @@ export class ReceiptTicketResponseDto {
     this.date = entity.date;
     this.status = entity.status;
     this.createdBy = entity.createdBy;
+    this.creatorId = entity.createdBy;
     this.note = entity.note;
     this.createdAt = entity.createdAt;
     this.updatedAt = entity.updatedAt;

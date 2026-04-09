@@ -25,6 +25,40 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
     });
   }
 
+  async findWithLines(
+    id: number,
+  ): Promise<
+    (ReceiptTicketEntity & { lines: ReceiptTicketLineEntity[] }) | null
+  > {
+    const ticket = await this.prisma.receiptTicket.findUnique({
+      where: { id },
+      include: {
+        lines: true,
+      },
+    });
+
+    if (!ticket) return null;
+
+    const ticketEntity = new ReceiptTicketEntity({
+      ...ticket,
+      status: ticket.status as unknown as TransactionStatus,
+      note: ticket.note ?? undefined,
+    });
+
+    const lines = ticket.lines.map(
+      (line) =>
+        new ReceiptTicketLineEntity({
+          ...line,
+          quantity: line.quantity,
+          lengthM: line.lengthM ?? undefined,
+          areaM2: line.areaM2 ?? undefined,
+          weightKg: line.weightKg ?? undefined,
+        }),
+    );
+
+    return Object.assign(ticketEntity, { lines });
+  }
+
   async findByTicketNo(ticketNo: string): Promise<ReceiptTicketEntity | null> {
     const ticket = await this.prisma.receiptTicket.findUnique({
       where: { ticketNo },

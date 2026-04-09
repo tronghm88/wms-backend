@@ -93,3 +93,23 @@ after each iteration and it's included in prompts for context.
   - **Hard vs. Soft Delete:** Line items in draft transactions are typically hard-deleted as they don't have historical significance yet and it keeps the database clean.
   - **Ownership Validation:** Always verify that a sub-resource (like a line item) belongs to the parent resource (like a ticket) when performing operations via composite URLs to prevent unauthorized cross-resource access.
 ---
+
+## [2026-04-09] - US-305
+- Implemented GET /api/v1/receipt-tickets/{id} endpoint to retrieve receipt details.
+- Added findWithLines method to ReceiptTicketRepository to fetch receipt along with its line items.
+- Created GetReceiptTicketUseCase to calculate totals (total m2, total kg, total rolls) using stored metrics in line items.
+- Updated ReceiptTicketResponseDto and created ReceiptTicketDetailsResponseDto to ensure proper serialization of numeric fields as strings and include creatorId.
+- Files changed:
+  - src/domain/contracts/receipt-ticket.repository.interface.ts
+  - src/infrastructure/database/repositories/receipt-ticket.repository.ts
+  - src/application/use-cases/receipt-tickets/get-receipt-ticket.use-case.ts
+  - src/application/use-cases/receipt-tickets/get-receipt-ticket.use-case.spec.ts
+  - src/presentation/dtos/receipt-ticket-response.dto.ts
+  - src/presentation/dtos/receipt-tickets/receipt-ticket-details-response.dto.ts
+  - src/infrastructure/receipt-tickets/receipt-tickets.module.ts
+  - src/presentation/controllers/receipt-tickets.controller.ts
+  - src/presentation/controllers/receipt-tickets.controller.spec.ts
+- **Learnings:**
+  - **Standardized Terminology:** Standardized on including both createdBy (database field) and creatorId (API requested field) in DTOs to ensure compatibility and meet specific requirements.
+  - **Metric Summation:** Calculation of totals for Goods Receipt can be done by summing up pre-calculated metrics (areaM2, weightKg) stored in line items, while total rolls depends on filtering lines by "roll" unitCode.
+---

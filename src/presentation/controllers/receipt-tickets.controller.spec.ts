@@ -4,7 +4,10 @@ import { Decimal } from "decimal.js";
 import { ReceiptTicketsController } from "./receipt-tickets.controller";
 import { CreateReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/create-receipt-ticket.use-case";
 import { AddReceiptLineUseCase } from "../../application/use-cases/receipt-tickets/add-receipt-line.use-case";
+import { UpdateReceiptLineUseCase } from "../../application/use-cases/receipt-tickets/update-receipt-line.use-case";
+import { DeleteReceiptLineUseCase } from "../../application/use-cases/receipt-tickets/delete-receipt-line.use-case";
 import { ListReceiptTicketsUseCase } from "../../application/use-cases/receipt-tickets/list-receipt-tickets.use-case";
+import { GetReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/get-receipt-ticket.use-case";
 import { ReceiptTicketEntity } from "../../domain/entities/receipt-ticket.entity";
 import { ReceiptTicketLineEntity } from "../../domain/entities/receipt-ticket-line.entity";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
@@ -16,6 +19,7 @@ describe("ReceiptTicketsController", () => {
   let createUseCase: CreateReceiptTicketUseCase;
   let addLineUseCase: AddReceiptLineUseCase;
   let listUseCase: ListReceiptTicketsUseCase;
+  let getUseCase: GetReceiptTicketUseCase;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -30,7 +34,19 @@ describe("ReceiptTicketsController", () => {
           useValue: { execute: jest.fn() },
         },
         {
+          provide: UpdateReceiptLineUseCase,
+          useValue: { execute: jest.fn() },
+        },
+        {
+          provide: DeleteReceiptLineUseCase,
+          useValue: { execute: jest.fn() },
+        },
+        {
           provide: ListReceiptTicketsUseCase,
+          useValue: { execute: jest.fn() },
+        },
+        {
+          provide: GetReceiptTicketUseCase,
           useValue: { execute: jest.fn() },
         },
       ],
@@ -49,6 +65,7 @@ describe("ReceiptTicketsController", () => {
     listUseCase = module.get<ListReceiptTicketsUseCase>(
       ListReceiptTicketsUseCase,
     );
+    getUseCase = module.get<GetReceiptTicketUseCase>(GetReceiptTicketUseCase);
   });
 
   it("should be defined", () => {
@@ -88,19 +105,65 @@ describe("ReceiptTicketsController", () => {
     });
   });
 
+  describe("findOne", () => {
+    it("should get receipt details", async () => {
+      const ticketId = 1;
+      const expectedResult = {
+        id: ticketId,
+        ticketNo: "PN-202604-1",
+        date: new Date(),
+        status: TransactionStatus.DRAFT,
+        createdBy: 1,
+        note: "Test note",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        lines: [
+          new ReceiptTicketLineEntity({
+            id: 1,
+            ticketId,
+            productId: 1,
+            quantity: new Decimal(2),
+            unitCode: "roll",
+            areaM2: new Decimal(100),
+            weightKg: new Decimal(50),
+          }),
+        ],
+        totalM2: new Decimal(100),
+        totalKg: new Decimal(50),
+        totalRolls: new Decimal(2),
+      };
+
+      jest
+        .spyOn(getUseCase, "execute")
+        .mockResolvedValue(expectedResult as any);
+
+      const result = await controller.findOne(ticketId);
+
+      expect(result.id).toBe(ticketId);
+      expect(result.ticketNo).toBe("PN-202604-1");
+      expect(result.lines).toHaveLength(1);
+      expect(result.totalM2).toBe("100.000");
+      expect(result.totalKg).toBe("50.000");
+      expect(result.totalRolls).toBe("2.000");
+      expect(getUseCase.execute).toHaveBeenCalledWith(ticketId);
+    });
+  });
+
   describe("create", () => {
     it("should create a receipt ticket", async () => {
+      const now = new Date();
       const dto = { note: "Test note" };
       const req = { user: { id: 1 } };
       const expectedResult = {
         id: 1,
         ticketNo: "PN-202604-1",
-        date: new Date(),
+        date: now,
         status: "DRAFT",
         createdBy: 1,
+        creatorId: 1,
         note: "Test note",
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        createdAt: now,
+        updatedAt: now,
       };
 
       jest

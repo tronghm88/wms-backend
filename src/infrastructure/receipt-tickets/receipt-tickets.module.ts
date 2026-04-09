@@ -7,6 +7,7 @@ import { AddReceiptLineUseCase } from "../../application/use-cases/receipt-ticke
 import { UpdateReceiptLineUseCase } from "../../application/use-cases/receipt-tickets/update-receipt-line.use-case";
 import { DeleteReceiptLineUseCase } from "../../application/use-cases/receipt-tickets/delete-receipt-line.use-case";
 import { ListReceiptTicketsUseCase } from "../../application/use-cases/receipt-tickets/list-receipt-tickets.use-case";
+import { GetReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/get-receipt-ticket.use-case";
 import { ReceiptTicketsController } from "../../presentation/controllers/receipt-tickets.controller";
 import { ProductsModule } from "../products/products.module";
 import { UnitConversionsModule } from "../unit-conversions/unit-conversions.module";
@@ -21,6 +22,7 @@ import { UnitsModule } from "../units/units.module";
     UpdateReceiptLineUseCase,
     DeleteReceiptLineUseCase,
     ListReceiptTicketsUseCase,
+    GetReceiptTicketUseCase,
     {
       provide: RECEIPT_TICKET_REPOSITORY,
       useClass: ReceiptTicketRepository,

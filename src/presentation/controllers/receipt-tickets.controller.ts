@@ -25,6 +25,7 @@ import { AddReceiptLineUseCase } from "../../application/use-cases/receipt-ticke
 import { UpdateReceiptLineUseCase } from "../../application/use-cases/receipt-tickets/update-receipt-line.use-case";
 import { DeleteReceiptLineUseCase } from "../../application/use-cases/receipt-tickets/delete-receipt-line.use-case";
 import { ListReceiptTicketsUseCase } from "../../application/use-cases/receipt-tickets/list-receipt-tickets.use-case";
+import { GetReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/get-receipt-ticket.use-case";
 import { CreateReceiptTicketDto } from "../../application/dtos/create-receipt-ticket.dto";
 import { GetReceiptTicketsDto } from "../dtos/receipt-tickets/get-receipt-tickets.dto";
 import { GetReceiptTicketsResponseDto } from "../dtos/receipt-tickets/get-receipt-tickets-response.dto";
@@ -32,6 +33,7 @@ import { AddReceiptLineRequestDto } from "../dtos/receipt-tickets/add-receipt-li
 import { UpdateReceiptLineRequestDto } from "../dtos/receipt-tickets/update-receipt-line-request.dto";
 import { ReceiptTicketResponseDto } from "../dtos/receipt-ticket-response.dto";
 import { ReceiptTicketLineResponseDto } from "../dtos/receipt-tickets/receipt-ticket-line-response.dto";
+import { ReceiptTicketDetailsResponseDto } from "../dtos/receipt-tickets/receipt-ticket-details-response.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
 import { Permissions } from "../../domain/constants/permissions.constant";
@@ -48,6 +50,7 @@ export class ReceiptTicketsController {
     private readonly updateReceiptLineUseCase: UpdateReceiptLineUseCase,
     private readonly deleteReceiptLineUseCase: DeleteReceiptLineUseCase,
     private readonly listReceiptTicketsUseCase: ListReceiptTicketsUseCase,
+    private readonly getReceiptTicketUseCase: GetReceiptTicketUseCase,
   ) {}
 
   @Get()
@@ -71,6 +74,25 @@ export class ReceiptTicketsController {
       data: result.data.map((ticket) => new ReceiptTicketResponseDto(ticket)),
       meta: result.meta,
     };
+  }
+
+  @Get(":id")
+  @RequirePermissions(Permissions.RECEIPTS_VIEW)
+  @ApiOperation({ summary: "Get Goods Receipt details by ID" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Returns the Goods Receipt details including line items",
+    type: ReceiptTicketDetailsResponseDto,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: "Receipt Ticket not found",
+  })
+  async findOne(
+    @Param("id", ParseIntPipe) id: number,
+  ): Promise<ReceiptTicketDetailsResponseDto> {
+    const result = await this.getReceiptTicketUseCase.execute(id);
+    return new ReceiptTicketDetailsResponseDto(result);
   }
 
   @Post()

@@ -6,6 +6,11 @@ export const RECEIPT_TICKET_REPOSITORY = "RECEIPT_TICKET_REPOSITORY";
 
 export interface IReceiptTicketRepository {
   findById(id: number): Promise<ReceiptTicketEntity | null>;
+  findWithLines(
+    id: number,
+  ): Promise<
+    (ReceiptTicketEntity & { lines: ReceiptTicketLineEntity[] }) | null
+  >;
   findByTicketNo(ticketNo: string): Promise<ReceiptTicketEntity | null>;
   findAll(): Promise<ReceiptTicketEntity[]>;
   findMany(params: {
