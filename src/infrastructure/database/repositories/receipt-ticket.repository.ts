@@ -231,4 +231,10 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
       weightKg: updatedLine.weightKg ?? undefined,
     });
   }
+
+  async deleteLine(lineId: number): Promise<void> {
+    await this.prisma.receiptTicketLine.delete({
+      where: { id: lineId },
+    });
+  }
 }

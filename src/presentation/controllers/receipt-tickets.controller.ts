@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -22,6 +23,7 @@ import { Decimal } from "decimal.js";
 import { CreateReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/create-receipt-ticket.use-case";
 import { AddReceiptLineUseCase } from "../../application/use-cases/receipt-tickets/add-receipt-line.use-case";
 import { UpdateReceiptLineUseCase } from "../../application/use-cases/receipt-tickets/update-receipt-line.use-case";
+import { DeleteReceiptLineUseCase } from "../../application/use-cases/receipt-tickets/delete-receipt-line.use-case";
 import { ListReceiptTicketsUseCase } from "../../application/use-cases/receipt-tickets/list-receipt-tickets.use-case";
 import { CreateReceiptTicketDto } from "../../application/dtos/create-receipt-ticket.dto";
 import { GetReceiptTicketsDto } from "../dtos/receipt-tickets/get-receipt-tickets.dto";
@@ -44,6 +46,7 @@ export class ReceiptTicketsController {
     private readonly createReceiptTicketUseCase: CreateReceiptTicketUseCase,
     private readonly addReceiptLineUseCase: AddReceiptLineUseCase,
     private readonly updateReceiptLineUseCase: UpdateReceiptLineUseCase,
+    private readonly deleteReceiptLineUseCase: DeleteReceiptLineUseCase,
     private readonly listReceiptTicketsUseCase: ListReceiptTicketsUseCase,
   ) {}
 
@@ -157,5 +160,32 @@ export class ReceiptTicketsController {
       isAdmin,
     );
     return new ReceiptTicketLineResponseDto(line);
+  }
+
+  @Delete(":id/lines/:lineId")
+  @RequirePermissions(Permissions.RECEIPTS_CREATE)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: "Delete a line item from a Receipt Ticket" })
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: "Line item successfully deleted",
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: "Receipt Ticket or Line not found",
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: "Invalid input or Ticket is not in DRAFT status",
+  })
+  async deleteLine(
+    @Param("id", ParseIntPipe) id: number,
+    @Param("lineId", ParseIntPipe) lineId: number,
+    @Request() req: { user: { role: UserRole } },
+  ): Promise<void> {
+    const isAdmin =
+      req.user.role === UserRole.ADMIN ||
+      req.user.role === UserRole.SUPER_ADMIN;
+    await this.deleteReceiptLineUseCase.execute(id, lineId, isAdmin);
   }
 }

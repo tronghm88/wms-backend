@@ -75,3 +75,21 @@ after each iteration and it's included in prompts for context.
   - **Conditional Logic in PATCH:** When updating entities that depend on related data (like product dimensions), ensure that changing a foreign key (productId) also triggers a refresh of the dependent default values if they aren't explicitly provided in the update payload.
   - **Role-Based Authorization in Use Cases:** For business rules that depend on roles (e.g., "unless admin"), passing a boolean flag like 'isAdmin' to the use case keeps the domain logic decoupled from specific authentication frameworks while still enforcing the requirement.
 ---
+
+## [2026-04-09] - US-304
+- Implemented `DELETE /api/v1/receipt-tickets/{id}/lines/{lineId}` endpoint.
+- Added `DeleteReceiptLineUseCase` to handle line item deletion with authorization and validation.
+- Implemented `deleteLine` method in `ReceiptTicketRepository` for hard deletion.
+- Enforced `DRAFT`-only deletion for non-admin users.
+- Verified that the line item belongs to the specified ticket before deletion.
+- Files changed:
+  - `src/domain/contracts/receipt-ticket.repository.interface.ts`
+  - `src/infrastructure/database/repositories/receipt-ticket.repository.ts`
+  - `src/application/use-cases/receipt-tickets/delete-receipt-line.use-case.ts`
+  - `src/application/use-cases/receipt-tickets/delete-receipt-line.use-case.spec.ts`
+  - `src/infrastructure/receipt-tickets/receipt-tickets.module.ts`
+  - `src/presentation/controllers/receipt-tickets.controller.ts`
+- **Learnings:**
+  - **Hard vs. Soft Delete:** Line items in draft transactions are typically hard-deleted as they don't have historical significance yet and it keeps the database clean.
+  - **Ownership Validation:** Always verify that a sub-resource (like a line item) belongs to the parent resource (like a ticket) when performing operations via composite URLs to prevent unauthorized cross-resource access.
+---

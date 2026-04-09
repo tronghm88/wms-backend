@@ -33,4 +33,5 @@ export interface IReceiptTicketRepository {
     lineId: number,
     line: Partial<ReceiptTicketLineEntity>,
   ): Promise<ReceiptTicketLineEntity>;
+  deleteLine(lineId: number): Promise<void>;
 }
