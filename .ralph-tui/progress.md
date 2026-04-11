@@ -46,5 +46,24 @@ after each iteration and it's included in prompts for context.
   - Prisma nested `create` and `$transaction` were used to ensure the Issue Ticket and its Lines are saved together atomically as per requirements.
   - Domain status `IssueTicketStatus` (`DRAFT`, `COMPLETED`, `CANCELLED`) was mapped to Prisma `TransactionStatus` (`DRAFT`, `CONFIRMED`, `VOIDED`).
   - `Decimal` fields in Prisma (mapped as `Decimal`) must be explicitly converted to `decimal.js` using `.toString()` to avoid type mismatches.
+## [2026-04-11] - US-404
+- Implemented `CreateIssueTicketUseCase` in `src/application/use-cases/issue-tickets/`.
+- Integrated `PricingEngineService` for automatic pricing calculation based on customer policies.
+- Implemented stock sufficiency validation for all lines, summing quantities for same products.
+- Created `NegativeStockException` (ErrorCode: `NEGATIVE_STOCK`) and `IssueTicketException`.
+- Updated `CreateIssueTicketDto` to include lines and added `CreateIssueTicketLineDto`.
+- Updated `IssueTicketsModule` to import required repository modules.
+- Added comprehensive unit tests for the use case.
+- Files changed:
+  - `src/application/use-cases/issue-tickets/create-issue-ticket.use-case.ts`
+  - `src/application/dtos/create-issue-ticket.dto.ts`
+  - `src/domain/exceptions/inventory.exceptions.ts`
+  - `src/domain/exceptions/issue-ticket.exceptions.ts`
+  - `src/infrastructure/issue-tickets/issue-tickets.module.ts`
+  - `src/application/use-cases/issue-tickets/create-issue-ticket.use-case.spec.ts`
+- **Learnings:**
+  - Aggregating line quantities before stock validation is crucial to prevent "split-line" overdrafts where multiple lines of the same product individually pass but collectively fail stock checks.
+  - Using `Promise.all` for fetching multiple repositories (Products, Policies, Inventory) significantly improves performance by reducing sequential I/O wait times.
+  - Strict mapping between domain `Decimal` (decimal.js) and Prisma `Decimal` (decimal.js but via different instance usually) requires careful conversion using `.toString()` or explicit casts.
 ---
 

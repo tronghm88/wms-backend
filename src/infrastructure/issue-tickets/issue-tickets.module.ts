@@ -3,9 +3,19 @@ import { PrismaModule } from "../database/prisma.module";
 import { PrismaIssueTicketRepository } from "../database/repositories/prisma-issue-ticket.repository";
 import { ISSUE_TICKET_REPOSITORY } from "../../domain/contracts/issue-ticket.repository.interface";
 import { CreateIssueTicketUseCase } from "../../application/use-cases/issue-tickets/create-issue-ticket.use-case";
+import { ProductsModule } from "../products/products.module";
+import { CustomersModule } from "../customers/customers.module";
+import { DiscountPoliciesModule } from "../discount-policies/discount-policies.module";
+import { StockModule } from "../stock/stock.module";
 
 @Module({
-  imports: [PrismaModule],
+  imports: [
+    PrismaModule,
+    ProductsModule,
+    CustomersModule,
+    DiscountPoliciesModule,
+    StockModule,
+  ],
   providers: [
     CreateIssueTicketUseCase,
     {
