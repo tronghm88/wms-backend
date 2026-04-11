@@ -3,6 +3,7 @@ import { PrismaModule } from "../database/prisma.module";
 import { PrismaIssueTicketRepository } from "../database/repositories/prisma-issue-ticket.repository";
 import { ISSUE_TICKET_REPOSITORY } from "../../domain/contracts/issue-ticket.repository.interface";
 import { CreateIssueTicketUseCase } from "../../application/use-cases/issue-tickets/create-issue-ticket.use-case";
+import { CompleteIssueTicketUseCase } from "../../application/use-cases/issue-tickets/complete-issue-ticket.use-case";
 import { ProductsModule } from "../products/products.module";
 import { CustomersModule } from "../customers/customers.module";
 import { DiscountPoliciesModule } from "../discount-policies/discount-policies.module";
@@ -20,11 +21,16 @@ import { IssueTicketsController } from "../../presentation/controllers/issue-tic
   controllers: [IssueTicketsController],
   providers: [
     CreateIssueTicketUseCase,
+    CompleteIssueTicketUseCase,
     {
       provide: ISSUE_TICKET_REPOSITORY,
       useClass: PrismaIssueTicketRepository,
     },
   ],
-  exports: [ISSUE_TICKET_REPOSITORY, CreateIssueTicketUseCase],
+  exports: [
+    ISSUE_TICKET_REPOSITORY,
+    CreateIssueTicketUseCase,
+    CompleteIssueTicketUseCase,
+  ],
 })
 export class IssueTicketsModule {}

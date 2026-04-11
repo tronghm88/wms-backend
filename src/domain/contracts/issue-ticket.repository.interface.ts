@@ -14,4 +14,5 @@ export interface IIssueTicketRepository {
     id: number,
     ticket: Partial<Omit<IssueTicketEntity, "id" | "createdAt" | "updatedAt">>,
   ): Promise<IssueTicketEntity>;
+  complete(id: number, performedBy: number): Promise<IssueTicketEntity>;
 }

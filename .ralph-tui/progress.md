@@ -87,5 +87,23 @@ after each iteration and it's included in prompts for context.
   - RBAC checks can be implemented directly within Use Cases for fine-grained control over specific fields/actions that go beyond simple endpoint access.
   - Logging "events" for auditing can be done via standard `Logger` in NestJS, though a dedicated `AuditLog` table might be preferred for long-term searchable history as per PRD vision.
   - When updating Use Case signatures (e.g., from `userId` to `user` object), all related tests must be updated to maintain type safety and pass linting.
----
 
+## [2026-04-11] - US-407
+- Implemented `complete` method in `PrismaIssueTicketRepository` to handle status transitions and stock updates.
+- Integrated inventory reduction and outbound stock movement logging within a Prisma transaction for atomicity.
+- Created `CompleteIssueTicketUseCase` to orchestrate the completion process.
+- Exposed `PATCH /api/v1/issue-tickets/:id/complete` endpoint in `IssueTicketsController`.
+- Added `IssueTicketNotFoundException` and `InvalidIssueTicketStatusException` for precise error handling.
+- Files changed:
+  - `src/domain/contracts/issue-ticket.repository.interface.ts`
+  - `src/infrastructure/database/repositories/prisma-issue-ticket.repository.ts`
+  - `src/domain/exceptions/issue-ticket.exceptions.ts`
+  - `src/application/use-cases/issue-tickets/complete-issue-ticket.use-case.ts`
+  - `src/application/use-cases/issue-tickets/complete-issue-ticket.use-case.spec.ts`
+  - `src/infrastructure/issue-tickets/issue-tickets.module.ts`
+  - `src/presentation/controllers/issue-tickets.controller.ts`
+- **Learnings:**
+  - Following the `ReceiptTicketRepository` pattern, cross-aggregate atomic updates (Ticket + Inventory + StockMovement) are handled within the repository using Prisma's `$transaction`.
+  - Reusing existing `ISSUES_CONFIRM` permission instead of creating a new one to maintain consistency with the `Receipts` module.
+  - `Prisma.Decimal` from the client can be manipulated directly for simple operations like `mul(-1)` but should be converted to `decimal.js` if complex business logic is needed.
+---

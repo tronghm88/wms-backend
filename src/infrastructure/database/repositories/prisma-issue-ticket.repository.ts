@@ -10,6 +10,10 @@ import { IssueTicketEntity } from "../../../domain/entities/issue-ticket.entity"
 import { IssueTicketLineEntity } from "../../../domain/entities/issue-ticket-line.entity";
 import { IssueTicketStatus, DiscountType } from "../../../domain/enums";
 import { Decimal } from "decimal.js";
+import {
+  IssueTicketNotFoundException,
+  InvalidIssueTicketStatusException,
+} from "../../../domain/exceptions/issue-ticket.exceptions";
 
 @Injectable()
 export class PrismaIssueTicketRepository implements IIssueTicketRepository {
@@ -171,6 +175,64 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
         },
         include: { lines: true },
       });
+
+      return this.toEntity(updatedTicket);
+    });
+  }
+
+  async complete(id: number, performedBy: number): Promise<IssueTicketEntity> {
+    return await this.prisma.$transaction(async (tx) => {
+      // 1. Fetch current ticket and validate status
+      const ticket = await tx.issueTicket.findUnique({
+        where: { id },
+        include: { lines: true },
+      });
+
+      if (!ticket) {
+        throw new IssueTicketNotFoundException(id);
+      }
+
+      if (ticket.status !== PrismaTransactionStatus.DRAFT) {
+        throw new InvalidIssueTicketStatusException(ticket.status, "DRAFT");
+      }
+
+      // 2. Update status to CONFIRMED (COMPLETED)
+      const updatedTicket = await tx.issueTicket.update({
+        where: { id },
+        data: {
+          status: PrismaTransactionStatus.CONFIRMED,
+        },
+        include: { lines: true },
+      });
+
+      // 3. Process each line for stock decrement and movement record
+      for (const line of updatedTicket.lines) {
+        // Decrease Inventory
+        // Note: Inventory.updateQuantity isn't used here because we are in a transaction.
+        // We use raw tx client directly like ReceiptTicketRepository did.
+        const inventory = await tx.inventory.update({
+          where: { productId: line.productId },
+          data: {
+            quantity: {
+              decrement: line.quantity as unknown as Prisma.Decimal,
+            },
+          },
+        });
+
+        // Create Stock Movement record
+        await tx.stockMovement.create({
+          data: {
+            productId: line.productId,
+            txType: "OUT",
+            referenceId: updatedTicket.id,
+            referenceType: "ISSUE_TICKET",
+            deltaQty: (line.quantity as unknown as Prisma.Decimal).mul(-1),
+            qtyAfter: inventory.quantity,
+            performedBy,
+            note: `Completed Issue Ticket ${updatedTicket.ticketNo}`,
+          },
+        });
+      }
 
       return this.toEntity(updatedTicket);
     });

@@ -3,10 +3,10 @@
   "sessionId": "e9c05a7b-1e39-4a02-a18d-9b613cf9ce2c",
   "status": "running",
   "startedAt": "2026-04-11T08:51:31.514Z",
-  "updatedAt": "2026-04-11T09:20:03.657Z",
-  "currentIteration": 5,
+  "updatedAt": "2026-04-11T09:23:55.004Z",
+  "currentIteration": 6,
   "maxIterations": 50,
-  "tasksCompleted": 5,
+  "tasksCompleted": 6,
   "isPaused": false,
   "agentPlugin": "gemini",
   "trackerState": {
@@ -47,8 +47,8 @@
       {
         "id": "US-405",
         "title": "Admin Manual Price Override",
-        "status": "open",
-        "completedInSession": false
+        "status": "completed",
+        "completedInSession": true
       },
       {
         "id": "US-407",
@@ -114,6 +114,16 @@
       "durationMs": 193935,
       "startedAt": "2026-04-11T09:10:00.418Z",
       "endedAt": "2026-04-11T09:13:14.353Z"
+    },
+    {
+      "iteration": 6,
+      "status": "completed",
+      "taskId": "US-405",
+      "taskTitle": "Admin Manual Price Override",
+      "taskCompleted": true,
+      "durationMs": 408204,
+      "startedAt": "2026-04-11T09:13:15.452Z",
+      "endedAt": "2026-04-11T09:20:03.656Z"
     }
   ],
   "skippedTaskIds": [],
