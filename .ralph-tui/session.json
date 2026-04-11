@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "sessionId": "cfc9ba3c-8a2b-436c-8edf-76d7421f16eb",
+  "sessionId": "e9c05a7b-1e39-4a02-a18d-9b613cf9ce2c",
   "status": "running",
-  "startedAt": "2026-04-11T07:57:44.538Z",
-  "updatedAt": "2026-04-11T08:04:35.529Z",
+  "startedAt": "2026-04-11T08:51:31.514Z",
+  "updatedAt": "2026-04-11T08:54:22.024Z",
   "currentIteration": 0,
   "maxIterations": 50,
   "tasksCompleted": 0,
@@ -12,47 +12,53 @@
   "trackerState": {
     "plugin": "json",
     "prdPath": "./tasks/prd.json",
-    "totalTasks": 7,
+    "totalTasks": 8,
     "tasks": [
       {
-        "id": "US-301",
-        "title": "Create Goods Receipt Draft",
-        "status": "completed",
+        "id": "US-401",
+        "title": "Define Issue Ticket Domain Model",
+        "status": "open",
         "completedInSession": false
       },
       {
-        "id": "US-302",
-        "title": "Add Line Item to Receipt (with Unit Engine)",
-        "status": "completed",
+        "id": "US-402",
+        "title": "Implement Intelligent Pricing Engine",
+        "status": "open",
         "completedInSession": false
       },
       {
-        "id": "US-303",
-        "title": "Update Line Item in Receipt",
-        "status": "completed",
+        "id": "US-403",
+        "title": "Auto-numbering for Export Tickets",
+        "status": "open",
         "completedInSession": false
       },
       {
-        "id": "US-304",
-        "title": "Delete Line Item from Receipt",
-        "status": "completed",
+        "id": "US-406",
+        "title": "Issue Ticket Persistence (Prisma)",
+        "status": "open",
         "completedInSession": false
       },
       {
-        "id": "US-305",
-        "title": "Get Goods Receipt Details",
-        "status": "completed",
+        "id": "US-404",
+        "title": "Goods Issue Creation Use Case",
+        "status": "open",
         "completedInSession": false
       },
       {
-        "id": "US-306",
-        "title": "List Goods Receipts",
-        "status": "completed",
+        "id": "US-405",
+        "title": "Admin Manual Price Override",
+        "status": "open",
         "completedInSession": false
       },
       {
-        "id": "US-307",
-        "title": "Confirm Goods Receipt (Stock & Audit)",
+        "id": "US-407",
+        "title": "Stock Movement Integration",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-408",
+        "title": "Goods Issue API Controller",
         "status": "open",
         "completedInSession": false
       }

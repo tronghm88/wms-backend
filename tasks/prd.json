@@ -1,19 +1,16 @@
 {
-  "name": "Epic 3 - Inbound Operations & Stock Generation",
-  "branchName": "feature/inbound-operations-stock-generation",
+  "name": "Epic 4 - Outbound Operations & Intelligent Pricing",
+  "branchName": "ralph/epic-4-outbound-pricing",
   "userStories": [
     {
-      "id": "US-301",
-      "title": "Create Goods Receipt Draft",
-      "description": "As a Warehouse Staff member, I want to initiate a new Goods Receipt for an incoming shipment so that I can begin drafting the manifest.",
+      "id": "US-401",
+      "title": "Define Issue Ticket Domain Model",
+      "description": "As a developer, I want to define the IssueTicket and IssueTicketLine entities and repository interfaces so that the core domain logic is decoupled from the database.",
       "acceptanceCriteria": [
-        "Create POST /api/v1/receipt-tickets endpoint.",
-        "Accept notes (optional) and automatically link the creatorId (from authenticated user).",
-        "Generate a unique ID following PN-YYYYMM-N format (e.g., PN-202604-1).",
-        "N must be a sequential increment resetting at the start of each month.",
-        "Set initial status to DRAFT.",
-        "Return the created ticket object with its ID and timestamp.",
-        "Ensure the Ticket ID sequence is transaction-safe and handles concurrency.",
+        "Create IssueTicket and IssueTicketLine entities in src/domain/entities/.",
+        "Include fields: code, customerId, totalAmount, status (DRAFT, COMPLETED, CANCELLED), and lines.",
+        "Define IIssueTicketRepository in src/domain/contracts/.",
+        "Use decimal.js for all numeric/monetary fields as per GEMINI.md.",
         "npm run lint passes",
         "npx tsc --noEmit passes"
       ],
@@ -23,125 +20,130 @@
       "completionNotes": "Completed by agent"
     },
     {
-      "id": "US-302",
-      "title": "Add Line Item to Receipt (with Unit Engine)",
-      "description": "As a Warehouse Staff member, I want to add a product roll to my receipt draft and see its converted metrics (m2, kg) immediately.",
+      "id": "US-402",
+      "title": "Implement Intelligent Pricing Engine",
+      "description": "As a system, I want to calculate the unit price for a line item based on the customer's discount hierarchy so that pricing is consistent and automated.",
       "acceptanceCriteria": [
-        "Create POST /api/v1/receipt-tickets/{id}/lines endpoint.",
-        "Validate that the parent Ticket is in DRAFT status.",
-        "Accept productId and physical dimensions (e.g., length_m).",
-        "Invoke the UnitConversionEngine (Domain Layer) to calculate area_m2 and weight_kg based on product category rules.",
-        "Persist the line item and return the calculated metrics in the response for real-time UI feedback.",
-        "All numeric fields must be handled as Decimal (decimal.js) and stored as NUMERIC(15,3).",
+        "Create PricingEngineService in src/domain/services/.",
+        "Implement hierarchy: 1. Product-specific discount > 2. Category/General discount > 3. Base product price.",
+        "Service should take customerId, productId, and basePrice as input and return the finalPrice.",
+        "Logic must be Pure and have no external dependencies.",
         "npm run lint passes",
         "npx tsc --noEmit passes"
       ],
       "priority": 2,
-      "passes": true,
-      "dependsOn": [
-        "US-301"
-      ],
-      "completionNotes": "Completed by agent"
+      "passes": false,
+      "dependsOn": []
     },
     {
-      "id": "US-303",
-      "title": "Update Line Item in Receipt",
-      "description": "As a Warehouse Staff member, I want to edit a previously added line item if I made a mistake during entry.",
+      "id": "US-403",
+      "title": "Auto-numbering for Export Tickets",
+      "description": "As a user, I want export tickets to have a standardized code format PX-yyyymm-n so that they are easily identifiable and sorted.",
       "acceptanceCriteria": [
-        "Create PATCH /api/v1/receipt-tickets/{id}/lines/{lineId} endpoint.",
-        "Re-trigger the UnitConversionEngine if physical dimensions are changed.",
-        "Update the line item record in the database.",
-        "Return the updated line with fresh calculations.",
-        "Block updates if the parent Ticket status is no longer DRAFT (unless current user is Admin).",
+        "Implement a service/utility to generate codes in the format PX-YYYYMM-N.",
+        "The sequence N must reset to 1 at the start of every calendar month.",
+        "Ensure the generation is thread-safe/transaction-safe (no duplicate codes).",
         "npm run lint passes",
         "npx tsc --noEmit passes"
       ],
       "priority": 3,
-      "passes": true,
-      "dependsOn": [
-        "US-302"
-      ],
-      "completionNotes": "Completed by agent"
+      "passes": false,
+      "dependsOn": []
     },
     {
-      "id": "US-304",
-      "title": "Delete Line Item from Receipt",
-      "description": "As a Warehouse Staff member, I want to remove a line item from my draft receipt.",
+      "id": "US-406",
+      "title": "Issue Ticket Persistence (Prisma)",
+      "description": "As a system, I want to persist Issue Tickets to the PostgreSQL database so that data is durable and queryable.",
       "acceptanceCriteria": [
-        "Create DELETE /api/v1/receipt-tickets/{id}/lines/{lineId} endpoint.",
-        "Verify the line belongs to the specified ticket.",
-        "Block deletion if ticket is not DRAFT (unless current user is Admin).",
-        "Perform a hard delete for line items belonging to draft tickets.",
+        "Implement PrismaIssueTicketRepository in src/infrastructure/database/repositories/.",
+        "Update schema.prisma with issue_tickets and issue_ticket_lines tables (using snake_case mapping).",
+        "Use Prisma transactions to ensure Ticket and Lines are saved together.",
         "npm run lint passes",
         "npx tsc --noEmit passes"
-      ],
-      "priority": 3,
-      "passes": true,
-      "dependsOn": [
-        "US-302"
-      ],
-      "completionNotes": "Completed by agent"
-    },
-    {
-      "id": "US-305",
-      "title": "Get Goods Receipt Details",
-      "description": "As a Warehouse Staff member, I want to view the full details of a specific receipt, including all its line items.",
-      "acceptanceCriteria": [
-        "Create GET /api/v1/receipt-tickets/{id} endpoint.",
-        "Include all related line items and calculated totals (total m2, total kg, total rolls).",
-        "Include notes and creatorId in the response.",
-        "Ensure proper serialization of NUMERIC fields as String in the JSON response.",
-        "npm run lint passes",
-        "npx tsc --noEmit passes"
-      ],
-      "priority": 3,
-      "passes": true,
-      "dependsOn": [
-        "US-302"
-      ],
-      "completionNotes": "Completed by agent"
-    },
-    {
-      "id": "US-306",
-      "title": "List Goods Receipts",
-      "description": "As a Manager, I want to browse and filter past and current receipt tickets.",
-      "acceptanceCriteria": [
-        "Create GET /api/v1/receipt-tickets endpoint.",
-        "Support pagination (page, limit).",
-        "Support filtering by: status (DRAFT, CONFIRMED, VOIDED), creatorId, and Date range (fromDate, toDate).",
-        "Support searching by Ticket ID.",
-        "npm run lint passes",
-        "npx tsc --noEmit passes"
-      ],
-      "priority": 2,
-      "passes": true,
-      "dependsOn": [
-        "US-301"
-      ],
-      "completionNotes": "Completed by agent"
-    },
-    {
-      "id": "US-307",
-      "title": "Confirm Goods Receipt (Stock & Audit)",
-      "description": "As a Warehouse Staff member, I want to confirm the finalized receipt so that the items are officially added to the warehouse stock.",
-      "acceptanceCriteria": [
-        "Create POST /api/v1/receipt-tickets/{id}/confirm endpoint.",
-        "Transition ticket status from DRAFT to CONFIRMED.",
-        "Data Integrity: Once confirmed, the ticket and its lines become immutable for standard users.",
-        "Admin Override: Admins can edit or delete confirmed tickets with stock diff adjustment.",
-        "Stock Update: For each line item, create/update records in the Stock Balance table.",
-        "Audit Trail: Generate StockMovement records (Insert-Only) linked to the Ticket ID and user.",
-        "Wrap status change, stock update, and audit log creation in a single database transaction."
       ],
       "priority": 4,
-      "passes": true,
+      "passes": false,
       "dependsOn": [
-        "US-305"
+        "US-401"
+      ]
+    },
+    {
+      "id": "US-404",
+      "title": "Goods Issue Creation Use Case",
+      "description": "As a warehouse staff, I want to create a Goods Issue ticket so that I can prepare items for shipment.",
+      "acceptanceCriteria": [
+        "Implement CreateIssueTicketUseCase in src/application/use-cases/.",
+        "Automatically apply Intelligent Pricing to all lines.",
+        "Validate that requested quantity exists in Inventory for each line.",
+        "Throw a domain exception if stock is insufficient (no negative stock).",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
       ],
-      "completionNotes": "Completed by agent"
+      "priority": 5,
+      "passes": false,
+      "dependsOn": [
+        "US-401",
+        "US-402",
+        "US-403",
+        "US-406"
+      ]
+    },
+    {
+      "id": "US-405",
+      "title": "Admin Manual Price Override",
+      "description": "As an Admin, I want to manually override the calculated price on a ticket line so that I can handle special cases or errors.",
+      "acceptanceCriteria": [
+        "Update IssueTicketLine to support an isOverride flag and originalPrice.",
+        "The Use Case must check user permissions (RBAC) before allowing an override.",
+        "Log the override event for auditing purposes.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 6,
+      "passes": false,
+      "dependsOn": [
+        "US-404"
+      ]
+    },
+    {
+      "id": "US-407",
+      "title": "Stock Movement Integration",
+      "description": "As a system, I want to record stock movements and update inventory when a ticket is completed so that stock levels remain accurate.",
+      "acceptanceCriteria": [
+        "When an IssueTicket status moves to COMPLETED, decrease Inventory levels.",
+        "Create StockMovement records with type OUTBOUND and reference the IssueTicket.",
+        "Ensure atomicity via database transactions.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 7,
+      "passes": false,
+      "dependsOn": [
+        "US-404",
+        "US-406"
+      ]
+    },
+    {
+      "id": "US-408",
+      "title": "Goods Issue API Controller",
+      "description": "As a frontend developer, I want to access outbound operations via a REST API so that I can build the user interface.",
+      "acceptanceCriteria": [
+        "Create IssueTicketController in src/presentation/controllers/.",
+        "Implement endpoints: POST /api/v1/issue-tickets and GET /api/v1/issue-tickets/:id.",
+        "Fully document endpoints using @nestjs/swagger (Summary, DTOs, Responses).",
+        "Ensure NUMERIC fields are serialized as String in JSON.",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 8,
+      "passes": false,
+      "dependsOn": [
+        "US-404",
+        "US-406"
+      ]
     }
   ],
   "metadata": {
-    "updatedAt": "2026-04-11T08:04:35.529Z"
+    "updatedAt": "2026-04-11T08:54:22.024Z"
   }
 }

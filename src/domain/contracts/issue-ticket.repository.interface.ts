@@ -1,8 +1,10 @@
 import { IssueTicketEntity } from "../entities/issue-ticket.entity";
 
+export const ISSUE_TICKET_REPOSITORY = "ISSUE_TICKET_REPOSITORY";
+
 export interface IIssueTicketRepository {
   findById(id: number): Promise<IssueTicketEntity | null>;
-  findByTicketNo(ticketNo: string): Promise<IssueTicketEntity | null>;
+  findByCode(code: string): Promise<IssueTicketEntity | null>;
   findAll(): Promise<IssueTicketEntity[]>;
   create(
     ticket: Omit<IssueTicketEntity, "id" | "createdAt" | "updatedAt" | "lines">,

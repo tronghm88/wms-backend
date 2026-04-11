@@ -15,6 +15,12 @@ export enum TransactionStatus {
   VOIDED = "VOIDED",
 }
 
+export enum IssueTicketStatus {
+  DRAFT = "DRAFT",
+  COMPLETED = "COMPLETED",
+  CANCELLED = "CANCELLED",
+}
+
 export enum DiscountType {
   NONE = "NONE",
   PERCENT = "PERCENT",
