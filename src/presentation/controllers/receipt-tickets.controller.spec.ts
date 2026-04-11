@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/unbound-method */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { Test, TestingModule } from "@nestjs/testing";
 import { Decimal } from "decimal.js";
 import { ReceiptTicketsController } from "./receipt-tickets.controller";
@@ -8,11 +10,13 @@ import { UpdateReceiptLineUseCase } from "../../application/use-cases/receipt-ti
 import { DeleteReceiptLineUseCase } from "../../application/use-cases/receipt-tickets/delete-receipt-line.use-case";
 import { ListReceiptTicketsUseCase } from "../../application/use-cases/receipt-tickets/list-receipt-tickets.use-case";
 import { GetReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/get-receipt-ticket.use-case";
+import { ConfirmReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/confirm-receipt-ticket.use-case";
+import { DeleteReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/delete-receipt-ticket.use-case";
 import { ReceiptTicketEntity } from "../../domain/entities/receipt-ticket.entity";
 import { ReceiptTicketLineEntity } from "../../domain/entities/receipt-ticket-line.entity";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard } from "../guards/rbac.guard";
-import { TransactionStatus } from "../../domain/enums";
+import { TransactionStatus, UserRole } from "../../domain/enums";
 
 describe("ReceiptTicketsController", () => {
   let controller: ReceiptTicketsController;
@@ -20,6 +24,8 @@ describe("ReceiptTicketsController", () => {
   let addLineUseCase: AddReceiptLineUseCase;
   let listUseCase: ListReceiptTicketsUseCase;
   let getUseCase: GetReceiptTicketUseCase;
+  let confirmUseCase: ConfirmReceiptTicketUseCase;
+  let deleteUseCase: DeleteReceiptTicketUseCase;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -49,6 +55,14 @@ describe("ReceiptTicketsController", () => {
           provide: GetReceiptTicketUseCase,
           useValue: { execute: jest.fn() },
         },
+        {
+          provide: ConfirmReceiptTicketUseCase,
+          useValue: { execute: jest.fn() },
+        },
+        {
+          provide: DeleteReceiptTicketUseCase,
+          useValue: { execute: jest.fn() },
+        },
       ],
     })
       .overrideGuard(JwtAuthGuard)
@@ -66,6 +80,12 @@ describe("ReceiptTicketsController", () => {
       ListReceiptTicketsUseCase,
     );
     getUseCase = module.get<GetReceiptTicketUseCase>(GetReceiptTicketUseCase);
+    confirmUseCase = module.get<ConfirmReceiptTicketUseCase>(
+      ConfirmReceiptTicketUseCase,
+    );
+    deleteUseCase = module.get<DeleteReceiptTicketUseCase>(
+      DeleteReceiptTicketUseCase,
+    );
   });
 
   it("should be defined", () => {
@@ -189,6 +209,7 @@ describe("ReceiptTicketsController", () => {
         unitCode: "roll",
         lengthM: "50.000",
       };
+      const req = { user: { role: UserRole.WAREHOUSE_STAFF, id: 1 } };
       const expectedResult = new ReceiptTicketLineEntity({
         id: 1,
         ticketId,
@@ -204,16 +225,57 @@ describe("ReceiptTicketsController", () => {
 
       jest.spyOn(addLineUseCase, "execute").mockResolvedValue(expectedResult);
 
-      const result = await controller.addLine(ticketId, dto);
+      const result = await controller.addLine(ticketId, req as any, dto);
 
       expect(result.id).toBe(expectedResult.id);
       expect(result.quantity).toBe("1.000");
       expect(result.areaM2).toBe("75.000");
-      expect(addLineUseCase.execute).toHaveBeenCalledWith(ticketId, {
-        ...dto,
-        quantity: new Decimal("1.000"),
-        lengthM: new Decimal("50.000"),
+      expect(addLineUseCase.execute).toHaveBeenCalledWith(
+        ticketId,
+        {
+          ...dto,
+          quantity: new Decimal("1.000"),
+          lengthM: new Decimal("50.000"),
+        },
+        false,
+        1,
+      );
+    });
+  });
+
+  describe("confirm", () => {
+    it("should confirm a receipt ticket", async () => {
+      const ticketId = 1;
+      const req = { user: { id: 1 } };
+      const expectedResult = new ReceiptTicketEntity({
+        id: 1,
+        ticketNo: "PN-202604-1",
+        date: new Date(),
+        status: TransactionStatus.CONFIRMED,
+        createdBy: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       });
+
+      jest.spyOn(confirmUseCase, "execute").mockResolvedValue(expectedResult);
+
+      const result = await controller.confirm(ticketId, req as any);
+
+      expect(result.status).toBe(TransactionStatus.CONFIRMED);
+      expect(confirmUseCase.execute).toHaveBeenCalledWith(ticketId, 1);
+    });
+  });
+
+  describe("delete", () => {
+    it("should delete a receipt ticket", async () => {
+      const ticketId = 1;
+      const req = { user: { role: UserRole.ADMIN, id: 1 } };
+
+      jest.spyOn(deleteUseCase, "execute").mockResolvedValue(undefined);
+
+      await controller.delete(ticketId, req as any);
+
+      expect(deleteUseCase.execute).toHaveBeenCalledWith(ticketId, true, 1);
     });
   });
 });

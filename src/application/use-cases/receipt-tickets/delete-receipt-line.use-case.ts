@@ -21,6 +21,7 @@ export class DeleteReceiptLineUseCase {
     ticketId: number,
     lineId: number,
     isAdmin: boolean,
+    userId: number,
   ): Promise<void> {
     // 1. Check ticket
     const ticket = await this.receiptTicketRepository.findById(ticketId);
@@ -40,7 +41,15 @@ export class DeleteReceiptLineUseCase {
       throw new ReceiptTicketLineNotFoundException(lineId);
     }
 
-    // 4. Perform hard delete
-    await this.receiptTicketRepository.deleteLine(lineId);
+    // 4. Perform delete (with stock adjustment if confirmed)
+    if (ticket.status === TransactionStatus.CONFIRMED && isAdmin) {
+      await this.receiptTicketRepository.deleteLineWithStockAdjustment(
+        lineId,
+        existingLine,
+        userId,
+      );
+    } else {
+      await this.receiptTicketRepository.deleteLine(lineId);
+    }
   }
 }

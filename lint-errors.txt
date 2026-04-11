@@ -1,0 +1,71 @@
+
+> wms-backend@0.0.1 lint
+> eslint "{src,apps,libs,test}/**/*.ts" --fix
+
+
+/Users/windy/Work/wms/src/infrastructure/database/repositories/inventory.repository.ts
+  42:11  error    Unsafe assignment of an `any` value       @typescript-eslint/no-unsafe-assignment
+  42:31  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  47:9   error    Unsafe assignment of an `any` value       @typescript-eslint/no-unsafe-assignment
+  47:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/windy/Work/wms/src/infrastructure/database/repositories/receipt-ticket.repository.ts
+  278:9   error    Unsafe assignment of an error typed value                 @typescript-eslint/no-unsafe-assignment
+  278:19  error    Unsafe construction of a type that could not be resolved  @typescript-eslint/no-unsafe-call
+  279:9   error    Unsafe assignment of an error typed value                 @typescript-eslint/no-unsafe-assignment
+  280:13  error    Unsafe construction of a type that could not be resolved  @typescript-eslint/no-unsafe-call
+  282:9   error    Unsafe assignment of an error typed value                 @typescript-eslint/no-unsafe-assignment
+  283:13  error    Unsafe construction of a type that could not be resolved  @typescript-eslint/no-unsafe-call
+  285:9   error    Unsafe assignment of an error typed value                 @typescript-eslint/no-unsafe-assignment
+  286:13  error    Unsafe construction of a type that could not be resolved  @typescript-eslint/no-unsafe-call
+  505:9   error    Unsafe assignment of an error typed value                 @typescript-eslint/no-unsafe-assignment
+  505:19  error    Unsafe construction of a type that could not be resolved  @typescript-eslint/no-unsafe-call
+  506:9   error    Unsafe assignment of an error typed value                 @typescript-eslint/no-unsafe-assignment
+  507:13  error    Unsafe construction of a type that could not be resolved  @typescript-eslint/no-unsafe-call
+  509:9   error    Unsafe assignment of an error typed value                 @typescript-eslint/no-unsafe-assignment
+  510:13  error    Unsafe construction of a type that could not be resolved  @typescript-eslint/no-unsafe-call
+  512:9   error    Unsafe assignment of an error typed value                 @typescript-eslint/no-unsafe-assignment
+  513:13  error    Unsafe construction of a type that could not be resolved  @typescript-eslint/no-unsafe-call
+  535:13  error    Unsafe assignment of an `any` value                       @typescript-eslint/no-unsafe-assignment
+  535:44  warning  Unexpected any. Specify a different type                  @typescript-eslint/no-explicit-any
+  540:11  error    Unsafe assignment of an `any` value                       @typescript-eslint/no-unsafe-assignment
+  540:51  warning  Unexpected any. Specify a different type                  @typescript-eslint/no-explicit-any
+  551:11  error    Unsafe assignment of an `any` value                       @typescript-eslint/no-unsafe-assignment
+  551:51  warning  Unexpected any. Specify a different type                  @typescript-eslint/no-explicit-any
+
+/Users/windy/Work/wms/src/infrastructure/database/repositories/stock-movement.repository.ts
+  45:9   error    Unsafe assignment of an `any` value                                            @typescript-eslint/no-unsafe-assignment
+  45:36  warning  Unexpected any. Specify a different type                                       @typescript-eslint/no-explicit-any
+  48:9   error    Unsafe assignment of an `any` value                                            @typescript-eslint/no-unsafe-assignment
+  48:40  warning  Unexpected any. Specify a different type                                       @typescript-eslint/no-explicit-any
+  49:9   error    Unsafe assignment of an `any` value                                            @typescript-eslint/no-unsafe-assignment
+  49:40  warning  Unexpected any. Specify a different type                                       @typescript-eslint/no-explicit-any
+  58:26  warning  Unexpected any. Specify a different type                                       @typescript-eslint/no-explicit-any
+  60:7   warning  Unsafe argument of type `any` assigned to a parameter of type `number`         @typescript-eslint/no-unsafe-argument
+  60:9   error    Unsafe member access .id on an `any` value                                     @typescript-eslint/no-unsafe-member-access
+  61:7   warning  Unsafe argument of type `any` assigned to a parameter of type `number`         @typescript-eslint/no-unsafe-argument
+  61:9   error    Unsafe member access .productId on an `any` value                              @typescript-eslint/no-unsafe-member-access
+  62:9   error    Unsafe member access .txType on an `any` value                                 @typescript-eslint/no-unsafe-member-access
+  63:7   warning  Unsafe argument of type `any` assigned to a parameter of type `number`         @typescript-eslint/no-unsafe-argument
+  63:9   error    Unsafe member access .referenceId on an `any` value                            @typescript-eslint/no-unsafe-member-access
+  64:7   warning  Unsafe argument of type `any` assigned to a parameter of type `string`         @typescript-eslint/no-unsafe-argument
+  64:9   error    Unsafe member access .referenceType on an `any` value                          @typescript-eslint/no-unsafe-member-access
+  65:19  warning  Unsafe argument of type `any` assigned to a parameter of type `Value`          @typescript-eslint/no-unsafe-argument
+  65:19  error    Unsafe call of an `any` typed value                                            @typescript-eslint/no-unsafe-call
+  65:21  error    Unsafe member access .deltaQty on an `any` value                               @typescript-eslint/no-unsafe-member-access
+  66:19  warning  Unsafe argument of type `any` assigned to a parameter of type `Value`          @typescript-eslint/no-unsafe-argument
+  66:19  error    Unsafe call of an `any` typed value                                            @typescript-eslint/no-unsafe-call
+  66:21  error    Unsafe member access .qtyAfter on an `any` value                               @typescript-eslint/no-unsafe-member-access
+  67:7   warning  Unsafe argument of type `any` assigned to a parameter of type `number`         @typescript-eslint/no-unsafe-argument
+  67:9   error    Unsafe member access .performedBy on an `any` value                            @typescript-eslint/no-unsafe-member-access
+  68:7   warning  Unsafe argument of type `any` assigned to a parameter of type `string | null`  @typescript-eslint/no-unsafe-argument
+  68:9   error    Unsafe member access .note on an `any` value                                   @typescript-eslint/no-unsafe-member-access
+  69:7   warning  Unsafe argument of type `any` assigned to a parameter of type `Date`           @typescript-eslint/no-unsafe-argument
+  69:9   error    Unsafe member access .createdAt on an `any` value                              @typescript-eslint/no-unsafe-member-access
+
+/Users/windy/Work/wms/src/presentation/controllers/receipt-tickets.controller.spec.ts
+  138:28  warning  Unsafe argument of type `any` assigned to a parameter of type `GetReceiptTicketUseCaseOutput | Promise<GetReceiptTicketUseCaseOutput>`  @typescript-eslint/no-unsafe-argument
+  138:46  warning  Unexpected any. Specify a different type                                                                                                @typescript-eslint/no-explicit-any
+
+✖ 56 problems (36 errors, 20 warnings)
+

@@ -77,11 +77,16 @@ describe("AddReceiptLineUseCase", () => {
     receiptTicketRepository.findById.mockResolvedValue(null);
 
     await expect(
-      useCase.execute(1, {
-        productId: 1,
-        quantity: new Decimal(1),
-        unitCode: "roll",
-      }),
+      useCase.execute(
+        1,
+        {
+          productId: 1,
+          quantity: new Decimal(1),
+          unitCode: "roll",
+        },
+        false,
+        1,
+      ),
     ).rejects.toThrow(ReceiptTicketNotFoundException);
   });
 
@@ -94,11 +99,16 @@ describe("AddReceiptLineUseCase", () => {
     );
 
     await expect(
-      useCase.execute(1, {
-        productId: 1,
-        quantity: new Decimal(1),
-        unitCode: "roll",
-      }),
+      useCase.execute(
+        1,
+        {
+          productId: 1,
+          quantity: new Decimal(1),
+          unitCode: "roll",
+        },
+        false,
+        1,
+      ),
     ).rejects.toThrow(ReceiptTicketNotDraftException);
   });
 
@@ -112,11 +122,16 @@ describe("AddReceiptLineUseCase", () => {
     productRepository.findById.mockResolvedValue(null);
 
     await expect(
-      useCase.execute(1, {
-        productId: 1,
-        quantity: new Decimal(1),
-        unitCode: "roll",
-      }),
+      useCase.execute(
+        1,
+        {
+          productId: 1,
+          quantity: new Decimal(1),
+          unitCode: "roll",
+        },
+        false,
+        1,
+      ),
     ).rejects.toThrow(ProductNotFoundException);
   });
 
@@ -136,11 +151,16 @@ describe("AddReceiptLineUseCase", () => {
     unitRepository.findByCode.mockResolvedValue(null);
 
     await expect(
-      useCase.execute(1, {
-        productId: 1,
-        quantity: new Decimal(1),
-        unitCode: "roll",
-      }),
+      useCase.execute(
+        1,
+        {
+          productId: 1,
+          quantity: new Decimal(1),
+          unitCode: "roll",
+        },
+        false,
+        1,
+      ),
     ).rejects.toThrow(UnitNotFoundException);
   });
 
@@ -178,12 +198,17 @@ describe("AddReceiptLineUseCase", () => {
       ),
     );
 
-    const result = await useCase.execute(1, {
-      productId: 1,
-      quantity: new Decimal(2),
-      unitCode: "roll",
-      lengthM: new Decimal(50),
-    });
+    const result = await useCase.execute(
+      1,
+      {
+        productId: 1,
+        quantity: new Decimal(2),
+        unitCode: "roll",
+        lengthM: new Decimal(50),
+      },
+      false,
+      1,
+    );
 
     expect(result).toBeInstanceOf(ReceiptTicketLineEntity);
     expect(result.areaM2?.toString()).toBe("150"); // 2 * 50 * 1.5
@@ -226,11 +251,16 @@ describe("AddReceiptLineUseCase", () => {
       ),
     );
 
-    const result = await useCase.execute(1, {
-      productId: 1,
-      quantity: new Decimal(100),
-      unitCode: "m2",
-    });
+    const result = await useCase.execute(
+      1,
+      {
+        productId: 1,
+        quantity: new Decimal(100),
+        unitCode: "m2",
+      },
+      false,
+      1,
+    );
 
     expect(result.areaM2?.toString()).toBe("100");
     expect(result.weightKg?.toString()).toBe("50");
@@ -271,11 +301,16 @@ describe("AddReceiptLineUseCase", () => {
       ),
     );
 
-    const result = await useCase.execute(1, {
-      productId: 1,
-      quantity: new Decimal(2),
-      unitCode: "roll",
-    });
+    const result = await useCase.execute(
+      1,
+      {
+        productId: 1,
+        quantity: new Decimal(2),
+        unitCode: "roll",
+      },
+      false,
+      1,
+    );
 
     expect(result.areaM2?.toString()).toBe("150"); // 2 * 50 * 1.5
     expect(result.weightKg?.toString()).toBe("75"); // 150 * 0.5

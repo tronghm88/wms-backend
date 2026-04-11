@@ -33,10 +33,28 @@ export interface IReceiptTicketRepository {
   addLine(
     line: Omit<ReceiptTicketLineEntity, "id" | "createdAt" | "updatedAt">,
   ): Promise<ReceiptTicketLineEntity>;
+  addLineWithStockAdjustment(
+    line: Omit<ReceiptTicketLineEntity, "id" | "createdAt" | "updatedAt">,
+    performedBy: number,
+  ): Promise<ReceiptTicketLineEntity>;
   findLineById(lineId: number): Promise<ReceiptTicketLineEntity | null>;
   updateLine(
     lineId: number,
     line: Partial<ReceiptTicketLineEntity>,
   ): Promise<ReceiptTicketLineEntity>;
   deleteLine(lineId: number): Promise<void>;
+  confirm(id: number, performedBy: number): Promise<ReceiptTicketEntity>;
+  updateLineWithStockAdjustment(
+    lineId: number,
+    line: ReceiptTicketLineEntity,
+    oldLine: ReceiptTicketLineEntity,
+    performedBy: number,
+  ): Promise<ReceiptTicketLineEntity>;
+  deleteLineWithStockAdjustment(
+    lineId: number,
+    oldLine: ReceiptTicketLineEntity,
+    performedBy: number,
+  ): Promise<void>;
+  delete(id: number): Promise<void>;
+  deleteWithStockAdjustment(id: number, performedBy: number): Promise<void>;
 }

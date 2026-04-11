@@ -18,6 +18,7 @@ export const Permissions = {
   // Inventory & Operations
   RECEIPTS_VIEW: "receipts:view",
   RECEIPTS_CREATE: "receipts:create",
+  RECEIPTS_DELETE: "receipts:delete",
   RECEIPTS_CONFIRM: "receipts:confirm",
   ISSUES_CREATE: "issues:create",
   ISSUES_CONFIRM: "issues:confirm",
@@ -44,6 +45,7 @@ export const RolePermissions: Record<string, string[]> = {
     Permissions.INVENTORY_VIEW,
     Permissions.RECEIPTS_VIEW,
     Permissions.RECEIPTS_CREATE,
+    Permissions.RECEIPTS_DELETE,
     Permissions.RECEIPTS_CONFIRM,
     Permissions.ISSUES_CREATE,
     Permissions.ISSUES_CONFIRM,

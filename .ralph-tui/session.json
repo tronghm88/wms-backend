@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "sessionId": "8efda914-750f-442d-ab93-d2e8b5958112",
+  "sessionId": "cfc9ba3c-8a2b-436c-8edf-76d7421f16eb",
   "status": "running",
-  "startedAt": "2026-04-09T04:00:38.493Z",
-  "updatedAt": "2026-04-09T04:40:10.276Z",
-  "currentIteration": 4,
+  "startedAt": "2026-04-11T07:57:44.538Z",
+  "updatedAt": "2026-04-11T08:04:35.529Z",
+  "currentIteration": 0,
   "maxIterations": 50,
-  "tasksCompleted": 4,
+  "tasksCompleted": 0,
   "isPaused": false,
   "agentPlugin": "gemini",
   "trackerState": {
@@ -24,31 +24,31 @@
         "id": "US-302",
         "title": "Add Line Item to Receipt (with Unit Engine)",
         "status": "completed",
-        "completedInSession": true
+        "completedInSession": false
       },
       {
         "id": "US-303",
         "title": "Update Line Item in Receipt",
         "status": "completed",
-        "completedInSession": true
+        "completedInSession": false
       },
       {
         "id": "US-304",
         "title": "Delete Line Item from Receipt",
         "status": "completed",
-        "completedInSession": true
+        "completedInSession": false
       },
       {
         "id": "US-305",
         "title": "Get Goods Receipt Details",
-        "status": "open",
+        "status": "completed",
         "completedInSession": false
       },
       {
         "id": "US-306",
         "title": "List Goods Receipts",
         "status": "completed",
-        "completedInSession": true
+        "completedInSession": false
       },
       {
         "id": "US-307",
@@ -58,48 +58,7 @@
       }
     ]
   },
-  "iterations": [
-    {
-      "iteration": 1,
-      "status": "completed",
-      "taskId": "US-302",
-      "taskTitle": "Add Line Item to Receipt (with Unit Engine)",
-      "taskCompleted": true,
-      "durationMs": 231822,
-      "startedAt": "2026-04-09T04:07:45.358Z",
-      "endedAt": "2026-04-09T04:11:37.180Z"
-    },
-    {
-      "iteration": 2,
-      "status": "completed",
-      "taskId": "US-306",
-      "taskTitle": "List Goods Receipts",
-      "taskCompleted": true,
-      "durationMs": 212455,
-      "startedAt": "2026-04-09T04:18:23.321Z",
-      "endedAt": "2026-04-09T04:21:55.776Z"
-    },
-    {
-      "iteration": 3,
-      "status": "completed",
-      "taskId": "US-303",
-      "taskTitle": "Update Line Item in Receipt",
-      "taskCompleted": true,
-      "durationMs": 179017,
-      "startedAt": "2026-04-09T04:21:56.871Z",
-      "endedAt": "2026-04-09T04:24:55.888Z"
-    },
-    {
-      "iteration": 4,
-      "status": "completed",
-      "taskId": "US-304",
-      "taskTitle": "Delete Line Item from Receipt",
-      "taskCompleted": true,
-      "durationMs": 158175,
-      "startedAt": "2026-04-09T04:24:56.988Z",
-      "endedAt": "2026-04-09T04:27:35.163Z"
-    }
-  ],
+  "iterations": [],
   "skippedTaskIds": [],
   "cwd": "/Users/windy/Work/wms",
   "activeTaskIds": [],

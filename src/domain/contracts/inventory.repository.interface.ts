@@ -1,4 +1,7 @@
 import { InventoryEntity } from "../entities/inventory.entity";
+import { Decimal } from "decimal.js";
+
+export const INVENTORY_REPOSITORY = "INVENTORY_REPOSITORY";
 
 export interface IInventoryRepository {
   findByProductId(productId: number): Promise<InventoryEntity | null>;
@@ -9,5 +12,3 @@ export interface IInventoryRepository {
     unitCode: string,
   ): Promise<InventoryEntity>;
 }
-
-import { Decimal } from "decimal.js";

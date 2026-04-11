@@ -46,6 +46,7 @@ export class UpdateReceiptLineUseCase {
     lineId: number,
     dto: UpdateReceiptLineDto,
     isAdmin: boolean,
+    userId: number,
   ): Promise<ReceiptTicketLineEntity> {
     // 1. Check ticket
     const ticket = await this.receiptTicketRepository.findById(ticketId);
@@ -118,6 +119,15 @@ export class UpdateReceiptLineUseCase {
       areaM2: metrics.areaM2,
       weightKg: metrics.weightKg,
     });
+
+    if (ticket.status === TransactionStatus.CONFIRMED && isAdmin) {
+      return await this.receiptTicketRepository.updateLineWithStockAdjustment(
+        lineId,
+        updatedLine,
+        existingLine,
+        userId,
+      );
+    }
 
     return await this.receiptTicketRepository.updateLine(lineId, updatedLine);
   }

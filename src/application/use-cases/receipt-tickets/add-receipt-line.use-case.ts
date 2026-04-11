@@ -43,13 +43,15 @@ export class AddReceiptLineUseCase {
   async execute(
     ticketId: number,
     dto: AddReceiptLineDto,
+    isAdmin: boolean,
+    userId: number,
   ): Promise<ReceiptTicketLineEntity> {
     // 1. Check ticket
     const ticket = await this.receiptTicketRepository.findById(ticketId);
     if (!ticket) {
       throw new ReceiptTicketNotFoundException(ticketId);
     }
-    if (ticket.status !== TransactionStatus.DRAFT) {
+    if (ticket.status !== TransactionStatus.DRAFT && !isAdmin) {
       throw new ReceiptTicketNotDraftException(ticketId);
     }
 
@@ -96,6 +98,13 @@ export class AddReceiptLineUseCase {
       areaM2: metrics.areaM2,
       weightKg: metrics.weightKg,
     });
+
+    if (ticket.status === TransactionStatus.CONFIRMED && isAdmin) {
+      return await this.receiptTicketRepository.addLineWithStockAdjustment(
+        line,
+        userId,
+      );
+    }
 
     return await this.receiptTicketRepository.addLine(line);
   }

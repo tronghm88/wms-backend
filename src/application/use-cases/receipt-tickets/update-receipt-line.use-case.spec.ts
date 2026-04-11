@@ -33,6 +33,7 @@ describe("UpdateReceiptLineUseCase", () => {
       findById: jest.fn(),
       findLineById: jest.fn(),
       updateLine: jest.fn(),
+      updateLineWithStockAdjustment: jest.fn(),
     } as unknown as jest.Mocked<IReceiptTicketRepository>;
     productRepository = {
       findById: jest.fn(),
@@ -73,7 +74,7 @@ describe("UpdateReceiptLineUseCase", () => {
     receiptTicketRepository.findById.mockResolvedValue(null);
 
     await expect(
-      useCase.execute(1, 1, { quantity: new Decimal(1) }, false),
+      useCase.execute(1, 1, { quantity: new Decimal(1) }, false, 1),
     ).rejects.toThrow(ReceiptTicketNotFoundException);
   });
 
@@ -86,7 +87,7 @@ describe("UpdateReceiptLineUseCase", () => {
     );
 
     await expect(
-      useCase.execute(1, 1, { quantity: new Decimal(1) }, false),
+      useCase.execute(1, 1, { quantity: new Decimal(1) }, false, 1),
     ).rejects.toThrow(ReceiptTicketNotDraftException);
   });
 
@@ -112,12 +113,12 @@ describe("UpdateReceiptLineUseCase", () => {
     unitRepository.findByCode.mockResolvedValue(
       new UnitEntity({ code: "roll" }),
     );
-    receiptTicketRepository.updateLine.mockImplementation((id, line) =>
-      Promise.resolve(line as ReceiptTicketLineEntity),
+    receiptTicketRepository.updateLineWithStockAdjustment.mockImplementation(
+      (id, line) => Promise.resolve(line),
     );
 
     await expect(
-      useCase.execute(1, 1, { quantity: new Decimal(2) }, true),
+      useCase.execute(1, 1, { quantity: new Decimal(2) }, true, 1),
     ).resolves.toBeDefined();
   });
 
@@ -128,7 +129,7 @@ describe("UpdateReceiptLineUseCase", () => {
     receiptTicketRepository.findLineById.mockResolvedValue(null);
 
     await expect(
-      useCase.execute(1, 1, { quantity: new Decimal(1) }, false),
+      useCase.execute(1, 1, { quantity: new Decimal(1) }, false, 1),
     ).rejects.toThrow(ReceiptTicketLineNotFoundException);
   });
 
@@ -147,7 +148,7 @@ describe("UpdateReceiptLineUseCase", () => {
     );
 
     await expect(
-      useCase.execute(1, 1, { quantity: new Decimal(1) }, false),
+      useCase.execute(1, 1, { quantity: new Decimal(1) }, false, 1),
     ).rejects.toThrow(ReceiptTicketLineNotFoundException);
   });
 
@@ -185,6 +186,7 @@ describe("UpdateReceiptLineUseCase", () => {
       1,
       { quantity: new Decimal(2) },
       false,
+      1,
     );
 
     expect(result.quantity.toString()).toBe("2");
@@ -220,7 +222,7 @@ describe("UpdateReceiptLineUseCase", () => {
       Promise.resolve(line as ReceiptTicketLineEntity),
     );
 
-    const result = await useCase.execute(1, 1, { productId: 2 }, false);
+    const result = await useCase.execute(1, 1, { productId: 2 }, false, 1);
 
     expect(result.productId).toBe(2);
     expect(result.lengthM?.toString()).toBe("100");

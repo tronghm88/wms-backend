@@ -11,6 +11,7 @@ import { UnitConversionsModule } from "./infrastructure/unit-conversions/unit-co
 import { CustomersModule } from "./infrastructure/customers/customers.module";
 import { DiscountPoliciesModule } from "./infrastructure/discount-policies/discount-policies.module";
 import { ReceiptTicketsModule } from "./infrastructure/receipt-tickets/receipt-tickets.module";
+import { StockModule } from "./infrastructure/stock/stock.module";
 import { ConfigModule } from "@nestjs/config";
 import { CacheModule } from "@nestjs/cache-manager";
 // import { redisStore } from 'cache-manager-redis-yet';
@@ -36,6 +37,7 @@ import { CacheModule } from "@nestjs/cache-manager";
     CustomersModule,
     DiscountPoliciesModule,
     ReceiptTicketsModule,
+    StockModule,
   ],
   controllers: [AppController],
   providers: [AppService],

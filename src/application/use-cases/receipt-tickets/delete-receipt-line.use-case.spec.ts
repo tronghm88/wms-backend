@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import { Test, TestingModule } from "@nestjs/testing";
 import { DeleteReceiptLineUseCase } from "./delete-receipt-line.use-case";
 import { TransactionStatus } from "../../../domain/enums";
@@ -21,6 +22,7 @@ describe("DeleteReceiptLineUseCase", () => {
       findById: jest.fn(),
       findLineById: jest.fn(),
       deleteLine: jest.fn(),
+      deleteLineWithStockAdjustment: jest.fn(),
     } as unknown as jest.Mocked<IReceiptTicketRepository>;
 
     const module: TestingModule = await Test.createTestingModule({
@@ -39,7 +41,7 @@ describe("DeleteReceiptLineUseCase", () => {
   it("should throw ReceiptTicketNotFoundException if ticket does not exist", async () => {
     receiptTicketRepository.findById.mockResolvedValue(null);
 
-    await expect(useCase.execute(1, 1, false)).rejects.toThrow(
+    await expect(useCase.execute(1, 1, false, 1)).rejects.toThrow(
       ReceiptTicketNotFoundException,
     );
   });
@@ -52,7 +54,7 @@ describe("DeleteReceiptLineUseCase", () => {
       }),
     );
 
-    await expect(useCase.execute(1, 1, false)).rejects.toThrow(
+    await expect(useCase.execute(1, 1, false, 1)).rejects.toThrow(
       ReceiptTicketNotDraftException,
     );
   });
@@ -74,9 +76,11 @@ describe("DeleteReceiptLineUseCase", () => {
       }),
     );
 
-    await expect(useCase.execute(1, 1, true)).resolves.toBeUndefined();
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    expect(receiptTicketRepository.deleteLine).toHaveBeenCalledWith(1);
+    await expect(useCase.execute(1, 1, true, 1)).resolves.toBeUndefined();
+
+    expect(
+      receiptTicketRepository.deleteLineWithStockAdjustment,
+    ).toHaveBeenCalledWith(1, expect.anything(), 1);
   });
 
   it("should throw ReceiptTicketLineNotFoundException if line does not exist", async () => {
@@ -85,7 +89,7 @@ describe("DeleteReceiptLineUseCase", () => {
     );
     receiptTicketRepository.findLineById.mockResolvedValue(null);
 
-    await expect(useCase.execute(1, 1, false)).rejects.toThrow(
+    await expect(useCase.execute(1, 1, false, 1)).rejects.toThrow(
       ReceiptTicketLineNotFoundException,
     );
   });
@@ -104,7 +108,7 @@ describe("DeleteReceiptLineUseCase", () => {
       }),
     );
 
-    await expect(useCase.execute(1, 1, false)).rejects.toThrow(
+    await expect(useCase.execute(1, 1, false, 1)).rejects.toThrow(
       ReceiptTicketLineNotFoundException,
     );
   });
@@ -123,9 +127,8 @@ describe("DeleteReceiptLineUseCase", () => {
       }),
     );
 
-    await useCase.execute(1, 1, false);
+    await useCase.execute(1, 1, false, 1);
 
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(receiptTicketRepository.deleteLine).toHaveBeenCalledWith(1);
   });
 });
