@@ -6,6 +6,7 @@ export interface IIssueTicketRepository {
   findById(id: number): Promise<IssueTicketEntity | null>;
   findByCode(code: string): Promise<IssueTicketEntity | null>;
   findAll(): Promise<IssueTicketEntity[]>;
+  getLastCode(yearMonth: string): Promise<string | null>;
   create(
     ticket: Omit<IssueTicketEntity, "id" | "createdAt" | "updatedAt" | "lines">,
   ): Promise<IssueTicketEntity>;
