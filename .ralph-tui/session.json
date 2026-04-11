@@ -3,10 +3,10 @@
   "sessionId": "e9c05a7b-1e39-4a02-a18d-9b613cf9ce2c",
   "status": "running",
   "startedAt": "2026-04-11T08:51:31.514Z",
-  "updatedAt": "2026-04-11T08:54:22.024Z",
-  "currentIteration": 0,
+  "updatedAt": "2026-04-11T08:57:57.797Z",
+  "currentIteration": 1,
   "maxIterations": 50,
-  "tasksCompleted": 0,
+  "tasksCompleted": 1,
   "isPaused": false,
   "agentPlugin": "gemini",
   "trackerState": {
@@ -17,8 +17,8 @@
       {
         "id": "US-401",
         "title": "Define Issue Ticket Domain Model",
-        "status": "open",
-        "completedInSession": false
+        "status": "completed",
+        "completedInSession": true
       },
       {
         "id": "US-402",
@@ -64,7 +64,18 @@
       }
     ]
   },
-  "iterations": [],
+  "iterations": [
+    {
+      "iteration": 1,
+      "status": "completed",
+      "taskId": "US-401",
+      "taskTitle": "Define Issue Ticket Domain Model",
+      "taskCompleted": true,
+      "durationMs": 167153,
+      "startedAt": "2026-04-11T08:51:34.871Z",
+      "endedAt": "2026-04-11T08:54:22.024Z"
+    }
+  ],
   "skippedTaskIds": [],
   "cwd": "/Users/windy/Work/wms",
   "activeTaskIds": [],
