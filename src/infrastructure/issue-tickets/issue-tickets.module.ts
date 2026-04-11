@@ -7,6 +7,7 @@ import { ProductsModule } from "../products/products.module";
 import { CustomersModule } from "../customers/customers.module";
 import { DiscountPoliciesModule } from "../discount-policies/discount-policies.module";
 import { StockModule } from "../stock/stock.module";
+import { IssueTicketsController } from "../../presentation/controllers/issue-tickets.controller";
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { StockModule } from "../stock/stock.module";
     DiscountPoliciesModule,
     StockModule,
   ],
+  controllers: [IssueTicketsController],
   providers: [
     CreateIssueTicketUseCase,
     {

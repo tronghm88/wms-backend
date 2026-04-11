@@ -22,6 +22,7 @@ export const Permissions = {
   RECEIPTS_CONFIRM: "receipts:confirm",
   ISSUES_CREATE: "issues:create",
   ISSUES_CONFIRM: "issues:confirm",
+  ISSUES_PRICE_OVERRIDE: "issues:price-override",
   STOCK_SPLIT: "stock:split",
   STOCK_VOID: "stock:void",
 

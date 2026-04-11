@@ -65,5 +65,27 @@ after each iteration and it's included in prompts for context.
   - Aggregating line quantities before stock validation is crucial to prevent "split-line" overdrafts where multiple lines of the same product individually pass but collectively fail stock checks.
   - Using `Promise.all` for fetching multiple repositories (Products, Policies, Inventory) significantly improves performance by reducing sequential I/O wait times.
   - Strict mapping between domain `Decimal` (decimal.js) and Prisma `Decimal` (decimal.js but via different instance usually) requires careful conversion using `.toString()` or explicit casts.
+
+## [2026-04-11] - US-405
+- Updated `IssueTicketLine` schema and entity to support `isOverride` and `originalPrice`.
+- Modified `CreateIssueTicketUseCase` to allow manual price overrides with RBAC checks.
+- Added `ISSUES_PRICE_OVERRIDE` permission to `Permissions` constant.
+- Implemented `IssueTicketsController` and `IssueTicketResponseDto` to expose the creation endpoint.
+- Added comprehensive unit tests for price override logic, including permission validation.
+- Files changed:
+  - `prisma/schema.prisma`
+  - `src/domain/entities/issue-ticket-line.entity.ts`
+  - `src/infrastructure/database/repositories/prisma-issue-ticket.repository.ts`
+  - `src/domain/constants/permissions.constant.ts`
+  - `src/application/dtos/create-issue-ticket.dto.ts`
+  - `src/application/use-cases/issue-tickets/create-issue-ticket.use-case.ts`
+  - `src/application/use-cases/issue-tickets/create-issue-ticket.use-case.spec.ts`
+  - `src/presentation/dtos/issue-tickets/issue-ticket-response.dto.ts`
+  - `src/presentation/controllers/issue-tickets.controller.ts`
+  - `src/infrastructure/issue-tickets/issue-tickets.module.ts`
+- **Learnings:**
+  - RBAC checks can be implemented directly within Use Cases for fine-grained control over specific fields/actions that go beyond simple endpoint access.
+  - Logging "events" for auditing can be done via standard `Logger` in NestJS, though a dedicated `AuditLog` table might be preferred for long-term searchable history as per PRD vision.
+  - When updating Use Case signatures (e.g., from `userId` to `user` object), all related tests must be updated to maintain type safety and pass linting.
 ---
 

@@ -12,6 +12,8 @@ export class IssueTicketLineEntity {
   discountValue: Decimal;
   finalPrice: Decimal;
   lineTotal: Decimal;
+  originalPrice?: Decimal;
+  isOverride: boolean = false;
   createdAt: Date;
   updatedAt: Date;
 
@@ -23,5 +25,7 @@ export class IssueTicketLineEntity {
       this.discountValue = new Decimal(partial.discountValue);
     if (partial?.finalPrice) this.finalPrice = new Decimal(partial.finalPrice);
     if (partial?.lineTotal) this.lineTotal = new Decimal(partial.lineTotal);
+    if (partial?.originalPrice)
+      this.originalPrice = new Decimal(partial.originalPrice);
   }
 }

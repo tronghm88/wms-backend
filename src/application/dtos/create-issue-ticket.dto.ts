@@ -24,6 +24,16 @@ export class CreateIssueTicketLineDto {
   @ApiProperty({ example: "m", description: "Unit code" })
   @IsString()
   unitCode: string;
+
+  @ApiProperty({
+    example: 95.5,
+    description: "Manual price override (optional, requires Admin permission)",
+    required: false,
+  })
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  manualPrice?: number;
 }
 
 export class CreateIssueTicketDto {

@@ -116,6 +116,10 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
             discountValue: line.discountValue as unknown as Prisma.Decimal,
             finalPrice: line.finalPrice as unknown as Prisma.Decimal,
             lineTotal: line.lineTotal as unknown as Prisma.Decimal,
+            originalPrice: line.originalPrice
+              ? (line.originalPrice as unknown as Prisma.Decimal)
+              : null,
+            isOverride: line.isOverride,
           })),
         },
       },
@@ -157,6 +161,10 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
                 discountValue: line.discountValue as unknown as Prisma.Decimal,
                 finalPrice: line.finalPrice as unknown as Prisma.Decimal,
                 lineTotal: line.lineTotal as unknown as Prisma.Decimal,
+                originalPrice: line.originalPrice
+                  ? (line.originalPrice as unknown as Prisma.Decimal)
+                  : null,
+                isOverride: line.isOverride,
               })),
             },
           }),
@@ -195,6 +203,10 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
             discountValue: new Decimal(line.discountValue.toString()),
             finalPrice: new Decimal(line.finalPrice.toString()),
             lineTotal: new Decimal(line.lineTotal.toString()),
+            originalPrice: line.originalPrice
+              ? new Decimal(line.originalPrice.toString())
+              : undefined,
+            isOverride: line.isOverride,
             createdAt: line.createdAt,
             updatedAt: line.updatedAt,
           }),

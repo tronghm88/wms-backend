@@ -1,4 +1,4 @@
-import { Inject, Injectable } from "@nestjs/common";
+import { Inject, Injectable, Logger, ForbiddenException } from "@nestjs/common";
 import {
   ISSUE_TICKET_REPOSITORY,
   type IIssueTicketRepository,
@@ -29,9 +29,12 @@ import { Decimal } from "decimal.js";
 import { CustomerNotFoundException } from "../../../domain/exceptions/customer.exceptions";
 import { ProductNotFoundException } from "../../../domain/exceptions/product.exceptions";
 import { NegativeStockException } from "../../../domain/exceptions/inventory.exceptions";
+import { Permissions } from "../../../domain/constants/permissions.constant";
 
 @Injectable()
 export class CreateIssueTicketUseCase {
+  private readonly logger = new Logger(CreateIssueTicketUseCase.name);
+
   constructor(
     @Inject(ISSUE_TICKET_REPOSITORY)
     private readonly issueTicketRepository: IIssueTicketRepository,
@@ -47,7 +50,7 @@ export class CreateIssueTicketUseCase {
 
   async execute(
     dto: CreateIssueTicketDto,
-    userId: number,
+    user: { id: number; permissions: string[]; role: string },
   ): Promise<IssueTicketEntity> {
     const now = new Date();
 
@@ -121,9 +124,34 @@ export class CreateIssueTicketUseCase {
         policies: discountPolicies,
       });
 
-      const lineTotal = pricing.finalPrice
-        .mul(line.quantity)
-        .toDecimalPlaces(3);
+      let finalPrice = pricing.finalPrice;
+      let isOverride = false;
+      let originalPrice: Decimal | undefined = undefined;
+
+      if (line.manualPrice !== undefined) {
+        // Check Permissions
+        const hasOverridePermission =
+          user.role === "SUPER_ADMIN" ||
+          user.role === "ADMIN" ||
+          user.permissions.includes(Permissions.ISSUES_PRICE_OVERRIDE);
+
+        if (!hasOverridePermission) {
+          throw new ForbiddenException(
+            "You do not have permission to override prices.",
+          );
+        }
+
+        originalPrice = pricing.finalPrice;
+        finalPrice = new Decimal(line.manualPrice);
+        isOverride = true;
+
+        this.logger.log(
+          `Price override by user ${user.id} for product ${line.productId}: ` +
+            `Original: ${originalPrice.toString()}, New: ${finalPrice.toString()}`,
+        );
+      }
+
+      const lineTotal = finalPrice.mul(line.quantity).toDecimalPlaces(3);
       totalAmount = totalAmount.plus(lineTotal);
 
       lineEntities.push(
@@ -134,8 +162,10 @@ export class CreateIssueTicketUseCase {
           basePrice: pricing.basePrice,
           discountType: pricing.appliedDiscountType,
           discountValue: pricing.appliedDiscountValue,
-          finalPrice: pricing.finalPrice,
+          finalPrice: finalPrice,
           lineTotal: lineTotal,
+          originalPrice: originalPrice,
+          isOverride: isOverride,
         }),
       );
     }
@@ -156,7 +186,7 @@ export class CreateIssueTicketUseCase {
           date: now,
           customerId: dto.customerId,
           status: IssueTicketStatus.DRAFT,
-          createdBy: userId,
+          createdBy: user.id,
           totalAmount: totalAmount,
           note: dto.note,
           lines: lineEntities,
