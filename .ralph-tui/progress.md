@@ -106,4 +106,22 @@ after each iteration and it's included in prompts for context.
   - Following the `ReceiptTicketRepository` pattern, cross-aggregate atomic updates (Ticket + Inventory + StockMovement) are handled within the repository using Prisma's `$transaction`.
   - Reusing existing `ISSUES_CONFIRM` permission instead of creating a new one to maintain consistency with the `Receipts` module.
   - `Prisma.Decimal` from the client can be manipulated directly for simple operations like `mul(-1)` but should be converted to `decimal.js` if complex business logic is needed.
+## [2026-04-11] - US-408
+- Implemented `GetIssueTicketUseCase` to retrieve a single issue ticket by ID.
+- Enhanced `IssueTicketResponseDto` to include detailed line information via `IssueTicketLineResponseDto`.
+- Exposed `GET /api/v1/issue-tickets/:id` endpoint in `IssueTicketsController`.
+- Added `ISSUES_VIEW` permission to the system and assigned it to the `WAREHOUSE_STAFF` role.
+- Ensured all numeric fields in the API response (e.g., `totalAmount`, `finalPrice`, `quantity`) are serialized as `String` with 3 decimal precision.
+- Files changed:
+  - `src/presentation/dtos/issue-tickets/issue-ticket-line-response.dto.ts`
+  - `src/presentation/dtos/issue-tickets/issue-ticket-response.dto.ts`
+  - `src/application/use-cases/issue-tickets/get-issue-ticket.use-case.ts`
+  - `src/application/use-cases/issue-tickets/get-issue-ticket.use-case.spec.ts`
+  - `src/infrastructure/issue-tickets/issue-tickets.module.ts`
+  - `src/presentation/controllers/issue-tickets.controller.ts`
+  - `src/domain/constants/permissions.constant.ts`
+- **Learnings:**
+  - Standardized on using `.toFixed(3)` for `Decimal` to `String` conversion in DTOs to ensure consistent precision as required by the project mandates.
+  - Adding a "View" permission is essential when exposing GET endpoints to maintain a consistent RBAC strategy, even if not explicitly mentioned in the story description.
+  - When importing interfaces for use in decorated constructor parameters (like Use Cases), use `import type` to avoid `emitDecoratorMetadata` errors in projects with `isolatedModules` enabled.
 ---

@@ -41,7 +41,9 @@ describe("CompleteIssueTicketUseCase", () => {
       ],
     }).compile();
 
-    useCase = module.get<CompleteIssueTicketUseCase>(CompleteIssueTicketUseCase);
+    useCase = module.get<CompleteIssueTicketUseCase>(
+      CompleteIssueTicketUseCase,
+    );
   });
 
   it("should be defined", () => {
