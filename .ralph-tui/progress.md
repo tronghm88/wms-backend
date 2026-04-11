@@ -5,7 +5,8 @@ after each iteration and it's included in prompts for context.
 
 ## Codebase Patterns (Study These First)
 
-*Add reusable patterns discovered during development here.*
+- **Status Mapping:** Always use explicit mapper functions (e.g., `mapStatusToPrisma` and `mapStatusToDomain`) in repositories when the domain enum differs from the Prisma/Database enum to ensure type safety and handle diverging business logic naming.
+- **Prisma Entity Mapping:** Use `Prisma.XGetPayload<{ include: { ... } }>` as the input type for `toEntity` private methods in repositories to provide full type safety when mapping complex models with relations.
 
 ## [2026-04-11] - US-401
 - Defined Issue Ticket Domain Model including `IssueTicketEntity`, `IssueTicketLineEntity`, and `IssueTicketStatus` enum.
@@ -31,5 +32,19 @@ after each iteration and it's included in prompts for context.
   - Although the requirement mentions "Category/General", the current domain model (`DiscountPolicyEntity`) only supports `isAppliedAll` (General) and `productIds` (Specific).
   - Calculations use `decimal.js` and are rounded to 3 decimal places to match `NUMERIC(15,3)` database precision.
   - `PricingEngineService` is implemented as a pure domain service with static methods to ensure zero external dependencies.
+
+## [2026-04-11] - US-406
+- Implemented `PrismaIssueTicketRepository` in `src/infrastructure/database/repositories/prisma-issue-ticket.repository.ts`.
+- Updated `IIssueTicketRepository` interface to include `lines` in `create` and `update` to support transactions.
+- Updated `IssueTicketsModule` to provide `PrismaIssueTicketRepository`.
+- Files changed:
+  - `src/infrastructure/database/repositories/prisma-issue-ticket.repository.ts`
+  - `src/domain/contracts/issue-ticket.repository.interface.ts`
+  - `src/infrastructure/issue-tickets/issue-tickets.module.ts`
+  - `src/domain/services/issue-ticket-code-generator.service.spec.ts` (fixed lint errors)
+- **Learnings:**
+  - Prisma nested `create` and `$transaction` were used to ensure the Issue Ticket and its Lines are saved together atomically as per requirements.
+  - Domain status `IssueTicketStatus` (`DRAFT`, `COMPLETED`, `CANCELLED`) was mapped to Prisma `TransactionStatus` (`DRAFT`, `CONFIRMED`, `VOIDED`).
+  - `Decimal` fields in Prisma (mapped as `Decimal`) must be explicitly converted to `decimal.js` using `.toString()` to avoid type mismatches.
 ---
 

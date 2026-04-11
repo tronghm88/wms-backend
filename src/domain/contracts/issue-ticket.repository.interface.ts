@@ -8,10 +8,10 @@ export interface IIssueTicketRepository {
   findAll(): Promise<IssueTicketEntity[]>;
   getLastCode(yearMonth: string): Promise<string | null>;
   create(
-    ticket: Omit<IssueTicketEntity, "id" | "createdAt" | "updatedAt" | "lines">,
+    ticket: Omit<IssueTicketEntity, "id" | "createdAt" | "updatedAt">,
   ): Promise<IssueTicketEntity>;
   update(
     id: number,
-    ticket: Partial<IssueTicketEntity>,
+    ticket: Partial<Omit<IssueTicketEntity, "id" | "createdAt" | "updatedAt">>,
   ): Promise<IssueTicketEntity>;
 }

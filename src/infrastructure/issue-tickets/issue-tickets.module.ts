@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { PrismaModule } from "../database/prisma.module";
-import { IssueTicketRepository } from "../database/repositories/issue-ticket.repository";
+import { PrismaIssueTicketRepository } from "../database/repositories/prisma-issue-ticket.repository";
 import { ISSUE_TICKET_REPOSITORY } from "../../domain/contracts/issue-ticket.repository.interface";
 import { CreateIssueTicketUseCase } from "../../application/use-cases/issue-tickets/create-issue-ticket.use-case";
 
@@ -10,7 +10,7 @@ import { CreateIssueTicketUseCase } from "../../application/use-cases/issue-tick
     CreateIssueTicketUseCase,
     {
       provide: ISSUE_TICKET_REPOSITORY,
-      useClass: IssueTicketRepository,
+      useClass: PrismaIssueTicketRepository,
     },
   ],
   exports: [ISSUE_TICKET_REPOSITORY, CreateIssueTicketUseCase],

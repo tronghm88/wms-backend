@@ -12,7 +12,7 @@ describe("IssueTicketCodeGenerator", () => {
       getLastCode: jest.fn(),
       create: jest.fn(),
       update: jest.fn(),
-    } as any;
+    } as unknown as jest.Mocked<IIssueTicketRepository>;
   });
 
   it("should generate the first code for a month as PX-YYYYMM-1", async () => {
@@ -25,7 +25,9 @@ describe("IssueTicketCodeGenerator", () => {
     );
 
     expect(code).toBe("PX-202604-1");
-    expect(mockRepository.getLastCode).toHaveBeenCalledWith("202604");
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    const lastCodeMethod = mockRepository.getLastCode;
+    expect(lastCodeMethod).toHaveBeenCalledWith("202604");
   });
 
   it("should increment the sequence from the last code in the month", async () => {
@@ -38,7 +40,9 @@ describe("IssueTicketCodeGenerator", () => {
     );
 
     expect(code).toBe("PX-202604-43");
-    expect(mockRepository.getLastCode).toHaveBeenCalledWith("202604");
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    const lastCodeMethod = mockRepository.getLastCode;
+    expect(lastCodeMethod).toHaveBeenCalledWith("202604");
   });
 
   it("should reset the sequence at the start of a new month", async () => {
@@ -58,7 +62,9 @@ describe("IssueTicketCodeGenerator", () => {
     );
 
     expect(code).toBe("PX-202605-1");
-    expect(mockRepository.getLastCode).toHaveBeenCalledWith("202605");
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    const lastCodeMethod = mockRepository.getLastCode;
+    expect(lastCodeMethod).toHaveBeenCalledWith("202605");
   });
 
   it("should handle large sequence numbers correctly", async () => {
