@@ -69,6 +69,7 @@ describe("ListProductsUseCase", () => {
       length: undefined,
       width: undefined,
       height: undefined,
+      parentProductId: undefined,
       createdAt: mockProduct.createdAt,
       updatedAt: mockProduct.updatedAt,
     });

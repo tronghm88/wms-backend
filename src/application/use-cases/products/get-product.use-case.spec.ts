@@ -71,9 +71,23 @@ describe("GetProductUseCase", () => {
       length: undefined,
       width: undefined,
       height: undefined,
+      parentProductId: undefined,
       createdAt: mockProduct.createdAt,
       updatedAt: mockProduct.updatedAt,
     });
+  });
+
+  it("should return product details with parentProductId when exists", async () => {
+    const childProduct = new ProductEntity({
+      ...mockProduct,
+      id: 2,
+      parentProductId: 1,
+    });
+    repository.findById.mockResolvedValue(childProduct);
+
+    const result = await useCase.execute(2);
+
+    expect(result.parentProductId).toBe(1);
   });
 
   it("should throw ProductNotFoundException when product does not exist", async () => {

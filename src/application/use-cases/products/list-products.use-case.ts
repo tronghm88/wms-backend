@@ -13,6 +13,7 @@ export interface ListProductsResponse {
   length?: string;
   width?: string;
   height?: string;
+  parentProductId?: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -38,6 +39,7 @@ export class ListProductsUseCase {
       length: product.length?.toFixed(3),
       width: product.width?.toFixed(3),
       height: product.height?.toFixed(3),
+      parentProductId: product.parentProductId,
       createdAt: product.createdAt,
       updatedAt: product.updatedAt,
     }));

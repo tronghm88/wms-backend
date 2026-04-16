@@ -3,6 +3,5 @@
 .cursor/
 .gemini/
 _bmad/
-requirement.md
 dist/
 node_modules/

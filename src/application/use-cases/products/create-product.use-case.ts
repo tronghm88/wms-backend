@@ -20,6 +20,7 @@ export interface CreateProductRequest {
   length?: string;
   width?: string;
   height?: string;
+  parentProductId?: number;
 }
 
 export interface CreateProductResponse {
@@ -32,6 +33,7 @@ export interface CreateProductResponse {
   length?: string;
   width?: string;
   height?: string;
+  parentProductId?: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -73,6 +75,7 @@ export class CreateProductUseCase {
       length: request.length ? new Decimal(request.length) : undefined,
       width: request.width ? new Decimal(request.width) : undefined,
       height: request.height ? new Decimal(request.height) : undefined,
+      parentProductId: request.parentProductId,
     });
 
     const created = await this.productRepository.create(product);
@@ -87,6 +90,7 @@ export class CreateProductUseCase {
       length: created.length?.toFixed(3),
       width: created.width?.toFixed(3),
       height: created.height?.toFixed(3),
+      parentProductId: created.parentProductId,
       createdAt: created.createdAt,
       updatedAt: created.updatedAt,
     };

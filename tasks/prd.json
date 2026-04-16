@@ -1,156 +1,165 @@
 {
-  "name": "Epic 4 - Outbound Operations & Intelligent Pricing",
-  "branchName": "ralph/epic-4-outbound-pricing",
+  "name": "Epic 5 - Internal Operations & Audit Roll-backs",
+  "description": "Implementation of product splitting and administrative roll-backs (voiding) for Receipt, Issue, and Split tickets.",
+  "branchName": "ralph/epic-5-internal-ops",
   "userStories": [
     {
-      "id": "US-401",
-      "title": "Define Issue Ticket Domain Model",
-      "description": "As a developer, I want to define the IssueTicket and IssueTicketLine entities and repository interfaces so that the core domain logic is decoupled from the database.",
+      "id": "US-001",
+      "title": "Extend Product Model for Lineage",
+      "description": "As a developer, I want to add a parentProductId field to the Product model so that I can track the origin of split products.",
       "acceptanceCriteria": [
-        "Create IssueTicket and IssueTicketLine entities in src/domain/entities/.",
-        "Include fields: code, customerId, totalAmount, status (DRAFT, COMPLETED, CANCELLED), and lines.",
-        "Define IIssueTicketRepository in src/domain/contracts/.",
-        "Use decimal.js for all numeric/monetary fields as per GEMINI.md.",
+        "Update prisma/schema.prisma to add parent_product_id to the Product table (self-relation).",
+        "Update the Domain Product entity to include parentProductId.",
+        "Update Prisma repositories to handle the new field.",
+        "Ensure parentProductId is included in Product API responses.",
         "npm run lint passes",
         "npx tsc --noEmit passes"
       ],
       "priority": 1,
       "passes": true,
+      "notes": "",
       "dependsOn": [],
       "completionNotes": "Completed by agent"
     },
     {
-      "id": "US-402",
-      "title": "Implement Intelligent Pricing Engine",
-      "description": "As a system, I want to calculate the unit price for a line item based on the customer's discount hierarchy so that pricing is consistent and automated.",
+      "id": "US-002",
+      "title": "Create Split Ticket (Draft)",
+      "description": "As a warehouse staff, I want to create a Split Ticket header so that I can begin the process of breaking down a master product.",
       "acceptanceCriteria": [
-        "Create PricingEngineService in src/domain/services/.",
-        "Implement hierarchy: 1. Product-specific discount > 2. Category/General discount > 3. Base product price.",
-        "Service should take customerId, productId, and basePrice as input and return the finalPrice.",
-        "Logic must be Pure and have no external dependencies.",
+        "POST /api/v1/split-tickets endpoint created.",
+        "Generates ticket number using pattern ST-yyyyMM-n.",
+        "Initial status is DRAFT.",
+        "Validates sourceProductId and warehouseId.",
         "npm run lint passes",
         "npx tsc --noEmit passes"
       ],
       "priority": 2,
-      "passes": true,
-      "dependsOn": [],
-      "completionNotes": "Completed by agent"
+      "passes": false,
+      "notes": "",
+      "dependsOn": [
+        "US-001"
+      ]
     },
     {
-      "id": "US-403",
-      "title": "Auto-numbering for Export Tickets",
-      "description": "As a user, I want export tickets to have a standardized code format PX-yyyymm-n so that they are easily identifiable and sorted.",
+      "id": "US-003",
+      "title": "Add Split Ticket Lines with Unit Conversion",
+      "description": "As a warehouse staff, I want to add multiple child lines to a split ticket, specifying quantities and potential unit conversions.",
       "acceptanceCriteria": [
-        "Implement a service/utility to generate codes in the format PX-YYYYMM-N.",
-        "The sequence N must reset to 1 at the start of every calendar month.",
-        "Ensure the generation is thread-safe/transaction-safe (no duplicate codes).",
+        "POST /api/v1/split-tickets/{id}/lines endpoint created.",
+        "Supports adding multiple lines in a single request (Child A, B, ..., Remaining).",
+        "Allows specifying a different productId for child lines or same productId with different units/dimensions.",
+        "Logic supports both simple quantity deduction and unit conversion.",
+        "Math performed using decimal.js.",
         "npm run lint passes",
         "npx tsc --noEmit passes"
       ],
       "priority": 3,
-      "passes": true,
-      "dependsOn": [],
-      "completionNotes": "Completed by agent"
+      "passes": false,
+      "notes": "",
+      "dependsOn": [
+        "US-002"
+      ]
     },
     {
-      "id": "US-406",
-      "title": "Issue Ticket Persistence (Prisma)",
-      "description": "As a system, I want to persist Issue Tickets to the PostgreSQL database so that data is durable and queryable.",
+      "id": "US-004",
+      "title": "Confirm Split Ticket",
+      "description": "As a warehouse staff, I want to confirm a split ticket to execute the stock movement and generate child product records.",
       "acceptanceCriteria": [
-        "Implement PrismaIssueTicketRepository in src/infrastructure/database/repositories/.",
-        "Update schema.prisma with issue_tickets and issue_ticket_lines tables (using snake_case mapping).",
-        "Use Prisma transactions to ensure Ticket and Lines are saved together.",
+        "POST /api/v1/split-tickets/{id}/confirm endpoint created.",
+        "Deducts quantity from source stock.",
+        "Creates/Updates stock entries for all child lines.",
+        "Automatically links new product entries to the source via parentProductId.",
+        "Creates StockMovement records for all changes.",
+        "Status changes to CONFIRMED.",
         "npm run lint passes",
         "npx tsc --noEmit passes"
       ],
       "priority": 4,
-      "passes": true,
+      "passes": false,
+      "notes": "",
       "dependsOn": [
-        "US-401"
-      ],
-      "completionNotes": "Completed by agent"
+        "US-003"
+      ]
     },
     {
-      "id": "US-404",
-      "title": "Goods Issue Creation Use Case",
-      "description": "As a warehouse staff, I want to create a Goods Issue ticket so that I can prepare items for shipment.",
+      "id": "US-005",
+      "title": "Void Receipt Ticket with Warning",
+      "description": "As an admin, I want to void a confirmed Receipt Ticket to correct errors, receiving a warning if stock becomes negative.",
       "acceptanceCriteria": [
-        "Implement CreateIssueTicketUseCase in src/application/use-cases/.",
-        "Automatically apply Intelligent Pricing to all lines.",
-        "Validate that requested quantity exists in Inventory for each line.",
-        "Throw a domain exception if stock is insufficient (no negative stock).",
+        "POST /api/v1/receipt-tickets/{id}/void endpoint created.",
+        "Reverses the stock increase from the original receipt.",
+        "Backend checks current stock levels and returns warning if current - original_received < 0.",
+        "Updates status to VOIDED.",
+        "Creates compensating StockMovement records.",
         "npm run lint passes",
         "npx tsc --noEmit passes"
       ],
       "priority": 5,
-      "passes": true,
+      "passes": false,
+      "notes": "",
       "dependsOn": [
-        "US-401",
-        "US-402",
-        "US-403",
-        "US-406"
-      ],
-      "completionNotes": "Completed by agent"
+        "US-001"
+      ]
     },
     {
-      "id": "US-405",
-      "title": "Admin Manual Price Override",
-      "description": "As an Admin, I want to manually override the calculated price on a ticket line so that I can handle special cases or errors.",
+      "id": "US-006",
+      "title": "Void Issue Ticket with Warning",
+      "description": "As an admin, I want to void a confirmed Issue Ticket to return items to stock.",
       "acceptanceCriteria": [
-        "Update IssueTicketLine to support an isOverride flag and originalPrice.",
-        "The Use Case must check user permissions (RBAC) before allowing an override.",
-        "Log the override event for auditing purposes.",
+        "POST /api/v1/issue-tickets/{id}/void endpoint created.",
+        "Reverses the stock deduction (adds stock back).",
+        "Backend returns a warning if the reversal creates an inconsistency.",
+        "Updates status to VOIDED.",
+        "Creates compensating StockMovement records.",
         "npm run lint passes",
         "npx tsc --noEmit passes"
       ],
       "priority": 6,
-      "passes": true,
+      "passes": false,
+      "notes": "",
       "dependsOn": [
-        "US-404"
-      ],
-      "completionNotes": "Completed by agent"
+        "US-001"
+      ]
     },
     {
-      "id": "US-407",
-      "title": "Stock Movement Integration",
-      "description": "As a system, I want to record stock movements and update inventory when a ticket is completed so that stock levels remain accurate.",
+      "id": "US-007",
+      "title": "Void Split Ticket with Warning",
+      "description": "As an admin, I want to void a confirmed Split Ticket to undo a product breakdown.",
       "acceptanceCriteria": [
-        "When an IssueTicket status moves to COMPLETED, decrease Inventory levels.",
-        "Create StockMovement records with type OUTBOUND and reference the IssueTicket.",
-        "Ensure atomicity via database transactions.",
+        "POST /api/v1/split-tickets/{id}/void endpoint created.",
+        "Reverses the entire split: restores source product quantity and removes/deducts child product quantities.",
+        "Backend returns a warning if child stock has already been consumed.",
+        "Updates status to VOIDED.",
         "npm run lint passes",
         "npx tsc --noEmit passes"
       ],
       "priority": 7,
-      "passes": true,
+      "passes": false,
+      "notes": "",
       "dependsOn": [
-        "US-404",
-        "US-406"
-      ],
-      "completionNotes": "Completed by agent"
+        "US-004"
+      ]
     },
     {
-      "id": "US-408",
-      "title": "Goods Issue API Controller",
-      "description": "As a frontend developer, I want to access outbound operations via a REST API so that I can build the user interface.",
+      "id": "US-008",
+      "title": "Product Lineage Inquiry API",
+      "description": "As a user, I want to view the lineage of a product to see its parent and children.",
       "acceptanceCriteria": [
-        "Create IssueTicketController in src/presentation/controllers/.",
-        "Implement endpoints: POST /api/v1/issue-tickets and GET /api/v1/issue-tickets/:id.",
-        "Fully document endpoints using @nestjs/swagger (Summary, DTOs, Responses).",
-        "Ensure NUMERIC fields are serialized as String in JSON.",
+        "GET /api/v1/products/{id}/lineage endpoint created.",
+        "Returns parent product details and a list of child products created from this one.",
+        "References the SplitTicket that created the link.",
         "npm run lint passes",
         "npx tsc --noEmit passes"
       ],
       "priority": 8,
-      "passes": true,
+      "passes": false,
+      "notes": "",
       "dependsOn": [
-        "US-404",
-        "US-406"
-      ],
-      "completionNotes": "Completed by agent"
+        "US-004"
+      ]
     }
   ],
   "metadata": {
-    "updatedAt": "2026-04-11T09:27:30.272Z"
+    "updatedAt": "2026-04-16T11:57:45.821Z"
   }
 }

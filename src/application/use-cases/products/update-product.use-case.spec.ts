@@ -111,6 +111,41 @@ describe("UpdateProductUseCase", () => {
     expect(productRepository.update).toHaveBeenCalled();
   });
 
+  it("should update parentProductId successfully", async () => {
+    const existingProduct = new ProductEntity({
+      id: 2,
+      code: "PROD002",
+      name: "Child Product",
+      categoryId: 1,
+      categoryName: "Category 1",
+      baseUnit: "m2",
+      basePrice: new Decimal("100.000"),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    const request = {
+      id: 2,
+      parentProductId: 1,
+    };
+
+    productRepository.findById.mockResolvedValue(existingProduct);
+    productRepository.update.mockImplementation((id, product) => {
+      return Promise.resolve(
+        new ProductEntity({
+          ...existingProduct,
+          ...product,
+          updatedAt: new Date(),
+        }),
+      );
+    });
+
+    const result = await useCase.execute(request);
+
+    expect(result.parentProductId).toBe(1);
+    expect(productRepository.update).toHaveBeenCalled();
+  });
+
   it("should update category successfully", async () => {
     const existingProduct = new ProductEntity({
       id: 1,

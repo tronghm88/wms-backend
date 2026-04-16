@@ -114,6 +114,39 @@ describe("CreateProductUseCase", () => {
     expect(productRepository.create).toHaveBeenCalled();
   });
 
+  it("should create a product with parentProductId successfully", async () => {
+    const request = {
+      code: "PROD002",
+      name: "Child Product",
+      categoryId: 1,
+      baseUnit: "m2",
+      basePrice: "100.500",
+      parentProductId: 1,
+    };
+
+    productRepository.findByCode.mockResolvedValue(null);
+    categoryRepository.findById.mockResolvedValue(
+      new CategoryEntity({ id: 1, name: "Category 1" }),
+    );
+    unitRepository.findByCode.mockResolvedValue(new UnitEntity({ code: "m2" }));
+    productRepository.create.mockResolvedValue(
+      new ProductEntity({
+        id: 2,
+        ...request,
+        categoryName: "Category 1",
+        basePrice: new Decimal(request.basePrice),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }),
+    );
+
+    const result = await useCase.execute(request);
+
+    expect(result.code).toBe(request.code);
+    expect(result.parentProductId).toBe(request.parentProductId);
+    expect(productRepository.create).toHaveBeenCalled();
+  });
+
   it("should throw ProductCodeAlreadyExistsException if code exists", async () => {
     const request = {
       code: "PROD001",

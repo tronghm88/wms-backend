@@ -30,6 +30,7 @@ export class ProductRepository implements IProductRepository {
       height: product.height
         ? new Decimal(product.height.toString())
         : undefined,
+      parentProductId: product.parentProductId ?? undefined,
       createdAt: product.createdAt,
       updatedAt: product.updatedAt,
     });
@@ -85,6 +86,7 @@ export class ProductRepository implements IProductRepository {
         length: product.length?.toString(),
         width: product.width?.toString(),
         height: product.height?.toString(),
+        parentProductId: product.parentProductId,
       },
       include: { category: true },
     });
@@ -106,6 +108,7 @@ export class ProductRepository implements IProductRepository {
         length: product.length?.toString(),
         width: product.width?.toString(),
         height: product.height?.toString(),
+        parentProductId: product.parentProductId,
       },
       include: { category: true },
     });

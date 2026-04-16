@@ -23,6 +23,7 @@ export interface UpdateProductRequest {
   length?: string;
   width?: string;
   height?: string;
+  parentProductId?: number;
 }
 
 export interface UpdateProductResponse {
@@ -35,6 +36,7 @@ export interface UpdateProductResponse {
   length?: string;
   width?: string;
   height?: string;
+  parentProductId?: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -105,6 +107,10 @@ export class UpdateProductUseCase {
       product.height = request.height ? new Decimal(request.height) : undefined;
     }
 
+    if (request.parentProductId !== undefined) {
+      product.parentProductId = request.parentProductId;
+    }
+
     const updated = await this.productRepository.update(product.id, product);
 
     return {
@@ -117,6 +123,7 @@ export class UpdateProductUseCase {
       length: updated.length?.toFixed(3),
       width: updated.width?.toFixed(3),
       height: updated.height?.toFixed(3),
+      parentProductId: updated.parentProductId,
       createdAt: updated.createdAt,
       updatedAt: updated.updatedAt,
     };

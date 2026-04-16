@@ -34,6 +34,9 @@ export class ProductResponseDto {
   @ApiProperty({ example: "0.500", required: false, nullable: true })
   height?: string;
 
+  @ApiProperty({ example: 1, required: false, nullable: true })
+  parentProductId?: number;
+
   @ApiProperty({ example: "2026-03-30T10:00:00Z" })
   createdAt: Date;
 

@@ -11,6 +11,7 @@ export class ProductEntity {
   length?: Decimal;
   width?: Decimal;
   height?: Decimal;
+  parentProductId?: number;
   createdAt: Date;
   updatedAt: Date;
 

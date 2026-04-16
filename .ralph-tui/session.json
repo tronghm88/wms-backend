@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "sessionId": "e9c05a7b-1e39-4a02-a18d-9b613cf9ce2c",
+  "sessionId": "b037ea9a-f1a7-4bb5-8140-1594fe7f60fc",
   "status": "running",
-  "startedAt": "2026-04-11T08:51:31.514Z",
-  "updatedAt": "2026-04-11T09:27:30.272Z",
-  "currentIteration": 7,
+  "startedAt": "2026-04-16T11:54:02.327Z",
+  "updatedAt": "2026-04-16T11:57:45.821Z",
+  "currentIteration": 0,
   "maxIterations": 50,
-  "tasksCompleted": 7,
+  "tasksCompleted": 0,
   "isPaused": false,
   "agentPlugin": "gemini",
   "trackerState": {
@@ -15,127 +15,56 @@
     "totalTasks": 8,
     "tasks": [
       {
-        "id": "US-401",
-        "title": "Define Issue Ticket Domain Model",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-001",
+        "title": "Extend Product Model for Lineage",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-402",
-        "title": "Implement Intelligent Pricing Engine",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-002",
+        "title": "Create Split Ticket (Draft)",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-403",
-        "title": "Auto-numbering for Export Tickets",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-003",
+        "title": "Add Split Ticket Lines with Unit Conversion",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-406",
-        "title": "Issue Ticket Persistence (Prisma)",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-004",
+        "title": "Confirm Split Ticket",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-404",
-        "title": "Goods Issue Creation Use Case",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-005",
+        "title": "Void Receipt Ticket with Warning",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-405",
-        "title": "Admin Manual Price Override",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-006",
+        "title": "Void Issue Ticket with Warning",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-407",
-        "title": "Stock Movement Integration",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-007",
+        "title": "Void Split Ticket with Warning",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-408",
-        "title": "Goods Issue API Controller",
+        "id": "US-008",
+        "title": "Product Lineage Inquiry API",
         "status": "open",
         "completedInSession": false
       }
     ]
   },
-  "iterations": [
-    {
-      "iteration": 1,
-      "status": "completed",
-      "taskId": "US-401",
-      "taskTitle": "Define Issue Ticket Domain Model",
-      "taskCompleted": true,
-      "durationMs": 167153,
-      "startedAt": "2026-04-11T08:51:34.871Z",
-      "endedAt": "2026-04-11T08:54:22.024Z"
-    },
-    {
-      "iteration": 2,
-      "status": "completed",
-      "taskId": "US-402",
-      "taskTitle": "Implement Intelligent Pricing Engine",
-      "taskCompleted": true,
-      "durationMs": 214669,
-      "startedAt": "2026-04-11T08:54:23.127Z",
-      "endedAt": "2026-04-11T08:57:57.796Z"
-    },
-    {
-      "iteration": 3,
-      "status": "completed",
-      "taskId": "US-403",
-      "taskTitle": "Auto-numbering for Export Tickets",
-      "taskCompleted": true,
-      "durationMs": 513154,
-      "startedAt": "2026-04-11T08:57:58.910Z",
-      "endedAt": "2026-04-11T09:06:32.064Z"
-    },
-    {
-      "iteration": 4,
-      "status": "completed",
-      "taskId": "US-406",
-      "taskTitle": "Issue Ticket Persistence (Prisma)",
-      "taskCompleted": true,
-      "durationMs": 206090,
-      "startedAt": "2026-04-11T09:06:33.230Z",
-      "endedAt": "2026-04-11T09:09:59.320Z"
-    },
-    {
-      "iteration": 5,
-      "status": "completed",
-      "taskId": "US-404",
-      "taskTitle": "Goods Issue Creation Use Case",
-      "taskCompleted": true,
-      "durationMs": 193935,
-      "startedAt": "2026-04-11T09:10:00.418Z",
-      "endedAt": "2026-04-11T09:13:14.353Z"
-    },
-    {
-      "iteration": 6,
-      "status": "completed",
-      "taskId": "US-405",
-      "taskTitle": "Admin Manual Price Override",
-      "taskCompleted": true,
-      "durationMs": 408204,
-      "startedAt": "2026-04-11T09:13:15.452Z",
-      "endedAt": "2026-04-11T09:20:03.656Z"
-    },
-    {
-      "iteration": 7,
-      "status": "completed",
-      "taskId": "US-407",
-      "taskTitle": "Stock Movement Integration",
-      "taskCompleted": true,
-      "durationMs": 230247,
-      "startedAt": "2026-04-11T09:20:04.757Z",
-      "endedAt": "2026-04-11T09:23:55.004Z"
-    }
-  ],
+  "iterations": [],
   "skippedTaskIds": [],
   "cwd": "/Users/windy/Work/wms",
   "activeTaskIds": [],

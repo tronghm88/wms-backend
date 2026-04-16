@@ -123,11 +123,15 @@ model Product {
   width      Decimal? @db.Decimal(15, 3)
   height     Decimal? @db.Decimal(15, 3)
   
+  parentProductId Int? @map("parent_product_id")
+  
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @updatedAt @map("updated_at")
 
   category           Category            @relation(fields: [categoryId], references: [id])
   unit               Unit                @relation("BaseUnit", fields: [baseUnit], references: [code])
+  parentProduct      Product?            @relation("ProductLineage", fields: [parentProductId], references: [id])
+  childProducts      Product[]           @relation("ProductLineage")
   unitConversions    UnitConversion[]
   receiptTicketLines ReceiptTicketLine[]
   issueTicketLines   IssueTicketLine[]

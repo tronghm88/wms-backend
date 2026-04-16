@@ -71,4 +71,12 @@ export class CreateProductDto {
   @IsOptional()
   @IsNumberString()
   height?: string;
+
+  @ApiPropertyOptional({
+    example: 1,
+    description: "The ID of the parent product (for split lineage)",
+  })
+  @IsOptional()
+  @IsNumber()
+  parentProductId?: number;
 }
