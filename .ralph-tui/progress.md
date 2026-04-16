@@ -90,3 +90,25 @@ after each iteration and it's included in prompts for context.
   - **Patterns discovered:** All Void APIs should return a standardized JSON structure `{ success: true, data: object, warnings: string[] }` as per PRD-5 requirements. This allows the backend to proceed with sensitive operations while alerting the user to potential data inconsistencies like negative stock.
   - **Gotchas encountered:** When using Prisma's `$transaction`, always ensure all data needed for business logic (like product codes for warnings) is included in the initial fetch to avoid extra queries within the transaction block.
 ---
+
+## 2026-04-16 - US-006
+- Implemented Void Issue Ticket functionality with stock reversal and audit trail.
+- Added `void` method to `IIssueTicketRepository` and implemented it in `PrismaIssueTicketRepository` with transaction support.
+- Created `VoidIssueTicketUseCase` and `VoidIssueTicketResponseDto`.
+- Added `POST /api/v1/issue-tickets/:id/void` endpoint and `ISSUES_VOID` permission.
+- Renamed `IssueTicketStatus.CANCELLED` to `VOIDED` for consistency with requirements and database schema.
+- **Files changed:**
+  - `src/domain/constants/permissions.constant.ts`
+  - `src/domain/contracts/issue-ticket.repository.interface.ts`
+  - `src/domain/enums/index.ts`
+  - `src/infrastructure/database/repositories/prisma-issue-ticket.repository.ts`
+  - `src/application/use-cases/issue-tickets/void-issue-ticket.use-case.ts`
+  - `src/application/use-cases/issue-tickets/void-issue-ticket.use-case.spec.ts`
+  - `src/presentation/dtos/issue-tickets/void-issue-ticket-response.dto.ts`
+  - `src/presentation/controllers/issue-tickets.controller.ts`
+  - `src/infrastructure/issue-tickets/issue-tickets.module.ts`
+- **Learnings:**
+  - **Status Mapping:** Standardizing status names (e.g., `VOIDED` instead of `CANCELLED`) across Domain, DB, and Requirement specs improves code readability and reduces mapping confusion.
+  - **Keyword Gotchas:** When a method name is a reserved keyword in JavaScript/TypeScript (like `void`), use bracket notation (e.g., `repository["void"]`) in test mocks to avoid `unbound-method` lint errors and scoping issues.
+  - **Reversal Logic:** Voiding an Issue Ticket reverses the `OUT` movement with an `IN` movement, effectively adding stock back to the inventory. Even when adding stock back, consistency warnings should be checked for audit completeness.
+---

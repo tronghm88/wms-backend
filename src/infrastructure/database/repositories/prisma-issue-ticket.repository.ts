@@ -27,7 +27,7 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
         return PrismaTransactionStatus.DRAFT;
       case IssueTicketStatus.COMPLETED:
         return PrismaTransactionStatus.CONFIRMED;
-      case IssueTicketStatus.CANCELLED:
+      case IssueTicketStatus.VOIDED:
         return PrismaTransactionStatus.VOIDED;
       default:
         return PrismaTransactionStatus.DRAFT;
@@ -43,7 +43,7 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
       case PrismaTransactionStatus.CONFIRMED:
         return IssueTicketStatus.COMPLETED;
       case PrismaTransactionStatus.VOIDED:
-        return IssueTicketStatus.CANCELLED;
+        return IssueTicketStatus.VOIDED;
       default:
         return IssueTicketStatus.DRAFT;
     }
@@ -208,8 +208,6 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
       // 3. Process each line for stock decrement and movement record
       for (const line of updatedTicket.lines) {
         // Decrease Inventory
-        // Note: Inventory.updateQuantity isn't used here because we are in a transaction.
-        // We use raw tx client directly like ReceiptTicketRepository did.
         const inventory = await tx.inventory.update({
           where: { productId: line.productId },
           data: {
@@ -235,6 +233,83 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
       }
 
       return this.toEntity(updatedTicket);
+    });
+  }
+
+  async void(
+    id: number,
+    performedBy: number,
+  ): Promise<{ ticket: IssueTicketEntity; warnings: string[] }> {
+    return await this.prisma.$transaction(async (tx) => {
+      // 1. Fetch current ticket with lines and product info for warnings
+      const ticket = await tx.issueTicket.findUnique({
+        where: { id },
+        include: {
+          lines: {
+            include: {
+              product: true,
+            },
+          },
+        },
+      });
+
+      if (!ticket) {
+        throw new IssueTicketNotFoundException(id);
+      }
+
+      if (ticket.status !== PrismaTransactionStatus.CONFIRMED) {
+        throw new InvalidIssueTicketStatusException(ticket.status, "CONFIRMED");
+      }
+
+      const warnings: string[] = [];
+
+      // 2. Update status to VOIDED (CANCELLED)
+      const updatedTicket = await tx.issueTicket.update({
+        where: { id },
+        data: {
+          status: PrismaTransactionStatus.VOIDED,
+        },
+        include: { lines: true },
+      });
+
+      // 3. Revert each line (add stock back)
+      for (const line of ticket.lines) {
+        // Increment Inventory
+        const inventory = await tx.inventory.update({
+          where: { productId: line.productId },
+          data: {
+            quantity: {
+              increment: line.quantity as unknown as Prisma.Decimal,
+            },
+          },
+        });
+
+        // Consistency check: Negative stock (unlikely when adding back, but good practice)
+        if (inventory.quantity.lt(0)) {
+          warnings.push(
+            `Negative stock for product ${line.product.code}: ${inventory.quantity.toString()}`,
+          );
+        }
+
+        // Create Stock Movement record (reversal)
+        await tx.stockMovement.create({
+          data: {
+            productId: line.productId,
+            txType: "IN",
+            referenceId: updatedTicket.id,
+            referenceType: "ISSUE_TICKET",
+            deltaQty: line.quantity as unknown as Prisma.Decimal,
+            qtyAfter: inventory.quantity,
+            performedBy,
+            note: `Voided Issue Ticket ${updatedTicket.ticketNo}`,
+          },
+        });
+      }
+
+      return {
+        ticket: this.toEntity(updatedTicket),
+        warnings,
+      };
     });
   }
 

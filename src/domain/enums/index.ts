@@ -18,7 +18,7 @@ export enum TransactionStatus {
 export enum IssueTicketStatus {
   DRAFT = "DRAFT",
   COMPLETED = "COMPLETED",
-  CANCELLED = "CANCELLED",
+  VOIDED = "VOIDED",
 }
 
 export enum DiscountType {

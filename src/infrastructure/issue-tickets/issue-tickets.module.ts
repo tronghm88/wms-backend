@@ -5,6 +5,7 @@ import { ISSUE_TICKET_REPOSITORY } from "../../domain/contracts/issue-ticket.rep
 import { CreateIssueTicketUseCase } from "../../application/use-cases/issue-tickets/create-issue-ticket.use-case";
 import { CompleteIssueTicketUseCase } from "../../application/use-cases/issue-tickets/complete-issue-ticket.use-case";
 import { GetIssueTicketUseCase } from "../../application/use-cases/issue-tickets/get-issue-ticket.use-case";
+import { VoidIssueTicketUseCase } from "../../application/use-cases/issue-tickets/void-issue-ticket.use-case";
 import { ProductsModule } from "../products/products.module";
 import { CustomersModule } from "../customers/customers.module";
 import { DiscountPoliciesModule } from "../discount-policies/discount-policies.module";
@@ -24,6 +25,7 @@ import { IssueTicketsController } from "../../presentation/controllers/issue-tic
     CreateIssueTicketUseCase,
     CompleteIssueTicketUseCase,
     GetIssueTicketUseCase,
+    VoidIssueTicketUseCase,
     {
       provide: ISSUE_TICKET_REPOSITORY,
       useClass: PrismaIssueTicketRepository,
@@ -34,6 +36,7 @@ import { IssueTicketsController } from "../../presentation/controllers/issue-tic
     CreateIssueTicketUseCase,
     CompleteIssueTicketUseCase,
     GetIssueTicketUseCase,
+    VoidIssueTicketUseCase,
   ],
 })
 export class IssueTicketsModule {}

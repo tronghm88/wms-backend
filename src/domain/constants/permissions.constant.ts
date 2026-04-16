@@ -24,6 +24,7 @@ export const Permissions = {
   ISSUES_VIEW: "issues:view",
   ISSUES_CREATE: "issues:create",
   ISSUES_CONFIRM: "issues:confirm",
+  ISSUES_VOID: "issues:void",
   ISSUES_PRICE_OVERRIDE: "issues:price-override",
   STOCK_SPLIT: "stock:split",
   STOCK_VOID: "stock:void",

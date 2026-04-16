@@ -21,8 +21,10 @@ import {
 import { CreateIssueTicketUseCase } from "../../application/use-cases/issue-tickets/create-issue-ticket.use-case";
 import { CompleteIssueTicketUseCase } from "../../application/use-cases/issue-tickets/complete-issue-ticket.use-case";
 import { GetIssueTicketUseCase } from "../../application/use-cases/issue-tickets/get-issue-ticket.use-case";
+import { VoidIssueTicketUseCase } from "../../application/use-cases/issue-tickets/void-issue-ticket.use-case";
 import { CreateIssueTicketDto } from "../../application/dtos/create-issue-ticket.dto";
 import { IssueTicketResponseDto } from "../dtos/issue-tickets/issue-ticket-response.dto";
+import { VoidIssueTicketResponseDto } from "../dtos/issue-tickets/void-issue-ticket-response.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
 import { Permissions } from "../../domain/constants/permissions.constant";
@@ -36,6 +38,7 @@ export class IssueTicketsController {
     private readonly createIssueTicketUseCase: CreateIssueTicketUseCase,
     private readonly completeIssueTicketUseCase: CompleteIssueTicketUseCase,
     private readonly getIssueTicketUseCase: GetIssueTicketUseCase,
+    private readonly voidIssueTicketUseCase: VoidIssueTicketUseCase,
   ) {}
 
   @Post()
@@ -107,5 +110,35 @@ export class IssueTicketsController {
   ): Promise<IssueTicketResponseDto> {
     const ticket = await this.completeIssueTicketUseCase.execute(id, req.user);
     return new IssueTicketResponseDto(ticket);
+  }
+
+  @Post(":id/void")
+  @RequirePermissions(Permissions.ISSUES_VOID)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: "Void a confirmed Issue Ticket and return stock" })
+  @ApiParam({ name: "id", type: Number, description: "Issue Ticket ID" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Issue Ticket successfully voided",
+    type: VoidIssueTicketResponseDto,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: "Ticket not found",
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: "Ticket is not in CONFIRMED status",
+  })
+  async void(
+    @Request()
+    req: { user: { id: number; permissions: string[]; role: string } },
+    @Param("id", ParseIntPipe) id: number,
+  ): Promise<VoidIssueTicketResponseDto> {
+    const { ticket, warnings } = await this.voidIssueTicketUseCase.execute(
+      id,
+      req.user,
+    );
+    return new VoidIssueTicketResponseDto(ticket, warnings);
   }
 }
