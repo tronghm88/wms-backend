@@ -3,10 +3,10 @@
   "sessionId": "b037ea9a-f1a7-4bb5-8140-1594fe7f60fc",
   "status": "running",
   "startedAt": "2026-04-16T11:54:02.327Z",
-  "updatedAt": "2026-04-16T12:07:17.354Z",
-  "currentIteration": 1,
+  "updatedAt": "2026-04-16T12:13:52.685Z",
+  "currentIteration": 2,
   "maxIterations": 50,
-  "tasksCompleted": 1,
+  "tasksCompleted": 2,
   "isPaused": false,
   "agentPlugin": "gemini",
   "trackerState": {
@@ -23,8 +23,8 @@
       {
         "id": "US-002",
         "title": "Create Split Ticket (Draft)",
-        "status": "open",
-        "completedInSession": false
+        "status": "completed",
+        "completedInSession": true
       },
       {
         "id": "US-003",
@@ -74,6 +74,16 @@
       "durationMs": 211331,
       "startedAt": "2026-04-16T11:54:14.488Z",
       "endedAt": "2026-04-16T11:57:45.819Z"
+    },
+    {
+      "iteration": 2,
+      "status": "completed",
+      "taskId": "US-002",
+      "taskTitle": "Create Split Ticket (Draft)",
+      "taskCompleted": true,
+      "durationMs": 569935,
+      "startedAt": "2026-04-16T11:57:47.419Z",
+      "endedAt": "2026-04-16T12:07:17.354Z"
     }
   ],
   "skippedTaskIds": [],

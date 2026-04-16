@@ -42,3 +42,20 @@ after each iteration and it's included in prompts for context.
     - Standardized ticket number generation (ST-yyyyMM-n) involves finding the last ticket of the month and incrementing its sequence.
     - Even in single-warehouse systems, maintaining placeholders for `warehouseId` in DTOs can satisfy requirement specifications while keeping the schema lean.
 ---
+
+## 2026-04-16 - US-003
+- Implemented Add Split Ticket Lines with Unit Conversion logic.
+- Files changed:
+    - `src/domain/entities/split-ticket.entity.ts`: Added `lines` property and mapping.
+    - `src/domain/contracts/split-ticket.repository.interface.ts`: Added `addLines` and `deleteLines` methods.
+    - `src/infrastructure/database/repositories/split-ticket.repository.ts`: Implemented line persistence and mapping with `include: { lines: true }`.
+    - `src/presentation/dtos/split-tickets/add-split-ticket-lines.dto.ts`: Created DTO for multiple line input.
+    - `src/presentation/dtos/split-tickets/split-ticket-response.dto.ts`: Updated to include nested lines in response.
+    - `src/application/use-cases/split-tickets/add-split-ticket-lines.use-case.ts`: Implemented core logic including unit conversion and quantity validation.
+    - `src/presentation/controllers/split-tickets.controller.ts`: Added `POST /api/v1/split-tickets/:id/lines` endpoint.
+    - `src/infrastructure/split-tickets/split-tickets.module.ts`: Registered new use case and imported `UnitConversionsModule`.
+- **Learnings:**
+    - Unit conversion in split tickets involves validating target quantities against the source quantity. Since factors are stored as `1 fromUnit = factor * toUnit`, conversion back to source unit requires division or multiplication depending on which unit is the "from" unit in the database.
+    - When working with nested relations in Prisma, ensure `include` is used in repository find/update methods to populate the entities correctly.
+    - Always verify import paths in use cases when DTOs are located in the presentation layer to avoid "Module not found" errors during type checking.
+---
