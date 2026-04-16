@@ -3,10 +3,10 @@
   "sessionId": "b037ea9a-f1a7-4bb5-8140-1594fe7f60fc",
   "status": "running",
   "startedAt": "2026-04-16T11:54:02.327Z",
-  "updatedAt": "2026-04-16T12:30:16.824Z",
-  "currentIteration": 5,
+  "updatedAt": "2026-04-16T12:33:38.942Z",
+  "currentIteration": 6,
   "maxIterations": 50,
-  "tasksCompleted": 5,
+  "tasksCompleted": 6,
   "isPaused": false,
   "agentPlugin": "gemini",
   "trackerState": {
@@ -47,8 +47,8 @@
       {
         "id": "US-006",
         "title": "Void Issue Ticket with Warning",
-        "status": "open",
-        "completedInSession": false
+        "status": "completed",
+        "completedInSession": true
       },
       {
         "id": "US-007",
@@ -114,6 +114,16 @@
       "durationMs": 359702,
       "startedAt": "2026-04-16T12:17:38.805Z",
       "endedAt": "2026-04-16T12:23:38.507Z"
+    },
+    {
+      "iteration": 6,
+      "status": "completed",
+      "taskId": "US-006",
+      "taskTitle": "Void Issue Ticket with Warning",
+      "taskCompleted": true,
+      "durationMs": 397216,
+      "startedAt": "2026-04-16T12:23:39.607Z",
+      "endedAt": "2026-04-16T12:30:16.823Z"
     }
   ],
   "skippedTaskIds": [],

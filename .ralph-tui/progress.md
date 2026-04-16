@@ -112,3 +112,16 @@ after each iteration and it's included in prompts for context.
   - **Keyword Gotchas:** When a method name is a reserved keyword in JavaScript/TypeScript (like `void`), use bracket notation (e.g., `repository["void"]`) in test mocks to avoid `unbound-method` lint errors and scoping issues.
   - **Reversal Logic:** Voiding an Issue Ticket reverses the `OUT` movement with an `IN` movement, effectively adding stock back to the inventory. Even when adding stock back, consistency warnings should be checked for audit completeness.
 ---
+
+## 2026-04-16 - US-007
+- Implemented Void Split Ticket with stock reversal and consumption warnings.
+- Files changed:
+    - `src/presentation/dtos/split-tickets/void-split-ticket-response.dto.ts`: New DTO for void response with warnings.
+    - `src/application/use-cases/split-tickets/void-split-ticket.use-case.ts`: Implemented logic for stock reversal, warning generation, and clearing product lineage.
+    - `src/presentation/controllers/split-tickets.controller.ts`: Added `POST /api/v1/split-tickets/:id/void` endpoint.
+    - `src/infrastructure/split-tickets/split-tickets.module.ts`: Registered new use case and injected `ProductRepository`.
+- **Learnings:**
+    - **Warning Logic:** When voiding transactions that "produced" stock (like Split), check if the produced stock is still available. If `currentInventory < producedQty`, it means stock was consumed, which should trigger a warning even if the operation proceeds.
+    - **Undoing Lineage:** To fully "undo" a split, the `parentProductId` link on child products should be cleared (`undefined`) if they were newly linked during the split.
+    - **Use Case vs Repository Logic:** While `IssueTicket` void logic is in the repository, `SplitTicket` follows a pattern where complex multi-entity logic (Stock + Product + Ticket) is kept in the Use Case layer to remain consistent with its confirmation logic.
+---
