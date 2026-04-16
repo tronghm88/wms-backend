@@ -24,3 +24,21 @@ after each iteration and it's included in prompts for context.
     - Prisma self-relations require explicit `@relation` names when multiple relations exist between the same models or to avoid ambiguity in self-references.
     - When adding fields to the Domain entity, remember to update all Use Case request/response interfaces and their mappings in the repository.
 ---
+
+## 2026-04-16 - US-002
+- Implemented Create Split Ticket (Draft) header.
+- Files changed:
+    - `src/domain/contracts/split-ticket.repository.interface.ts`: Added `getLastTicketNo` and `SPLIT_TICKET_REPOSITORY` constant.
+    - `src/infrastructure/database/repositories/split-ticket.repository.ts`: Implemented repository with Prisma.
+    - `src/presentation/dtos/split-tickets/create-split-ticket.dto.ts`: Created input DTO with warehouseId validation.
+    - `src/presentation/dtos/split-tickets/split-ticket-response.dto.ts`: Created response DTO with entity mapping.
+    - `src/application/use-cases/split-tickets/create-split-ticket.use-case.ts`: Implemented logic for ticket generation and validation.
+    - `src/application/use-cases/split-tickets/create-split-ticket.use-case.spec.ts`: Added unit tests.
+    - `src/presentation/controllers/split-tickets.controller.ts`: Created POST /api/v1/split-tickets endpoint.
+    - `src/infrastructure/split-tickets/split-tickets.module.ts`: Created module for split tickets.
+    - `src/app.module.ts`: Registered SplitTicketsModule.
+- **Learnings:**
+    - Prisma's `UpdateInput` vs `UncheckedUpdateInput`: Use `UncheckedUpdateInput` when you need to update foreign key fields using IDs directly rather than nested objects.
+    - Standardized ticket number generation (ST-yyyyMM-n) involves finding the last ticket of the month and incrementing its sequence.
+    - Even in single-warehouse systems, maintaining placeholders for `warehouseId` in DTOs can satisfy requirement specifications while keeping the schema lean.
+---

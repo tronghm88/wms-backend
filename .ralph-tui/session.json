@@ -3,10 +3,10 @@
   "sessionId": "b037ea9a-f1a7-4bb5-8140-1594fe7f60fc",
   "status": "running",
   "startedAt": "2026-04-16T11:54:02.327Z",
-  "updatedAt": "2026-04-16T11:57:45.821Z",
-  "currentIteration": 0,
+  "updatedAt": "2026-04-16T12:07:17.354Z",
+  "currentIteration": 1,
   "maxIterations": 50,
-  "tasksCompleted": 0,
+  "tasksCompleted": 1,
   "isPaused": false,
   "agentPlugin": "gemini",
   "trackerState": {
@@ -17,8 +17,8 @@
       {
         "id": "US-001",
         "title": "Extend Product Model for Lineage",
-        "status": "open",
-        "completedInSession": false
+        "status": "completed",
+        "completedInSession": true
       },
       {
         "id": "US-002",
@@ -64,7 +64,18 @@
       }
     ]
   },
-  "iterations": [],
+  "iterations": [
+    {
+      "iteration": 1,
+      "status": "completed",
+      "taskId": "US-001",
+      "taskTitle": "Extend Product Model for Lineage",
+      "taskCompleted": true,
+      "durationMs": 211331,
+      "startedAt": "2026-04-16T11:54:14.488Z",
+      "endedAt": "2026-04-16T11:57:45.819Z"
+    }
+  ],
   "skippedTaskIds": [],
   "cwd": "/Users/windy/Work/wms",
   "activeTaskIds": [],
