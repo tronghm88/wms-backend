@@ -71,3 +71,22 @@ after each iteration and it's included in prompts for context.
     - Product lineage (parentProductId) is automatically linked during the confirmation phase specifically for products marked as "new" in the split ticket lines.
     - Reusing existing `InventoryRepository.updateQuantity` simplifies the implementation by abstracting the upsert/increment logic while still allowing the use case to calculate the resulting `qtyAfter`.
 ---
+
+## 2026-04-16 - US-005
+- Implemented Void Receipt Ticket functionality with negative stock warnings.
+- Added `void` method to `IReceiptTicketRepository` and implemented it in `ReceiptTicketRepository` with transaction support.
+- Created `VoidReceiptTicketUseCase` and `VoidReceiptTicketResponseDto`.
+- Added `POST /api/v1/receipt-tickets/:id/void` endpoint and `RECEIPTS_VOID` permission.
+- **Files changed:**
+  - `src/domain/contracts/receipt-ticket.repository.interface.ts`
+  - `src/domain/exceptions/receipt-ticket.exceptions.ts`
+  - `src/domain/constants/permissions.constant.ts`
+  - `src/infrastructure/database/repositories/receipt-ticket.repository.ts`
+  - `src/infrastructure/receipt-tickets/receipt-tickets.module.ts`
+  - `src/application/use-cases/receipt-tickets/void-receipt-ticket.use-case.ts`
+  - `src/presentation/controllers/receipt-tickets.controller.ts`
+  - `src/presentation/dtos/receipt-tickets/void-receipt-ticket-response.dto.ts`
+- **Learnings:**
+  - **Patterns discovered:** All Void APIs should return a standardized JSON structure `{ success: true, data: object, warnings: string[] }` as per PRD-5 requirements. This allows the backend to proceed with sensitive operations while alerting the user to potential data inconsistencies like negative stock.
+  - **Gotchas encountered:** When using Prisma's `$transaction`, always ensure all data needed for business logic (like product codes for warnings) is included in the initial fetch to avoid extra queries within the transaction block.
+---

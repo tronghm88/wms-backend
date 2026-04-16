@@ -3,10 +3,10 @@
   "sessionId": "b037ea9a-f1a7-4bb5-8140-1594fe7f60fc",
   "status": "running",
   "startedAt": "2026-04-16T11:54:02.327Z",
-  "updatedAt": "2026-04-16T12:17:37.710Z",
-  "currentIteration": 3,
+  "updatedAt": "2026-04-16T12:23:38.508Z",
+  "currentIteration": 4,
   "maxIterations": 50,
-  "tasksCompleted": 3,
+  "tasksCompleted": 4,
   "isPaused": false,
   "agentPlugin": "gemini",
   "trackerState": {
@@ -35,8 +35,8 @@
       {
         "id": "US-004",
         "title": "Confirm Split Ticket",
-        "status": "open",
-        "completedInSession": false
+        "status": "completed",
+        "completedInSession": true
       },
       {
         "id": "US-005",
@@ -94,6 +94,16 @@
       "durationMs": 394218,
       "startedAt": "2026-04-16T12:07:18.466Z",
       "endedAt": "2026-04-16T12:13:52.684Z"
+    },
+    {
+      "iteration": 4,
+      "status": "completed",
+      "taskId": "US-004",
+      "taskTitle": "Confirm Split Ticket",
+      "taskCompleted": true,
+      "durationMs": 223913,
+      "startedAt": "2026-04-16T12:13:53.796Z",
+      "endedAt": "2026-04-16T12:17:37.709Z"
     }
   ],
   "skippedTaskIds": [],

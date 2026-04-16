@@ -20,6 +20,7 @@ export const Permissions = {
   RECEIPTS_CREATE: "receipts:create",
   RECEIPTS_DELETE: "receipts:delete",
   RECEIPTS_CONFIRM: "receipts:confirm",
+  RECEIPTS_VOID: "receipts:void",
   ISSUES_VIEW: "issues:view",
   ISSUES_CREATE: "issues:create",
   ISSUES_CONFIRM: "issues:confirm",

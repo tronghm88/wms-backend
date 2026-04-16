@@ -27,12 +27,14 @@ import { DeleteReceiptLineUseCase } from "../../application/use-cases/receipt-ti
 import { ListReceiptTicketsUseCase } from "../../application/use-cases/receipt-tickets/list-receipt-tickets.use-case";
 import { GetReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/get-receipt-ticket.use-case";
 import { ConfirmReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/confirm-receipt-ticket.use-case";
+import { VoidReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/void-receipt-ticket.use-case";
 import { DeleteReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/delete-receipt-ticket.use-case";
 import { CreateReceiptTicketDto } from "../../application/dtos/create-receipt-ticket.dto";
 import { GetReceiptTicketsDto } from "../dtos/receipt-tickets/get-receipt-tickets.dto";
 import { GetReceiptTicketsResponseDto } from "../dtos/receipt-tickets/get-receipt-tickets-response.dto";
 import { AddReceiptLineRequestDto } from "../dtos/receipt-tickets/add-receipt-line-request.dto";
 import { UpdateReceiptLineRequestDto } from "../dtos/receipt-tickets/update-receipt-line-request.dto";
+import { VoidReceiptTicketResponseDto } from "../dtos/receipt-tickets/void-receipt-ticket-response.dto";
 import { ReceiptTicketResponseDto } from "../dtos/receipt-ticket-response.dto";
 import { ReceiptTicketLineResponseDto } from "../dtos/receipt-tickets/receipt-ticket-line-response.dto";
 import { ReceiptTicketDetailsResponseDto } from "../dtos/receipt-tickets/receipt-ticket-details-response.dto";
@@ -54,6 +56,7 @@ export class ReceiptTicketsController {
     private readonly listReceiptTicketsUseCase: ListReceiptTicketsUseCase,
     private readonly getReceiptTicketUseCase: GetReceiptTicketUseCase,
     private readonly confirmReceiptTicketUseCase: ConfirmReceiptTicketUseCase,
+    private readonly voidReceiptTicketUseCase: VoidReceiptTicketUseCase,
     private readonly deleteReceiptTicketUseCase: DeleteReceiptTicketUseCase,
   ) {}
 
@@ -75,6 +78,34 @@ export class ReceiptTicketsController {
       req.user.id,
     );
     return new ReceiptTicketResponseDto(ticket);
+  }
+
+  @Post(":id/void")
+  @RequirePermissions(Permissions.RECEIPTS_VOID)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: "Void a confirmed Goods Receipt and revert stock" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Goods Receipt successfully voided",
+    type: VoidReceiptTicketResponseDto,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: "Receipt Ticket not found",
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: "Receipt Ticket is not in CONFIRMED status",
+  })
+  async void(
+    @Param("id", ParseIntPipe) id: number,
+    @Request() req: { user: { id: number } },
+  ): Promise<VoidReceiptTicketResponseDto> {
+    const { ticket, warnings } = await this.voidReceiptTicketUseCase.execute(
+      id,
+      req.user.id,
+    );
+    return new VoidReceiptTicketResponseDto(ticket, warnings);
   }
 
   @Delete(":id")

@@ -57,4 +57,8 @@ export interface IReceiptTicketRepository {
   ): Promise<void>;
   delete(id: number): Promise<void>;
   deleteWithStockAdjustment(id: number, performedBy: number): Promise<void>;
+  void(
+    id: number,
+    performedBy: number,
+  ): Promise<{ ticket: ReceiptTicketEntity; warnings: string[] }>;
 }

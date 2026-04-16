@@ -24,6 +24,15 @@ export class ReceiptTicketNotDraftException extends ReceiptTicketException {
   }
 }
 
+export class ReceiptTicketNotConfirmedException extends ReceiptTicketException {
+  constructor(id: number) {
+    super(
+      `Receipt ticket with ID ${id} is not in CONFIRMED status`,
+      "RECEIPT_TICKET_NOT_CONFIRMED",
+    );
+  }
+}
+
 export class ReceiptTicketLineNotFoundException extends ReceiptTicketException {
   constructor(id: number) {
     super(

@@ -1,16 +1,19 @@
-import { Injectable } from "@nestjs/common";
 import {
   Prisma,
   TransactionStatus as PrismaTransactionStatus,
+  StockMovementType as PrismaStockMovementType,
 } from "@prisma/client";
 import { PrismaService } from "../prisma.service";
 import { IReceiptTicketRepository } from "../../../domain/contracts/receipt-ticket.repository.interface";
 import { ReceiptTicketEntity } from "../../../domain/entities/receipt-ticket.entity";
 import { ReceiptTicketLineEntity } from "../../../domain/entities/receipt-ticket-line.entity";
 import { TransactionStatus } from "../../../domain/enums";
+import {
+  ReceiptTicketNotFoundException,
+  ReceiptTicketNotConfirmedException,
+} from "../../../domain/exceptions/receipt-ticket.exceptions";
 import { Decimal } from "decimal.js";
 
-@Injectable()
 export class ReceiptTicketRepository implements IReceiptTicketRepository {
   constructor(private readonly prisma: PrismaService) {}
 
@@ -619,6 +622,91 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
       await tx.receiptTicket.delete({
         where: { id },
       });
+    });
+  }
+
+  async void(
+    id: number,
+    performedBy: number,
+  ): Promise<{ ticket: ReceiptTicketEntity; warnings: string[] }> {
+    return await this.prisma.$transaction(async (tx) => {
+      // 1. Find ticket with lines and products
+      const ticket = await tx.receiptTicket.findUnique({
+        where: { id },
+        include: {
+          lines: {
+            include: {
+              product: true,
+            },
+          },
+        },
+      });
+
+      if (!ticket) {
+        throw new ReceiptTicketNotFoundException(id);
+      }
+
+      if (ticket.status !== PrismaTransactionStatus.CONFIRMED) {
+        throw new ReceiptTicketNotConfirmedException(id);
+      }
+
+      const warnings: string[] = [];
+
+      // 2. Update ticket status to VOIDED
+      const updatedTicket = await tx.receiptTicket.update({
+        where: { id },
+        data: {
+          status:
+            TransactionStatus.VOIDED as unknown as PrismaTransactionStatus,
+        },
+      });
+
+      // 3. Revert stock for each line
+      for (const line of ticket.lines) {
+        const inv = await tx.inventory.upsert({
+          where: { productId: line.productId },
+          update: {
+            quantity: {
+              decrement: line.quantity as unknown as Prisma.Decimal,
+            },
+          },
+          create: {
+            productId: line.productId,
+            quantity: line.quantity.negated() as unknown as Prisma.Decimal,
+            unitCode: line.unitCode,
+          },
+        });
+
+        // Check for negative stock
+        if (inv.quantity.lt(0)) {
+          warnings.push(
+            `Negative stock for product ${line.product.code}: ${inv.quantity.toString()}`,
+          );
+        }
+
+        // Create Stock Movement record
+        await tx.stockMovement.create({
+          data: {
+            productId: line.productId,
+            txType: PrismaStockMovementType.ADJUST,
+            referenceId: ticket.id,
+            referenceType: "RECEIPT_TICKET",
+            deltaQty: line.quantity.negated() as unknown as Prisma.Decimal,
+            qtyAfter: inv.quantity,
+            performedBy,
+            note: `Voided Receipt Ticket ${ticket.ticketNo}`,
+          },
+        });
+      }
+
+      return {
+        ticket: new ReceiptTicketEntity({
+          ...updatedTicket,
+          status: updatedTicket.status as unknown as TransactionStatus,
+          note: updatedTicket.note ?? undefined,
+        }),
+        warnings,
+      };
     });
   }
 }
