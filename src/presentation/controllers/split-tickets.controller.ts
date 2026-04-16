@@ -17,6 +17,7 @@ import {
 } from "@nestjs/swagger";
 import { CreateSplitTicketUseCase } from "../../application/use-cases/split-tickets/create-split-ticket.use-case";
 import { AddSplitTicketLinesUseCase } from "../../application/use-cases/split-tickets/add-split-ticket-lines.use-case";
+import { ConfirmSplitTicketUseCase } from "../../application/use-cases/split-tickets/confirm-split-ticket.use-case";
 import { CreateSplitTicketDto } from "../dtos/split-tickets/create-split-ticket.dto";
 import { AddSplitTicketLinesDto } from "../dtos/split-tickets/add-split-ticket-lines.dto";
 import { SplitTicketResponseDto } from "../dtos/split-tickets/split-ticket-response.dto";
@@ -32,6 +33,7 @@ export class SplitTicketsController {
   constructor(
     private readonly createSplitTicketUseCase: CreateSplitTicketUseCase,
     private readonly addSplitTicketLinesUseCase: AddSplitTicketLinesUseCase,
+    private readonly confirmSplitTicketUseCase: ConfirmSplitTicketUseCase,
   ) {}
 
   @Post()
@@ -81,6 +83,36 @@ export class SplitTicketsController {
     @Body() dto: AddSplitTicketLinesDto,
   ): Promise<SplitTicketResponseDto> {
     const ticket = await this.addSplitTicketLinesUseCase.execute(id, dto);
+    return new SplitTicketResponseDto(ticket);
+  }
+
+  @Post(":id/confirm")
+  @RequirePermissions(Permissions.STOCK_SPLIT)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: "Confirm a split ticket to execute stock movements",
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Split ticket confirmed and stock updated",
+    type: SplitTicketResponseDto,
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: "Invalid status or insufficient stock",
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: "Split ticket not found",
+  })
+  async confirm(
+    @Param("id", ParseIntPipe) id: number,
+    @Request() req: { user: { id: number } },
+  ): Promise<SplitTicketResponseDto> {
+    const ticket = await this.confirmSplitTicketUseCase.execute(
+      id,
+      req.user.id,
+    );
     return new SplitTicketResponseDto(ticket);
   }
 }

@@ -3,10 +3,10 @@
   "sessionId": "b037ea9a-f1a7-4bb5-8140-1594fe7f60fc",
   "status": "running",
   "startedAt": "2026-04-16T11:54:02.327Z",
-  "updatedAt": "2026-04-16T12:13:52.685Z",
-  "currentIteration": 2,
+  "updatedAt": "2026-04-16T12:17:37.710Z",
+  "currentIteration": 3,
   "maxIterations": 50,
-  "tasksCompleted": 2,
+  "tasksCompleted": 3,
   "isPaused": false,
   "agentPlugin": "gemini",
   "trackerState": {
@@ -29,8 +29,8 @@
       {
         "id": "US-003",
         "title": "Add Split Ticket Lines with Unit Conversion",
-        "status": "open",
-        "completedInSession": false
+        "status": "completed",
+        "completedInSession": true
       },
       {
         "id": "US-004",
@@ -84,6 +84,16 @@
       "durationMs": 569935,
       "startedAt": "2026-04-16T11:57:47.419Z",
       "endedAt": "2026-04-16T12:07:17.354Z"
+    },
+    {
+      "iteration": 3,
+      "status": "completed",
+      "taskId": "US-003",
+      "taskTitle": "Add Split Ticket Lines with Unit Conversion",
+      "taskCompleted": true,
+      "durationMs": 394218,
+      "startedAt": "2026-04-16T12:07:18.466Z",
+      "endedAt": "2026-04-16T12:13:52.684Z"
     }
   ],
   "skippedTaskIds": [],

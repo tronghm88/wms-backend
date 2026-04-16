@@ -59,3 +59,15 @@ after each iteration and it's included in prompts for context.
     - When working with nested relations in Prisma, ensure `include` is used in repository find/update methods to populate the entities correctly.
     - Always verify import paths in use cases when DTOs are located in the presentation layer to avoid "Module not found" errors during type checking.
 ---
+
+## 2026-04-16 - US-004
+- Implemented Confirm Split Ticket with Stock Movement logic.
+- Files changed:
+    - `src/application/use-cases/split-tickets/confirm-split-ticket.use-case.ts`: Implemented core logic for stock deduction, child stock updates, product lineage linkage, and stock movement creation.
+    - `src/presentation/controllers/split-tickets.controller.ts`: Added `POST /api/v1/split-tickets/:id/confirm` endpoint.
+    - `src/infrastructure/split-tickets/split-tickets.module.ts`: Registered `ConfirmSplitTicketUseCase` and imported `StockModule`.
+- **Learnings:**
+    - Stock movements (SPLIT_IN/SPLIT_OUT) require tracking `qtyAfter` to maintain a consistent audit trail. This is calculated by first updating the inventory and then recording the result.
+    - Product lineage (parentProductId) is automatically linked during the confirmation phase specifically for products marked as "new" in the split ticket lines.
+    - Reusing existing `InventoryRepository.updateQuantity` simplifies the implementation by abstracting the upsert/increment logic while still allowing the use case to calculate the resulting `qtyAfter`.
+---
