@@ -3,6 +3,9 @@ import { PrismaService } from "../prisma.service";
 import { Product as PrismaProduct } from "@prisma/client";
 import { IProductRepository } from "../../../domain/contracts/product.repository.interface";
 import { ProductEntity } from "../../../domain/entities/product.entity";
+import { ProductLineageEntity } from "../../../domain/entities/product-lineage.entity";
+import { SplitTicketEntity } from "../../../domain/entities/split-ticket.entity";
+import { TransactionStatus } from "../../../domain/enums";
 import { Decimal } from "decimal.js";
 
 @Injectable()
@@ -146,5 +149,89 @@ export class ProductRepository implements IProductRepository {
       splitSource ||
       splitTarget
     );
+  }
+
+  async findLineage(id: number): Promise<ProductLineageEntity | null> {
+    const product = await this.prisma.product.findUnique({
+      where: { id },
+      include: {
+        category: true,
+        parentProduct: {
+          include: { category: true },
+        },
+        splitTargets: {
+          include: { ticket: true },
+        },
+        childProducts: {
+          include: {
+            category: true,
+            splitTargets: {
+              include: { ticket: true },
+            },
+          },
+        },
+      },
+    });
+
+    if (!product) return null;
+
+    // Find the split ticket line that created the current product
+    const creationLine = product.splitTargets.find(
+      (line) => line.targetProductId === id,
+    );
+
+    const lineage = new ProductLineageEntity({
+      currentProduct: this.mapToDomain(product),
+      children: product.childProducts.map((child) => {
+        const childCreationLine = child.splitTargets.find(
+          (line) => line.targetProductId === child.id,
+        );
+
+        let splitTicket: SplitTicketEntity | undefined = undefined;
+        if (childCreationLine) {
+          const ticket = childCreationLine.ticket;
+          splitTicket = new SplitTicketEntity({
+            id: ticket.id,
+            ticketNo: ticket.ticketNo,
+            date: ticket.date,
+            status: ticket.status as TransactionStatus,
+            createdBy: ticket.createdBy,
+            sourceProductId: ticket.sourceProductId,
+            sourceQty: new Decimal(ticket.sourceQty.toString()),
+            sourceUnitCode: ticket.sourceUnitCode,
+            note: ticket.note ?? undefined,
+            createdAt: ticket.createdAt,
+            updatedAt: ticket.updatedAt,
+          });
+        }
+
+        return {
+          product: this.mapToDomain(child),
+          splitTicket,
+        };
+      }),
+    });
+
+    if (product.parentProduct && creationLine) {
+      const parentTicket = creationLine.ticket;
+      lineage.parent = {
+        product: this.mapToDomain(product.parentProduct),
+        splitTicket: new SplitTicketEntity({
+          id: parentTicket.id,
+          ticketNo: parentTicket.ticketNo,
+          date: parentTicket.date,
+          status: parentTicket.status as TransactionStatus,
+          createdBy: parentTicket.createdBy,
+          sourceProductId: parentTicket.sourceProductId,
+          sourceQty: new Decimal(parentTicket.sourceQty.toString()),
+          sourceUnitCode: parentTicket.sourceUnitCode,
+          note: parentTicket.note ?? undefined,
+          createdAt: parentTicket.createdAt,
+          updatedAt: parentTicket.updatedAt,
+        }),
+      };
+    }
+
+    return lineage;
   }
 }

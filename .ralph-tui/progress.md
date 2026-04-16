@@ -125,3 +125,20 @@ after each iteration and it's included in prompts for context.
     - **Undoing Lineage:** To fully "undo" a split, the `parentProductId` link on child products should be cleared (`undefined`) if they were newly linked during the split.
     - **Use Case vs Repository Logic:** While `IssueTicket` void logic is in the repository, `SplitTicket` follows a pattern where complex multi-entity logic (Stock + Product + Ticket) is kept in the Use Case layer to remain consistent with its confirmation logic.
 ---
+
+## 2026-04-16 - US-008
+- Implemented Product Lineage Inquiry API (parent and children tracking).
+- Files changed:
+    - `src/domain/entities/product-lineage.entity.ts`: New domain entity for lineage structure.
+    - `src/domain/contracts/product.repository.interface.ts`: Added `findLineage` method.
+    - `src/infrastructure/database/repositories/product.repository.ts`: Implemented `findLineage` with Prisma nested includes.
+    - `src/presentation/dtos/products/product-lineage-response.dto.ts`: New DTO for lineage response with `SplitTicket` references.
+    - `src/application/use-cases/products/get-product-lineage.use-case.ts`: Implemented lineage logic.
+    - `src/presentation/controllers/products.controller.ts`: Added `GET /api/v1/products/:id/lineage` endpoint.
+    - `src/infrastructure/products/products.module.ts`: Registered new use case.
+    - `src/application/use-cases/products/get-product.use-case.spec.ts` & `list-products.use-case.spec.ts`: Updated repository mocks.
+- **Learnings:**
+    - **Self-Relation Queries:** Prisma allows deep fetching of self-relations. To get the `SplitTicket` that created a link, we must look at `splitTargets` on the product, which points to the `SplitTicketLine` records where the product was a target.
+    - **DTO Patterns:** For complex nested responses (like lineage), using constructors in DTOs to map from domain entities ensures that the presentation layer logic is encapsulated and the Use Case remains focused on orchestration.
+    - **Mocking Strategy:** When adding methods to a shared interface like `IProductRepository`, updating mocks in existing spec files is necessary to maintain type safety across the project, even for unrelated tests.
+---

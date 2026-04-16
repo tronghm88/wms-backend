@@ -3,10 +3,10 @@
   "sessionId": "b037ea9a-f1a7-4bb5-8140-1594fe7f60fc",
   "status": "running",
   "startedAt": "2026-04-16T11:54:02.327Z",
-  "updatedAt": "2026-04-16T12:33:38.942Z",
-  "currentIteration": 6,
+  "updatedAt": "2026-04-16T12:41:24.345Z",
+  "currentIteration": 7,
   "maxIterations": 50,
-  "tasksCompleted": 6,
+  "tasksCompleted": 7,
   "isPaused": false,
   "agentPlugin": "gemini",
   "trackerState": {
@@ -53,8 +53,8 @@
       {
         "id": "US-007",
         "title": "Void Split Ticket with Warning",
-        "status": "open",
-        "completedInSession": false
+        "status": "completed",
+        "completedInSession": true
       },
       {
         "id": "US-008",
@@ -124,6 +124,16 @@
       "durationMs": 397216,
       "startedAt": "2026-04-16T12:23:39.607Z",
       "endedAt": "2026-04-16T12:30:16.823Z"
+    },
+    {
+      "iteration": 7,
+      "status": "completed",
+      "taskId": "US-007",
+      "taskTitle": "Void Split Ticket with Warning",
+      "taskCompleted": true,
+      "durationMs": 201009,
+      "startedAt": "2026-04-16T12:30:17.932Z",
+      "endedAt": "2026-04-16T12:33:38.941Z"
     }
   ],
   "skippedTaskIds": [],

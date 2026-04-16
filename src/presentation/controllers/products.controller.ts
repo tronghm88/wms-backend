@@ -20,10 +20,12 @@ import { CreateProductUseCase } from "../../application/use-cases/products/creat
 import { UpdateProductUseCase } from "../../application/use-cases/products/update-product.use-case";
 import { ListProductsUseCase } from "../../application/use-cases/products/list-products.use-case";
 import { GetProductUseCase } from "../../application/use-cases/products/get-product.use-case";
+import { GetProductLineageUseCase } from "../../application/use-cases/products/get-product-lineage.use-case";
 import { DeleteProductUseCase } from "../../application/use-cases/products/delete-product.use-case";
 import { CreateProductDto } from "../dtos/products/create-product.dto";
 import { UpdateProductDto } from "../dtos/products/update-product.dto";
 import { ProductResponseDto } from "../dtos/products/product-response.dto";
+import { ProductLineageResponseDto } from "../dtos/products/product-lineage-response.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
 import { Permissions } from "../../domain/constants/permissions.constant";
@@ -38,6 +40,7 @@ export class ProductsController {
     private readonly updateProductUseCase: UpdateProductUseCase,
     private readonly listProductsUseCase: ListProductsUseCase,
     private readonly getProductUseCase: GetProductUseCase,
+    private readonly getProductLineageUseCase: GetProductLineageUseCase,
     private readonly deleteProductUseCase: DeleteProductUseCase,
   ) {}
 
@@ -70,6 +73,24 @@ export class ProductsController {
     @Param("id", ParseIntPipe) id: number,
   ): Promise<ProductResponseDto> {
     return await this.getProductUseCase.execute(id);
+  }
+
+  @Get(":id/lineage")
+  @RequirePermissions(Permissions.PRODUCTS_VIEW)
+  @ApiOperation({ summary: "Get product lineage (parent and children)" })
+  @ApiResponse({
+    status: 200,
+    description: "Returns the product lineage details.",
+    type: ProductLineageResponseDto,
+  })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  @ApiResponse({ status: 404, description: "Product Not Found" })
+  async getLineage(
+    @Param("id", ParseIntPipe) id: number,
+  ): Promise<ProductLineageResponseDto> {
+    const lineage = await this.getProductLineageUseCase.execute(id);
+    return new ProductLineageResponseDto(lineage);
   }
 
   @Post()
