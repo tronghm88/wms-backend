@@ -67,42 +67,28 @@ export class VoidSplitTicketUseCase {
 
     // --- REVERSE TRANSACTIONS ---
 
-    // 4. Add back to source stock
-    const updatedSourceInv = await this.inventoryRepository.updateQuantity(
-      ticket.sourceProductId,
-      ticket.sourceQty,
-      ticket.sourceUnitCode,
-    );
-
-    // 5. Create StockMovement for source product (IN)
-    await this.stockMovementRepository.create({
+    // 4 & 5. Create StockMovement for source product (IN) - handles inventory update
+    await this.stockMovementRepository.registerMovement({
       productId: ticket.sourceProductId,
       txType: StockMovementType.IN,
       referenceId: ticket.id,
       referenceType: "SplitTicket",
       deltaQty: ticket.sourceQty,
-      qtyAfter: updatedSourceInv.quantity,
+      unitCode: ticket.sourceUnitCode,
       performedBy: userId,
       note: `Void Split Ticket ${ticket.ticketNo}`,
     });
 
     // 6. Deduct from child stock and clear parent link
     for (const line of ticket.lines || []) {
-      // a. Deduct quantity
-      const updatedTargetInv = await this.inventoryRepository.updateQuantity(
-        line.targetProductId,
-        line.quantity.negated(),
-        line.unitCode,
-      );
-
-      // b. Create StockMovement (OUT)
-      await this.stockMovementRepository.create({
+      // a & b. Create StockMovement (OUT) - handles inventory update
+      await this.stockMovementRepository.registerMovement({
         productId: line.targetProductId,
         txType: StockMovementType.OUT,
         referenceId: ticket.id,
         referenceType: "SplitTicket",
         deltaQty: line.quantity.negated(),
-        qtyAfter: updatedTargetInv.quantity,
+        unitCode: line.unitCode,
         performedBy: userId,
         note: `Void Split Ticket ${ticket.ticketNo}`,
       });

@@ -5,12 +5,14 @@ import { StockMovementRepository } from "../database/repositories/stock-movement
 import { INVENTORY_REPOSITORY } from "../../domain/contracts/inventory.repository.interface";
 import { STOCK_MOVEMENT_REPOSITORY } from "../../domain/contracts/stock-movement.repository.interface";
 import { GetInventorySnapshotUseCase } from "../../application/use-cases/inventory/get-inventory-snapshot.use-case";
+import { SearchAuditLogsUseCase } from "../../application/use-cases/stock/search-audit-logs.use-case";
 
 import { InventoryController } from "../../presentation/controllers/inventory.controller";
+import { AuditLogController } from "../../presentation/controllers/audit-log.controller";
 
 @Module({
   imports: [PrismaModule],
-  controllers: [InventoryController],
+  controllers: [InventoryController, AuditLogController],
   providers: [
     {
       provide: INVENTORY_REPOSITORY,
@@ -21,11 +23,13 @@ import { InventoryController } from "../../presentation/controllers/inventory.co
       useClass: StockMovementRepository,
     },
     GetInventorySnapshotUseCase,
+    SearchAuditLogsUseCase,
   ],
   exports: [
     INVENTORY_REPOSITORY,
     STOCK_MOVEMENT_REPOSITORY,
     GetInventorySnapshotUseCase,
+    SearchAuditLogsUseCase,
   ],
 })
 export class StockModule {}

@@ -42,3 +42,15 @@ export class SomeUseCase {
   - Optimized Prisma queries should use `select` instead of `include` for bulk retrieval to minimize data transfer and memory overhead.
   - When using NestJS DI with interfaces, use `import type` for the interface type in the constructor to satisfy `isolatedModules` and `emitDecoratorMetadata` constraints.
   - Consistent serialization of `NUMERIC(15,3)` fields as strings is crucial for data integrity across the system.
+
+---
+
+## 2026-04-17 - US-602-1
+- Implemented `SearchAuditLogsUseCase` with dynamic SQL filters (Date, Product, Type, User, Ticket, Category).
+- Centralized running balance computation in `StockMovementRepository.registerMovement`.
+- Created `AuditLogController` and associated DTOs.
+- Refactored `ConfirmSplitTicketUseCase` and `VoidSplitTicketUseCase` to use the new centralized movement registration.
+- **Learnings:**
+  - Batching lookups for cross-table references (like Ticket numbers) significantly improves performance in audit reports compared to N+1 queries.
+  - Centralizing stock movement registration in the infrastructure layer ensures that `qtyAfter` (running balance) is always consistent with the `Inventory` table state.
+  - When matching ticket numbers across different transaction types, using distinct prefixes (PN, PX, PT) or explicit `referenceType` checks is necessary since they reside in different tables.

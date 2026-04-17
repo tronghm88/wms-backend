@@ -67,21 +67,14 @@ export class ConfirmSplitTicketUseCase {
 
     // --- EXECUTE TRANSACTIONS ---
 
-    // 5. Deduct quantity from source stock
-    const updatedSourceInv = await this.inventoryRepository.updateQuantity(
-      ticket.sourceProductId,
-      ticket.sourceQty.negated(),
-      ticket.sourceUnitCode,
-    );
-
-    // 6. Create StockMovement for source product (SPLIT_OUT)
-    await this.stockMovementRepository.create({
+    // 5 & 6. Create StockMovement for source product (SPLIT_OUT) - handles inventory update
+    await this.stockMovementRepository.registerMovement({
       productId: ticket.sourceProductId,
       txType: StockMovementType.SPLIT_OUT,
       referenceId: ticket.id,
       referenceType: "SplitTicket",
       deltaQty: ticket.sourceQty.negated(),
-      qtyAfter: updatedSourceInv.quantity,
+      unitCode: ticket.sourceUnitCode,
       performedBy: userId,
       note: `Split Ticket ${ticket.ticketNo} confirmation`,
     });
@@ -95,21 +88,14 @@ export class ConfirmSplitTicketUseCase {
         });
       }
 
-      // b. Add quantity to target stock
-      const updatedTargetInv = await this.inventoryRepository.updateQuantity(
-        line.targetProductId,
-        line.quantity,
-        line.unitCode,
-      );
-
-      // c. Create StockMovement for target product (SPLIT_IN)
-      await this.stockMovementRepository.create({
+      // b & c. Create StockMovement for target product (SPLIT_IN) - handles inventory update
+      await this.stockMovementRepository.registerMovement({
         productId: line.targetProductId,
         txType: StockMovementType.SPLIT_IN,
         referenceId: ticket.id,
         referenceType: "SplitTicket",
         deltaQty: line.quantity,
-        qtyAfter: updatedTargetInv.quantity,
+        unitCode: line.unitCode,
         performedBy: userId,
         note: `Split Ticket ${ticket.ticketNo} confirmation`,
       });
