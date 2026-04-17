@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument */
 import { CreateIssueTicketUseCase } from "./create-issue-ticket.use-case";
 import { IssueTicketStatus, DiscountType } from "../../../domain/enums";
 import { Decimal } from "decimal.js";

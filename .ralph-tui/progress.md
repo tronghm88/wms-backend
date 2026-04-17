@@ -54,3 +54,14 @@ export class SomeUseCase {
   - Batching lookups for cross-table references (like Ticket numbers) significantly improves performance in audit reports compared to N+1 queries.
   - Centralizing stock movement registration in the infrastructure layer ensures that `qtyAfter` (running balance) is always consistent with the `Inventory` table state.
   - When matching ticket numbers across different transaction types, using distinct prefixes (PN, PX, PT) or explicit `referenceType` checks is necessary since they reside in different tables.
+
+---
+
+## 2026-04-17 - US-602-2
+- Updated `AuditLogController` to enforce RBAC protection using `RbacGuard` and `RequirePermissions(Permissions.AUDIT_TRAIL_VIEW)`.
+- Verified `GET /api/v1/audit-logs` endpoint with dynamic filters and Swagger documentation.
+- Ensured numeric fields (`deltaQty`, `qtyAfter`) are string-serialized in the JSON response for front-end precision.
+- Fixed several lint errors in test files to ensure `npm run lint` passes for the project.
+- **Learnings:**
+  - Using `RequirePermissions` with `RbacGuard` is a declarative way to handle RBAC in NestJS, and can be easily verified across the codebase.
+  - Test files often accumulate lint warnings over time (e.g., `any` types in mocks), and periodic cleanup or careful mocking (e.g., using `jest.Mocked<Interface>`) is needed to maintain project quality gates.

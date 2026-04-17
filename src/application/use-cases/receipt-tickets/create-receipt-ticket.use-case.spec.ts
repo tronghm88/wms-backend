@@ -20,7 +20,6 @@ import {
   UNIT_REPOSITORY,
   type IUnitRepository,
 } from "../../../domain/contracts/unit.repository.interface";
-import { Decimal } from "decimal.js";
 
 describe("CreateReceiptTicketUseCase", () => {
   let useCase: CreateReceiptTicketUseCase;

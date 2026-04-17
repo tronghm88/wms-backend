@@ -1,5 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/unbound-method */
 import { Test, TestingModule } from "@nestjs/testing";
-import { ISSUE_TICKET_REPOSITORY } from "../../../domain/contracts/issue-ticket.repository.interface";
+import {
+  ISSUE_TICKET_REPOSITORY,
+  type IIssueTicketRepository,
+} from "../../../domain/contracts/issue-ticket.repository.interface";
 import { CompleteIssueTicketUseCase } from "./complete-issue-ticket.use-case";
 import { IssueTicketEntity } from "../../../domain/entities/issue-ticket.entity";
 import { IssueTicketStatus } from "../../../domain/enums";
@@ -7,7 +11,7 @@ import { Decimal } from "decimal.js";
 
 describe("CompleteIssueTicketUseCase", () => {
   let useCase: CompleteIssueTicketUseCase;
-  let repository: any;
+  let repository: jest.Mocked<IIssueTicketRepository>;
 
   const mockUser = {
     id: 1,
@@ -29,7 +33,7 @@ describe("CompleteIssueTicketUseCase", () => {
   beforeEach(async () => {
     repository = {
       complete: jest.fn().mockResolvedValue(mockTicket),
-    };
+    } as any;
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
