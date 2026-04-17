@@ -30,6 +30,7 @@ import { ConfirmReceiptTicketUseCase } from "../../application/use-cases/receipt
 import { VoidReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/void-receipt-ticket.use-case";
 import { DeleteReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/delete-receipt-ticket.use-case";
 import { CreateReceiptTicketDto } from "../../application/dtos/create-receipt-ticket.dto";
+import { CreateReceiptTicketRequestDto } from "../dtos/receipt-tickets/create-receipt-ticket-request.dto";
 import { GetReceiptTicketsDto } from "../dtos/receipt-tickets/get-receipt-tickets.dto";
 import { GetReceiptTicketsResponseDto } from "../dtos/receipt-tickets/get-receipt-tickets-response.dto";
 import { AddReceiptLineRequestDto } from "../dtos/receipt-tickets/add-receipt-line-request.dto";
@@ -184,10 +185,18 @@ export class ReceiptTicketsController {
   @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: "Unauthorized" })
   async create(
     @Request() req: { user: { id: number } },
-    @Body() dto: CreateReceiptTicketDto,
+    @Body() dto: CreateReceiptTicketRequestDto,
   ): Promise<ReceiptTicketResponseDto> {
+    const appDto: CreateReceiptTicketDto = {
+      note: dto.note,
+      lines: dto.lines.map((line) => ({
+        ...line,
+        quantity: new Decimal(line.quantity),
+        lengthM: line.lengthM ? new Decimal(line.lengthM) : undefined,
+      })),
+    };
     const ticket = await this.createReceiptTicketUseCase.execute(
-      dto,
+      appDto,
       req.user.id,
     );
     return new ReceiptTicketResponseDto(ticket);

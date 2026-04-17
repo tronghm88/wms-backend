@@ -172,7 +172,16 @@ describe("ReceiptTicketsController", () => {
   describe("create", () => {
     it("should create a receipt ticket", async () => {
       const now = new Date();
-      const dto = { note: "Test note" };
+      const dto = {
+        note: "Test note",
+        lines: [
+          {
+            productId: 1,
+            quantity: "1.000",
+            unitCode: "roll",
+          },
+        ],
+      };
       const req = { user: { id: 1 } };
       const expectedResult = {
         id: 1,
@@ -192,11 +201,24 @@ describe("ReceiptTicketsController", () => {
 
       const result = await controller.create(
         req as { user: { id: number } },
-        dto,
+        dto as any,
       );
 
       expect(result).toEqual(expectedResult);
-      expect(createUseCase.execute).toHaveBeenCalledWith(dto, req.user.id);
+      expect(createUseCase.execute).toHaveBeenCalledWith(
+        {
+          note: dto.note,
+          lines: [
+            {
+              productId: 1,
+              quantity: new Decimal("1.000"),
+              unitCode: "roll",
+              lengthM: undefined,
+            },
+          ],
+        },
+        req.user.id,
+      );
     });
   });
 

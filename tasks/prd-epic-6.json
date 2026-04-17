@@ -1,0 +1,221 @@
+{
+  "name": "EPIC 6 - Reporting Intelligence & Document Export",
+  "description": "Provide stakeholders with high-fidelity data visualization, professional document generation, and legacy-compatible data exports.",
+  "branchName": "ralph/epic-6-reporting",
+  "userStories": [
+    {
+      "id": "US-601-1",
+      "title": "Backend: Implement GetInventorySnapshotUseCase and Repository",
+      "description": "As a developer, I need to implement the core logic to retrieve a full inventory snapshot optimized for bulk retrieval.",
+      "acceptanceCriteria": [
+        "Implement GetInventorySnapshotUseCase in the application layer",
+        "Implement repository method findAllActiveStock() in infrastructure utilizing optimized Prisma query selection",
+        "Ensure NUMERIC(15,3) fields are handled with decimal.js for backend logic",
+        "Logic must support 10,000+ records retrieval",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 1,
+      "passes": true,
+      "notes": "",
+      "dependsOn": [],
+      "completionNotes": "Completed by agent"
+    },
+    {
+      "id": "US-601-2",
+      "title": "Backend: Create GET /api/v1/inventory/snapshot Controller",
+      "description": "As an Analyst, I want an API endpoint to fetch the inventory snapshot in a JSON format with string-serialized numeric fields.",
+      "acceptanceCriteria": [
+        "Create GET /api/v1/inventory/snapshot endpoint in presentation layer",
+        "Enforce string-serialization for numeric fields (Quantity, Weight, Dimensions) in response DTOs",
+        "Implement memory-efficient serialization for bulk data",
+        "Verify @ApiTags and @ApiOperation swagger documentation",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": "",
+      "dependsOn": [
+        "US-601-1"
+      ]
+    },
+    {
+      "id": "US-601-3",
+      "title": "Frontend: Build InventorySnapshotScreen with pluto_grid",
+      "description": "As an Analyst, I want to view the inventory state in a high-performance grid with row virtualization.",
+      "acceptanceCriteria": [
+        "Create InventorySnapshotScreen using pluto_grid",
+        "Integrate with Riverpod provider for state management to fetch /api/v1/inventory/snapshot",
+        "Support client-side multi-column filtering, sorting, and grouping",
+        "Verify 60FPS performance for 10,000+ records using row virtualization",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": "",
+      "dependsOn": [
+        "US-601-2"
+      ]
+    },
+    {
+      "id": "US-602-1",
+      "title": "Backend: Implement SearchAuditLogsUseCase and Infrastructure",
+      "description": "As an Admin, I need the core logic to query historical movements with calculated running balances.",
+      "acceptanceCriteria": [
+        "Implement SearchAuditLogsUseCase with dynamic SQL filters (Date, Product, Type, User, Ticket, Category)",
+        "Implement running balance computation logic in infrastructure layer at each transaction step",
+        "Ensure all numeric fields use decimal.js for precision",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 4,
+      "passes": false,
+      "notes": "",
+      "dependsOn": []
+    },
+    {
+      "id": "US-602-2",
+      "title": "Backend: Create GET /api/v1/audit-logs Controller",
+      "description": "As an Admin, I want an API endpoint to query audit logs with RBAC protection.",
+      "acceptanceCriteria": [
+        "Create GET /api/v1/audit-logs endpoint with class-validator for complex query filters",
+        "Enforce RBAC: Only ADMIN or SUPER_ADMIN access via NestJS Guards",
+        "Verify numeric fields are string-serialized in the JSON response",
+        "Verify @ApiTags and @ApiOperation swagger documentation",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 5,
+      "passes": false,
+      "notes": "",
+      "dependsOn": [
+        "US-602-1"
+      ]
+    },
+    {
+      "id": "US-602-3",
+      "title": "Frontend: Build AuditTrailSearchScreen",
+      "description": "As an Admin, I want to search and view audit logs in a chronological list with filtering capabilities.",
+      "acceptanceCriteria": [
+        "Create AuditTrailSearchScreen with a multi-field filter drawer",
+        "Implement chronological movement list view displaying running balance",
+        "Integrate with backend audit logs endpoint",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 6,
+      "passes": false,
+      "notes": "",
+      "dependsOn": [
+        "US-602-2"
+      ]
+    },
+    {
+      "id": "US-603-1",
+      "title": "Backend: Setup PdfReportService and Puppeteer Templates",
+      "description": "As a developer, I need to set up the PDF generation service and professional templates for PN, PX, and PT.",
+      "acceptanceCriteria": [
+        "Setup PdfReportService using Puppeteer in the infrastructure layer",
+        "Develop Handlebars/HTML templates for PN (Goods Receipt), PX (Goods Issue), and PT (Split Ticket)",
+        "Templates must be professionally branded and include essential roll/ticket metadata",
+        "Ensure all numeric values are formatted to exactly 3 decimal places",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 7,
+      "passes": false,
+      "notes": "",
+      "dependsOn": []
+    },
+    {
+      "id": "US-603-2",
+      "title": "Backend: Create PDF Streaming Endpoint",
+      "description": "As a Logistical Runner, I want to download ticket PDFs directly from the API.",
+      "acceptanceCriteria": [
+        "Create GET /api/v1/documents/:type(pn|px|pt)/:id/pdf endpoint",
+        "Stream binary blobs with Content-Type: application/pdf directly from Puppeteer",
+        "Verify READ_REPORTS or specific ticket READ permission via NestJS Guards",
+        "Verify swagger documentation for file download",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 8,
+      "passes": false,
+      "notes": "",
+      "dependsOn": [
+        "US-603-1"
+      ]
+    },
+    {
+      "id": "US-603-3",
+      "title": "Frontend: Implement Print PDF Action Buttons",
+      "description": "As a Logistical Runner, I want to trigger PDF generation and viewing from the UI.",
+      "acceptanceCriteria": [
+        "Add 'Print PDF' buttons to PN, PX, and PT Ticket Detail screens",
+        "Trigger backend stream and open the PDF in the native system viewer or browser tab",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 9,
+      "passes": false,
+      "notes": "",
+      "dependsOn": [
+        "US-603-2"
+      ]
+    },
+    {
+      "id": "US-604-1",
+      "title": "Backend: Implement ExcelReportService for Legacy Export",
+      "description": "As an Accountant, I need the core logic to map stock movements to a fixed 6-column legacy layout.",
+      "acceptanceCriteria": [
+        "Implement ExcelReportService using ExcelJS",
+        "Map domain stock movements to columns: Date, Ticket ID, Product Code, Type, Quantity, Running Balance",
+        "Ensure numeric values in Excel are formatted to 3 decimal places",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 10,
+      "passes": false,
+      "notes": "",
+      "dependsOn": []
+    },
+    {
+      "id": "US-604-2",
+      "title": "Backend: Create Excel Export Endpoint",
+      "description": "As an Accountant, I want an API endpoint to download the legacy Excel report.",
+      "acceptanceCriteria": [
+        "Create GET /api/v1/reports/inventory-movement/excel endpoint",
+        "Accept and validate startDate and endDate query parameters",
+        "Verify READ_REPORTS permission via NestJS Guards",
+        "Stream .xlsx file with correct headers",
+        "npm run lint passes",
+        "npx tsc --noEmit passes"
+      ],
+      "priority": 11,
+      "passes": false,
+      "notes": "",
+      "dependsOn": [
+        "US-604-1"
+      ]
+    },
+    {
+      "id": "US-604-3",
+      "title": "Frontend: Add Export for Accounting Action",
+      "description": "As an Accountant, I want to trigger the Excel export from the Reports menu.",
+      "acceptanceCriteria": [
+        "Add 'Export for Accounting' action item in the Reports navigation menu",
+        "Implement a Date Range selection dialog (e.g., month-to-date)",
+        "Trigger backend download for the generated Excel file",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 12,
+      "passes": false,
+      "notes": "",
+      "dependsOn": [
+        "US-604-2"
+      ]
+    }
+  ],
+  "metadata": {
+    "updatedAt": "2026-04-17T05:09:24.343Z"
+  }
+}

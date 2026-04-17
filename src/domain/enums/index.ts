@@ -12,13 +12,13 @@ export enum UserStatus {
 export enum TransactionStatus {
   DRAFT = "DRAFT",
   CONFIRMED = "CONFIRMED",
-  VOIDED = "VOIDED",
+  CANCELLED = "CANCELLED",
 }
 
 export enum IssueTicketStatus {
   DRAFT = "DRAFT",
   COMPLETED = "COMPLETED",
-  VOIDED = "VOIDED",
+  CANCELLED = "CANCELLED",
 }
 
 export enum DiscountType {

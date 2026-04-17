@@ -100,17 +100,37 @@ describe("CreateDiscountPolicyUseCase", () => {
     );
   });
 
-  it("should throw InvalidDiscountPolicyConfigurationException if creating general and specific ones exist", async () => {
+  it("should successfully create a general discount policy even if specific ones exist", async () => {
     customerRepository.findById.mockResolvedValue({
       id: 1,
     } as unknown as CustomerEntity);
     discountPolicyRepository.findByCustomerId.mockResolvedValue([
-      new DiscountPolicyEntity({ isAppliedAll: false, productIds: [1] }),
+      new DiscountPolicyEntity({
+        id: 2,
+        customerId: 1,
+        discountType: DiscountType.PERCENT,
+        isAppliedAll: false,
+        productIds: [1],
+        discountValue: new Decimal("5.000"),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }),
     ]);
-
-    await expect(useCase.execute(dto)).rejects.toThrow(
-      InvalidDiscountPolicyConfigurationException,
+    discountPolicyRepository.create.mockResolvedValue(
+      new DiscountPolicyEntity({
+        id: 1,
+        customerId: 1,
+        discountType: DiscountType.PERCENT,
+        isAppliedAll: true,
+        productIds: [],
+        discountValue: new Decimal("10.000"),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }),
     );
+
+    const result = await useCase.execute(dto);
+    expect(result.discountValue).toBe("10.000");
   });
 
   it("should throw ProductNotFoundException if one of the products does not exist", async () => {
@@ -127,21 +147,41 @@ describe("CreateDiscountPolicyUseCase", () => {
     );
   });
 
-  it("should throw InvalidDiscountPolicyConfigurationException if creating specific and a general one exists", async () => {
+  it("should successfully create a specific product discount policy even if a general one exists", async () => {
     customerRepository.findById.mockResolvedValue({
       id: 1,
     } as unknown as CustomerEntity);
     discountPolicyRepository.findByCustomerId.mockResolvedValue([
-      new DiscountPolicyEntity({ isAppliedAll: true }),
+      new DiscountPolicyEntity({
+        id: 2,
+        customerId: 1,
+        discountType: DiscountType.PERCENT,
+        isAppliedAll: true,
+        productIds: [],
+        discountValue: new Decimal("5.000"),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }),
     ]);
     productRepository.findById.mockResolvedValue({
       id: 2,
     } as unknown as ProductEntity);
+    discountPolicyRepository.create.mockResolvedValue(
+      new DiscountPolicyEntity({
+        id: 1,
+        customerId: 1,
+        discountType: DiscountType.PERCENT,
+        isAppliedAll: false,
+        productIds: [2],
+        discountValue: new Decimal("10.000"),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }),
+    );
 
     const specificDto = { ...dto, isAppliedAll: false, productIds: [2] };
-    await expect(useCase.execute(specificDto)).rejects.toThrow(
-      InvalidDiscountPolicyConfigurationException,
-    );
+    const result = await useCase.execute(specificDto);
+    expect(result.discountValue).toBe("10.000");
   });
 
   it("should throw ProductAlreadyHasDiscountPolicyException if a product already has a specific policy", async () => {

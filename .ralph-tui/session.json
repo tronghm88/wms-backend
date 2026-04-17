@@ -1,141 +1,94 @@
 {
   "version": 1,
-  "sessionId": "b037ea9a-f1a7-4bb5-8140-1594fe7f60fc",
+  "sessionId": "42f74754-ab59-4f9e-a5ac-c76e0ccb4d07",
   "status": "running",
-  "startedAt": "2026-04-16T11:54:02.327Z",
-  "updatedAt": "2026-04-16T12:41:24.345Z",
-  "currentIteration": 7,
+  "startedAt": "2026-04-17T05:06:30.388Z",
+  "updatedAt": "2026-04-17T05:09:24.343Z",
+  "currentIteration": 0,
   "maxIterations": 50,
-  "tasksCompleted": 7,
+  "tasksCompleted": 0,
   "isPaused": false,
   "agentPlugin": "gemini",
   "trackerState": {
     "plugin": "json",
-    "prdPath": "./tasks/prd.json",
-    "totalTasks": 8,
+    "prdPath": "./tasks/prd-epic-6.json",
+    "totalTasks": 12,
     "tasks": [
       {
-        "id": "US-001",
-        "title": "Extend Product Model for Lineage",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-601-1",
+        "title": "Backend: Implement GetInventorySnapshotUseCase and Repository",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-002",
-        "title": "Create Split Ticket (Draft)",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-601-2",
+        "title": "Backend: Create GET /api/v1/inventory/snapshot Controller",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-003",
-        "title": "Add Split Ticket Lines with Unit Conversion",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-601-3",
+        "title": "Frontend: Build InventorySnapshotScreen with pluto_grid",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-004",
-        "title": "Confirm Split Ticket",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-602-1",
+        "title": "Backend: Implement SearchAuditLogsUseCase and Infrastructure",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-005",
-        "title": "Void Receipt Ticket with Warning",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-602-2",
+        "title": "Backend: Create GET /api/v1/audit-logs Controller",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-006",
-        "title": "Void Issue Ticket with Warning",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-602-3",
+        "title": "Frontend: Build AuditTrailSearchScreen",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-007",
-        "title": "Void Split Ticket with Warning",
-        "status": "completed",
-        "completedInSession": true
+        "id": "US-603-1",
+        "title": "Backend: Setup PdfReportService and Puppeteer Templates",
+        "status": "open",
+        "completedInSession": false
       },
       {
-        "id": "US-008",
-        "title": "Product Lineage Inquiry API",
+        "id": "US-603-2",
+        "title": "Backend: Create PDF Streaming Endpoint",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-603-3",
+        "title": "Frontend: Implement Print PDF Action Buttons",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-604-1",
+        "title": "Backend: Implement ExcelReportService for Legacy Export",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-604-2",
+        "title": "Backend: Create Excel Export Endpoint",
+        "status": "open",
+        "completedInSession": false
+      },
+      {
+        "id": "US-604-3",
+        "title": "Frontend: Add Export for Accounting Action",
         "status": "open",
         "completedInSession": false
       }
     ]
   },
-  "iterations": [
-    {
-      "iteration": 1,
-      "status": "completed",
-      "taskId": "US-001",
-      "taskTitle": "Extend Product Model for Lineage",
-      "taskCompleted": true,
-      "durationMs": 211331,
-      "startedAt": "2026-04-16T11:54:14.488Z",
-      "endedAt": "2026-04-16T11:57:45.819Z"
-    },
-    {
-      "iteration": 2,
-      "status": "completed",
-      "taskId": "US-002",
-      "taskTitle": "Create Split Ticket (Draft)",
-      "taskCompleted": true,
-      "durationMs": 569935,
-      "startedAt": "2026-04-16T11:57:47.419Z",
-      "endedAt": "2026-04-16T12:07:17.354Z"
-    },
-    {
-      "iteration": 3,
-      "status": "completed",
-      "taskId": "US-003",
-      "taskTitle": "Add Split Ticket Lines with Unit Conversion",
-      "taskCompleted": true,
-      "durationMs": 394218,
-      "startedAt": "2026-04-16T12:07:18.466Z",
-      "endedAt": "2026-04-16T12:13:52.684Z"
-    },
-    {
-      "iteration": 4,
-      "status": "completed",
-      "taskId": "US-004",
-      "taskTitle": "Confirm Split Ticket",
-      "taskCompleted": true,
-      "durationMs": 223913,
-      "startedAt": "2026-04-16T12:13:53.796Z",
-      "endedAt": "2026-04-16T12:17:37.709Z"
-    },
-    {
-      "iteration": 5,
-      "status": "completed",
-      "taskId": "US-005",
-      "taskTitle": "Void Receipt Ticket with Warning",
-      "taskCompleted": true,
-      "durationMs": 359702,
-      "startedAt": "2026-04-16T12:17:38.805Z",
-      "endedAt": "2026-04-16T12:23:38.507Z"
-    },
-    {
-      "iteration": 6,
-      "status": "completed",
-      "taskId": "US-006",
-      "taskTitle": "Void Issue Ticket with Warning",
-      "taskCompleted": true,
-      "durationMs": 397216,
-      "startedAt": "2026-04-16T12:23:39.607Z",
-      "endedAt": "2026-04-16T12:30:16.823Z"
-    },
-    {
-      "iteration": 7,
-      "status": "completed",
-      "taskId": "US-007",
-      "taskTitle": "Void Split Ticket with Warning",
-      "taskCompleted": true,
-      "durationMs": 201009,
-      "startedAt": "2026-04-16T12:30:17.932Z",
-      "endedAt": "2026-04-16T12:33:38.941Z"
-    }
-  ],
+  "iterations": [],
   "skippedTaskIds": [],
   "cwd": "/Users/windy/Work/wms",
   "activeTaskIds": [],

@@ -25,6 +25,10 @@ export interface IReceiptTicketRepository {
   getLastTicketNo(yearMonth: string): Promise<string | null>;
   create(
     ticket: Omit<ReceiptTicketEntity, "id" | "createdAt" | "updatedAt">,
+    lines?: Omit<
+      ReceiptTicketLineEntity,
+      "id" | "ticketId" | "createdAt" | "updatedAt"
+    >[],
   ): Promise<ReceiptTicketEntity>;
   update(
     id: number,

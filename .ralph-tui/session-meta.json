@@ -1,14 +1,14 @@
 {
-  "id": "b037ea9a-f1a7-4bb5-8140-1594fe7f60fc",
+  "id": "42f74754-ab59-4f9e-a5ac-c76e0ccb4d07",
   "status": "running",
-  "startedAt": "2026-04-16T11:54:01.856Z",
-  "updatedAt": "2026-04-16T12:33:39.038Z",
+  "startedAt": "2026-04-17T05:06:29.924Z",
+  "updatedAt": "2026-04-17T05:06:29.925Z",
   "agentPlugin": "gemini",
   "trackerPlugin": "json",
-  "prdPath": "./tasks/prd.json",
-  "currentIteration": 7,
+  "prdPath": "./tasks/prd-epic-6.json",
+  "currentIteration": 0,
   "maxIterations": 50,
   "totalTasks": 0,
-  "tasksCompleted": 7,
+  "tasksCompleted": 0,
   "cwd": "/Users/windy/Work/wms"
 }

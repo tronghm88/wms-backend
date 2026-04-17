@@ -85,18 +85,7 @@ export class CreateDiscountPolicyUseCase {
       if (hasGeneral) {
         throw new DuplicateGeneralDiscountPolicyException(dto.customerId);
       }
-      if (existingPolicies.length > 0) {
-        throw new InvalidDiscountPolicyConfigurationException(
-          "Cannot create a general discount policy when specific product discount policies already exist for this customer",
-        );
-      }
     } else {
-      if (hasGeneral) {
-        throw new InvalidDiscountPolicyConfigurationException(
-          "Cannot create specific product discount policies when a general discount policy already exists for this customer",
-        );
-      }
-
       for (const productId of dto.productIds) {
         const product = await this.productRepository.findById(productId);
         if (!product) {

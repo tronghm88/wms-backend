@@ -92,19 +92,7 @@ export class UpdateDiscountPolicyUseCase {
       if (hasOtherGeneral) {
         throw new DuplicateGeneralDiscountPolicyException(policy.customerId);
       }
-      if (otherPolicies.length > 0) {
-        throw new InvalidDiscountPolicyConfigurationException(
-          "Cannot update to a general discount policy when other specific product discount policies already exist for this customer",
-        );
-      }
     } else {
-      const hasGeneral = otherPolicies.some((p) => p.isAppliedAll);
-      if (hasGeneral) {
-        throw new InvalidDiscountPolicyConfigurationException(
-          "Cannot update to specific product discount policies when a general discount policy already exists for this customer",
-        );
-      }
-
       for (const productId of productIds) {
         const product = await this.productRepository.findById(productId);
         if (!product) {

@@ -4,6 +4,7 @@ import { InventoryRepository } from "../database/repositories/inventory.reposito
 import { StockMovementRepository } from "../database/repositories/stock-movement.repository";
 import { INVENTORY_REPOSITORY } from "../../domain/contracts/inventory.repository.interface";
 import { STOCK_MOVEMENT_REPOSITORY } from "../../domain/contracts/stock-movement.repository.interface";
+import { GetInventorySnapshotUseCase } from "../../application/use-cases/inventory/get-inventory-snapshot.use-case";
 
 @Module({
   imports: [PrismaModule],
@@ -16,7 +17,12 @@ import { STOCK_MOVEMENT_REPOSITORY } from "../../domain/contracts/stock-movement
       provide: STOCK_MOVEMENT_REPOSITORY,
       useClass: StockMovementRepository,
     },
+    GetInventorySnapshotUseCase,
   ],
-  exports: [INVENTORY_REPOSITORY, STOCK_MOVEMENT_REPOSITORY],
+  exports: [
+    INVENTORY_REPOSITORY,
+    STOCK_MOVEMENT_REPOSITORY,
+    GetInventorySnapshotUseCase,
+  ],
 })
 export class StockModule {}

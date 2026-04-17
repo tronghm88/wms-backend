@@ -27,8 +27,8 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
         return PrismaTransactionStatus.DRAFT;
       case IssueTicketStatus.COMPLETED:
         return PrismaTransactionStatus.CONFIRMED;
-      case IssueTicketStatus.VOIDED:
-        return PrismaTransactionStatus.VOIDED;
+      case IssueTicketStatus.CANCELLED:
+        return PrismaTransactionStatus.CANCELLED;
       default:
         return PrismaTransactionStatus.DRAFT;
     }
@@ -42,8 +42,8 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
         return IssueTicketStatus.DRAFT;
       case PrismaTransactionStatus.CONFIRMED:
         return IssueTicketStatus.COMPLETED;
-      case PrismaTransactionStatus.VOIDED:
-        return IssueTicketStatus.VOIDED;
+      case PrismaTransactionStatus.CANCELLED:
+        return IssueTicketStatus.CANCELLED;
       default:
         return IssueTicketStatus.DRAFT;
     }
@@ -263,11 +263,11 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
 
       const warnings: string[] = [];
 
-      // 2. Update status to VOIDED (CANCELLED)
+      // 2. Update status to CANCELLED (CANCELLED)
       const updatedTicket = await tx.issueTicket.update({
         where: { id },
         data: {
-          status: PrismaTransactionStatus.VOIDED,
+          status: PrismaTransactionStatus.CANCELLED,
         },
         include: { lines: true },
       });

@@ -1,6 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
-import { IInventoryRepository } from "../../../domain/contracts/inventory.repository.interface";
+import {
+  IInventoryRepository,
+  InventorySnapshotItem,
+} from "../../../domain/contracts/inventory.repository.interface";
 import { InventoryEntity } from "../../../domain/entities/inventory.entity";
 import { Decimal } from "decimal.js";
 import { Prisma } from "@prisma/client";
@@ -29,6 +32,43 @@ export class InventoryRepository implements IInventoryRepository {
           quantity: new Decimal(inv.quantity.toString()),
         }),
     );
+  }
+
+  async findAllActiveStock(): Promise<InventorySnapshotItem[]> {
+    const stocks = await this.prisma.inventory.findMany({
+      where: {
+        quantity: {
+          gt: 0,
+        },
+      },
+      select: {
+        productId: true,
+        quantity: true,
+        unitCode: true,
+        lastUpdated: true,
+        product: {
+          select: {
+            code: true,
+            name: true,
+            category: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return stocks.map((stock) => ({
+      productId: stock.productId,
+      productCode: stock.product.code,
+      productName: stock.product.name,
+      categoryName: stock.product.category.name,
+      quantity: new Decimal(stock.quantity.toString()),
+      unitCode: stock.unitCode,
+      lastUpdated: stock.lastUpdated,
+    }));
   }
 
   async updateQuantity(

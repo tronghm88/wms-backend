@@ -8,9 +8,26 @@ import {
   type IReceiptTicketRepository,
 } from "../../../domain/contracts/receipt-ticket.repository.interface";
 
+import {
+  PRODUCT_REPOSITORY,
+  type IProductRepository,
+} from "../../../domain/contracts/product.repository.interface";
+import {
+  UNIT_CONVERSION_REPOSITORY,
+  type IUnitConversionRepository,
+} from "../../../domain/contracts/unit-conversion.repository.interface";
+import {
+  UNIT_REPOSITORY,
+  type IUnitRepository,
+} from "../../../domain/contracts/unit.repository.interface";
+import { Decimal } from "decimal.js";
+
 describe("CreateReceiptTicketUseCase", () => {
   let useCase: CreateReceiptTicketUseCase;
   let repository: jest.Mocked<IReceiptTicketRepository>;
+  let productRepository: jest.Mocked<IProductRepository>;
+  let unitConversionRepository: jest.Mocked<IUnitConversionRepository>;
+  let unitRepository: jest.Mocked<IUnitRepository>;
 
   beforeEach(async () => {
     repository = {
@@ -22,12 +39,36 @@ describe("CreateReceiptTicketUseCase", () => {
       update: jest.fn(),
     } as unknown as jest.Mocked<IReceiptTicketRepository>;
 
+    productRepository = {
+      findById: jest.fn(),
+    } as unknown as jest.Mocked<IProductRepository>;
+
+    unitConversionRepository = {
+      findByProductAndUnits: jest.fn(),
+    } as unknown as jest.Mocked<IUnitConversionRepository>;
+
+    unitRepository = {
+      findByCode: jest.fn(),
+    } as unknown as jest.Mocked<IUnitRepository>;
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         CreateReceiptTicketUseCase,
         {
           provide: RECEIPT_TICKET_REPOSITORY,
           useValue: repository,
+        },
+        {
+          provide: PRODUCT_REPOSITORY,
+          useValue: productRepository,
+        },
+        {
+          provide: UNIT_CONVERSION_REPOSITORY,
+          useValue: unitConversionRepository,
+        },
+        {
+          provide: UNIT_REPOSITORY,
+          useValue: unitRepository,
         },
       ],
     }).compile();
@@ -42,7 +83,7 @@ describe("CreateReceiptTicketUseCase", () => {
   });
 
   it("should create a receipt ticket successfully with correct ID format", async () => {
-    const dto = { note: "Test note" };
+    const dto = { note: "Test note", lines: [] };
     const userId = 1;
     const now = new Date();
     const yearMonth = `${now.getUTCFullYear()}${String(now.getUTCMonth() + 1).padStart(2, "0")}`;
@@ -70,7 +111,7 @@ describe("CreateReceiptTicketUseCase", () => {
   });
 
   it("should start with sequence 1 if no previous ticket exists for the month", async () => {
-    const dto = { note: "Test note" };
+    const dto = { note: "Test note", lines: [] };
     const userId = 1;
     const now = new Date();
     const yearMonth = `${now.getUTCFullYear()}${String(now.getUTCMonth() + 1).padStart(2, "0")}`;
@@ -94,7 +135,7 @@ describe("CreateReceiptTicketUseCase", () => {
   });
 
   it("should retry if unique constraint violation occurs", async () => {
-    const dto = { note: "Test note" };
+    const dto = { note: "Test note", lines: [] };
     const userId = 1;
     const now = new Date();
     const yearMonth = `${now.getUTCFullYear()}${String(now.getUTCMonth() + 1).padStart(2, "0")}`;
@@ -123,7 +164,7 @@ describe("CreateReceiptTicketUseCase", () => {
   });
 
   it("should throw error after max retries", async () => {
-    const dto = { note: "Test note" };
+    const dto = { note: "Test note", lines: [] };
     const userId = 1;
 
     repository.getLastTicketNo.mockResolvedValue("PN-202604-5");

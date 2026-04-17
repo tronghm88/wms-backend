@@ -23,7 +23,7 @@ describe("VoidIssueTicketUseCase", () => {
     code: "PX-202604-001",
     date: new Date(),
     customerId: 1,
-    status: IssueTicketStatus.VOIDED,
+    status: IssueTicketStatus.CANCELLED,
     createdBy: 1,
     totalAmount: new Decimal(100),
     lines: [],
@@ -63,7 +63,7 @@ describe("VoidIssueTicketUseCase", () => {
     expect(repository["void"]).toHaveBeenCalledWith(1, mockUser.id);
     expect(result.ticket).toEqual(mockTicket);
     expect(result.warnings).toEqual(["Some warning"]);
-    expect(result.ticket.status).toBe(IssueTicketStatus.VOIDED);
+    expect(result.ticket.status).toBe(IssueTicketStatus.CANCELLED);
   });
 
   it("should bubble up errors from the repository", async () => {

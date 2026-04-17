@@ -1,12 +1,6 @@
-import { ApiPropertyOptional } from "@nestjs/swagger";
-import { IsOptional, IsString } from "class-validator";
+import { AddReceiptLineDto } from "./add-receipt-line.dto";
 
 export class CreateReceiptTicketDto {
-  @ApiPropertyOptional({
-    description: "Optional notes for the receipt ticket",
-    example: "Shipment from Vendor A",
-  })
-  @IsOptional()
-  @IsString()
   note?: string;
+  lines: AddReceiptLineDto[];
 }

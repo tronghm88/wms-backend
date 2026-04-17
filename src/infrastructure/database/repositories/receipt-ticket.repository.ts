@@ -12,8 +12,10 @@ import {
   ReceiptTicketNotFoundException,
   ReceiptTicketNotConfirmedException,
 } from "../../../domain/exceptions/receipt-ticket.exceptions";
+import { Injectable } from "@nestjs/common";
 import { Decimal } from "decimal.js";
 
+@Injectable()
 export class ReceiptTicketRepository implements IReceiptTicketRepository {
   constructor(private readonly prisma: PrismaService) {}
 
@@ -167,22 +169,64 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
 
   async create(
     ticket: Omit<ReceiptTicketEntity, "id" | "createdAt" | "updatedAt">,
+    lines?: Omit<
+      ReceiptTicketLineEntity,
+      "id" | "ticketId" | "createdAt" | "updatedAt"
+    >[],
   ): Promise<ReceiptTicketEntity> {
+    const data: Prisma.ReceiptTicketUncheckedCreateInput = {
+      ticketNo: ticket.ticketNo,
+      date: ticket.date,
+      status: ticket.status as unknown as PrismaTransactionStatus,
+      createdBy: ticket.createdBy,
+      note: ticket.note,
+    };
+
+    if (lines && lines.length > 0) {
+      data.lines = {
+        create: lines.map((line) => ({
+          productId: line.productId,
+          quantity: line.quantity as unknown as Prisma.Decimal,
+          unitCode: line.unitCode,
+          lengthM: line.lengthM as unknown as Prisma.Decimal,
+          areaM2: line.areaM2 as unknown as Prisma.Decimal,
+          weightKg: line.weightKg as unknown as Prisma.Decimal,
+        })),
+      };
+    }
+
     const newTicket = await this.prisma.receiptTicket.create({
-      data: {
-        ticketNo: ticket.ticketNo,
-        date: ticket.date,
-        status: ticket.status as unknown as PrismaTransactionStatus,
-        createdBy: ticket.createdBy,
-        note: ticket.note,
-      },
+      data,
+      include: { lines: true },
     });
 
-    return new ReceiptTicketEntity({
+    const entity = new ReceiptTicketEntity({
       ...newTicket,
       status: newTicket.status as unknown as TransactionStatus,
       note: newTicket.note ?? undefined,
     });
+
+    if (newTicket.lines && newTicket.lines.length > 0) {
+      const lineEntities = newTicket.lines.map(
+        (line) =>
+          new ReceiptTicketLineEntity({
+            ...line,
+            quantity: new Decimal(line.quantity.toString()),
+            lengthM: line.lengthM
+              ? new Decimal(line.lengthM.toString())
+              : undefined,
+            areaM2: line.areaM2
+              ? new Decimal(line.areaM2.toString())
+              : undefined,
+            weightKg: line.weightKg
+              ? new Decimal(line.weightKg.toString())
+              : undefined,
+          }),
+      );
+      return Object.assign(entity, { lines: lineEntities });
+    }
+
+    return entity;
   }
 
   async update(
@@ -652,12 +696,12 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
 
       const warnings: string[] = [];
 
-      // 2. Update ticket status to VOIDED
+      // 2. Update ticket status to CANCELLED
       const updatedTicket = await tx.receiptTicket.update({
         where: { id },
         data: {
           status:
-            TransactionStatus.VOIDED as unknown as PrismaTransactionStatus,
+            TransactionStatus.CANCELLED as unknown as PrismaTransactionStatus,
         },
       });
 

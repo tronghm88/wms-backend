@@ -115,9 +115,9 @@ export class VoidSplitTicketUseCase {
       }
     }
 
-    // 7. Update ticket status to VOIDED
+    // 7. Update ticket status to CANCELLED
     const voidedTicket = await this.splitTicketRepository.update(id, {
-      status: TransactionStatus.VOIDED,
+      status: TransactionStatus.CANCELLED,
     });
 
     return { ticket: voidedTicket, warnings };

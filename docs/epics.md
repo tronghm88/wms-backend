@@ -292,7 +292,7 @@ So that faulty logistics operations can be safely reversed without corrupting th
 
 Quản lý có thể trực tiếp xuất biểu Excel chuẩn form kế toán và in file Ticket PDF hóa đơn cho tài xế giao nhận mà không cần thao tác manual.
 
-### Story 6.1: High-Volume Global Live Inventory Rendering
+### Story US-601: High-Volume Global Live Inventory Rendering
 
 As an Analyst,
 I want to monitor thousands of warehouse lines instantly without experiencing UI lag,
@@ -305,7 +305,7 @@ So that I can scan inventory effectively during heavy load periods.
 **Then** the Flutter grid rendering framework (`pluto_grid`) displays the data losslessly
 **And** filters columns instantly maintaining 60FPS scrolling capacity.
 
-### Story 6.2: Universal Historical Audit Trail Querying
+### Story US-602: Universal Historical Audit Trail Querying
 
 As an Administrator,
 I want to search and review the raw, immutable Audit Trail,
@@ -318,7 +318,7 @@ So that I can deduce exactly which employee modified particular lines over time.
 **Then** the read-only append sequences are queried efficiently from the database
 **And** rendered to show exact timestamps and actions.
 
-### Story 6.3: Native PDF Document Export Execution (Backend Mediated)
+### Story US-603: Native PDF Document Export Execution (Backend Mediated)
 
 As a logistical runner,
 I want to immediately download and print a finalized Outbound Ticket format,
@@ -331,7 +331,7 @@ So that I can hand a polished receipt out to transportation.
 **Then** the NestJS backend's Puppeteer engine seamlessly renders the structured HTML template into a binary blob
 **And** fires it safely over the network for the Desktop Client to pop open externally via browser/FoxIt.
 
-### Story 6.4: Legacy Accounting Format Excel Export
+### Story US-604: Legacy Accounting Format Excel Export
 
 As the Lead Accountant,
 I want to pull the end-of-month live Data block exactly aligned to my historical spreadsheets,

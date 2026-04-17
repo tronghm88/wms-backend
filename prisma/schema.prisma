@@ -27,7 +27,7 @@ enum UserStatus {
 enum TransactionStatus {
   DRAFT
   CONFIRMED
-  VOIDED
+  CANCELLED
 }
 
 enum DiscountType {
