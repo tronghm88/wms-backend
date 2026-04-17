@@ -3,10 +3,10 @@
   "sessionId": "42f74754-ab59-4f9e-a5ac-c76e0ccb4d07",
   "status": "running",
   "startedAt": "2026-04-17T05:06:30.388Z",
-  "updatedAt": "2026-04-17T05:09:24.343Z",
-  "currentIteration": 0,
+  "updatedAt": "2026-04-17T05:12:50.656Z",
+  "currentIteration": 1,
   "maxIterations": 50,
-  "tasksCompleted": 0,
+  "tasksCompleted": 1,
   "isPaused": false,
   "agentPlugin": "gemini",
   "trackerState": {
@@ -17,8 +17,8 @@
       {
         "id": "US-601-1",
         "title": "Backend: Implement GetInventorySnapshotUseCase and Repository",
-        "status": "open",
-        "completedInSession": false
+        "status": "completed",
+        "completedInSession": true
       },
       {
         "id": "US-601-2",
@@ -88,7 +88,18 @@
       }
     ]
   },
-  "iterations": [],
+  "iterations": [
+    {
+      "iteration": 1,
+      "status": "completed",
+      "taskId": "US-601-1",
+      "taskTitle": "Backend: Implement GetInventorySnapshotUseCase and Repository",
+      "taskCompleted": true,
+      "durationMs": 170493,
+      "startedAt": "2026-04-17T05:06:33.849Z",
+      "endedAt": "2026-04-17T05:09:24.342Z"
+    }
+  ],
   "skippedTaskIds": [],
   "cwd": "/Users/windy/Work/wms",
   "activeTaskIds": [],

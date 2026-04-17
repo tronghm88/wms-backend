@@ -6,8 +6,11 @@ import { INVENTORY_REPOSITORY } from "../../domain/contracts/inventory.repositor
 import { STOCK_MOVEMENT_REPOSITORY } from "../../domain/contracts/stock-movement.repository.interface";
 import { GetInventorySnapshotUseCase } from "../../application/use-cases/inventory/get-inventory-snapshot.use-case";
 
+import { InventoryController } from "../../presentation/controllers/inventory.controller";
+
 @Module({
   imports: [PrismaModule],
+  controllers: [InventoryController],
   providers: [
     {
       provide: INVENTORY_REPOSITORY,

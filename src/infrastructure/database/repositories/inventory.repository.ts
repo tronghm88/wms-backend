@@ -50,6 +50,9 @@ export class InventoryRepository implements IInventoryRepository {
           select: {
             code: true,
             name: true,
+            length: true,
+            width: true,
+            height: true,
             category: {
               select: {
                 name: true,
@@ -67,6 +70,15 @@ export class InventoryRepository implements IInventoryRepository {
       categoryName: stock.product.category.name,
       quantity: new Decimal(stock.quantity.toString()),
       unitCode: stock.unitCode,
+      length: stock.product.length
+        ? new Decimal(stock.product.length.toString())
+        : undefined,
+      width: stock.product.width
+        ? new Decimal(stock.product.width.toString())
+        : undefined,
+      height: stock.product.height
+        ? new Decimal(stock.product.height.toString())
+        : undefined,
       lastUpdated: stock.lastUpdated,
     }));
   }

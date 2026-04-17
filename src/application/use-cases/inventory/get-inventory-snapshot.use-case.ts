@@ -9,6 +9,10 @@ export interface InventorySnapshotResponse {
   categoryName: string;
   quantity: string;
   unitCode: string;
+  length?: string;
+  width?: string;
+  height?: string;
+  weight?: string;
   lastUpdated: Date;
 }
 
@@ -29,6 +33,10 @@ export class GetInventorySnapshotUseCase {
       categoryName: stock.categoryName,
       quantity: stock.quantity.toFixed(3),
       unitCode: stock.unitCode,
+      length: stock.length?.toFixed(3),
+      width: stock.width?.toFixed(3),
+      height: stock.height?.toFixed(3),
+      weight: stock.weight?.toFixed(3),
       lastUpdated: stock.lastUpdated,
     }));
   }
