@@ -18,6 +18,7 @@ describe("UpdateUserUseCase", () => {
   beforeEach(() => {
     mockUserRepository = {
       findById: jest.fn(),
+      findByUsername: jest.fn(),
       update: jest.fn(),
     } as unknown as jest.Mocked<IUserRepository>;
     mockCacheService = {
@@ -37,6 +38,7 @@ describe("UpdateUserUseCase", () => {
     const existingUser = new UserEntity({
       id: userId,
       email: "test@example.com",
+      username: "testuser",
       passwordHash: "hash",
       fullName: "Old Name",
       role: UserRole.WAREHOUSE_STAFF,
@@ -50,6 +52,7 @@ describe("UpdateUserUseCase", () => {
     const updatedUser = new UserEntity({
       id: userId,
       email: "test@example.com",
+      username: "testuser",
       passwordHash: "hash",
       fullName: request.fullName,
       role: request.role,
@@ -68,10 +71,11 @@ describe("UpdateUserUseCase", () => {
     expect(result.fullName).toBe(request.fullName);
     expect(result.role).toBe(request.role);
     expect(mockUserRepository.update).toHaveBeenCalledWith(userId, {
+      username: undefined,
       fullName: request.fullName,
+      phone: undefined,
       role: request.role,
       customPermissions: undefined,
-      status: undefined,
     });
     expect(mockCacheService.del).toHaveBeenCalledWith(
       `session:user_data:${userId}`,
@@ -94,6 +98,7 @@ describe("UpdateUserUseCase", () => {
     const existingUser = new UserEntity({
       id: userId,
       email: "super@example.com",
+      username: "superadmin",
       passwordHash: "hash",
       fullName: "Super Admin",
       role: UserRole.SUPER_ADMIN,
@@ -116,6 +121,7 @@ describe("UpdateUserUseCase", () => {
     const existingUser = new UserEntity({
       id: userId,
       email: "staff@example.com",
+      username: "staffuser",
       passwordHash: "hash",
       fullName: "Staff",
       role: UserRole.WAREHOUSE_STAFF,

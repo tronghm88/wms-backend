@@ -7,6 +7,8 @@ import {
   IsString,
   MinLength,
   IsArray,
+  Matches,
+  MaxLength,
 } from "class-validator";
 import { UserRole } from "../../../domain/enums";
 
@@ -14,6 +16,21 @@ export class CreateUserDto {
   @ApiProperty({ example: "staff@warehouse.com" })
   @IsEmail()
   email!: string;
+
+  @ApiProperty({
+    example: "john123",
+    description:
+      "Unique username: 2–50 characters, alphanumeric, must start with a letter.",
+    maxLength: 50,
+  })
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(50)
+  @Matches(/^[a-zA-Z][a-zA-Z0-9]*$/, {
+    message:
+      "username must start with a letter and contain only letters and digits",
+  })
+  username!: string;
 
   @ApiProperty({ example: "StrongPass123!", minLength: 6 })
   @IsString()
@@ -24,6 +41,22 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   fullName!: string;
+
+  @ApiPropertyOptional({
+    example: "0901234567",
+    description: "Phone number: digits only, up to 20 characters.",
+    maxLength: 20,
+  })
+  @IsOptional()
+  @IsString()
+  @MaxLength(20)
+  @Matches(/^\d+$/, { message: "phone must contain digits only" })
+  phone?: string;
+
+  @ApiPropertyOptional({ example: "Important user note" })
+  @IsOptional()
+  @IsString()
+  note?: string;
 
   @ApiProperty({
     enum: UserRole,

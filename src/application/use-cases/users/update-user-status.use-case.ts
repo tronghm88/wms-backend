@@ -6,76 +6,50 @@ import type { ICacheService } from "../../../domain/contracts/cache.service.inte
 import {
   UserNotFoundException,
   CannotModifySuperAdminException,
-  CannotCreateSuperAdminException,
-  UsernameAlreadyExistsException,
 } from "../../../domain/exceptions/auth.exceptions";
 import { UserRole, UserStatus } from "../../../domain/enums";
 
-export interface UpdateUserRequest {
+export interface UpdateUserStatusRequest {
   userId: number;
-  username?: string;
-  fullName?: string;
-  phone?: string;
-  note?: string;
-  role?: UserRole;
-  customPermissions?: string[];
+  status: UserStatus;
 }
 
-export interface UpdateUserResponse {
+export interface UpdateUserStatusResponse {
   id: number;
   email: string;
   username: string;
   fullName: string;
   phone?: string;
-  note?: string;
   role: UserRole;
   customPermissions?: string[];
   status: UserStatus;
 }
 
 @Injectable()
-export class UpdateUserUseCase {
+export class UpdateUserStatusUseCase {
   constructor(
     @Inject(USER_REPOSITORY) private readonly userRepository: IUserRepository,
     @Inject(CACHE_SERVICE) private readonly cacheService: ICacheService,
   ) {}
 
-  async execute(request: UpdateUserRequest): Promise<UpdateUserResponse> {
+  async execute(
+    request: UpdateUserStatusRequest,
+  ): Promise<UpdateUserStatusResponse> {
     const user = await this.userRepository.findById(request.userId);
     if (!user) {
       throw new UserNotFoundException();
     }
 
-    // AC: block ANY API requests attempting to manipulate (Update Role, Delete) the core SUPER_ADMIN account.
+    // Block modification of the SUPER_ADMIN account
     if (user.role === UserRole.SUPER_ADMIN) {
       throw new CannotModifySuperAdminException();
     }
 
-    // Restriction: Cannot change another user's role to SUPER_ADMIN
-    if (request.role === UserRole.SUPER_ADMIN) {
-      throw new CannotCreateSuperAdminException();
-    }
-
-    // Check username uniqueness if changing
-    if (request.username && request.username !== user.username) {
-      const existingByUsername = await this.userRepository.findByUsername(
-        request.username,
-      );
-      if (existingByUsername) {
-        throw new UsernameAlreadyExistsException();
-      }
-    }
-
     const updatedUser = await this.userRepository.update(request.userId, {
-      username: request.username,
-      fullName: request.fullName,
-      phone: request.phone,
-      note: request.note,
-      role: request.role,
-      customPermissions: request.customPermissions,
+      status: request.status,
     });
 
-    // Invalidate Redis cache to ensure immediate access revocation or update
+    // Invalidate Redis session cache so change takes effect immediately
     await this.cacheService.del(`session:user_data:${user.id}`);
     await this.cacheService.del(`session:refresh_token:${user.id}`);
 
@@ -85,7 +59,6 @@ export class UpdateUserUseCase {
       username: updatedUser.username,
       fullName: updatedUser.fullName,
       phone: updatedUser.phone,
-      note: updatedUser.note,
       role: updatedUser.role,
       customPermissions: updatedUser.customPermissions,
       status: updatedUser.status,

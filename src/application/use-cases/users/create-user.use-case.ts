@@ -5,14 +5,18 @@ import { PASSWORD_HASHER } from "../../../domain/contracts/password-hasher.inter
 import type { IPasswordHasher } from "../../../domain/contracts/password-hasher.interface";
 import {
   EmailAlreadyExistsException,
+  UsernameAlreadyExistsException,
   CannotCreateSuperAdminException,
 } from "../../../domain/exceptions/auth.exceptions";
 import { UserRole, UserStatus } from "../../../domain/enums";
 
 export interface CreateUserRequest {
   email: string;
+  username: string;
   passwordRaw: string;
   fullName: string;
+  phone?: string;
+  note?: string;
   role: UserRole;
   customPermissions?: string[];
 }
@@ -20,7 +24,10 @@ export interface CreateUserRequest {
 export interface CreateUserResponse {
   id: number;
   email: string;
+  username: string;
   fullName: string;
+  phone?: string;
+  note?: string;
   role: UserRole;
   customPermissions?: string[];
   status: UserStatus;
@@ -38,17 +45,29 @@ export class CreateUserUseCase {
       throw new CannotCreateSuperAdminException();
     }
 
-    const existingUser = await this.userRepository.findByEmail(request.email);
-    if (existingUser) {
+    const existingByEmail = await this.userRepository.findByEmail(
+      request.email,
+    );
+    if (existingByEmail) {
       throw new EmailAlreadyExistsException();
+    }
+
+    const existingByUsername = await this.userRepository.findByUsername(
+      request.username,
+    );
+    if (existingByUsername) {
+      throw new UsernameAlreadyExistsException();
     }
 
     const passwordHash = await this.passwordHasher.hash(request.passwordRaw);
 
     const newUserInfo = {
       email: request.email,
+      username: request.username,
       passwordHash,
       fullName: request.fullName,
+      phone: request.phone,
+      note: request.note,
       role: request.role,
       customPermissions: request.customPermissions,
       status: UserStatus.ACTIVE,
@@ -60,7 +79,10 @@ export class CreateUserUseCase {
     return {
       id: createdUser.id,
       email: createdUser.email,
+      username: createdUser.username,
       fullName: createdUser.fullName,
+      phone: createdUser.phone,
+      note: createdUser.note,
       role: createdUser.role,
       customPermissions: createdUser.customPermissions,
       status: createdUser.status,

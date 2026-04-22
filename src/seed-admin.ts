@@ -16,6 +16,7 @@ async function bootstrap() {
 
   const adminEmail = process.env.ADMIN_EMAIL;
   const adminPassword = process.env.ADMIN_PASSWORD;
+  const adminUsername = process.env.ADMIN_USERNAME ?? "superadmin";
 
   if (!adminEmail || !adminPassword) {
     console.error(
@@ -37,6 +38,7 @@ async function bootstrap() {
       await prisma.user.create({
         data: {
           email: adminEmail,
+          username: adminUsername,
           passwordHash: passwordHash,
           fullName: "Super Admin",
           role: UserRole.SUPER_ADMIN,

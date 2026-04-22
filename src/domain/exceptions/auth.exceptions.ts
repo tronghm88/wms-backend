@@ -39,6 +39,12 @@ export class EmailAlreadyExistsException extends AuthException {
   }
 }
 
+export class UsernameAlreadyExistsException extends AuthException {
+  constructor() {
+    super("Username already exists", "USERNAME_ALREADY_EXISTS");
+  }
+}
+
 export class CannotCreateSuperAdminException extends AuthException {
   constructor() {
     super(

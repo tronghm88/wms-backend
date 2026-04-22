@@ -12,10 +12,20 @@ export interface FindUsersParams {
   sortOrder: "asc" | "desc";
 }
 
+export interface UserStats {
+  totalUsers: number;
+  activeUsers: number;
+  inactiveUsers: number;
+  adminCount: number;
+  staffCount: number;
+}
+
 export interface IUserRepository {
   findByEmail(email: string): Promise<UserEntity | null>;
+  findByUsername(username: string): Promise<UserEntity | null>;
   findById(id: number): Promise<UserEntity | null>;
   findAndCount(params: FindUsersParams): Promise<[UserEntity[], number]>;
+  getStats(): Promise<UserStats>;
   create(
     user: Omit<UserEntity, "id" | "createdAt" | "updatedAt" | "isActive">,
   ): Promise<UserEntity>;

@@ -3,8 +3,11 @@ import { UserRole, UserStatus } from "../enums";
 export class UserEntity {
   id: number;
   email: string;
+  username: string;
   passwordHash: string;
   fullName: string;
+  phone?: string;
+  note?: string;
   role: UserRole;
   customPermissions?: string[];
   status: UserStatus;
