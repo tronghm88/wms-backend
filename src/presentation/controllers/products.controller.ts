@@ -135,11 +135,11 @@ export class ProductsController {
   }
 
   @Delete(":id")
-  @HttpCode(204)
+  @HttpCode(200)
   @RequirePermissions(Permissions.PRODUCTS_MANAGE)
   @ApiOperation({ summary: "Delete a product" })
   @ApiResponse({
-    status: 204,
+    status: 200,
     description: "The product has been successfully deleted.",
   })
   @ApiResponse({ status: 401, description: "Unauthorized" })
@@ -149,7 +149,8 @@ export class ProductsController {
     status: 422,
     description: "Unprocessable Entity - Product has history",
   })
-  async remove(@Param("id", ParseIntPipe) id: number): Promise<void> {
+  async remove(@Param("id", ParseIntPipe) id: number): Promise<null> {
     await this.deleteProductUseCase.execute(id);
+    return null;
   }
 }

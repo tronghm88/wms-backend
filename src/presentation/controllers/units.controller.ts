@@ -78,11 +78,11 @@ export class UnitsController {
   }
 
   @Delete(":code")
-  @HttpCode(HttpStatus.NO_CONTENT)
+  @HttpCode(HttpStatus.OK)
   @RequirePermissions(Permissions.UNITS_MANAGE)
   @ApiOperation({ summary: "Delete a unit by code" })
   @ApiResponse({
-    status: 204,
+    status: 200,
     description: "The unit has been successfully deleted.",
   })
   @ApiResponse({ status: 404, description: "Unit not found" })
@@ -92,7 +92,8 @@ export class UnitsController {
   })
   @ApiResponse({ status: 401, description: "Unauthorized" })
   @ApiResponse({ status: 403, description: "Forbidden" })
-  async remove(@Param("code") code: string) {
+  async remove(@Param("code") code: string): Promise<null> {
     await this.deleteUnitUseCase.execute(code);
+    return null;
   }
 }

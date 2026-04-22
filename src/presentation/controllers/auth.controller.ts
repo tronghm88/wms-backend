@@ -57,6 +57,6 @@ export class AuthController {
       oldPasswordRaw: dto.oldPassword,
       newPasswordRaw: dto.newPassword,
     });
-    return { message: "Password successfully reset" };
+    return null;
   }
 }

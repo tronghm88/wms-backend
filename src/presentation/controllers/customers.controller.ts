@@ -51,11 +51,7 @@ export class CustomersController {
   @ApiResponse({ status: 401, description: "Unauthorized" })
   @ApiResponse({ status: 403, description: "Forbidden" })
   async findAll(@Query() query: GetCustomersDto) {
-    const data = await this.getCustomersUseCase.execute(query);
-    return {
-      statusCode: 200,
-      data,
-    };
+    return this.getCustomersUseCase.execute(query);
   }
 
   @Get(":id")
@@ -69,11 +65,7 @@ export class CustomersController {
   @ApiResponse({ status: 403, description: "Forbidden" })
   @ApiResponse({ status: 404, description: "Not Found" })
   async findOne(@Param("id", ParseIntPipe) id: number) {
-    const data = await this.getCustomerUseCase.execute(id);
-    return {
-      statusCode: 200,
-      data,
-    };
+    return this.getCustomerUseCase.execute(id);
   }
 
   @Post()
@@ -88,11 +80,7 @@ export class CustomersController {
   @ApiResponse({ status: 403, description: "Forbidden" })
   @ApiResponse({ status: 409, description: "Conflict - Code already exists" })
   async create(@Body() createCustomerDto: CreateCustomerDto) {
-    const data = await this.createCustomerUseCase.execute(createCustomerDto);
-    return {
-      statusCode: 201,
-      data,
-    };
+    return this.createCustomerUseCase.execute(createCustomerDto);
   }
 
   @Patch(":id")
@@ -111,14 +99,10 @@ export class CustomersController {
     @Param("id", ParseIntPipe) id: number,
     @Body() updateCustomerDto: UpdateCustomerDto,
   ) {
-    const data = await this.updateCustomerUseCase.execute({
+    return this.updateCustomerUseCase.execute({
       id,
       ...updateCustomerDto,
     });
-    return {
-      statusCode: 200,
-      data,
-    };
   }
 
   @Delete(":id")
@@ -138,9 +122,6 @@ export class CustomersController {
   })
   async delete(@Param("id", ParseIntPipe) id: number) {
     await this.deleteCustomerUseCase.execute(id);
-    return {
-      statusCode: 200,
-      data: null,
-    };
+    return null;
   }
 }

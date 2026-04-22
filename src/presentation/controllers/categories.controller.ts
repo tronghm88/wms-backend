@@ -105,11 +105,11 @@ export class CategoriesController {
   }
 
   @Delete(":id")
-  @HttpCode(204)
+  @HttpCode(200)
   @RequirePermissions(Permissions.CATEGORIES_MANAGE)
   @ApiOperation({ summary: "Delete a product category" })
   @ApiResponse({
-    status: 204,
+    status: 200,
     description: "The category has been successfully deleted.",
   })
   @ApiResponse({ status: 401, description: "Unauthorized" })
@@ -121,6 +121,7 @@ export class CategoriesController {
       "Unprocessable Entity - Category has associated products or sizes",
   })
   async delete(@Param("id", ParseIntPipe) id: number) {
-    return await this.deleteCategoryUseCase.execute(id);
+    await this.deleteCategoryUseCase.execute(id);
+    return null;
   }
 }

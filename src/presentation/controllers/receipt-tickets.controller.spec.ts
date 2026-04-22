@@ -114,9 +114,9 @@ describe("ReceiptTicketsController", () => {
 
       const result = await controller.findAll(query);
 
-      expect(result.statusCode).toBe(200);
       expect(result.data).toHaveLength(1);
       expect(result.data[0].ticketNo).toBe("PN-202604-1");
+      expect(result.metadata).toEqual({ total: 1, page: 1, lastPage: 1 });
       expect(listUseCase.execute).toHaveBeenCalledWith({
         ...query,
         fromDate: undefined,

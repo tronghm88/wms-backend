@@ -32,7 +32,6 @@ import { DeleteReceiptTicketUseCase } from "../../application/use-cases/receipt-
 import { CreateReceiptTicketDto } from "../../application/dtos/create-receipt-ticket.dto";
 import { CreateReceiptTicketRequestDto } from "../dtos/receipt-tickets/create-receipt-ticket-request.dto";
 import { GetReceiptTicketsDto } from "../dtos/receipt-tickets/get-receipt-tickets.dto";
-import { GetReceiptTicketsResponseDto } from "../dtos/receipt-tickets/get-receipt-tickets-response.dto";
 import { AddReceiptLineRequestDto } from "../dtos/receipt-tickets/add-receipt-line-request.dto";
 import { UpdateReceiptLineRequestDto } from "../dtos/receipt-tickets/update-receipt-line-request.dto";
 import { VoidReceiptTicketResponseDto } from "../dtos/receipt-tickets/void-receipt-ticket-response.dto";
@@ -111,10 +110,10 @@ export class ReceiptTicketsController {
 
   @Delete(":id")
   @RequirePermissions(Permissions.RECEIPTS_DELETE)
-  @HttpCode(HttpStatus.NO_CONTENT)
+  @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: "Delete a Receipt Ticket (Draft or Confirmed)" })
   @ApiResponse({
-    status: HttpStatus.NO_CONTENT,
+    status: HttpStatus.OK,
     description: "Receipt Ticket successfully deleted",
   })
   @ApiResponse({
@@ -124,11 +123,12 @@ export class ReceiptTicketsController {
   async delete(
     @Param("id", ParseIntPipe) id: number,
     @Request() req: { user: { role: UserRole; id: number } },
-  ): Promise<void> {
+  ): Promise<null> {
     const isAdmin =
       req.user.role === UserRole.ADMIN ||
       req.user.role === UserRole.SUPER_ADMIN;
     await this.deleteReceiptTicketUseCase.execute(id, isAdmin, req.user.id);
+    return null;
   }
 
   @Get()
@@ -137,20 +137,18 @@ export class ReceiptTicketsController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: "Returns a paginated list of Goods Receipts",
-    type: GetReceiptTicketsResponseDto,
   })
   async findAll(
     @Query() query: GetReceiptTicketsDto,
-  ): Promise<GetReceiptTicketsResponseDto> {
+  ): Promise<{ data: ReceiptTicketResponseDto[]; metadata: object }> {
     const result = await this.listReceiptTicketsUseCase.execute({
       ...query,
       fromDate: query.fromDate ? new Date(query.fromDate) : undefined,
       toDate: query.toDate ? new Date(query.toDate) : undefined,
     });
     return {
-      statusCode: HttpStatus.OK,
       data: result.data.map((ticket) => new ReceiptTicketResponseDto(ticket)),
-      meta: result.meta,
+      metadata: result.meta,
     };
   }
 
@@ -282,10 +280,10 @@ export class ReceiptTicketsController {
 
   @Delete(":id/lines/:lineId")
   @RequirePermissions(Permissions.RECEIPTS_CREATE)
-  @HttpCode(HttpStatus.NO_CONTENT)
+  @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: "Delete a line item from a Receipt Ticket" })
   @ApiResponse({
-    status: HttpStatus.NO_CONTENT,
+    status: HttpStatus.OK,
     description: "Line item successfully deleted",
   })
   @ApiResponse({
@@ -300,7 +298,7 @@ export class ReceiptTicketsController {
     @Param("id", ParseIntPipe) id: number,
     @Param("lineId", ParseIntPipe) lineId: number,
     @Request() req: { user: { role: UserRole; id: number } },
-  ): Promise<void> {
+  ): Promise<null> {
     const isAdmin =
       req.user.role === UserRole.ADMIN ||
       req.user.role === UserRole.SUPER_ADMIN;
@@ -310,5 +308,6 @@ export class ReceiptTicketsController {
       isAdmin,
       req.user.id,
     );
+    return null;
   }
 }

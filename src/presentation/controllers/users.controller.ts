@@ -134,6 +134,6 @@ export class UsersController {
       userId: id,
       newPasswordRaw: dto.newPassword,
     });
-    return { message: "Password successfully reset by Admin" };
+    return null;
   }
 }

@@ -117,17 +117,18 @@ export class UnitConversionsController {
   }
 
   @Delete(":id")
-  @HttpCode(204)
+  @HttpCode(200)
   @RequirePermissions(Permissions.UNITS_MANAGE)
   @ApiOperation({ summary: "Delete a unit conversion" })
   @ApiResponse({
-    status: 204,
+    status: 200,
     description: "The unit conversion has been successfully deleted.",
   })
   @ApiResponse({ status: 401, description: "Unauthorized" })
   @ApiResponse({ status: 403, description: "Forbidden" })
   @ApiResponse({ status: 404, description: "Unit conversion Not Found" })
-  async remove(@Param("id", ParseIntPipe) id: number) {
+  async remove(@Param("id", ParseIntPipe) id: number): Promise<null> {
     await this.deleteUnitConversionUseCase.execute({ id });
+    return null;
   }
 }

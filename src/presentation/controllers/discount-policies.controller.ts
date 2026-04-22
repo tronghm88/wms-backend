@@ -106,17 +106,18 @@ export class DiscountPoliciesController {
 
   @Delete(":id")
   @RequirePermissions(Permissions.DISCOUNT_POLICIES_MANAGE)
-  @HttpCode(HttpStatus.NO_CONTENT)
+  @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: "Soft delete a discount policy" })
   @ApiResponse({
-    status: 204,
+    status: 200,
     description: "The discount policy has been successfully deleted.",
   })
   @ApiResponse({ status: 400, description: "Bad Request - Policy is used" })
   @ApiResponse({ status: 401, description: "Unauthorized" })
   @ApiResponse({ status: 403, description: "Forbidden" })
   @ApiResponse({ status: 404, description: "Not Found" })
-  async delete(@Param("id", ParseIntPipe) id: number): Promise<void> {
+  async delete(@Param("id", ParseIntPipe) id: number): Promise<null> {
     await this.deleteDiscountPolicyUseCase.execute(id);
+    return null;
   }
 }
