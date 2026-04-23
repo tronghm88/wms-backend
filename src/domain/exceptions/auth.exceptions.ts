@@ -62,3 +62,9 @@ export class CannotModifySuperAdminException extends AuthException {
     );
   }
 }
+
+export class InvalidPermissionException extends AuthException {
+  constructor(permission: string) {
+    super(`Invalid permission: ${permission}`, "INVALID_PERMISSION");
+  }
+}

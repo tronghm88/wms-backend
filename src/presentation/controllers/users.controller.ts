@@ -29,6 +29,7 @@ import { UpdateUserDto } from "../dtos/users/update-user.dto";
 import { AdminResetPasswordDto } from "../dtos/users/admin-reset-password.dto";
 import { GetUsersDto } from "../dtos/users/get-users.dto";
 import { UserStatsDto } from "../dtos/users/user-stats.dto";
+import { UserResponseDto } from "../dtos/users/user-response.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RequirePermissions, RbacGuard } from "../guards/rbac.guard";
 import { Permissions } from "../../domain/constants/permissions.constant";
@@ -55,7 +56,11 @@ export class UsersController {
   @ApiOperation({
     summary: "Get a list of users with pagination and filtering",
   })
-  @ApiResponse({ status: 200, description: "Returns the list of users" })
+  @ApiResponse({
+    status: 200,
+    description: "Returns the list of users",
+    type: [UserResponseDto],
+  })
   @ApiResponse({ status: 401, description: "Unauthorized" })
   @ApiResponse({ status: 403, description: "Forbidden" })
   async getUsers(@Query() query: GetUsersDto) {
@@ -88,7 +93,11 @@ export class UsersController {
   @HttpCode(HttpStatus.OK)
   @RequirePermissions(Permissions.USERS_MANAGE)
   @ApiOperation({ summary: "Get user by ID" })
-  @ApiResponse({ status: 200, description: "Returns the user information" })
+  @ApiResponse({
+    status: 200,
+    description: "Returns the user information",
+    type: UserResponseDto,
+  })
   @ApiResponse({ status: 401, description: "Unauthorized" })
   @ApiResponse({ status: 403, description: "Forbidden" })
   @ApiResponse({ status: 404, description: "User not found" })
@@ -100,7 +109,11 @@ export class UsersController {
   @HttpCode(HttpStatus.CREATED)
   @RequirePermissions(Permissions.USERS_MANAGE)
   @ApiOperation({ summary: "Create a new user (Admin only)" })
-  @ApiResponse({ status: 201, description: "User successfully created" })
+  @ApiResponse({
+    status: 201,
+    description: "User successfully created",
+    type: UserResponseDto,
+  })
   @ApiResponse({ status: 400, description: "Validation error" })
   @ApiResponse({ status: 401, description: "Unauthorized" })
   @ApiResponse({
@@ -115,6 +128,7 @@ export class UsersController {
       passwordRaw: createUserDto.password,
       fullName: createUserDto.fullName,
       phone: createUserDto.phone,
+      note: createUserDto.note,
       role: createUserDto.role,
       customPermissions: createUserDto.customPermissions,
     });
@@ -124,7 +138,11 @@ export class UsersController {
   @HttpCode(HttpStatus.OK)
   @RequirePermissions(Permissions.USERS_MANAGE)
   @ApiOperation({ summary: "Update user information (Admin only)" })
-  @ApiResponse({ status: 200, description: "User successfully updated" })
+  @ApiResponse({
+    status: 200,
+    description: "User successfully updated",
+    type: UserResponseDto,
+  })
   @ApiResponse({ status: 400, description: "Bad request" })
   @ApiResponse({ status: 401, description: "Unauthorized" })
   @ApiResponse({ status: 403, description: "Forbidden" })
@@ -138,6 +156,7 @@ export class UsersController {
       username: dto.username,
       fullName: dto.fullName,
       phone: dto.phone,
+      note: dto.note,
       role: dto.role,
       customPermissions: dto.customPermissions,
     });
@@ -147,7 +166,11 @@ export class UsersController {
   @HttpCode(HttpStatus.OK)
   @RequirePermissions(Permissions.USERS_MANAGE)
   @ApiOperation({ summary: "Activate a user account (Admin only)" })
-  @ApiResponse({ status: 200, description: "User successfully activated" })
+  @ApiResponse({
+    status: 200,
+    description: "User successfully activated",
+    type: UserResponseDto,
+  })
   @ApiResponse({ status: 401, description: "Unauthorized" })
   @ApiResponse({
     status: 403,
@@ -165,7 +188,11 @@ export class UsersController {
   @HttpCode(HttpStatus.OK)
   @RequirePermissions(Permissions.USERS_MANAGE)
   @ApiOperation({ summary: "Deactivate a user account (Admin only)" })
-  @ApiResponse({ status: 200, description: "User successfully deactivated" })
+  @ApiResponse({
+    status: 200,
+    description: "User successfully deactivated",
+    type: UserResponseDto,
+  })
   @ApiResponse({ status: 401, description: "Unauthorized" })
   @ApiResponse({
     status: 403,

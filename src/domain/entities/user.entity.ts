@@ -6,12 +6,12 @@ export class UserEntity {
   username: string;
   passwordHash: string;
   fullName: string;
-  phone?: string;
-  note?: string;
+  phone?: string | null;
+  note?: string | null;
   role: UserRole;
   customPermissions?: string[];
   status: UserStatus;
-  lastLoginAt?: Date;
+  lastLoginAt?: Date | null;
   createdAt: Date;
   updatedAt: Date;
 

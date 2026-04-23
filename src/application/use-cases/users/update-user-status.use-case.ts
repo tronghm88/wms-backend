@@ -19,7 +19,8 @@ export interface UpdateUserStatusResponse {
   email: string;
   username: string;
   fullName: string;
-  phone?: string;
+  phone?: string | null;
+  note?: string | null;
   role: UserRole;
   customPermissions?: string[];
   status: UserStatus;
@@ -59,6 +60,7 @@ export class UpdateUserStatusUseCase {
       username: updatedUser.username,
       fullName: updatedUser.fullName,
       phone: updatedUser.phone,
+      note: updatedUser.note,
       role: updatedUser.role,
       customPermissions: updatedUser.customPermissions,
       status: updatedUser.status,

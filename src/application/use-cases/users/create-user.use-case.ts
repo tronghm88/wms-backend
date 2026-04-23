@@ -7,8 +7,10 @@ import {
   EmailAlreadyExistsException,
   UsernameAlreadyExistsException,
   CannotCreateSuperAdminException,
+  InvalidPermissionException,
 } from "../../../domain/exceptions/auth.exceptions";
 import { UserRole, UserStatus } from "../../../domain/enums";
+import { Permissions } from "../../../domain/constants/permissions.constant";
 
 export interface CreateUserRequest {
   email: string;
@@ -26,8 +28,8 @@ export interface CreateUserResponse {
   email: string;
   username: string;
   fullName: string;
-  phone?: string;
-  note?: string;
+  phone?: string | null;
+  note?: string | null;
   role: UserRole;
   customPermissions?: string[];
   status: UserStatus;
@@ -57,6 +59,15 @@ export class CreateUserUseCase {
     );
     if (existingByUsername) {
       throw new UsernameAlreadyExistsException();
+    }
+
+    if (request.customPermissions) {
+      const validPermissions = Object.values(Permissions) as string[];
+      for (const p of request.customPermissions) {
+        if (!validPermissions.includes(p)) {
+          throw new InvalidPermissionException(p);
+        }
+      }
     }
 
     const passwordHash = await this.passwordHasher.hash(request.passwordRaw);

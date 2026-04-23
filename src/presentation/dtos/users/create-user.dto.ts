@@ -9,8 +9,10 @@ import {
   IsArray,
   Matches,
   MaxLength,
+  IsIn,
 } from "class-validator";
 import { UserRole } from "../../../domain/enums";
+import { Permissions } from "../../../domain/constants/permissions.constant";
 
 export class CreateUserDto {
   @ApiProperty({ example: "staff@warehouse.com" })
@@ -72,6 +74,7 @@ export class CreateUserDto {
   })
   @IsArray()
   @IsString({ each: true })
+  @IsIn(Object.values(Permissions), { each: true })
   @IsOptional()
   customPermissions?: string[];
 }

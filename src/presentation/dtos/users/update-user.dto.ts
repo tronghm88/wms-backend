@@ -6,8 +6,10 @@ import {
   IsString,
   Matches,
   MaxLength,
+  IsIn,
 } from "class-validator";
 import { UserRole } from "../../../domain/enums";
+import { Permissions } from "../../../domain/constants/permissions.constant";
 
 export class UpdateUserDto {
   @ApiPropertyOptional({
@@ -63,6 +65,7 @@ export class UpdateUserDto {
   })
   @IsArray()
   @IsString({ each: true })
+  @IsIn(Object.values(Permissions), { each: true })
   @IsOptional()
   customPermissions?: string[];
 }
