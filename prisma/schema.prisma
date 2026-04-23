@@ -24,6 +24,18 @@ enum UserStatus {
   INACTIVE
 }
 
+enum CustomerType {
+  ENTERPRISE
+  AGENCY
+  RETAIL
+  VIP
+}
+
+enum CustomerStatus {
+  ACTIVE
+  INACTIVE
+}
+
 enum TransactionStatus {
   DRAFT
   CONFIRMED
@@ -51,8 +63,11 @@ enum StockMovementType {
 model User {
   id                Int        @id @default(autoincrement())
   email             String     @unique
+  username          String     @unique @map("username") @db.VarChar(50)
   passwordHash      String     @map("password_hash")
   fullName          String     @map("full_name")
+  phone             String?    @db.VarChar(20)
+  note              String?    @db.Text
   role              UserRole   @default(WAREHOUSE_STAFF)
   customPermissions String[]   @map("custom_permissions")
   status            UserStatus @default(ACTIVE)
@@ -60,10 +75,11 @@ model User {
   createdAt         DateTime   @default(now()) @map("created_at")
   updatedAt         DateTime   @updatedAt @map("updated_at")
 
-  receiptTickets ReceiptTicket[]
-  issueTickets   IssueTicket[]
-  splitTickets   SplitTicket[]
-  stockMovements StockMovement[]
+  receiptTickets    ReceiptTicket[]
+  issueTickets      IssueTicket[]
+  splitTickets      SplitTicket[]
+  stockMovements    StockMovement[]
+  assignedCustomers Customer[]      @relation("CustomerAssignedStaff")
 
   @@map("users")
 }
@@ -111,22 +127,22 @@ model CategorySize {
 }
 
 model Product {
-  id         Int      @id @default(autoincrement())
-  code       String   @unique
+  id         Int     @id @default(autoincrement())
+  code       String  @unique
   name       String
-  categoryId Int      @map("category_id")
-  baseUnit   String   @map("base_unit")
-  basePrice  Decimal  @map("base_price") @db.Decimal(15, 3)
-  
+  categoryId Int     @map("category_id")
+  baseUnit   String  @map("base_unit")
+  basePrice  Decimal @map("base_price") @db.Decimal(15, 3)
+
   // Dynamic dimensions
-  length     Decimal? @db.Decimal(15, 3)
-  width      Decimal? @db.Decimal(15, 3)
-  height     Decimal? @db.Decimal(15, 3)
-  
+  length Decimal? @db.Decimal(15, 3)
+  width  Decimal? @db.Decimal(15, 3)
+  height Decimal? @db.Decimal(15, 3)
+
   parentProductId Int? @map("parent_product_id")
-  
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   category           Category            @relation(fields: [categoryId], references: [id])
   unit               Unit                @relation("BaseUnit", fields: [baseUnit], references: [code])
@@ -160,16 +176,25 @@ model UnitConversion {
 }
 
 model Customer {
-  id        Int      @id @default(autoincrement())
-  code      String   @unique
-  name      String
-  address   String?
-  phone     String?
-  email     String?
-  note      String?
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id              Int            @id @default(autoincrement())
+  code            String         @unique
+  name            String
+  type            CustomerType?
+  status          CustomerStatus @default(ACTIVE)
+  companyName     String?        @map("company_name") @db.VarChar(100)
+  taxCode         String?        @map("tax_code") @db.VarChar(255)
+  contactPerson   String?        @map("contact_person") @db.VarChar(100)
+  address         String?
+  billingAddress  String?        @map("billing_address")
+  shippingAddress String?        @map("shipping_address")
+  phone           String?
+  email           String?
+  note            String?        @db.Text
+  assignedStaffId Int?           @map("assigned_staff_id")
+  createdAt       DateTime       @default(now()) @map("created_at")
+  updatedAt       DateTime       @updatedAt @map("updated_at")
 
+  assignedStaff    User?            @relation("CustomerAssignedStaff", fields: [assignedStaffId], references: [id])
   discountPolicies DiscountPolicy[]
   issueTickets     IssueTicket[]
 
@@ -218,15 +243,15 @@ model ReceiptTicket {
 }
 
 model ReceiptTicketLine {
-  id        Int      @id @default(autoincrement())
-  ticketId  Int      @map("ticket_id")
-  productId Int      @map("product_id")
-  quantity  Decimal  @db.Decimal(15, 3)
-  unitCode  String   @map("unit_code")
-  
-  lengthM   Decimal? @map("length_m") @db.Decimal(15, 3)
-  areaM2    Decimal? @map("area_m2") @db.Decimal(15, 3)
-  weightKg  Decimal? @map("weight_kg") @db.Decimal(15, 3)
+  id        Int     @id @default(autoincrement())
+  ticketId  Int     @map("ticket_id")
+  productId Int     @map("product_id")
+  quantity  Decimal @db.Decimal(15, 3)
+  unitCode  String  @map("unit_code")
+
+  lengthM  Decimal? @map("length_m") @db.Decimal(15, 3)
+  areaM2   Decimal? @map("area_m2") @db.Decimal(15, 3)
+  weightKg Decimal? @map("weight_kg") @db.Decimal(15, 3)
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
