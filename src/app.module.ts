@@ -14,20 +14,31 @@ import { ReceiptTicketsModule } from "./infrastructure/receipt-tickets/receipt-t
 import { IssueTicketsModule } from "./infrastructure/issue-tickets/issue-tickets.module";
 import { SplitTicketsModule } from "./infrastructure/split-tickets/split-tickets.module";
 import { StockModule } from "./infrastructure/stock/stock.module";
-import { ConfigModule } from "@nestjs/config";
+import { Keyv } from "keyv";
+import KeyvRedis from '@keyv/redis';
+import { KeyvCacheableMemory } from 'cacheable';
+import { ConfigModule, ConfigService } from "@nestjs/config";
 import { CacheModule } from "@nestjs/cache-manager";
-// import { redisStore } from 'cache-manager-redis-yet';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    CacheModule.register({
+    CacheModule.registerAsync({
       isGlobal: true,
-      // For MVP/Story1.1 keeping memory cache to pass compilation if redis is not up,
-      // but Architecture states Redis. Will add redis later when robust.
-      // store: redisStore,
-      // host: 'localhost',
-      // port: 6379,
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        const redisUrl =
+          configService.get<string>("REDIS_URL") ?? "redis://localhost:6379";
+        return {
+          stores: [
+            new Keyv({
+              store: new KeyvCacheableMemory({ ttl: 60000, lruSize: 5000 }),
+            }),
+            new KeyvRedis(redisUrl),
+          ],
+        };
+      },
     }),
     PrismaModule,
     AuthModule,
@@ -46,4 +57,4 @@ import { CacheModule } from "@nestjs/cache-manager";
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
