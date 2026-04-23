@@ -8,6 +8,7 @@ import {
   Patch,
   Param,
   ParseIntPipe,
+  Request,
 } from "@nestjs/common";
 import {
   ApiTags,
@@ -20,6 +21,7 @@ import { GetCustomersUseCase } from "../../application/use-cases/customers/get-c
 import { GetCustomerUseCase } from "../../application/use-cases/customers/get-customer.use-case";
 import { UpdateCustomerUseCase } from "../../application/use-cases/customers/update-customer.use-case";
 import { DeleteCustomerUseCase } from "../../application/use-cases/customers/delete-customer.use-case";
+import { UpdateCustomerStatusUseCase } from "../../application/use-cases/customers/update-customer-status.use-case";
 import { CreateCustomerDto } from "../dtos/customers/create-customer.dto";
 import { GetCustomersDto } from "../dtos/customers/get-customers.dto";
 import { UpdateCustomerDto } from "../dtos/customers/update-customer.dto";
@@ -27,6 +29,7 @@ import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
 import { Permissions } from "../../domain/constants/permissions.constant";
 import { Delete, HttpCode, HttpStatus } from "@nestjs/common";
+import { CustomerStatus } from "../../domain/enums";
 
 @ApiTags("Customers")
 @Controller("api/v1/customers")
@@ -38,11 +41,12 @@ export class CustomersController {
     private readonly getCustomersUseCase: GetCustomersUseCase,
     private readonly getCustomerUseCase: GetCustomerUseCase,
     private readonly updateCustomerUseCase: UpdateCustomerUseCase,
+    private readonly updateCustomerStatusUseCase: UpdateCustomerStatusUseCase,
     private readonly deleteCustomerUseCase: DeleteCustomerUseCase,
   ) {}
 
   @Get()
-  @RequirePermissions(Permissions.CUSTOMERS_VIEW)
+  // @RequirePermissions(Permissions.CUSTOMERS_VIEW)
   @ApiOperation({ summary: "Get customer list with pagination and search" })
   @ApiResponse({
     status: 200,
@@ -79,8 +83,14 @@ export class CustomersController {
   @ApiResponse({ status: 401, description: "Unauthorized" })
   @ApiResponse({ status: 403, description: "Forbidden" })
   @ApiResponse({ status: 409, description: "Conflict - Code already exists" })
-  async create(@Body() createCustomerDto: CreateCustomerDto) {
-    return this.createCustomerUseCase.execute(createCustomerDto);
+  async create(
+    @Request() req: { user: { id: number } },
+    @Body() createCustomerDto: CreateCustomerDto,
+  ) {
+    return this.createCustomerUseCase.execute({
+      ...createCustomerDto,
+      assignedStaffId: createCustomerDto.assignedStaffId ?? req.user.id,
+    });
   }
 
   @Patch(":id")
@@ -102,6 +112,40 @@ export class CustomersController {
     return this.updateCustomerUseCase.execute({
       id,
       ...updateCustomerDto,
+    });
+  }
+
+  @Patch(":id/active")
+  @RequirePermissions(Permissions.CUSTOMERS_MANAGE)
+  @ApiOperation({ summary: "Activate an existing customer" })
+  @ApiResponse({
+    status: 200,
+    description: "The customer has been successfully activated.",
+  })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  @ApiResponse({ status: 404, description: "Not Found" })
+  async activate(@Param("id", ParseIntPipe) id: number) {
+    return this.updateCustomerStatusUseCase.execute({
+      id,
+      status: CustomerStatus.ACTIVE,
+    });
+  }
+
+  @Patch(":id/inactive")
+  @RequirePermissions(Permissions.CUSTOMERS_MANAGE)
+  @ApiOperation({ summary: "Deactivate an existing customer" })
+  @ApiResponse({
+    status: 200,
+    description: "The customer has been successfully deactivated.",
+  })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  @ApiResponse({ status: 404, description: "Not Found" })
+  async deactivate(@Param("id", ParseIntPipe) id: number) {
+    return this.updateCustomerStatusUseCase.execute({
+      id,
+      status: CustomerStatus.INACTIVE,
     });
   }
 

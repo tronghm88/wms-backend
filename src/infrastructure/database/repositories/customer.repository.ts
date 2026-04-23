@@ -1,11 +1,17 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
-import { Customer as PrismaCustomer, Prisma } from "@prisma/client";
+import {
+  Customer as PrismaCustomer,
+  Prisma,
+  CustomerType as PrismaCustomerType,
+  CustomerStatus as PrismaCustomerStatus,
+} from "@prisma/client";
 import {
   FindCustomersParams,
   ICustomerRepository,
 } from "../../../domain/contracts/customer.repository.interface";
 import { CustomerEntity } from "../../../domain/entities/customer.entity";
+import { CustomerType, CustomerStatus } from "../../../domain/enums";
 
 @Injectable()
 export class CustomerRepository implements ICustomerRepository {
@@ -19,6 +25,14 @@ export class CustomerRepository implements ICustomerRepository {
       address: customer.address ?? undefined,
       phone: customer.phone ?? undefined,
       email: customer.email ?? undefined,
+      type: (customer.type as unknown as CustomerType) ?? undefined,
+      status: customer.status as unknown as CustomerStatus,
+      companyName: customer.companyName ?? undefined,
+      taxCode: customer.taxCode ?? undefined,
+      contactPerson: customer.contactPerson ?? undefined,
+      billingAddress: customer.billingAddress ?? undefined,
+      shippingAddress: customer.shippingAddress ?? undefined,
+      assignedStaffId: customer.assignedStaffId ?? undefined,
       note: customer.note ?? undefined,
       createdAt: customer.createdAt,
       updatedAt: customer.updatedAt,
@@ -90,6 +104,14 @@ export class CustomerRepository implements ICustomerRepository {
         address: customer.address,
         phone: customer.phone,
         email: customer.email,
+        type: customer.type as unknown as PrismaCustomerType,
+        status: customer.status as unknown as PrismaCustomerStatus,
+        companyName: customer.companyName,
+        taxCode: customer.taxCode,
+        contactPerson: customer.contactPerson,
+        billingAddress: customer.billingAddress,
+        shippingAddress: customer.shippingAddress,
+        assignedStaffId: customer.assignedStaffId,
         note: customer.note,
       },
     });
@@ -108,6 +130,14 @@ export class CustomerRepository implements ICustomerRepository {
         address: customer.address,
         phone: customer.phone,
         email: customer.email,
+        type: customer.type as unknown as PrismaCustomerType,
+        status: customer.status as unknown as PrismaCustomerStatus,
+        companyName: customer.companyName,
+        taxCode: customer.taxCode,
+        contactPerson: customer.contactPerson,
+        billingAddress: customer.billingAddress,
+        shippingAddress: customer.shippingAddress,
+        assignedStaffId: customer.assignedStaffId,
         note: customer.note,
       },
     });

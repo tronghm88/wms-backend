@@ -34,3 +34,15 @@ export enum StockMovementType {
   SPLIT_OUT = "SPLIT_OUT",
   ADJUST = "ADJUST",
 }
+
+export enum CustomerType {
+  ENTERPRISE = "ENTERPRISE",
+  AGENCY = "AGENCY",
+  RETAIL = "RETAIL",
+  VIP = "VIP",
+}
+
+export enum CustomerStatus {
+  ACTIVE = "ACTIVE",
+  INACTIVE = "INACTIVE",
+}

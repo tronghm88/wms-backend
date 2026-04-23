@@ -9,7 +9,13 @@ import {
   Get,
   Delete,
   HttpCode,
+  UseInterceptors,
 } from "@nestjs/common";
+import {
+  CacheInterceptor,
+  CacheKey,
+  CacheTTL,
+} from "@nestjs/cache-manager";
 import {
   ApiTags,
   ApiOperation,
@@ -45,6 +51,9 @@ export class ProductsController {
   ) {}
 
   @Get()
+  @UseInterceptors(CacheInterceptor)
+  @CacheKey("products:all")
+  @CacheTTL(300000) // 5 minutes in milliseconds
   @RequirePermissions(Permissions.PRODUCTS_VIEW)
   @ApiOperation({ summary: "List all products" })
   @ApiResponse({

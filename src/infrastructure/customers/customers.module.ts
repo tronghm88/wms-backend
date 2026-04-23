@@ -7,6 +7,7 @@ import { GetCustomersUseCase } from "../../application/use-cases/customers/get-c
 import { GetCustomerUseCase } from "../../application/use-cases/customers/get-customer.use-case";
 import { UpdateCustomerUseCase } from "../../application/use-cases/customers/update-customer.use-case";
 import { DeleteCustomerUseCase } from "../../application/use-cases/customers/delete-customer.use-case";
+import { UpdateCustomerStatusUseCase } from "../../application/use-cases/customers/update-customer-status.use-case";
 import { CustomersController } from "../../presentation/controllers/customers.controller";
 
 @Module({
@@ -21,6 +22,7 @@ import { CustomersController } from "../../presentation/controllers/customers.co
     GetCustomersUseCase,
     GetCustomerUseCase,
     UpdateCustomerUseCase,
+    UpdateCustomerStatusUseCase,
     DeleteCustomerUseCase,
   ],
   exports: [
@@ -29,6 +31,7 @@ import { CustomersController } from "../../presentation/controllers/customers.co
     GetCustomersUseCase,
     GetCustomerUseCase,
     UpdateCustomerUseCase,
+    UpdateCustomerStatusUseCase,
     DeleteCustomerUseCase,
   ],
 })

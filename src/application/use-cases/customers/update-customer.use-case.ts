@@ -6,24 +6,41 @@ import {
   CustomerNotFoundException,
 } from "../../../domain/exceptions/customer.exceptions";
 
+import { CustomerType, CustomerStatus } from "../../../domain/enums";
+
 export interface UpdateCustomerRequest {
   id: number;
   code?: string;
   name?: string;
+  type?: CustomerType;
+  companyName?: string;
+  taxCode?: string;
+  contactPerson?: string;
   address?: string;
+  billingAddress?: string;
+  shippingAddress?: string;
   phone?: string;
   email?: string;
   note?: string;
+  assignedStaffId?: number;
 }
 
 export interface UpdateCustomerResponse {
   id: number;
   code: string;
   name: string;
+  type?: CustomerType;
+  status: CustomerStatus;
+  companyName?: string;
+  taxCode?: string;
+  contactPerson?: string;
   address?: string;
+  billingAddress?: string;
+  shippingAddress?: string;
   phone?: string;
   email?: string;
   note?: string;
+  assignedStaffId?: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -53,20 +70,35 @@ export class UpdateCustomerUseCase {
     const updated = await this.customerRepository.update(request.id, {
       code: request.code,
       name: request.name,
+      type: request.type,
+      companyName: request.companyName,
+      taxCode: request.taxCode,
+      contactPerson: request.contactPerson,
       address: request.address,
+      billingAddress: request.billingAddress,
+      shippingAddress: request.shippingAddress,
       phone: request.phone,
       email: request.email,
       note: request.note,
+      assignedStaffId: request.assignedStaffId,
     });
 
     return {
       id: updated.id,
       code: updated.code,
       name: updated.name,
+      type: updated.type,
+      status: updated.status,
+      companyName: updated.companyName,
+      taxCode: updated.taxCode,
+      contactPerson: updated.contactPerson,
       address: updated.address,
+      billingAddress: updated.billingAddress,
+      shippingAddress: updated.shippingAddress,
       phone: updated.phone,
       email: updated.email,
       note: updated.note,
+      assignedStaffId: updated.assignedStaffId,
       createdAt: updated.createdAt,
       updatedAt: updated.updatedAt,
     };
