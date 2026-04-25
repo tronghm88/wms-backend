@@ -35,10 +35,14 @@ export class LoginUseCase {
     @Inject(PASSWORD_HASHER) private readonly passwordHasher: IPasswordHasher,
     @Inject(TOKEN_SERVICE) private readonly tokenService: ITokenService,
     @Inject(CACHE_SERVICE) private readonly cacheService: ICacheService,
-  ) {}
+  ) { }
 
   async execute(request: LoginRequest): Promise<LoginResponse> {
-    const user = await this.userRepository.findByEmail(request.email);
+    const isEmail = request.email.includes("@");
+    const user = isEmail
+      ? await this.userRepository.findByEmail(request.email)
+      : await this.userRepository.findByUsername(request.email);
+
     if (!user) {
       throw new InvalidCredentialsException();
     }
