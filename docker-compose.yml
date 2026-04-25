@@ -9,8 +9,10 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       POSTGRES_DB: ${POSTGRES_DB:-wms}
-    ports:
-      - "5432:5432"
+    # ports:
+    #   - "5432:5432"
+    networks:
+      - internal
     volumes:
       - pg_data:/var/lib/postgresql/data
     healthcheck:
@@ -23,10 +25,12 @@ services:
     image: redis:7-alpine
     container_name: wms-redis
     restart: always
-    ports:
-      - "6379:6379"
+    # ports:
+    #   - "6379:6379"
     volumes:
       - redis_data:/data
+    networks:
+      - internal
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
@@ -42,10 +46,11 @@ services:
     ports:
       - "4000:3000"
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=${NODE_ENV}
       - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-wms}?schema=public
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - REDIS_URL=${REDIS_URL:-redis://redis:6379}
       - JWT_SECRET=${JWT_SECRET:-default_jwt_secret_key_change_me}
       - ADMIN_EMAIL=${ADMIN_EMAIL}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
@@ -54,7 +59,13 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    networks:
+      - internal
 
 volumes:
   pg_data:
   redis_data:
+
+networks:
+  internal:
+    driver: bridge

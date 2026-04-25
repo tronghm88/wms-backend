@@ -34,5 +34,5 @@ COPY --from=builder /app/dist ./dist
 # Expose the port the NestJS application runs on
 EXPOSE 3000
 
-# Run Prisma schema migrations and start the app
-CMD ["sh", "-c", "npx prisma migrate deploy && npm run start"]
+# Run Prisma schema migrations, seed admin account, and start the app
+CMD ["sh", "-c", "npx prisma migrate deploy && npm run start:prod"]
