@@ -20,6 +20,10 @@ export interface UpdateProductRequest {
   categoryId?: number;
   baseUnit?: string;
   basePrice?: string;
+  costPrice?: string;
+  reorderThreshold?: string;
+  description?: string;
+  specText?: string;
   length?: string;
   width?: string;
   height?: string;
@@ -33,9 +37,13 @@ export interface UpdateProductResponse {
   categoryId: number;
   baseUnit: string;
   basePrice: string;
-  length?: string;
-  width?: string;
-  height?: string;
+  costPrice?: string;
+  reorderThreshold: string;
+  description?: string;
+  specText?: string;
+  length: string | null;
+  width: string | null;
+  height: string | null;
   parentProductId?: number;
   createdAt: Date;
   updatedAt: Date;
@@ -95,16 +103,34 @@ export class UpdateProductUseCase {
       product.basePrice = new Decimal(request.basePrice);
     }
 
+    if (request.costPrice !== undefined) {
+      product.costPrice = request.costPrice
+        ? new Decimal(request.costPrice)
+        : null;
+    }
+
+    if (request.reorderThreshold !== undefined) {
+      product.reorderThreshold = new Decimal(request.reorderThreshold);
+    }
+
+    if (request.description !== undefined) {
+      product.description = request.description;
+    }
+
+    if (request.specText !== undefined) {
+      product.specText = request.specText;
+    }
+
     if (request.length !== undefined) {
-      product.length = request.length ? new Decimal(request.length) : undefined;
+      product.length = request.length ? new Decimal(request.length) : null;
     }
 
     if (request.width !== undefined) {
-      product.width = request.width ? new Decimal(request.width) : undefined;
+      product.width = request.width ? new Decimal(request.width) : null;
     }
 
     if (request.height !== undefined) {
-      product.height = request.height ? new Decimal(request.height) : undefined;
+      product.height = request.height ? new Decimal(request.height) : null;
     }
 
     if (request.parentProductId !== undefined) {
@@ -120,9 +146,13 @@ export class UpdateProductUseCase {
       categoryId: updated.categoryId,
       baseUnit: updated.baseUnit,
       basePrice: updated.basePrice.toFixed(3),
-      length: updated.length?.toFixed(3),
-      width: updated.width?.toFixed(3),
-      height: updated.height?.toFixed(3),
+      costPrice: updated.costPrice?.toFixed(3),
+      reorderThreshold: updated.reorderThreshold.toFixed(3),
+      description: updated.description ?? undefined,
+      specText: updated.specText ?? undefined,
+      length: updated.length ? updated.length.toFixed(3) : null,
+      width: updated.width ? updated.width.toFixed(3) : null,
+      height: updated.height ? updated.height.toFixed(3) : null,
       parentProductId: updated.parentProductId,
       createdAt: updated.createdAt,
       updatedAt: updated.updatedAt,

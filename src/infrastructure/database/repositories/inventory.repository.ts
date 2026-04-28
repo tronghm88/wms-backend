@@ -72,13 +72,13 @@ export class InventoryRepository implements IInventoryRepository {
       unitCode: stock.unitCode,
       length: stock.product.length
         ? new Decimal(stock.product.length.toString())
-        : undefined,
+        : null,
       width: stock.product.width
         ? new Decimal(stock.product.width.toString())
-        : undefined,
+        : null,
       height: stock.product.height
         ? new Decimal(stock.product.height.toString())
-        : undefined,
+        : null,
       lastUpdated: stock.lastUpdated,
     }));
   }

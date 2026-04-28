@@ -6,10 +6,12 @@ import { UnitCodeAlreadyExistsException } from "../../../domain/exceptions/unit.
 
 export interface CreateUnitRequest {
   code: string;
+  label: string;
 }
 
 export interface CreateUnitResponse {
   code: string;
+  label: string;
 }
 
 @Injectable()
@@ -26,12 +28,14 @@ export class CreateUnitUseCase {
 
     const newUnit = new UnitEntity({
       code: request.code,
+      label: request.label,
     });
 
     const createdUnit = await this.unitRepository.create(newUnit);
 
     return {
       code: createdUnit.code,
+      label: createdUnit.label,
     };
   }
 }

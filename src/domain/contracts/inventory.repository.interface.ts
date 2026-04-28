@@ -21,9 +21,9 @@ export interface InventorySnapshotItem {
   categoryName: string;
   quantity: Decimal;
   unitCode: string;
-  length?: Decimal;
-  width?: Decimal;
-  height?: Decimal;
+  length: Decimal | null;
+  width: Decimal | null;
+  height: Decimal | null;
   weight?: Decimal;
   lastUpdated: Date;
 }

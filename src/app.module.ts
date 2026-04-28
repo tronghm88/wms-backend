@@ -15,8 +15,8 @@ import { IssueTicketsModule } from "./infrastructure/issue-tickets/issue-tickets
 import { SplitTicketsModule } from "./infrastructure/split-tickets/split-tickets.module";
 import { StockModule } from "./infrastructure/stock/stock.module";
 import { Keyv } from "keyv";
-import KeyvRedis from '@keyv/redis';
-import { KeyvCacheableMemory } from 'cacheable';
+import KeyvRedis from "@keyv/redis";
+import { KeyvCacheableMemory } from "cacheable";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { CacheModule } from "@nestjs/cache-manager";
 
@@ -57,4 +57,4 @@ import { CacheModule } from "@nestjs/cache-manager";
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

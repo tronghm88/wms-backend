@@ -37,20 +37,25 @@ describe("CreateUnitUseCase", () => {
   });
 
   it("should create a unit successfully", async () => {
-    const request = { code: "kg" };
+    const request = { code: "kg", label: "Kilogram" };
     repository.findByCode.mockResolvedValue(null);
-    repository.create.mockResolvedValue(new UnitEntity({ code: "kg" }));
+    repository.create.mockResolvedValue(
+      new UnitEntity({ code: "kg", label: "Kilogram" }),
+    );
 
     const result = await useCase.execute(request);
 
     expect(result.code).toBe("kg");
+    expect(result.label).toBe("Kilogram");
     expect(repository.findByCode).toHaveBeenCalledWith("kg");
     expect(repository.create).toHaveBeenCalled();
   });
 
   it("should throw UnitCodeAlreadyExistsException if code exists", async () => {
-    const request = { code: "kg" };
-    repository.findByCode.mockResolvedValue(new UnitEntity({ code: "kg" }));
+    const request = { code: "kg", label: "Kilogram" };
+    repository.findByCode.mockResolvedValue(
+      new UnitEntity({ code: "kg", label: "Kilogram" }),
+    );
 
     await expect(useCase.execute(request)).rejects.toThrow(
       UnitCodeAlreadyExistsException,

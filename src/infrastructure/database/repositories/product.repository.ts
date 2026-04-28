@@ -1,7 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
-import { Product as PrismaProduct } from "@prisma/client";
-import { IProductRepository } from "../../../domain/contracts/product.repository.interface";
+import { Product as PrismaProduct, Prisma } from "@prisma/client";
+import {
+  IProductRepository,
+  FindAllProductsFilters,
+  ProductStats,
+} from "../../../domain/contracts/product.repository.interface";
 import { ProductEntity } from "../../../domain/entities/product.entity";
 import { ProductLineageEntity } from "../../../domain/entities/product-lineage.entity";
 import { SplitTicketEntity } from "../../../domain/entities/split-ticket.entity";
@@ -26,13 +30,15 @@ export class ProductRepository implements IProductRepository {
       categoryName: product.category.name,
       baseUnit: product.baseUnit,
       basePrice: new Decimal(product.basePrice.toString()),
-      length: product.length
-        ? new Decimal(product.length.toString())
-        : undefined,
-      width: product.width ? new Decimal(product.width.toString()) : undefined,
-      height: product.height
-        ? new Decimal(product.height.toString())
-        : undefined,
+      length: product.length ? new Decimal(product.length.toString()) : null,
+      width: product.width ? new Decimal(product.width.toString()) : null,
+      height: product.height ? new Decimal(product.height.toString()) : null,
+      description: product.description,
+      specText: product.specText,
+      costPrice: product.costPrice
+        ? new Decimal(product.costPrice.toString())
+        : null,
+      reorderThreshold: new Decimal(product.reorderThreshold.toString()),
       parentProductId: product.parentProductId ?? undefined,
       createdAt: product.createdAt,
       updatedAt: product.updatedAt,
@@ -69,11 +75,89 @@ export class ProductRepository implements IProductRepository {
     return this.mapToDomain(product);
   }
 
-  async findAll(): Promise<ProductEntity[]> {
+  async findAll(filters?: FindAllProductsFilters): Promise<ProductEntity[]> {
+    let where: Prisma.ProductWhereInput = {};
+
+    if (filters?.lowStock) {
+      // Find IDs of products with low stock (quantity <= reorder_threshold OR quantity IS NULL)
+      const lowStockProducts = await this.prisma.$queryRaw<{ id: number }[]>`
+        SELECT p.id
+        FROM products p
+        LEFT JOIN inventories i ON p.id = i.product_id
+        WHERE i.quantity IS NULL OR i.quantity <= p.reorder_threshold
+      `;
+      const lowStockProductIds = lowStockProducts.map((p) => p.id);
+
+      // If no products match, return empty array immediately
+      if (lowStockProductIds.length === 0) {
+        return [];
+      }
+
+      where = {
+        id: { in: lowStockProductIds },
+      };
+    }
+    if (filters?.keyword) {
+      where.OR = [
+        { code: { contains: filters.keyword, mode: "insensitive" } },
+        { name: { contains: filters.keyword, mode: "insensitive" } },
+      ];
+    }
+
+    if (filters?.categoryId) {
+      where.categoryId = filters.categoryId;
+    }
+
+    if (filters?.baseUnit) {
+      where.baseUnit = filters.baseUnit;
+    }
+
     const products = await this.prisma.product.findMany({
+      where,
       include: { category: true },
     });
     return products.map((p) => this.mapToDomain(p));
+  }
+
+  async getStats(): Promise<ProductStats> {
+    const result = await this.prisma.$queryRaw<
+      Array<{
+        total: bigint;
+        low_stock: bigint;
+        receipted_today: bigint;
+        issued_today: bigint;
+      }>
+    >`
+      SELECT
+        (SELECT COUNT(*) FROM products) AS total,
+        (
+          SELECT COUNT(*)
+          FROM products p
+          LEFT JOIN inventories i ON p.id = i.product_id
+          WHERE i.quantity IS NULL OR i.quantity <= p.reorder_threshold
+        ) AS low_stock,
+        (
+          SELECT COUNT(DISTINCT rtl.product_id)
+          FROM receipt_ticket_lines rtl
+          JOIN receipt_tickets rt ON rtl.ticket_id = rt.id
+          WHERE DATE_TRUNC('day', rt.created_at) = DATE_TRUNC('day', NOW())
+        ) AS receipted_today,
+        (
+          SELECT COUNT(DISTINCT itl.product_id)
+          FROM issue_ticket_lines itl
+          JOIN issue_tickets it ON itl.ticket_id = it.id
+          WHERE DATE_TRUNC('day', it.created_at) = DATE_TRUNC('day', NOW())
+        ) AS issued_today
+    `;
+
+    const stats = result[0];
+
+    return {
+      total: Number(stats?.total || 0),
+      lowStock: Number(stats?.low_stock || 0),
+      receiptedToday: Number(stats?.receipted_today || 0),
+      issuedToday: Number(stats?.issued_today || 0),
+    };
   }
 
   async create(
@@ -86,9 +170,13 @@ export class ProductRepository implements IProductRepository {
         categoryId: product.categoryId,
         baseUnit: product.baseUnit,
         basePrice: product.basePrice.toString(),
-        length: product.length?.toString(),
-        width: product.width?.toString(),
-        height: product.height?.toString(),
+        costPrice: product.costPrice?.toString(),
+        reorderThreshold: product.reorderThreshold.toString(),
+        description: product.description,
+        specText: product.specText,
+        length: product.length ? product.length.toString() : null,
+        width: product.width ? product.width.toString() : null,
+        height: product.height ? product.height.toString() : null,
         parentProductId: product.parentProductId,
       },
       include: { category: true },
@@ -108,9 +196,13 @@ export class ProductRepository implements IProductRepository {
         categoryId: product.categoryId,
         baseUnit: product.baseUnit,
         basePrice: product.basePrice?.toString(),
-        length: product.length?.toString(),
-        width: product.width?.toString(),
-        height: product.height?.toString(),
+        costPrice: product.costPrice?.toString(),
+        reorderThreshold: product.reorderThreshold?.toString(),
+        description: product.description,
+        specText: product.specText,
+        length: product.length === null ? null : product.length?.toString(),
+        width: product.width === null ? null : product.width?.toString(),
+        height: product.height === null ? null : product.height?.toString(),
         parentProductId: product.parentProductId,
       },
       include: { category: true },

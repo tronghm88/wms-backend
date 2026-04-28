@@ -11,6 +11,7 @@ export class UnitRepository implements IUnitRepository {
   private mapToDomain(unit: PrismaUnit): UnitEntity {
     return new UnitEntity({
       code: unit.code,
+      label: unit.label,
     });
   }
 
@@ -32,6 +33,7 @@ export class UnitRepository implements IUnitRepository {
     const createdUnit = await this.prisma.unit.create({
       data: {
         code: unit.code,
+        label: unit.label,
       },
     });
     return this.mapToDomain(createdUnit);
@@ -42,6 +44,7 @@ export class UnitRepository implements IUnitRepository {
       where: { code },
       data: {
         code: unit.code,
+        label: unit.label,
       },
     });
     return this.mapToDomain(updatedUnit);

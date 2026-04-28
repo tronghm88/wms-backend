@@ -9,4 +9,12 @@ export class CreateUnitDto {
   @IsNotEmpty()
   @IsString()
   code: string;
+
+  @ApiProperty({
+    example: "Kilogram",
+    description: "The display label of the unit",
+  })
+  @IsNotEmpty()
+  @IsString()
+  label: string;
 }

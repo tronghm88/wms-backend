@@ -56,9 +56,9 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
         new ReceiptTicketLineEntity({
           ...line,
           quantity: line.quantity,
-          lengthM: line.lengthM ?? undefined,
-          areaM2: line.areaM2 ?? undefined,
-          weightKg: line.weightKg ?? undefined,
+          lengthM: line.lengthM,
+          areaM2: line.areaM2,
+          weightKg: line.weightKg,
         }),
     );
 
@@ -212,15 +212,11 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
           new ReceiptTicketLineEntity({
             ...line,
             quantity: new Decimal(line.quantity.toString()),
-            lengthM: line.lengthM
-              ? new Decimal(line.lengthM.toString())
-              : undefined,
-            areaM2: line.areaM2
-              ? new Decimal(line.areaM2.toString())
-              : undefined,
+            lengthM: line.lengthM ? new Decimal(line.lengthM.toString()) : null,
+            areaM2: line.areaM2 ? new Decimal(line.areaM2.toString()) : null,
             weightKg: line.weightKg
               ? new Decimal(line.weightKg.toString())
-              : undefined,
+              : null,
           }),
       );
       return Object.assign(entity, { lines: lineEntities });
@@ -269,9 +265,9 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
     return new ReceiptTicketLineEntity({
       ...newLine,
       quantity: newLine.quantity,
-      lengthM: newLine.lengthM ?? undefined,
-      areaM2: newLine.areaM2 ?? undefined,
-      weightKg: newLine.weightKg ?? undefined,
+      lengthM: newLine.lengthM,
+      areaM2: newLine.areaM2,
+      weightKg: newLine.weightKg,
     });
   }
 
@@ -326,13 +322,11 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
         quantity: new Decimal(newLine.quantity.toString()),
         lengthM: newLine.lengthM
           ? new Decimal(newLine.lengthM.toString())
-          : undefined,
-        areaM2: newLine.areaM2
-          ? new Decimal(newLine.areaM2.toString())
-          : undefined,
+          : null,
+        areaM2: newLine.areaM2 ? new Decimal(newLine.areaM2.toString()) : null,
         weightKg: newLine.weightKg
           ? new Decimal(newLine.weightKg.toString())
-          : undefined,
+          : null,
       });
     });
   }
@@ -345,9 +339,9 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
     return new ReceiptTicketLineEntity({
       ...line,
       quantity: line.quantity,
-      lengthM: line.lengthM ?? undefined,
-      areaM2: line.areaM2 ?? undefined,
-      weightKg: line.weightKg ?? undefined,
+      lengthM: line.lengthM,
+      areaM2: line.areaM2,
+      weightKg: line.weightKg,
     });
   }
 
@@ -370,9 +364,9 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
     return new ReceiptTicketLineEntity({
       ...updatedLine,
       quantity: updatedLine.quantity,
-      lengthM: updatedLine.lengthM ?? undefined,
-      areaM2: updatedLine.areaM2 ?? undefined,
-      weightKg: updatedLine.weightKg ?? undefined,
+      lengthM: updatedLine.lengthM,
+      areaM2: updatedLine.areaM2,
+      weightKg: updatedLine.weightKg,
     });
   }
 
@@ -553,13 +547,13 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
         quantity: new Decimal(updatedLine.quantity.toString()),
         lengthM: updatedLine.lengthM
           ? new Decimal(updatedLine.lengthM.toString())
-          : undefined,
+          : null,
         areaM2: updatedLine.areaM2
           ? new Decimal(updatedLine.areaM2.toString())
-          : undefined,
+          : null,
         weightKg: updatedLine.weightKg
           ? new Decimal(updatedLine.weightKg.toString())
-          : undefined,
+          : null,
       });
     });
   }

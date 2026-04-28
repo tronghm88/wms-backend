@@ -4,6 +4,7 @@ import {
   IsNumberString,
   IsOptional,
   IsString,
+  MaxLength,
 } from "class-validator";
 
 export class UpdateProductDto {
@@ -70,6 +71,40 @@ export class UpdateProductDto {
   @IsOptional()
   @IsNumberString()
   height?: string;
+
+  @ApiPropertyOptional({
+    example: "This is a detailed description of the product.",
+    description: "The description of the product",
+  })
+  @IsOptional()
+  @IsString()
+  description?: string;
+
+  @ApiPropertyOptional({
+    example: "ASTM A36",
+    description: "The specification text of the product",
+  })
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  specText?: string;
+
+  @ApiPropertyOptional({
+    example: "120.000",
+    description: "The cost price of the product (string for decimal precision)",
+  })
+  @IsOptional()
+  @IsNumberString()
+  costPrice?: string;
+
+  @ApiPropertyOptional({
+    example: "10.000",
+    description:
+      "The reorder threshold quantity (string for decimal precision)",
+  })
+  @IsOptional()
+  @IsNumberString()
+  reorderThreshold?: string;
 
   @ApiPropertyOptional({
     example: 1,

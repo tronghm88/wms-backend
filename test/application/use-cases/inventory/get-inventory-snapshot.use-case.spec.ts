@@ -19,6 +19,9 @@ describe("GetInventorySnapshotUseCase", () => {
     categoryName: "Test Category",
     quantity: new Decimal("50.123"),
     unitCode: "kg",
+    length: null,
+    width: null,
+    height: null,
     lastUpdated: new Date(),
   };
 
@@ -61,6 +64,9 @@ describe("GetInventorySnapshotUseCase", () => {
       categoryName: mockSnapshotItem.categoryName,
       quantity: "50.123",
       unitCode: mockSnapshotItem.unitCode,
+      length: null,
+      width: null,
+      height: null,
       lastUpdated: mockSnapshotItem.lastUpdated,
     });
   });

@@ -36,6 +36,7 @@ describe("GetProductUseCase", () => {
       delete: jest.fn(),
       hasHistory: jest.fn(),
       findLineage: jest.fn(),
+      getStats: jest.fn(),
     };
 
     const module: TestingModule = await Test.createTestingModule({

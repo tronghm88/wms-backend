@@ -23,7 +23,12 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "seed:admin": "node dist/seed-admin",
-    "seed:admin:dev": "ts-node src/seed-admin.ts"
+    "seed:admin:dev": "ts-node src/seed-admin.ts",
+    "seed:categories": "node dist/seed-categories",
+    "seed:categories:dev": "ts-node src/seed-categories.ts",
+    "seed:units": "node dist/seed-units",
+    "seed:units:dev": "ts-node src/seed-units.ts",
+    "seed:products:dev": "ts-node src/seed-products.ts"
   },
   "dependencies": {
     "@keyv/redis": "^5.1.6",

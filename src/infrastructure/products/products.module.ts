@@ -9,11 +9,21 @@ import { UpdateProductUseCase } from "../../application/use-cases/products/updat
 import { ListProductsUseCase } from "../../application/use-cases/products/list-products.use-case";
 import { GetProductUseCase } from "../../application/use-cases/products/get-product.use-case";
 import { GetProductLineageUseCase } from "../../application/use-cases/products/get-product-lineage.use-case";
+import { GetProductStatsUseCase } from "../../application/use-cases/products/get-product-stats.use-case";
 import { DeleteProductUseCase } from "../../application/use-cases/products/delete-product.use-case";
 import { ProductsController } from "../../presentation/controllers/products.controller";
+import { StockModule } from "../stock/stock.module";
+import { UnitConversionsModule } from "../unit-conversions/unit-conversions.module";
+import { forwardRef } from "@nestjs/common";
 
 @Module({
-  imports: [PrismaModule, CategoriesModule, UnitsModule],
+  imports: [
+    PrismaModule,
+    CategoriesModule,
+    UnitsModule,
+    StockModule,
+    forwardRef(() => UnitConversionsModule),
+  ],
   controllers: [ProductsController],
   providers: [
     {
@@ -25,6 +35,7 @@ import { ProductsController } from "../../presentation/controllers/products.cont
     ListProductsUseCase,
     GetProductUseCase,
     GetProductLineageUseCase,
+    GetProductStatsUseCase,
     DeleteProductUseCase,
   ],
   exports: [
@@ -34,6 +45,7 @@ import { ProductsController } from "../../presentation/controllers/products.cont
     ListProductsUseCase,
     GetProductUseCase,
     GetProductLineageUseCase,
+    GetProductStatsUseCase,
     DeleteProductUseCase,
   ],
 })

@@ -49,9 +49,9 @@ export class CreateReceiptTicketUseCase {
       productId: number;
       quantity: Decimal;
       unitCode: string;
-      lengthM?: Decimal;
-      areaM2?: Decimal;
-      weightKg?: Decimal;
+      lengthM: Decimal | null;
+      areaM2: Decimal | null;
+      weightKg: Decimal | null;
     }> = [];
 
     if (dto.lines && dto.lines.length > 0) {

@@ -89,7 +89,8 @@ model User {
 // ──────────────────────────────────────────────
 
 model Unit {
-  code String @id // e.g., 'm2', 'kg', 'ton', 'package'
+  code  String @id // e.g., 'm2', 'kg', 'ton', 'package'
+  label String
 
   fromConversions    UnitConversion[]    @relation("FromUnit")
   toConversions      UnitConversion[]    @relation("ToUnit")
@@ -127,12 +128,17 @@ model CategorySize {
 }
 
 model Product {
-  id         Int     @id @default(autoincrement())
-  code       String  @unique
-  name       String
-  categoryId Int     @map("category_id")
-  baseUnit   String  @map("base_unit")
-  basePrice  Decimal @map("base_price") @db.Decimal(15, 3)
+  id               Int      @id @default(autoincrement())
+  code             String   @unique
+  name             String
+  categoryId       Int      @map("category_id")
+  baseUnit         String   @map("base_unit")
+  basePrice        Decimal  @map("base_price") @db.Decimal(15, 3)
+  costPrice        Decimal? @map("cost_price") @db.Decimal(15, 3)
+  reorderThreshold Decimal  @default(0) @map("reorder_threshold") @db.Decimal(15, 3)
+
+  description String? @db.Text
+  specText    String? @map("spec_text") @db.VarChar(100)
 
   // Dynamic dimensions
   length Decimal? @db.Decimal(15, 3)

@@ -17,6 +17,10 @@ export interface CreateProductRequest {
   categoryId: number;
   baseUnit: string;
   basePrice: string;
+  costPrice?: string;
+  reorderThreshold?: string;
+  description?: string;
+  specText?: string;
   length?: string;
   width?: string;
   height?: string;
@@ -30,9 +34,13 @@ export interface CreateProductResponse {
   categoryId: number;
   baseUnit: string;
   basePrice: string;
-  length?: string;
-  width?: string;
-  height?: string;
+  costPrice?: string;
+  reorderThreshold: string;
+  description?: string;
+  specText?: string;
+  length: string | null;
+  width: string | null;
+  height: string | null;
   parentProductId?: number;
   createdAt: Date;
   updatedAt: Date;
@@ -72,9 +80,13 @@ export class CreateProductUseCase {
       categoryName: category.name,
       baseUnit: request.baseUnit,
       basePrice: new Decimal(request.basePrice),
-      length: request.length ? new Decimal(request.length) : undefined,
-      width: request.width ? new Decimal(request.width) : undefined,
-      height: request.height ? new Decimal(request.height) : undefined,
+      costPrice: request.costPrice ? new Decimal(request.costPrice) : null,
+      reorderThreshold: new Decimal(request.reorderThreshold || 0),
+      description: request.description,
+      specText: request.specText,
+      length: request.length ? new Decimal(request.length) : null,
+      width: request.width ? new Decimal(request.width) : null,
+      height: request.height ? new Decimal(request.height) : null,
       parentProductId: request.parentProductId,
     });
 
@@ -87,9 +99,13 @@ export class CreateProductUseCase {
       categoryId: created.categoryId,
       baseUnit: created.baseUnit,
       basePrice: created.basePrice.toFixed(3),
-      length: created.length?.toFixed(3),
-      width: created.width?.toFixed(3),
-      height: created.height?.toFixed(3),
+      costPrice: created.costPrice?.toFixed(3),
+      reorderThreshold: created.reorderThreshold.toFixed(3),
+      description: created.description ?? undefined,
+      specText: created.specText ?? undefined,
+      length: created.length ? created.length.toFixed(3) : null,
+      width: created.width ? created.width.toFixed(3) : null,
+      height: created.height ? created.height.toFixed(3) : null,
       parentProductId: created.parentProductId,
       createdAt: created.createdAt,
       updatedAt: created.updatedAt,

@@ -1,8 +1,8 @@
 import { Decimal } from "decimal.js";
 
 export interface ReceiptLineMetrics {
-  areaM2?: Decimal;
-  weightKg?: Decimal;
+  areaM2: Decimal | null;
+  weightKg: Decimal | null;
 }
 
 export class UnitConversionEngine {
@@ -24,12 +24,15 @@ export class UnitConversionEngine {
   static calculateReceiptLineMetrics(params: {
     unitCode: string;
     quantity: Decimal;
-    lengthM?: Decimal;
-    width?: Decimal;
-    m2ToKgFactor?: Decimal;
+    lengthM?: Decimal | null; // explicitly allow null to fix TS errors in callers
+    width?: Decimal | null;
+    m2ToKgFactor?: Decimal | null;
   }): ReceiptLineMetrics {
     const { unitCode, quantity, lengthM, width, m2ToKgFactor } = params;
-    const result: ReceiptLineMetrics = {};
+    const result: ReceiptLineMetrics = {
+      areaM2: null,
+      weightKg: null,
+    };
 
     if (unitCode === "roll") {
       if (lengthM && width) {

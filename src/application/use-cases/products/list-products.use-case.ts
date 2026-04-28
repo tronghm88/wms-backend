@@ -1,6 +1,9 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { PRODUCT_REPOSITORY } from "../../../domain/contracts/product.repository.interface";
-import type { IProductRepository } from "../../../domain/contracts/product.repository.interface";
+import type {
+  IProductRepository,
+  FindAllProductsFilters,
+} from "../../../domain/contracts/product.repository.interface";
 
 export interface ListProductsResponse {
   id: number;
@@ -10,9 +13,13 @@ export interface ListProductsResponse {
   categoryName: string;
   baseUnit: string;
   basePrice: string;
-  length?: string;
-  width?: string;
-  height?: string;
+  costPrice?: string;
+  reorderThreshold: string;
+  description?: string;
+  specText?: string;
+  length: string | null;
+  width: string | null;
+  height: string | null;
   parentProductId?: number;
   createdAt: Date;
   updatedAt: Date;
@@ -25,8 +32,10 @@ export class ListProductsUseCase {
     private readonly productRepository: IProductRepository,
   ) {}
 
-  async execute(): Promise<ListProductsResponse[]> {
-    const products = await this.productRepository.findAll();
+  async execute(
+    filters?: FindAllProductsFilters,
+  ): Promise<ListProductsResponse[]> {
+    const products = await this.productRepository.findAll(filters);
 
     return products.map((product) => ({
       id: product.id,
@@ -36,9 +45,13 @@ export class ListProductsUseCase {
       categoryName: product.categoryName,
       baseUnit: product.baseUnit,
       basePrice: product.basePrice.toFixed(3),
-      length: product.length?.toFixed(3),
-      width: product.width?.toFixed(3),
-      height: product.height?.toFixed(3),
+      costPrice: product.costPrice?.toFixed(3),
+      reorderThreshold: product.reorderThreshold.toFixed(3),
+      description: product.description ?? undefined,
+      specText: product.specText ?? undefined,
+      length: product.length ? product.length.toFixed(3) : null,
+      width: product.width ? product.width.toFixed(3) : null,
+      height: product.height ? product.height.toFixed(3) : null,
       parentProductId: product.parentProductId,
       createdAt: product.createdAt,
       updatedAt: product.updatedAt,

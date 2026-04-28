@@ -25,14 +25,30 @@ export class ProductResponseDto {
   })
   basePrice: string;
 
-  @ApiProperty({ example: "1.500", required: false, nullable: true })
-  length?: string;
+  @ApiProperty({ example: "1.500", nullable: true })
+  length: string | null;
 
-  @ApiProperty({ example: "2.000", required: false, nullable: true })
-  width?: string;
+  @ApiProperty({ example: "2.000", nullable: true })
+  width: string | null;
 
-  @ApiProperty({ example: "0.500", required: false, nullable: true })
-  height?: string;
+  @ApiProperty({ example: "0.500", nullable: true })
+  height: string | null;
+
+  @ApiProperty({
+    example: "Detailed description",
+    required: false,
+    nullable: true,
+  })
+  description?: string;
+
+  @ApiProperty({ example: "ASTM A36", required: false, nullable: true })
+  specText?: string;
+
+  @ApiProperty({ example: "120.000", required: false, nullable: true })
+  costPrice?: string;
+
+  @ApiProperty({ example: "10.000", required: true })
+  reorderThreshold: string;
 
   @ApiProperty({ example: 1, required: false, nullable: true })
   parentProductId?: number;

@@ -7,15 +7,13 @@ import {
   Param,
   ParseIntPipe,
   Get,
+  Query,
   Delete,
   HttpCode,
+  HttpStatus,
   UseInterceptors,
 } from "@nestjs/common";
-import {
-  CacheInterceptor,
-  CacheKey,
-  CacheTTL,
-} from "@nestjs/cache-manager";
+import { CacheInterceptor, CacheTTL } from "@nestjs/cache-manager";
 import {
   ApiTags,
   ApiOperation,
@@ -27,10 +25,13 @@ import { UpdateProductUseCase } from "../../application/use-cases/products/updat
 import { ListProductsUseCase } from "../../application/use-cases/products/list-products.use-case";
 import { GetProductUseCase } from "../../application/use-cases/products/get-product.use-case";
 import { GetProductLineageUseCase } from "../../application/use-cases/products/get-product-lineage.use-case";
+import { GetProductStatsUseCase } from "../../application/use-cases/products/get-product-stats.use-case";
 import { DeleteProductUseCase } from "../../application/use-cases/products/delete-product.use-case";
+import { GetProductsDto } from "../dtos/products/get-products.dto";
 import { CreateProductDto } from "../dtos/products/create-product.dto";
 import { UpdateProductDto } from "../dtos/products/update-product.dto";
 import { ProductResponseDto } from "../dtos/products/product-response.dto";
+import { ProductStatsDto } from "../dtos/products/product-stats.dto";
 import { ProductLineageResponseDto } from "../dtos/products/product-lineage-response.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
@@ -47,12 +48,12 @@ export class ProductsController {
     private readonly listProductsUseCase: ListProductsUseCase,
     private readonly getProductUseCase: GetProductUseCase,
     private readonly getProductLineageUseCase: GetProductLineageUseCase,
+    private readonly getProductStatsUseCase: GetProductStatsUseCase,
     private readonly deleteProductUseCase: DeleteProductUseCase,
   ) {}
 
   @Get()
   @UseInterceptors(CacheInterceptor)
-  @CacheKey("products:all")
   @CacheTTL(300000) // 5 minutes in milliseconds
   @RequirePermissions(Permissions.PRODUCTS_VIEW)
   @ApiOperation({ summary: "List all products" })
@@ -63,8 +64,23 @@ export class ProductsController {
   })
   @ApiResponse({ status: 401, description: "Unauthorized" })
   @ApiResponse({ status: 403, description: "Forbidden" })
-  async findAll(): Promise<ProductResponseDto[]> {
-    return await this.listProductsUseCase.execute();
+  async findAll(@Query() query: GetProductsDto): Promise<ProductResponseDto[]> {
+    return await this.listProductsUseCase.execute(query);
+  }
+
+  @Get("stats")
+  @HttpCode(HttpStatus.OK)
+  @RequirePermissions(Permissions.PRODUCTS_VIEW)
+  @ApiOperation({ summary: "Get product statistics" })
+  @ApiResponse({
+    status: 200,
+    description: "Returns product statistics.",
+    type: ProductStatsDto,
+  })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  @ApiResponse({ status: 403, description: "Forbidden" })
+  async getStats(): Promise<ProductStatsDto> {
+    return await this.getProductStatsUseCase.execute();
   }
 
   @Get(":id")
