@@ -34,6 +34,16 @@ export class CreateIssueTicketLineDto {
   @IsNumber()
   @Min(0)
   manualPrice?: number;
+
+  @ApiProperty({
+    example: "Line note",
+    description: "Line note",
+    required: false,
+  })
+  @IsOptional()
+  @IsString()
+  @MaxLength(500)
+  note?: string;
 }
 
 export class CreateIssueTicketDto {

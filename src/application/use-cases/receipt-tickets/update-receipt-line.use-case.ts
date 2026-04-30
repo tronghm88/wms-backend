@@ -118,6 +118,7 @@ export class UpdateReceiptLineUseCase {
       lengthM,
       areaM2: metrics.areaM2,
       weightKg: metrics.weightKg,
+      note: dto.note !== undefined ? dto.note : existingLine.note,
     });
 
     if (ticket.status === TransactionStatus.CONFIRMED && isAdmin) {

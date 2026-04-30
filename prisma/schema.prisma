@@ -261,6 +261,7 @@ model ReceiptTicketLine {
   lengthM  Decimal? @map("length_m") @db.Decimal(15, 3)
   areaM2   Decimal? @map("area_m2") @db.Decimal(15, 3)
   weightKg Decimal? @map("weight_kg") @db.Decimal(15, 3)
+  note     String?  @db.Text
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -304,6 +305,7 @@ model IssueTicketLine {
   lineTotal     Decimal      @map("line_total") @db.Decimal(15, 3)
   originalPrice Decimal?     @map("original_price") @db.Decimal(15, 3)
   isOverride    Boolean      @default(false) @map("is_override")
+  note          String?      @db.Text
   createdAt     DateTime     @default(now()) @map("created_at")
   updatedAt     DateTime     @updatedAt @map("updated_at")
 
@@ -342,6 +344,7 @@ model SplitTicketLine {
   quantity        Decimal  @db.Decimal(15, 3)
   unitCode        String   @map("unit_code")
   isNewProduct    Boolean  @default(false) @map("is_new_product")
+  note            String?  @db.Text
   createdAt       DateTime @default(now()) @map("created_at")
   updatedAt       DateTime @updatedAt @map("updated_at")
 

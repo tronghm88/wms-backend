@@ -52,6 +52,7 @@ export class CreateReceiptTicketUseCase {
       lengthM: Decimal | null;
       areaM2: Decimal | null;
       weightKg: Decimal | null;
+      note: string | null;
     }> = [];
 
     if (dto.lines && dto.lines.length > 0) {
@@ -92,6 +93,7 @@ export class CreateReceiptTicketUseCase {
           lengthM: line.lengthM ?? product.length,
           areaM2: metrics.areaM2,
           weightKg: metrics.weightKg,
+          note: line.note ?? null,
         });
       }
     }

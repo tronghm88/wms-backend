@@ -39,4 +39,4 @@ import { IssueTicketsController } from "../../presentation/controllers/issue-tic
     CancelIssueTicketUseCase,
   ],
 })
-export class IssueTicketsModule { }
+export class IssueTicketsModule {}

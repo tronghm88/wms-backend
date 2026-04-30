@@ -166,6 +166,7 @@ export class CreateIssueTicketUseCase {
           lineTotal: lineTotal,
           originalPrice: originalPrice,
           isOverride: isOverride,
+          note: line.note,
         }),
       );
     }

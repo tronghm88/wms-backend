@@ -97,6 +97,7 @@ export class AddReceiptLineUseCase {
       lengthM: dto.lengthM ?? product.length,
       areaM2: metrics.areaM2,
       weightKg: metrics.weightKg,
+      note: dto.note,
     });
 
     if (ticket.status === TransactionStatus.CONFIRMED && isAdmin) {

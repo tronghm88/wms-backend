@@ -19,12 +19,16 @@ export class SplitTicketLineResponseDto {
   @ApiProperty({ example: false })
   isNewProduct: boolean;
 
+  @ApiProperty({ example: "Line note", required: false })
+  note?: string | null;
+
   constructor(line: SplitTicketLineEntity) {
     this.id = line.id;
     this.targetProductId = line.targetProductId;
     this.quantity = line.quantity.toFixed(3);
     this.unitCode = line.unitCode;
     this.isNewProduct = line.isNewProduct;
+    this.note = line.note;
   }
 }
 

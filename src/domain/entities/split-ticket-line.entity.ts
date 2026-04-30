@@ -7,6 +7,7 @@ export class SplitTicketLineEntity {
   quantity: Decimal;
   unitCode: string;
   isNewProduct: boolean;
+  note: string | null;
   createdAt: Date;
   updatedAt: Date;
 
@@ -15,5 +16,6 @@ export class SplitTicketLineEntity {
     if (partial?.quantity) {
       this.quantity = new Decimal(partial.quantity);
     }
+    this.note = partial?.note ?? null;
   }
 }

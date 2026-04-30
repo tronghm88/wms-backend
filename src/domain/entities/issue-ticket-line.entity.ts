@@ -14,6 +14,7 @@ export class IssueTicketLineEntity {
   lineTotal: Decimal;
   originalPrice?: Decimal;
   isOverride: boolean = false;
+  note: string | null;
   createdAt: Date;
   updatedAt: Date;
 
@@ -27,5 +28,6 @@ export class IssueTicketLineEntity {
     if (partial?.lineTotal) this.lineTotal = new Decimal(partial.lineTotal);
     if (partial?.originalPrice)
       this.originalPrice = new Decimal(partial.originalPrice);
+    this.note = partial?.note ?? null;
   }
 }

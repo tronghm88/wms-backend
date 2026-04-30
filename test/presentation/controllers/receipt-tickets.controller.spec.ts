@@ -110,6 +110,25 @@ describe("ReceiptTicketsController", () => {
     expect(controller).toBeDefined();
   });
 
+  describe("update", () => {
+    it("should update a receipt ticket header", async () => {
+      const id = 1;
+      const user = { id: 1, role: UserRole.ADMIN };
+      const dto = {
+        note: "Updated note",
+        supplierName: "Updated Supplier",
+      };
+      const result = { id, ...dto } as unknown as ReceiptTicketEntity;
+
+      jest.spyOn(updateUseCase, "execute").mockResolvedValue(result);
+
+      const response = await controller.update(id, user, dto);
+
+      expect(updateUseCase.execute).toHaveBeenCalledWith(id, dto, true);
+      expect(response).toBeDefined();
+    });
+  });
+
   describe("findAll", () => {
     it("should list receipt tickets", async () => {
       const query = { page: 1, limit: 10 };

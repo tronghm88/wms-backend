@@ -34,6 +34,15 @@ export class ReceiptTicketDetailsResponseDto {
   @ApiProperty({ example: "2026-04-09T00:00:00Z", nullable: true })
   invoiceDate: Date | null;
 
+  @ApiProperty({ example: "Admin User" })
+  createdByName: string;
+
+  @ApiProperty({ example: 5 })
+  totalLines: number;
+
+  @ApiProperty({ example: null, nullable: true })
+  totalQuantity: string | null;
+
   @ApiProperty({ type: [ReceiptTicketLineResponseDto] })
   lines: ReceiptTicketLineResponseDto[];
 
@@ -63,6 +72,11 @@ export class ReceiptTicketDetailsResponseDto {
     this.supplierName = output.supplierName;
     this.invoiceNo = output.invoiceNo;
     this.invoiceDate = output.invoiceDate;
+    this.createdByName = output.createdByName || "";
+    this.totalLines = output.totalLines || 0;
+    this.totalQuantity = output.totalQuantity
+      ? output.totalQuantity.toString()
+      : null;
     this.lines = output.lines.map(
       (line) => new ReceiptTicketLineResponseDto(line),
     );

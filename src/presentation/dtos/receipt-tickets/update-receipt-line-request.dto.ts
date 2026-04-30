@@ -38,4 +38,12 @@ export class UpdateReceiptLineRequestDto {
   @IsOptional()
   @IsNumberString()
   lengthM?: string;
+
+  @ApiPropertyOptional({
+    example: "Updated line note",
+    description: "Line item note",
+  })
+  @IsOptional()
+  @IsString()
+  note?: string;
 }

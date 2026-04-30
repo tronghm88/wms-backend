@@ -39,4 +39,12 @@ export class AddReceiptLineRequestDto {
   @IsOptional()
   @IsNumberString()
   lengthM?: string;
+
+  @ApiPropertyOptional({
+    example: "Defect at the end of roll",
+    description: "Line item note",
+  })
+  @IsOptional()
+  @IsString()
+  note?: string;
 }

@@ -124,6 +124,7 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
               ? (line.originalPrice as unknown as Prisma.Decimal)
               : null,
             isOverride: line.isOverride,
+            note: line.note,
           })),
         },
       },
@@ -169,6 +170,7 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
                   ? (line.originalPrice as unknown as Prisma.Decimal)
                   : null,
                 isOverride: line.isOverride,
+                note: line.note,
               })),
             },
           }),
@@ -344,6 +346,7 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
               ? new Decimal(line.originalPrice.toString())
               : undefined,
             isOverride: line.isOverride,
+            note: line.note ?? undefined,
             createdAt: line.createdAt,
             updatedAt: line.updatedAt,
           }),

@@ -1,3 +1,4 @@
+import { Decimal } from "decimal.js";
 import { TransactionStatus } from "../enums";
 
 export class ReceiptTicketEntity {
@@ -12,6 +13,11 @@ export class ReceiptTicketEntity {
   invoiceDate: Date | null;
   createdAt: Date;
   updatedAt: Date;
+
+  // Metadata for list view
+  createdByName?: string;
+  totalLines?: number;
+  totalQuantity?: Decimal | null;
 
   constructor(partial?: Partial<ReceiptTicketEntity>) {
     Object.assign(this, partial);

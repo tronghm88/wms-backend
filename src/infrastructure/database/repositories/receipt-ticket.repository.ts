@@ -43,6 +43,16 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
       where: { id },
       include: {
         lines: true,
+        creator: {
+          select: {
+            fullName: true,
+          },
+        },
+        _count: {
+          select: {
+            lines: true,
+          },
+        },
       },
     });
 
@@ -55,6 +65,9 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
       supplierName: ticket.supplierName ?? null,
       invoiceNo: ticket.invoiceNo ?? null,
       invoiceDate: ticket.invoiceDate ?? null,
+      createdByName: ticket.creator.fullName,
+      totalLines: ticket._count.lines,
+      totalQuantity: null,
     });
 
     const lines = ticket.lines.map(
@@ -65,6 +78,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
           lengthM: line.lengthM,
           areaM2: line.areaM2,
           weightKg: line.weightKg,
+          note: line.note ?? null,
         }),
     );
 
@@ -147,6 +161,18 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
         skip,
         take,
         orderBy: { date: "desc" },
+        include: {
+          creator: {
+            select: {
+              fullName: true,
+            },
+          },
+          _count: {
+            select: {
+              lines: true,
+            },
+          },
+        },
       }),
       this.prisma.receiptTicket.count({ where }),
     ]);
@@ -161,6 +187,9 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
             supplierName: t.supplierName ?? null,
             invoiceNo: t.invoiceNo ?? null,
             invoiceDate: t.invoiceDate ?? null,
+            createdByName: t.creator.fullName,
+            totalLines: t._count.lines,
+            totalQuantity: null,
           }),
       ),
       total,
@@ -209,6 +238,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
           lengthM: line.lengthM as unknown as Prisma.Decimal,
           areaM2: line.areaM2 as unknown as Prisma.Decimal,
           weightKg: line.weightKg as unknown as Prisma.Decimal,
+          note: line.note,
         })),
       };
     }
@@ -238,6 +268,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
             weightKg: line.weightKg
               ? new Decimal(line.weightKg.toString())
               : null,
+            note: line.note ?? null,
           }),
       );
       return Object.assign(entity, { lines: lineEntities });
@@ -286,6 +317,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
         lengthM: line.lengthM,
         areaM2: line.areaM2,
         weightKg: line.weightKg,
+        note: line.note,
       },
     });
 
@@ -295,6 +327,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
       lengthM: newLine.lengthM,
       areaM2: newLine.areaM2,
       weightKg: newLine.weightKg,
+      note: newLine.note ?? null,
     });
   }
 
@@ -313,6 +346,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
           lengthM: line.lengthM as unknown as Prisma.Decimal,
           areaM2: line.areaM2 as unknown as Prisma.Decimal,
           weightKg: line.weightKg as unknown as Prisma.Decimal,
+          note: line.note,
         },
       });
 
@@ -354,6 +388,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
         weightKg: newLine.weightKg
           ? new Decimal(newLine.weightKg.toString())
           : null,
+        note: newLine.note ?? null,
       });
     });
   }
@@ -369,6 +404,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
       lengthM: line.lengthM,
       areaM2: line.areaM2,
       weightKg: line.weightKg,
+      note: line.note ?? null,
     });
   }
 
@@ -385,6 +421,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
         lengthM: line.lengthM,
         areaM2: line.areaM2,
         weightKg: line.weightKg,
+        note: line.note,
       },
     });
 
@@ -394,6 +431,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
       lengthM: updatedLine.lengthM,
       areaM2: updatedLine.areaM2,
       weightKg: updatedLine.weightKg,
+      note: updatedLine.note ?? null,
     });
   }
 
@@ -478,6 +516,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
           lengthM: line.lengthM as unknown as Prisma.Decimal,
           areaM2: line.areaM2 as unknown as Prisma.Decimal,
           weightKg: line.weightKg as unknown as Prisma.Decimal,
+          note: line.note,
         },
       });
 
@@ -584,6 +623,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
         weightKg: updatedLine.weightKg
           ? new Decimal(updatedLine.weightKg.toString())
           : null,
+        note: updatedLine.note ?? null,
       });
     });
   }

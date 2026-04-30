@@ -39,6 +39,9 @@ export class IssueTicketLineResponseDto {
   @ApiProperty({ example: false })
   isOverride: boolean;
 
+  @ApiPropertyOptional({ example: "Line note" })
+  note?: string | null;
+
   @ApiProperty({ example: "2026-04-11T10:00:00Z" })
   createdAt: Date;
 
@@ -58,6 +61,7 @@ export class IssueTicketLineResponseDto {
     this.lineTotal = entity.lineTotal.toFixed(3);
     this.originalPrice = entity.originalPrice?.toFixed(3);
     this.isOverride = entity.isOverride;
+    this.note = entity.note;
     this.createdAt = entity.createdAt;
     this.updatedAt = entity.updatedAt;
   }

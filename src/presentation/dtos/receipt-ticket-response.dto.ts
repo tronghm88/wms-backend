@@ -39,6 +39,15 @@ export class ReceiptTicketResponseDto {
   @ApiProperty({ example: "2026-04-09T10:00:00Z" })
   updatedAt: Date;
 
+  @ApiProperty({ example: "Admin User" })
+  createdByName: string;
+
+  @ApiProperty({ example: 5 })
+  totalLines: number;
+
+  @ApiProperty({ example: null, nullable: true })
+  totalQuantity: string | null;
+
   constructor(entity: ReceiptTicketEntity) {
     this.id = entity.id;
     this.ticketNo = entity.ticketNo;
@@ -52,5 +61,10 @@ export class ReceiptTicketResponseDto {
     this.invoiceDate = entity.invoiceDate;
     this.createdAt = entity.createdAt;
     this.updatedAt = entity.updatedAt;
+    this.createdByName = entity.createdByName || "";
+    this.totalLines = entity.totalLines || 0;
+    this.totalQuantity = entity.totalQuantity
+      ? entity.totalQuantity.toString()
+      : null;
   }
 }

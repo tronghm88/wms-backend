@@ -36,6 +36,15 @@ export class AddSplitTicketLineDto {
   @IsBoolean()
   @IsOptional()
   isNewProduct?: boolean = false;
+
+  @ApiProperty({
+    example: "Line note",
+    description: "Optional note for the line item",
+    required: false,
+  })
+  @IsOptional()
+  @IsString()
+  note?: string;
 }
 
 export class AddSplitTicketLinesDto {

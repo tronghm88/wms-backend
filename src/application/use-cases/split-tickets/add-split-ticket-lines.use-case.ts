@@ -26,6 +26,7 @@ interface SplitTicketLineCreateInput {
   quantity: Decimal;
   unitCode: string;
   isNewProduct: boolean;
+  note: string | null;
 }
 
 @Injectable()
@@ -112,6 +113,7 @@ export class AddSplitTicketLinesUseCase {
         quantity: lineQty,
         unitCode: lineDto.unitCode,
         isNewProduct: !!lineDto.isNewProduct,
+        note: lineDto.note ?? null,
       });
     }
 

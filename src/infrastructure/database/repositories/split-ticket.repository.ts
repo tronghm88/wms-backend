@@ -125,6 +125,7 @@ export class SplitTicketRepository implements ISplitTicketRepository {
             quantity: line.quantity as unknown as Prisma.Decimal,
             unitCode: line.unitCode,
             isNewProduct: line.isNewProduct,
+            note: line.note,
           },
         }),
       ),
@@ -166,6 +167,7 @@ export class SplitTicketRepository implements ISplitTicketRepository {
       quantity: new Decimal(line.quantity.toString()),
       unitCode: line.unitCode,
       isNewProduct: line.isNewProduct,
+      note: line.note ?? undefined,
       createdAt: line.createdAt,
       updatedAt: line.updatedAt,
     });
