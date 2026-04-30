@@ -121,6 +121,9 @@ export class CreateReceiptTicketUseCase {
           status: TransactionStatus.DRAFT,
           createdBy: userId,
           note: dto.note,
+          supplierName: dto.supplierName,
+          invoiceNo: dto.invoiceNo,
+          invoiceDate: dto.invoiceDate,
         });
 
         return await this.receiptTicketRepository.create(

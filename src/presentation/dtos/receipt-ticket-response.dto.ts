@@ -1,4 +1,4 @@
-import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { ApiProperty } from "@nestjs/swagger";
 import { TransactionStatus } from "../../domain/enums";
 import { ReceiptTicketEntity } from "../../domain/entities/receipt-ticket.entity";
 
@@ -21,8 +21,17 @@ export class ReceiptTicketResponseDto {
   @ApiProperty({ example: 1 })
   creatorId: number;
 
-  @ApiPropertyOptional({ example: "Shipment from Vendor A" })
-  note?: string;
+  @ApiProperty({ example: "Shipment from Vendor A", nullable: true })
+  note: string | null;
+
+  @ApiProperty({ example: "Supplier XYZ", nullable: true })
+  supplierName: string | null;
+
+  @ApiProperty({ example: "INV-12345", nullable: true })
+  invoiceNo: string | null;
+
+  @ApiProperty({ example: "2026-04-09T00:00:00Z", nullable: true })
+  invoiceDate: Date | null;
 
   @ApiProperty({ example: "2026-04-09T10:00:00Z" })
   createdAt: Date;
@@ -38,6 +47,9 @@ export class ReceiptTicketResponseDto {
     this.createdBy = entity.createdBy;
     this.creatorId = entity.createdBy;
     this.note = entity.note;
+    this.supplierName = entity.supplierName;
+    this.invoiceNo = entity.invoiceNo;
+    this.invoiceDate = entity.invoiceDate;
     this.createdAt = entity.createdAt;
     this.updatedAt = entity.updatedAt;
   }

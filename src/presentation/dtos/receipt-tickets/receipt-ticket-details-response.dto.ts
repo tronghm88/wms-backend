@@ -1,4 +1,4 @@
-import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { ApiProperty } from "@nestjs/swagger";
 import { TransactionStatus } from "../../../domain/enums";
 import { ReceiptTicketLineResponseDto } from "./receipt-ticket-line-response.dto";
 import { GetReceiptTicketUseCaseOutput } from "../../../application/use-cases/receipt-tickets/get-receipt-ticket.use-case";
@@ -22,8 +22,17 @@ export class ReceiptTicketDetailsResponseDto {
   @ApiProperty({ example: 1 })
   creatorId: number;
 
-  @ApiPropertyOptional({ example: "Shipment from Vendor A" })
-  note?: string;
+  @ApiProperty({ example: "Shipment from Vendor A", nullable: true })
+  note: string | null;
+
+  @ApiProperty({ example: "Supplier XYZ", nullable: true })
+  supplierName: string | null;
+
+  @ApiProperty({ example: "INV-12345", nullable: true })
+  invoiceNo: string | null;
+
+  @ApiProperty({ example: "2026-04-09T00:00:00Z", nullable: true })
+  invoiceDate: Date | null;
 
   @ApiProperty({ type: [ReceiptTicketLineResponseDto] })
   lines: ReceiptTicketLineResponseDto[];
@@ -51,6 +60,9 @@ export class ReceiptTicketDetailsResponseDto {
     this.createdBy = output.createdBy;
     this.creatorId = output.createdBy;
     this.note = output.note;
+    this.supplierName = output.supplierName;
+    this.invoiceNo = output.invoiceNo;
+    this.invoiceDate = output.invoiceDate;
     this.lines = output.lines.map(
       (line) => new ReceiptTicketLineResponseDto(line),
     );

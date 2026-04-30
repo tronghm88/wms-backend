@@ -28,6 +28,7 @@
     "seed:categories:dev": "ts-node src/seed-categories.ts",
     "seed:units": "node dist/seed-units",
     "seed:units:dev": "ts-node src/seed-units.ts",
+    "seed:products": "node dist/seed-products",
     "seed:products:dev": "ts-node src/seed-products.ts"
   },
   "dependencies": {

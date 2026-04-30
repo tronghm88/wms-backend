@@ -6,7 +6,10 @@ export class ReceiptTicketEntity {
   date: Date;
   status: TransactionStatus;
   createdBy: number;
-  note?: string;
+  note: string | null;
+  supplierName: string | null;
+  invoiceNo: string | null;
+  invoiceDate: Date | null;
   createdAt: Date;
   updatedAt: Date;
 

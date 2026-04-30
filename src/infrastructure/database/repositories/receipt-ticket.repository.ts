@@ -27,7 +27,10 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
     return new ReceiptTicketEntity({
       ...ticket,
       status: ticket.status as unknown as TransactionStatus,
-      note: ticket.note ?? undefined,
+      note: ticket.note ?? null,
+      supplierName: ticket.supplierName ?? null,
+      invoiceNo: ticket.invoiceNo ?? null,
+      invoiceDate: ticket.invoiceDate ?? null,
     });
   }
 
@@ -48,7 +51,10 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
     const ticketEntity = new ReceiptTicketEntity({
       ...ticket,
       status: ticket.status as unknown as TransactionStatus,
-      note: ticket.note ?? undefined,
+      note: ticket.note ?? null,
+      supplierName: ticket.supplierName ?? null,
+      invoiceNo: ticket.invoiceNo ?? null,
+      invoiceDate: ticket.invoiceDate ?? null,
     });
 
     const lines = ticket.lines.map(
@@ -73,7 +79,10 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
     return new ReceiptTicketEntity({
       ...ticket,
       status: ticket.status as unknown as TransactionStatus,
-      note: ticket.note ?? undefined,
+      note: ticket.note ?? null,
+      supplierName: ticket.supplierName ?? null,
+      invoiceNo: ticket.invoiceNo ?? null,
+      invoiceDate: ticket.invoiceDate ?? null,
     });
   }
 
@@ -86,7 +95,10 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
         new ReceiptTicketEntity({
           ...t,
           status: t.status as unknown as TransactionStatus,
-          note: t.note ?? undefined,
+          note: t.note ?? null,
+          supplierName: t.supplierName ?? null,
+          invoiceNo: t.invoiceNo ?? null,
+          invoiceDate: t.invoiceDate ?? null,
         }),
     );
   }
@@ -145,7 +157,10 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
           new ReceiptTicketEntity({
             ...t,
             status: t.status as unknown as TransactionStatus,
-            note: t.note ?? undefined,
+            note: t.note ?? null,
+            supplierName: t.supplierName ?? null,
+            invoiceNo: t.invoiceNo ?? null,
+            invoiceDate: t.invoiceDate ?? null,
           }),
       ),
       total,
@@ -180,6 +195,9 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
       status: ticket.status as unknown as PrismaTransactionStatus,
       createdBy: ticket.createdBy,
       note: ticket.note,
+      supplierName: ticket.supplierName,
+      invoiceNo: ticket.invoiceNo,
+      invoiceDate: ticket.invoiceDate,
     };
 
     if (lines && lines.length > 0) {
@@ -203,7 +221,10 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
     const entity = new ReceiptTicketEntity({
       ...newTicket,
       status: newTicket.status as unknown as TransactionStatus,
-      note: newTicket.note ?? undefined,
+      note: newTicket.note ?? null,
+      supplierName: newTicket.supplierName ?? null,
+      invoiceNo: newTicket.invoiceNo ?? null,
+      invoiceDate: newTicket.invoiceDate ?? null,
     });
 
     if (newTicket.lines && newTicket.lines.length > 0) {
@@ -237,13 +258,19 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
         status: ticket.status as unknown as PrismaTransactionStatus,
         createdBy: ticket.createdBy,
         note: ticket.note,
+        supplierName: ticket.supplierName,
+        invoiceNo: ticket.invoiceNo,
+        invoiceDate: ticket.invoiceDate,
       },
     });
 
     return new ReceiptTicketEntity({
       ...updatedTicket,
       status: updatedTicket.status as unknown as TransactionStatus,
-      note: updatedTicket.note ?? undefined,
+      note: updatedTicket.note ?? null,
+      supplierName: updatedTicket.supplierName ?? null,
+      invoiceNo: updatedTicket.invoiceNo ?? null,
+      invoiceDate: updatedTicket.invoiceDate ?? null,
     });
   }
 
@@ -426,7 +453,10 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
       return new ReceiptTicketEntity({
         ...ticket,
         status: ticket.status as unknown as TransactionStatus,
-        note: ticket.note ?? undefined,
+        note: ticket.note ?? null,
+        supplierName: ticket.supplierName ?? null,
+        invoiceNo: ticket.invoiceNo ?? null,
+        invoiceDate: ticket.invoiceDate ?? null,
       });
     });
   }
@@ -741,7 +771,10 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
         ticket: new ReceiptTicketEntity({
           ...updatedTicket,
           status: updatedTicket.status as unknown as TransactionStatus,
-          note: updatedTicket.note ?? undefined,
+          note: updatedTicket.note ?? null,
+          supplierName: updatedTicket.supplierName ?? null,
+          invoiceNo: updatedTicket.invoiceNo ?? null,
+          invoiceDate: updatedTicket.invoiceDate ?? null,
         }),
         warnings,
       };

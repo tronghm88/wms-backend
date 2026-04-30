@@ -24,7 +24,7 @@ export class UnitConversionEngine {
   static calculateReceiptLineMetrics(params: {
     unitCode: string;
     quantity: Decimal;
-    lengthM?: Decimal | null; // explicitly allow null to fix TS errors in callers
+    lengthM?: Decimal | null;
     width?: Decimal | null;
     m2ToKgFactor?: Decimal | null;
   }): ReceiptLineMetrics {

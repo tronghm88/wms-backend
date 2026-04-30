@@ -237,10 +237,13 @@ model ReceiptTicket {
   ticketNo  String            @unique @map("ticket_no") // PN-xxxx
   date      DateTime
   status    TransactionStatus @default(DRAFT)
-  createdBy Int               @map("created_by")
-  note      String?
-  createdAt DateTime          @default(now()) @map("created_at")
-  updatedAt DateTime          @updatedAt @map("updated_at")
+  createdBy   Int               @map("created_by")
+  note        String?
+  supplierName String?           @map("supplier_name") @db.VarChar(100)
+  invoiceNo    String?           @map("invoice_no") @db.VarChar(50)
+  invoiceDate  DateTime?         @map("invoice_date")
+  createdAt   DateTime          @default(now()) @map("created_at")
+  updatedAt   DateTime          @updatedAt @map("updated_at")
 
   creator User                @relation(fields: [createdBy], references: [id])
   lines   ReceiptTicketLine[]

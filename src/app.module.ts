@@ -27,7 +27,7 @@ import { CacheModule } from "@nestjs/cache-manager";
       isGlobal: true,
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => {
+      useFactory: (configService: ConfigService) => {
         const redisUrl =
           configService.get<string>("REDIS_URL") ?? "redis://localhost:6379";
         return {

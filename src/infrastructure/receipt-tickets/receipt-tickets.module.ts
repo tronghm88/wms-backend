@@ -11,6 +11,7 @@ import { GetReceiptTicketUseCase } from "../../application/use-cases/receipt-tic
 import { ConfirmReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/confirm-receipt-ticket.use-case";
 import { VoidReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/void-receipt-ticket.use-case";
 import { DeleteReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/delete-receipt-ticket.use-case";
+import { UpdateReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/update-receipt-ticket.use-case";
 import { ReceiptTicketsController } from "../../presentation/controllers/receipt-tickets.controller";
 import { ProductsModule } from "../products/products.module";
 import { UnitConversionsModule } from "../unit-conversions/unit-conversions.module";
@@ -29,6 +30,7 @@ import { UnitsModule } from "../units/units.module";
     ConfirmReceiptTicketUseCase,
     VoidReceiptTicketUseCase,
     DeleteReceiptTicketUseCase,
+    UpdateReceiptTicketUseCase,
     {
       provide: RECEIPT_TICKET_REPOSITORY,
       useClass: ReceiptTicketRepository,

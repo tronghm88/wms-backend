@@ -52,6 +52,7 @@ async function bootstrap() {
     process.exit(1);
   } finally {
     await app.close();
+    process.exit(0);
   }
 }
 

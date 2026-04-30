@@ -29,11 +29,13 @@ import { GetReceiptTicketUseCase } from "../../application/use-cases/receipt-tic
 import { ConfirmReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/confirm-receipt-ticket.use-case";
 import { VoidReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/void-receipt-ticket.use-case";
 import { DeleteReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/delete-receipt-ticket.use-case";
+import { UpdateReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/update-receipt-ticket.use-case";
 import { CreateReceiptTicketDto } from "../../application/dtos/create-receipt-ticket.dto";
 import { CreateReceiptTicketRequestDto } from "../dtos/receipt-tickets/create-receipt-ticket-request.dto";
 import { GetReceiptTicketsDto } from "../dtos/receipt-tickets/get-receipt-tickets.dto";
 import { AddReceiptLineRequestDto } from "../dtos/receipt-tickets/add-receipt-line-request.dto";
 import { UpdateReceiptLineRequestDto } from "../dtos/receipt-tickets/update-receipt-line-request.dto";
+import { UpdateReceiptTicketRequestDto } from "../dtos/receipt-tickets/update-receipt-ticket-request.dto";
 import { VoidReceiptTicketResponseDto } from "../dtos/receipt-tickets/void-receipt-ticket-response.dto";
 import { ReceiptTicketResponseDto } from "../dtos/receipt-ticket-response.dto";
 import { ReceiptTicketLineResponseDto } from "../dtos/receipt-tickets/receipt-ticket-line-response.dto";
@@ -58,7 +60,8 @@ export class ReceiptTicketsController {
     private readonly confirmReceiptTicketUseCase: ConfirmReceiptTicketUseCase,
     private readonly voidReceiptTicketUseCase: VoidReceiptTicketUseCase,
     private readonly deleteReceiptTicketUseCase: DeleteReceiptTicketUseCase,
-  ) {}
+    private readonly updateReceiptTicketUseCase: UpdateReceiptTicketUseCase,
+  ) { }
 
   @Post(":id/confirm")
   @RequirePermissions(Permissions.RECEIPTS_CONFIRM)
@@ -187,6 +190,9 @@ export class ReceiptTicketsController {
   ): Promise<ReceiptTicketResponseDto> {
     const appDto: CreateReceiptTicketDto = {
       note: dto.note,
+      supplierName: dto.supplierName,
+      invoiceNo: dto.invoiceNo,
+      invoiceDate: dto.invoiceDate,
       lines: dto.lines.map((line) => ({
         ...line,
         quantity: new Decimal(line.quantity),
@@ -196,6 +202,31 @@ export class ReceiptTicketsController {
     const ticket = await this.createReceiptTicketUseCase.execute(
       appDto,
       req.user.id,
+    );
+    return new ReceiptTicketResponseDto(ticket);
+  }
+
+  @Patch(":id")
+  @RequirePermissions(Permissions.RECEIPTS_CREATE)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: "Update Receipt Ticket header metadata" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Receipt Ticket header successfully updated",
+    type: ReceiptTicketResponseDto,
+  })
+  async update(
+    @Param("id", ParseIntPipe) id: number,
+    @Request() req: { user: { role: UserRole; id: number } },
+    @Body() dto: UpdateReceiptTicketRequestDto,
+  ): Promise<ReceiptTicketResponseDto> {
+    const isAdmin =
+      req.user.role === UserRole.ADMIN ||
+      req.user.role === UserRole.SUPER_ADMIN;
+    const ticket = await this.updateReceiptTicketUseCase.execute(
+      id,
+      dto,
+      isAdmin,
     );
     return new ReceiptTicketResponseDto(ticket);
   }
