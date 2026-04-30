@@ -14,6 +14,7 @@ import { ConfirmReceiptTicketUseCase } from "../../../src/application/use-cases/
 import { CancelReceiptTicketUseCase } from "../../../src/application/use-cases/receipt-tickets/cancel-receipt-ticket.use-case";
 import { DeleteReceiptTicketUseCase } from "../../../src/application/use-cases/receipt-tickets/delete-receipt-ticket.use-case";
 import { UpdateReceiptTicketUseCase } from "../../../src/application/use-cases/receipt-tickets/update-receipt-ticket.use-case";
+import { GetReceiptTicketStatsUseCase } from "../../../src/application/use-cases/receipt-tickets/get-receipt-ticket-stats.use-case";
 import { ReceiptTicketEntity } from "../../../src/domain/entities/receipt-ticket.entity";
 import { ReceiptTicketLineEntity } from "../../../src/domain/entities/receipt-ticket-line.entity";
 import { JwtAuthGuard } from "../../../src/presentation/guards/jwt-auth.guard";
@@ -30,6 +31,7 @@ describe("ReceiptTicketsController", () => {
   let cancelUseCase: CancelReceiptTicketUseCase;
   let deleteUseCase: DeleteReceiptTicketUseCase;
   let updateUseCase: UpdateReceiptTicketUseCase;
+  let getStatsUseCase: GetReceiptTicketStatsUseCase;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -75,6 +77,10 @@ describe("ReceiptTicketsController", () => {
           provide: UpdateReceiptTicketUseCase,
           useValue: { execute: jest.fn() },
         },
+        {
+          provide: GetReceiptTicketStatsUseCase,
+          useValue: { execute: jest.fn() },
+        },
       ],
     })
       .overrideGuard(JwtAuthGuard)
@@ -104,6 +110,9 @@ describe("ReceiptTicketsController", () => {
     updateUseCase = module.get<UpdateReceiptTicketUseCase>(
       UpdateReceiptTicketUseCase,
     );
+    getStatsUseCase = module.get<GetReceiptTicketStatsUseCase>(
+      GetReceiptTicketStatsUseCase,
+    );
   });
 
   it("should be defined", () => {
@@ -113,7 +122,7 @@ describe("ReceiptTicketsController", () => {
   describe("update", () => {
     it("should update a receipt ticket header", async () => {
       const id = 1;
-      const user = { id: 1, role: UserRole.ADMIN };
+      const req = { user: { id: 1, role: UserRole.ADMIN } };
       const dto = {
         note: "Updated note",
         supplierName: "Updated Supplier",
@@ -122,7 +131,7 @@ describe("ReceiptTicketsController", () => {
 
       jest.spyOn(updateUseCase, "execute").mockResolvedValue(result);
 
-      const response = await controller.update(id, user, dto);
+      const response = await controller.update(id, req as any, dto);
 
       expect(updateUseCase.execute).toHaveBeenCalledWith(id, dto, true);
       expect(response).toBeDefined();
@@ -227,7 +236,13 @@ describe("ReceiptTicketsController", () => {
         status: "DRAFT",
         createdBy: 1,
         creatorId: 1,
+        createdByName: "",
         note: "Test note",
+        invoiceNo: undefined,
+        invoiceDate: undefined,
+        supplierName: undefined,
+        totalLines: 0,
+        totalQuantity: null,
         createdAt: now,
         updatedAt: now,
       };
@@ -361,6 +376,31 @@ describe("ReceiptTicketsController", () => {
       await controller.delete(ticketId, req as any);
 
       expect(deleteUseCase.execute).toHaveBeenCalledWith(ticketId, true, 1);
+    });
+  });
+
+  describe("getStats", () => {
+    it("should get receipt statistics", async () => {
+      const query = {
+        fromDate: "2026-04-01T00:00:00Z",
+        toDate: "2026-04-30T23:59:59Z",
+      };
+      const expectedResult = {
+        totalCount: 10,
+        totalLines: 25,
+        pendingCount: 2,
+        totalInbound: "0",
+      };
+
+      jest.spyOn(getStatsUseCase, "execute").mockResolvedValue(expectedResult);
+
+      const result = await controller.getStats(query as any);
+
+      expect(result).toEqual(expectedResult);
+      expect(getStatsUseCase.execute).toHaveBeenCalledWith(
+        query.fromDate,
+        query.toDate,
+      );
     });
   });
 });

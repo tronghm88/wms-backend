@@ -14,6 +14,7 @@ import {
 } from "../../../domain/exceptions/receipt-ticket.exceptions";
 import { Injectable } from "@nestjs/common";
 import { Decimal } from "decimal.js";
+import { ReceiptStatsDto } from "../../../application/dtos/receipt-stats.dto";
 
 @Injectable()
 export class ReceiptTicketRepository implements IReceiptTicketRepository {
@@ -881,5 +882,36 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
         warnings,
       };
     });
+  }
+
+  async getStats(from: Date, to: Date): Promise<ReceiptStatsDto> {
+    const where: Prisma.ReceiptTicketWhereInput = {
+      date: {
+        gte: from,
+        lte: to,
+      },
+    };
+
+    const [totalCount, pendingCount, lineCount] = await Promise.all([
+      this.prisma.receiptTicket.count({ where }),
+      this.prisma.receiptTicket.count({
+        where: {
+          ...where,
+          status: PrismaTransactionStatus.DRAFT,
+        },
+      }),
+      this.prisma.receiptTicketLine.count({
+        where: {
+          ticket: where,
+        },
+      }),
+    ]);
+
+    return {
+      totalCount,
+      totalLines: lineCount,
+      pendingCount,
+      totalInbound: "0",
+    };
   }
 }

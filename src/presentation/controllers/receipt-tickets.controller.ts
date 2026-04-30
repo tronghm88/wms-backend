@@ -30,6 +30,7 @@ import { ConfirmReceiptTicketUseCase } from "../../application/use-cases/receipt
 import { CancelReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/cancel-receipt-ticket.use-case";
 import { DeleteReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/delete-receipt-ticket.use-case";
 import { UpdateReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/update-receipt-ticket.use-case";
+import { GetReceiptTicketStatsUseCase } from "../../application/use-cases/receipt-tickets/get-receipt-ticket-stats.use-case";
 import { CreateReceiptTicketDto } from "../../application/dtos/create-receipt-ticket.dto";
 import { CreateReceiptTicketRequestDto } from "../dtos/receipt-tickets/create-receipt-ticket-request.dto";
 import { GetReceiptTicketsDto } from "../dtos/receipt-tickets/get-receipt-tickets.dto";
@@ -40,6 +41,8 @@ import { CancelReceiptTicketResponseDto } from "../dtos/receipt-tickets/cancel-r
 import { ReceiptTicketResponseDto } from "../dtos/receipt-ticket-response.dto";
 import { ReceiptTicketLineResponseDto } from "../dtos/receipt-tickets/receipt-ticket-line-response.dto";
 import { ReceiptTicketDetailsResponseDto } from "../dtos/receipt-tickets/receipt-ticket-details-response.dto";
+import { GetReceiptStatsQueryDto } from "../dtos/receipt-tickets/get-receipt-stats-query.dto";
+import { ReceiptStatsResponseDto } from "../dtos/receipt-tickets/receipt-stats-response.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
 import { Permissions } from "../../domain/constants/permissions.constant";
@@ -61,6 +64,7 @@ export class ReceiptTicketsController {
     private readonly cancelReceiptTicketUseCase: CancelReceiptTicketUseCase,
     private readonly deleteReceiptTicketUseCase: DeleteReceiptTicketUseCase,
     private readonly updateReceiptTicketUseCase: UpdateReceiptTicketUseCase,
+    private readonly getReceiptTicketStatsUseCase: GetReceiptTicketStatsUseCase,
   ) {}
 
   @Post(":id/confirm")
@@ -342,5 +346,23 @@ export class ReceiptTicketsController {
       req.user.id,
     );
     return null;
+  }
+
+  @Get("stats")
+  @RequirePermissions(Permissions.RECEIPTS_VIEW)
+  @ApiOperation({ summary: "Get Receipt Ticket statistics" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Returns statistics for Receipt Tickets",
+    type: ReceiptStatsResponseDto,
+  })
+  async getStats(
+    @Query() query: GetReceiptStatsQueryDto,
+  ): Promise<ReceiptStatsResponseDto> {
+    const stats = await this.getReceiptTicketStatsUseCase.execute(
+      query.fromDate,
+      query.toDate,
+    );
+    return new ReceiptStatsResponseDto(stats);
   }
 }

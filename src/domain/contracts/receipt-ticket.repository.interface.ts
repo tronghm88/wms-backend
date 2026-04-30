@@ -1,6 +1,7 @@
 import { TransactionStatus } from "../enums";
 import { ReceiptTicketLineEntity } from "../entities/receipt-ticket-line.entity";
 import { ReceiptTicketEntity } from "../entities/receipt-ticket.entity";
+import { ReceiptStatsDto } from "../../application/dtos/receipt-stats.dto";
 
 export const RECEIPT_TICKET_REPOSITORY = "RECEIPT_TICKET_REPOSITORY";
 
@@ -65,4 +66,5 @@ export interface IReceiptTicketRepository {
     id: number,
     performedBy: number,
   ): Promise<{ ticket: ReceiptTicketEntity; warnings: string[] }>;
+  getStats(from: Date, to: Date): Promise<ReceiptStatsDto>;
 }
