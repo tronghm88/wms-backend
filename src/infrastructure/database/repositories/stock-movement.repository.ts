@@ -3,6 +3,7 @@ import { PrismaService } from "../prisma.service";
 import {
   AuditLogItem,
   IStockMovementRepository,
+  MovementHistoryFilters,
   RegisterMovementData,
   StockMovementSearchFilters,
 } from "../../../domain/contracts/stock-movement.repository.interface";
@@ -256,5 +257,129 @@ export class StockMovementRepository implements IStockMovementRepository {
       m.note,
       m.createdAt,
     );
+  }
+
+  // ─── New methods for the inventory stock report ──────────────────────────────────
+
+  async getQtyBeforeDate(
+    productId: number,
+    beforeDate: Date,
+  ): Promise<Decimal> {
+    const row = await this.prisma.stockMovement.findFirst({
+      where: { productId, createdAt: { lt: beforeDate } },
+      orderBy: { createdAt: "desc" },
+      select: { qtyAfter: true },
+    });
+    return row ? new Decimal(row.qtyAfter.toString()) : new Decimal(0);
+  }
+
+  async getMovementHistory(filters: MovementHistoryFilters): Promise<{
+    items: AuditLogItem[];
+    total: number;
+  }> {
+    const page = filters.page ?? 1;
+    const limit = filters.limit ?? 20;
+    const skip = (page - 1) * limit;
+
+    const where: Prisma.StockMovementWhereInput = {
+      productId: filters.productId,
+      createdAt: { gte: filters.startDate, lte: filters.endDate },
+    };
+
+    if (filters.txTypes && filters.txTypes.length > 0) {
+      where.txType = {
+        in: filters.txTypes as unknown as PrismaStockMovementType[],
+      };
+    }
+
+    const [total, movements] = await Promise.all([
+      this.prisma.stockMovement.count({ where }),
+      this.prisma.stockMovement.findMany({
+        where,
+        include: {
+          product: { include: { category: true } },
+          performer: true,
+        },
+        orderBy: { createdAt: "desc" },
+        skip,
+        take: limit,
+      }),
+    ]);
+
+    // Collect reference IDs to fetch ticket numbers in batch
+    const receiptIds = [
+      ...new Set(
+        movements
+          .filter((m) => m.referenceType === "RECEIPT_TICKET")
+          .map((m) => m.referenceId),
+      ),
+    ];
+    const issueIds = [
+      ...new Set(
+        movements
+          .filter((m) => m.referenceType === "ISSUE_TICKET")
+          .map((m) => m.referenceId),
+      ),
+    ];
+    const splitIds = [
+      ...new Set(
+        movements
+          .filter((m) => m.referenceType === "SplitTicket")
+          .map((m) => m.referenceId),
+      ),
+    ];
+
+    const [receipts, issues, splits] = await Promise.all([
+      receiptIds.length > 0
+        ? this.prisma.receiptTicket.findMany({
+            where: { id: { in: receiptIds } },
+            select: { id: true, ticketNo: true },
+          })
+        : Promise.resolve([] as Array<{ id: number; ticketNo: string }>),
+      issueIds.length > 0
+        ? this.prisma.issueTicket.findMany({
+            where: { id: { in: issueIds } },
+            select: { id: true, ticketNo: true },
+          })
+        : Promise.resolve([] as Array<{ id: number; ticketNo: string }>),
+      splitIds.length > 0
+        ? this.prisma.splitTicket.findMany({
+            where: { id: { in: splitIds } },
+            select: { id: true, ticketNo: true },
+          })
+        : Promise.resolve([] as Array<{ id: number; ticketNo: string }>),
+    ]);
+
+    const ticketNoMap = new Map<string, string>();
+    receipts.forEach((r) =>
+      ticketNoMap.set(`RECEIPT_TICKET:${r.id}`, r.ticketNo),
+    );
+    issues.forEach((i) => ticketNoMap.set(`ISSUE_TICKET:${i.id}`, i.ticketNo));
+    splits.forEach((s) => ticketNoMap.set(`SplitTicket:${s.id}`, s.ticketNo));
+
+    const items: AuditLogItem[] = movements.map((m) => {
+      const ticketNo =
+        ticketNoMap.get(`${m.referenceType}:${m.referenceId}`) ?? null;
+      return {
+        id: m.id,
+        productId: m.productId,
+        productCode: m.product.code,
+        productName: m.product.name,
+        categoryId: m.product.category.id,
+        categoryName: m.product.category.name,
+        txType: m.txType as unknown as StockMovementType,
+        referenceId: m.referenceId,
+        referenceType: m.referenceType,
+        ticketNo,
+        deltaQty: new Decimal(m.deltaQty.toString()),
+        qtyAfter: new Decimal(m.qtyAfter.toString()),
+        performedBy: m.performedBy,
+        performerName: m.performer.fullName,
+        note: m.note,
+        createdAt: m.createdAt,
+      };
+    });
+
+    return { items, total };
   }
 }

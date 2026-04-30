@@ -10,7 +10,10 @@ export class GetReceiptTicketStatsUseCase {
     private readonly receiptTicketRepository: IReceiptTicketRepository,
   ) {}
 
-  async execute(fromDateParam?: string, toDateParam?: string): Promise<ReceiptStatsDto> {
+  async execute(
+    fromDateParam?: string,
+    toDateParam?: string,
+  ): Promise<ReceiptStatsDto> {
     let fromDate: Date;
     let toDate: Date;
 

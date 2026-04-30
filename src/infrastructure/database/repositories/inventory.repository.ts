@@ -3,10 +3,18 @@ import { PrismaService } from "../prisma.service";
 import {
   IInventoryRepository,
   InventorySnapshotItem,
+  InventoryStockReportFilters,
+  ProductStockReportItem,
+  StockConversionItem,
 } from "../../../domain/contracts/inventory.repository.interface";
 import { InventoryEntity } from "../../../domain/entities/inventory.entity";
 import { Decimal } from "decimal.js";
-import { Prisma } from "@prisma/client";
+import {
+  Prisma,
+  StockMovementType as PrismaStockMovementType,
+} from "@prisma/client";
+import { StockMovementType } from "../../../domain/enums";
+import { TicketTypeFilter } from "../../../domain/contracts/inventory.repository.interface";
 
 @Injectable()
 export class InventoryRepository implements IInventoryRepository {
@@ -106,5 +114,132 @@ export class InventoryRepository implements IInventoryRepository {
       ...inventory,
       quantity: new Decimal(inventory.quantity.toString()),
     });
+  }
+
+  // ─── Stock Report ──────────────────────────────────────────────────────────
+
+  async getStockReport(filters: InventoryStockReportFilters): Promise<{
+    items: ProductStockReportItem[];
+    total: number;
+  }> {
+    const page = filters.page ?? 1;
+    const limit = filters.limit ?? 20;
+    const skip = (page - 1) * limit;
+
+    // Resolve which txTypes to include in the closing-stock filter
+    const closingTxTypes = this.resolveTxTypes(filters.ticketType);
+
+    // ── 1. Fetch products (with category, base unit, and conversions) ────────
+    const productWhere: Prisma.ProductWhereInput = {};
+    if (filters.categoryId) productWhere.categoryId = filters.categoryId;
+    if (filters.keyword) {
+      productWhere.OR = [
+        { name: { contains: filters.keyword, mode: "insensitive" } },
+        { code: { contains: filters.keyword, mode: "insensitive" } },
+      ];
+    }
+
+    const [totalCount, products] = await Promise.all([
+      this.prisma.product.count({ where: productWhere }),
+      this.prisma.product.findMany({
+        where: productWhere,
+        skip,
+        take: limit,
+        orderBy: { id: "asc" },
+        include: {
+          category: { select: { id: true, name: true } },
+          unit: { select: { code: true, label: true } },
+          unitConversions: {
+            include: { to: { select: { code: true, label: true } } },
+          },
+        },
+      }),
+    ]);
+
+    if (products.length === 0) {
+      return { items: [], total: totalCount };
+    }
+
+    const productIds = products.map((p) => p.id);
+
+    // ── 2. Batch-fetch opening balances (latest qtyAfter before startDate) ───
+    // Uses a lateral-style query via ROW_NUMBER to get the last row per product
+    const openingRows = await this.prisma.$queryRaw<
+      Array<{ product_id: number; qty_after: string }>
+    >`
+      SELECT DISTINCT ON (product_id) product_id, qty_after::text
+      FROM stock_movements
+      WHERE product_id = ANY(${productIds}::int[])
+        AND created_at < ${filters.startDate}
+      ORDER BY product_id, created_at DESC
+    `;
+
+    // ── 3. Batch-fetch closing balances (latest qtyAfter up to endDate, optionally filtered by txType) ─
+    const closingRows = await this.prisma.$queryRaw<
+      Array<{ product_id: number; qty_after: string }>
+    >`
+      SELECT DISTINCT ON (product_id) product_id, qty_after::text
+      FROM stock_movements
+      WHERE product_id = ANY(${productIds}::int[])
+        AND created_at <= ${filters.endDate}
+        ${closingTxTypes ? Prisma.sql`AND tx_type = ANY(${closingTxTypes}::"StockMovementType"[])` : Prisma.empty}
+      ORDER BY product_id, created_at DESC
+    `;
+
+    const openingMap = new Map<number, Decimal>();
+    for (const row of openingRows) {
+      openingMap.set(row.product_id, new Decimal(row.qty_after));
+    }
+    const closingMap = new Map<number, Decimal>();
+    for (const row of closingRows) {
+      closingMap.set(row.product_id, new Decimal(row.qty_after));
+    }
+
+    // ── 4. Assemble result ───────────────────────────────────────────────────
+    const items: ProductStockReportItem[] = products.map((product) => {
+      const openingBase = openingMap.get(product.id) ?? new Decimal(0);
+      const closingBase = closingMap.get(product.id) ?? openingBase;
+
+      const conversions: StockConversionItem[] = product.unitConversions.map(
+        (uc) => {
+          const factor = new Decimal(uc.factor.toString());
+          return {
+            toUnit: uc.toUnit,
+            toUnitLabel: uc.to.label,
+            factor,
+            openingStock: openingBase.mul(factor),
+            closingStock: closingBase.mul(factor),
+          };
+        },
+      );
+
+      return {
+        productId: product.id,
+        productCode: product.code,
+        productName: product.name,
+        categoryId: product.category.id,
+        categoryName: product.category.name,
+        baseUnit: product.unit.code,
+        baseUnitLabel: product.unit.label,
+        openingStockBase: openingBase,
+        closingStockBase: closingBase,
+        conversions,
+      };
+    });
+
+    return { items, total: totalCount };
+  }
+
+  /** Maps the user-facing ticket type filter to DB enum values. */
+  private resolveTxTypes(
+    ticketType?: TicketTypeFilter,
+  ): PrismaStockMovementType[] | null {
+    if (!ticketType) return null;
+    const map: Record<TicketTypeFilter, StockMovementType[]> = {
+      receipt: [StockMovementType.IN],
+      issue: [StockMovementType.OUT],
+      split: [StockMovementType.SPLIT_IN, StockMovementType.SPLIT_OUT],
+    };
+    return map[ticketType] as unknown as PrismaStockMovementType[];
   }
 }

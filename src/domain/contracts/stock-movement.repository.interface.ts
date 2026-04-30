@@ -14,6 +14,15 @@ export interface StockMovementSearchFilters {
   categoryId?: number;
 }
 
+export interface MovementHistoryFilters {
+  productId: number;
+  startDate: Date;
+  endDate: Date;
+  txTypes?: StockMovementType[];
+  page?: number;
+  limit?: number;
+}
+
 export interface AuditLogItem {
   id: number;
   productId: number;
@@ -61,4 +70,13 @@ export interface IStockMovementRepository {
     data: RegisterMovementData,
     tx?: unknown,
   ): Promise<StockMovementEntity>;
+
+  /** Returns the qtyAfter of the last movement strictly before `beforeDate`, or Decimal(0) if none. */
+  getQtyBeforeDate(productId: number, beforeDate: Date): Promise<Decimal>;
+
+  /** Paginated movement history for a single product. */
+  getMovementHistory(filters: MovementHistoryFilters): Promise<{
+    items: AuditLogItem[];
+    total: number;
+  }>;
 }
