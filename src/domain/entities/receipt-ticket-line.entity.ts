@@ -10,6 +10,9 @@ export class ReceiptTicketLineEntity {
   areaM2: Decimal | null;
   weightKg: Decimal | null;
   note: string | null;
+  productName?: string;
+  productCode?: string;
+  unitLabel?: string;
   createdAt: Date;
   updatedAt: Date;
 

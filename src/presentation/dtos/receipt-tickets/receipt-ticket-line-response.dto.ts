@@ -29,6 +29,15 @@ export class ReceiptTicketLineResponseDto {
   @ApiPropertyOptional({ example: "Defect at the end of roll" })
   note?: string | null;
 
+  @ApiPropertyOptional({ example: "Product A" })
+  productName?: string;
+
+  @ApiPropertyOptional({ example: "PROD-A" })
+  productCode?: string;
+
+  @ApiPropertyOptional({ example: "Roll" })
+  unitLabel?: string;
+
   @ApiProperty({ example: "2026-04-09T10:00:00Z" })
   createdAt: Date;
 
@@ -45,6 +54,9 @@ export class ReceiptTicketLineResponseDto {
     this.areaM2 = entity.areaM2?.toFixed(3);
     this.weightKg = entity.weightKg?.toFixed(3);
     this.note = entity.note;
+    this.productName = entity.productName;
+    this.productCode = entity.productCode;
+    this.unitLabel = entity.unitLabel;
     this.createdAt = entity.createdAt;
     this.updatedAt = entity.updatedAt;
   }

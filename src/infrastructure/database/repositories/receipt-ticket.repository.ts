@@ -42,7 +42,21 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
     const ticket = await this.prisma.receiptTicket.findUnique({
       where: { id },
       include: {
-        lines: true,
+        lines: {
+          include: {
+            product: {
+              select: {
+                name: true,
+                code: true,
+              },
+            },
+            unit: {
+              select: {
+                label: true,
+              },
+            },
+          },
+        },
         creator: {
           select: {
             fullName: true,
@@ -79,6 +93,9 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
           areaM2: line.areaM2,
           weightKg: line.weightKg,
           note: line.note ?? null,
+          productName: line.product.name,
+          productCode: line.product.code,
+          unitLabel: line.unit.label,
         }),
     );
 
@@ -245,7 +262,14 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
 
     const newTicket = await this.prisma.receiptTicket.create({
       data,
-      include: { lines: true },
+      include: {
+        lines: {
+          include: {
+            product: { select: { name: true, code: true } },
+            unit: { select: { label: true } },
+          },
+        },
+      },
     });
 
     const entity = new ReceiptTicketEntity({
@@ -269,6 +293,9 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
               ? new Decimal(line.weightKg.toString())
               : null,
             note: line.note ?? null,
+            productName: line.product.name,
+            productCode: line.product.code,
+            unitLabel: line.unit.label,
           }),
       );
       return Object.assign(entity, { lines: lineEntities });
@@ -319,6 +346,10 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
         weightKg: line.weightKg,
         note: line.note,
       },
+      include: {
+        product: { select: { name: true, code: true } },
+        unit: { select: { label: true } },
+      },
     });
 
     return new ReceiptTicketLineEntity({
@@ -328,6 +359,9 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
       areaM2: newLine.areaM2,
       weightKg: newLine.weightKg,
       note: newLine.note ?? null,
+      productName: newLine.product.name,
+      productCode: newLine.product.code,
+      unitLabel: newLine.unit.label,
     });
   }
 
@@ -347,6 +381,10 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
           areaM2: line.areaM2 as unknown as Prisma.Decimal,
           weightKg: line.weightKg as unknown as Prisma.Decimal,
           note: line.note,
+        },
+        include: {
+          product: { select: { name: true, code: true } },
+          unit: { select: { label: true } },
         },
       });
 
@@ -389,6 +427,9 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
           ? new Decimal(newLine.weightKg.toString())
           : null,
         note: newLine.note ?? null,
+        productName: newLine.product.name,
+        productCode: newLine.product.code,
+        unitLabel: newLine.unit.label,
       });
     });
   }
@@ -396,6 +437,10 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
   async findLineById(lineId: number): Promise<ReceiptTicketLineEntity | null> {
     const line = await this.prisma.receiptTicketLine.findUnique({
       where: { id: lineId },
+      include: {
+        product: { select: { name: true, code: true } },
+        unit: { select: { label: true } },
+      },
     });
     if (!line) return null;
     return new ReceiptTicketLineEntity({
@@ -405,6 +450,9 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
       areaM2: line.areaM2,
       weightKg: line.weightKg,
       note: line.note ?? null,
+      productName: line.product.name,
+      productCode: line.product.code,
+      unitLabel: line.unit.label,
     });
   }
 
@@ -423,6 +471,10 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
         weightKg: line.weightKg,
         note: line.note,
       },
+      include: {
+        product: { select: { name: true, code: true } },
+        unit: { select: { label: true } },
+      },
     });
 
     return new ReceiptTicketLineEntity({
@@ -432,6 +484,9 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
       areaM2: updatedLine.areaM2,
       weightKg: updatedLine.weightKg,
       note: updatedLine.note ?? null,
+      productName: updatedLine.product.name,
+      productCode: updatedLine.product.code,
+      unitLabel: updatedLine.unit.label,
     });
   }
 
@@ -517,6 +572,10 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
           areaM2: line.areaM2 as unknown as Prisma.Decimal,
           weightKg: line.weightKg as unknown as Prisma.Decimal,
           note: line.note,
+        },
+        include: {
+          product: { select: { name: true, code: true } },
+          unit: { select: { label: true } },
         },
       });
 
@@ -624,6 +683,9 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
           ? new Decimal(updatedLine.weightKg.toString())
           : null,
         note: updatedLine.note ?? null,
+        productName: updatedLine.product.name,
+        productCode: updatedLine.product.code,
+        unitLabel: updatedLine.unit.label,
       });
     });
   }
