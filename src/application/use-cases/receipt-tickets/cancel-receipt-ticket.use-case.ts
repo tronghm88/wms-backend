@@ -5,13 +5,13 @@ import {
 } from "../../../domain/contracts/receipt-ticket.repository.interface";
 import { ReceiptTicketEntity } from "../../../domain/entities/receipt-ticket.entity";
 
-export interface VoidReceiptTicketUseCaseOutput {
+export interface CancelReceiptTicketUseCaseOutput {
   ticket: ReceiptTicketEntity;
   warnings: string[];
 }
 
 @Injectable()
-export class VoidReceiptTicketUseCase {
+export class CancelReceiptTicketUseCase {
   constructor(
     @Inject(RECEIPT_TICKET_REPOSITORY)
     private readonly receiptTicketRepository: IReceiptTicketRepository,
@@ -20,7 +20,7 @@ export class VoidReceiptTicketUseCase {
   async execute(
     id: number,
     userId: number,
-  ): Promise<VoidReceiptTicketUseCaseOutput> {
-    return await this.receiptTicketRepository.void(id, userId);
+  ): Promise<CancelReceiptTicketUseCaseOutput> {
+    return await this.receiptTicketRepository.cancel(id, userId);
   }
 }

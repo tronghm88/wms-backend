@@ -236,7 +236,7 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
     });
   }
 
-  async void(
+  async cancel(
     id: number,
     performedBy: number,
   ): Promise<{ ticket: IssueTicketEntity; warnings: string[] }> {
@@ -301,7 +301,7 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
             deltaQty: line.quantity as unknown as Prisma.Decimal,
             qtyAfter: inventory.quantity,
             performedBy,
-            note: `Voided Issue Ticket ${updatedTicket.ticketNo}`,
+            note: `Cancelled Issue Ticket ${updatedTicket.ticketNo}`,
           },
         });
       }

@@ -24,7 +24,7 @@ import { SplitTicketEntity } from "../../../domain/entities/split-ticket.entity"
 import { TransactionStatus, StockMovementType } from "../../../domain/enums";
 
 @Injectable()
-export class VoidSplitTicketUseCase {
+export class CancelSplitTicketUseCase {
   constructor(
     @Inject(SPLIT_TICKET_REPOSITORY)
     private readonly splitTicketRepository: ISplitTicketRepository,
@@ -48,7 +48,7 @@ export class VoidSplitTicketUseCase {
 
     // 2. Validate status
     if (ticket.status !== TransactionStatus.CONFIRMED) {
-      throw new BadRequestException("Only Confirmed tickets can be voided");
+      throw new BadRequestException("Only Confirmed tickets can be cancelled");
     }
 
     const warnings: string[] = [];
@@ -76,7 +76,7 @@ export class VoidSplitTicketUseCase {
       deltaQty: ticket.sourceQty,
       unitCode: ticket.sourceUnitCode,
       performedBy: userId,
-      note: `Void Split Ticket ${ticket.ticketNo}`,
+      note: `Cancel Split Ticket ${ticket.ticketNo}`,
     });
 
     // 6. Deduct from child stock and clear parent link
@@ -90,7 +90,7 @@ export class VoidSplitTicketUseCase {
         deltaQty: line.quantity.negated(),
         unitCode: line.unitCode,
         performedBy: userId,
-        note: `Void Split Ticket ${ticket.ticketNo}`,
+        note: `Cancel Split Ticket ${ticket.ticketNo}`,
       });
 
       // c. Clear parent link if it was newly created/linked
@@ -102,10 +102,10 @@ export class VoidSplitTicketUseCase {
     }
 
     // 7. Update ticket status to CANCELLED
-    const voidedTicket = await this.splitTicketRepository.update(id, {
+    const cancelledTicket = await this.splitTicketRepository.update(id, {
       status: TransactionStatus.CANCELLED,
     });
 
-    return { ticket: voidedTicket, warnings };
+    return { ticket: cancelledTicket, warnings };
   }
 }

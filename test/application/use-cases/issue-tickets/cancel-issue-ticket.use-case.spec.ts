@@ -3,13 +3,13 @@ import {
   ISSUE_TICKET_REPOSITORY,
   IIssueTicketRepository,
 } from "../../../../src/domain/contracts/issue-ticket.repository.interface";
-import { VoidIssueTicketUseCase } from "../../../../src/application/use-cases/issue-tickets/void-issue-ticket.use-case";
+import { CancelIssueTicketUseCase } from "../../../../src/application/use-cases/issue-tickets/cancel-issue-ticket.use-case";
 import { IssueTicketEntity } from "../../../../src/domain/entities/issue-ticket.entity";
 import { IssueTicketStatus } from "../../../../src/domain/enums";
 import { Decimal } from "decimal.js";
 
-describe("VoidIssueTicketUseCase", () => {
-  let useCase: VoidIssueTicketUseCase;
+describe("CancelIssueTicketUseCase", () => {
+  let useCase: CancelIssueTicketUseCase;
   let repository: jest.Mocked<IIssueTicketRepository>;
 
   const mockUser = {
@@ -36,12 +36,12 @@ describe("VoidIssueTicketUseCase", () => {
 
   beforeEach(async () => {
     const mockRepo = {
-      void: jest.fn().mockResolvedValue(mockResult),
+      cancel: jest.fn().mockResolvedValue(mockResult),
     } as unknown as jest.Mocked<IIssueTicketRepository>;
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        VoidIssueTicketUseCase,
+        CancelIssueTicketUseCase,
         {
           provide: ISSUE_TICKET_REPOSITORY,
           useValue: mockRepo,
@@ -49,7 +49,7 @@ describe("VoidIssueTicketUseCase", () => {
       ],
     }).compile();
 
-    useCase = module.get<VoidIssueTicketUseCase>(VoidIssueTicketUseCase);
+    useCase = module.get<CancelIssueTicketUseCase>(CancelIssueTicketUseCase);
     repository = module.get(ISSUE_TICKET_REPOSITORY);
   });
 
@@ -57,10 +57,10 @@ describe("VoidIssueTicketUseCase", () => {
     expect(useCase).toBeDefined();
   });
 
-  it("should call repository.void and return the ticket and warnings", async () => {
+  it("should call repository.cancel and return the ticket and warnings", async () => {
     const result = await useCase.execute(1, mockUser);
 
-    expect(repository["void"]).toHaveBeenCalledWith(1, mockUser.id);
+    expect(repository["cancel"]).toHaveBeenCalledWith(1, mockUser.id);
     expect(result.ticket).toEqual(mockTicket);
     expect(result.warnings).toEqual(["Some warning"]);
     expect(result.ticket.status).toBe(IssueTicketStatus.CANCELLED);
@@ -68,7 +68,7 @@ describe("VoidIssueTicketUseCase", () => {
 
   it("should bubble up errors from the repository", async () => {
     const error = new Error("Not confirmed");
-    repository["void"].mockRejectedValue(error);
+    repository["cancel"].mockRejectedValue(error);
 
     await expect(useCase.execute(1, mockUser)).rejects.toThrow("Not confirmed");
   });

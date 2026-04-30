@@ -1,11 +1,11 @@
 import { Module } from "@nestjs/common";
 import { PrismaModule } from "../database/prisma.module";
-import { PrismaIssueTicketRepository } from "../database/repositories/prisma-issue-ticket.repository";
+import { PrismaIssueTicketRepository } from "../database/repositories/issue-ticket.repository";
 import { ISSUE_TICKET_REPOSITORY } from "../../domain/contracts/issue-ticket.repository.interface";
 import { CreateIssueTicketUseCase } from "../../application/use-cases/issue-tickets/create-issue-ticket.use-case";
 import { CompleteIssueTicketUseCase } from "../../application/use-cases/issue-tickets/complete-issue-ticket.use-case";
 import { GetIssueTicketUseCase } from "../../application/use-cases/issue-tickets/get-issue-ticket.use-case";
-import { VoidIssueTicketUseCase } from "../../application/use-cases/issue-tickets/void-issue-ticket.use-case";
+import { CancelIssueTicketUseCase } from "../../application/use-cases/issue-tickets/cancel-issue-ticket.use-case";
 import { ProductsModule } from "../products/products.module";
 import { CustomersModule } from "../customers/customers.module";
 import { DiscountPoliciesModule } from "../discount-policies/discount-policies.module";
@@ -25,7 +25,7 @@ import { IssueTicketsController } from "../../presentation/controllers/issue-tic
     CreateIssueTicketUseCase,
     CompleteIssueTicketUseCase,
     GetIssueTicketUseCase,
-    VoidIssueTicketUseCase,
+    CancelIssueTicketUseCase,
     {
       provide: ISSUE_TICKET_REPOSITORY,
       useClass: PrismaIssueTicketRepository,
@@ -36,7 +36,7 @@ import { IssueTicketsController } from "../../presentation/controllers/issue-tic
     CreateIssueTicketUseCase,
     CompleteIssueTicketUseCase,
     GetIssueTicketUseCase,
-    VoidIssueTicketUseCase,
+    CancelIssueTicketUseCase,
   ],
 })
-export class IssueTicketsModule {}
+export class IssueTicketsModule { }

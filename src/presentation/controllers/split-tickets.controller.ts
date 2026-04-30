@@ -18,11 +18,11 @@ import {
 import { CreateSplitTicketUseCase } from "../../application/use-cases/split-tickets/create-split-ticket.use-case";
 import { AddSplitTicketLinesUseCase } from "../../application/use-cases/split-tickets/add-split-ticket-lines.use-case";
 import { ConfirmSplitTicketUseCase } from "../../application/use-cases/split-tickets/confirm-split-ticket.use-case";
-import { VoidSplitTicketUseCase } from "../../application/use-cases/split-tickets/void-split-ticket.use-case";
+import { CancelSplitTicketUseCase } from "../../application/use-cases/split-tickets/cancel-split-ticket.use-case";
 import { CreateSplitTicketDto } from "../dtos/split-tickets/create-split-ticket.dto";
 import { AddSplitTicketLinesDto } from "../dtos/split-tickets/add-split-ticket-lines.dto";
 import { SplitTicketResponseDto } from "../dtos/split-tickets/split-ticket-response.dto";
-import { VoidSplitTicketResponseDto } from "../dtos/split-tickets/void-split-ticket-response.dto";
+import { CancelSplitTicketResponseDto } from "../dtos/split-tickets/cancel-split-ticket-response.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
 import { Permissions } from "../../domain/constants/permissions.constant";
@@ -36,7 +36,7 @@ export class SplitTicketsController {
     private readonly createSplitTicketUseCase: CreateSplitTicketUseCase,
     private readonly addSplitTicketLinesUseCase: AddSplitTicketLinesUseCase,
     private readonly confirmSplitTicketUseCase: ConfirmSplitTicketUseCase,
-    private readonly voidSplitTicketUseCase: VoidSplitTicketUseCase,
+    private readonly cancelSplitTicketUseCase: CancelSplitTicketUseCase,
   ) {}
 
   @Post()
@@ -119,33 +119,33 @@ export class SplitTicketsController {
     return new SplitTicketResponseDto(ticket);
   }
 
-  @Post(":id/void")
-  @RequirePermissions(Permissions.STOCK_SPLIT)
+  @Post(":id/cancel")
+  @RequirePermissions(Permissions.STOCK_CANCEL)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
-    summary: "Void a confirmed split ticket to undo product breakdown",
+    summary: "Cancel a confirmed split ticket to undo product breakdown",
   })
   @ApiResponse({
     status: HttpStatus.OK,
-    description: "Split ticket voided and stock movements reversed",
-    type: VoidSplitTicketResponseDto,
+    description: "Split ticket cancelled and stock movements reversed",
+    type: CancelSplitTicketResponseDto,
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
-    description: "Invalid status (only confirmed can be voided)",
+    description: "Invalid status (only confirmed can be cancelled)",
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
     description: "Split ticket not found",
   })
-  async void(
+  async cancel(
     @Param("id", ParseIntPipe) id: number,
     @Request() req: { user: { id: number } },
-  ): Promise<VoidSplitTicketResponseDto> {
-    const { ticket, warnings } = await this.voidSplitTicketUseCase.execute(
+  ): Promise<CancelSplitTicketResponseDto> {
+    const { ticket, warnings } = await this.cancelSplitTicketUseCase.execute(
       id,
       req.user.id,
     );
-    return new VoidSplitTicketResponseDto(ticket, warnings);
+    return new CancelSplitTicketResponseDto(ticket, warnings);
   }
 }

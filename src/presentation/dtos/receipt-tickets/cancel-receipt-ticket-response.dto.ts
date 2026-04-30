@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { ReceiptTicketResponseDto } from "../receipt-ticket-response.dto";
 import { ReceiptTicketEntity } from "../../../domain/entities/receipt-ticket.entity";
 
-export class VoidReceiptTicketResponseDto {
+export class CancelReceiptTicketResponseDto {
   @ApiProperty({ example: true })
   success: boolean;
 

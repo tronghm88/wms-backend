@@ -9,7 +9,7 @@ import { DeleteReceiptLineUseCase } from "../../application/use-cases/receipt-ti
 import { ListReceiptTicketsUseCase } from "../../application/use-cases/receipt-tickets/list-receipt-tickets.use-case";
 import { GetReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/get-receipt-ticket.use-case";
 import { ConfirmReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/confirm-receipt-ticket.use-case";
-import { VoidReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/void-receipt-ticket.use-case";
+import { CancelReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/cancel-receipt-ticket.use-case";
 import { DeleteReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/delete-receipt-ticket.use-case";
 import { UpdateReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/update-receipt-ticket.use-case";
 import { ReceiptTicketsController } from "../../presentation/controllers/receipt-tickets.controller";
@@ -28,7 +28,7 @@ import { UnitsModule } from "../units/units.module";
     ListReceiptTicketsUseCase,
     GetReceiptTicketUseCase,
     ConfirmReceiptTicketUseCase,
-    VoidReceiptTicketUseCase,
+    CancelReceiptTicketUseCase,
     DeleteReceiptTicketUseCase,
     UpdateReceiptTicketUseCase,
     {

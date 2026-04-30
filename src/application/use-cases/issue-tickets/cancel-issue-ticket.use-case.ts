@@ -6,8 +6,8 @@ import {
 import { IssueTicketEntity } from "../../../domain/entities/issue-ticket.entity";
 
 @Injectable()
-export class VoidIssueTicketUseCase {
-  private readonly logger = new Logger(VoidIssueTicketUseCase.name);
+export class CancelIssueTicketUseCase {
+  private readonly logger = new Logger(CancelIssueTicketUseCase.name);
 
   constructor(
     @Inject(ISSUE_TICKET_REPOSITORY)
@@ -18,11 +18,13 @@ export class VoidIssueTicketUseCase {
     id: number,
     user: { id: number; permissions: string[]; role: string },
   ): Promise<{ ticket: IssueTicketEntity; warnings: string[] }> {
-    this.logger.log(`Voiding Issue Ticket ${id} by user ${user.id}`);
+    this.logger.log(`Cancelling Issue Ticket ${id} by user ${user.id}`);
 
-    const result = await this.issueTicketRepository.void(id, user.id);
+    const result = await this.issueTicketRepository.cancel(id, user.id);
 
-    this.logger.log(`Issue Ticket ${result.ticket.code} voided successfully`);
+    this.logger.log(
+      `Issue Ticket ${result.ticket.code} cancelled successfully`,
+    );
 
     return result;
   }

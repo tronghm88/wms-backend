@@ -20,14 +20,14 @@ export const Permissions = {
   RECEIPTS_CREATE: "receipts:create",
   RECEIPTS_DELETE: "receipts:delete",
   RECEIPTS_CONFIRM: "receipts:confirm",
-  RECEIPTS_VOID: "receipts:void",
+  RECEIPTS_CANCEL: "receipts:cancel",
   ISSUES_VIEW: "issues:view",
   ISSUES_CREATE: "issues:create",
   ISSUES_CONFIRM: "issues:confirm",
-  ISSUES_VOID: "issues:void",
+  ISSUES_CANCEL: "issues:cancel",
   ISSUES_PRICE_OVERRIDE: "issues:price-override",
   STOCK_SPLIT: "stock:split",
-  STOCK_VOID: "stock:void",
+  STOCK_CANCEL: "stock:cancel",
 
   // Analytics & Reports
   INVENTORY_VIEW: "inventory:view",

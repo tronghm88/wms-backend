@@ -693,7 +693,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
     });
   }
 
-  async void(
+  async cancel(
     id: number,
     performedBy: number,
   ): Promise<{ ticket: ReceiptTicketEntity; warnings: string[] }> {
@@ -762,7 +762,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
             deltaQty: line.quantity.negated() as unknown as Prisma.Decimal,
             qtyAfter: inv.quantity,
             performedBy,
-            note: `Voided Receipt Ticket ${ticket.ticketNo}`,
+            note: `Cancelled Receipt Ticket ${ticket.ticketNo}`,
           },
         });
       }

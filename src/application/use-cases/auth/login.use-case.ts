@@ -35,7 +35,7 @@ export class LoginUseCase {
     @Inject(PASSWORD_HASHER) private readonly passwordHasher: IPasswordHasher,
     @Inject(TOKEN_SERVICE) private readonly tokenService: ITokenService,
     @Inject(CACHE_SERVICE) private readonly cacheService: ICacheService,
-  ) { }
+  ) {}
 
   async execute(request: LoginRequest): Promise<LoginResponse> {
     const isEmail = request.email.includes("@");

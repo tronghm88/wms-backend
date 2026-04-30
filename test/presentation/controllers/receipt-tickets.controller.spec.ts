@@ -11,8 +11,9 @@ import { DeleteReceiptLineUseCase } from "../../../src/application/use-cases/rec
 import { ListReceiptTicketsUseCase } from "../../../src/application/use-cases/receipt-tickets/list-receipt-tickets.use-case";
 import { GetReceiptTicketUseCase } from "../../../src/application/use-cases/receipt-tickets/get-receipt-ticket.use-case";
 import { ConfirmReceiptTicketUseCase } from "../../../src/application/use-cases/receipt-tickets/confirm-receipt-ticket.use-case";
-import { VoidReceiptTicketUseCase } from "../../../src/application/use-cases/receipt-tickets/void-receipt-ticket.use-case";
+import { CancelReceiptTicketUseCase } from "../../../src/application/use-cases/receipt-tickets/cancel-receipt-ticket.use-case";
 import { DeleteReceiptTicketUseCase } from "../../../src/application/use-cases/receipt-tickets/delete-receipt-ticket.use-case";
+import { UpdateReceiptTicketUseCase } from "../../../src/application/use-cases/receipt-tickets/update-receipt-ticket.use-case";
 import { ReceiptTicketEntity } from "../../../src/domain/entities/receipt-ticket.entity";
 import { ReceiptTicketLineEntity } from "../../../src/domain/entities/receipt-ticket-line.entity";
 import { JwtAuthGuard } from "../../../src/presentation/guards/jwt-auth.guard";
@@ -26,7 +27,9 @@ describe("ReceiptTicketsController", () => {
   let listUseCase: ListReceiptTicketsUseCase;
   let getUseCase: GetReceiptTicketUseCase;
   let confirmUseCase: ConfirmReceiptTicketUseCase;
+  let cancelUseCase: CancelReceiptTicketUseCase;
   let deleteUseCase: DeleteReceiptTicketUseCase;
+  let updateUseCase: UpdateReceiptTicketUseCase;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -61,11 +64,15 @@ describe("ReceiptTicketsController", () => {
           useValue: { execute: jest.fn() },
         },
         {
-          provide: VoidReceiptTicketUseCase,
+          provide: CancelReceiptTicketUseCase,
           useValue: { execute: jest.fn() },
         },
         {
           provide: DeleteReceiptTicketUseCase,
+          useValue: { execute: jest.fn() },
+        },
+        {
+          provide: UpdateReceiptTicketUseCase,
           useValue: { execute: jest.fn() },
         },
       ],
@@ -88,8 +95,14 @@ describe("ReceiptTicketsController", () => {
     confirmUseCase = module.get<ConfirmReceiptTicketUseCase>(
       ConfirmReceiptTicketUseCase,
     );
+    cancelUseCase = module.get<CancelReceiptTicketUseCase>(
+      CancelReceiptTicketUseCase,
+    );
     deleteUseCase = module.get<DeleteReceiptTicketUseCase>(
       DeleteReceiptTicketUseCase,
+    );
+    updateUseCase = module.get<UpdateReceiptTicketUseCase>(
+      UpdateReceiptTicketUseCase,
     );
   });
 
@@ -290,6 +303,32 @@ describe("ReceiptTicketsController", () => {
 
       expect(result.status).toBe(TransactionStatus.CONFIRMED);
       expect(confirmUseCase.execute).toHaveBeenCalledWith(ticketId, 1);
+    });
+  });
+
+  describe("cancel", () => {
+    it("should cancel a receipt ticket", async () => {
+      const ticketId = 1;
+      const req = { user: { id: 1 } };
+      const expectedResult = {
+        ticket: new ReceiptTicketEntity({
+          id: 1,
+          ticketNo: "PN-202604-1",
+          date: new Date(),
+          status: TransactionStatus.CANCELLED,
+          createdBy: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }),
+        warnings: [],
+      };
+
+      jest.spyOn(cancelUseCase, "execute").mockResolvedValue(expectedResult);
+
+      const result = await controller.cancel(ticketId, req as any);
+
+      expect(result.data.status).toBe(TransactionStatus.CANCELLED);
+      expect(cancelUseCase.execute).toHaveBeenCalledWith(ticketId, 1);
     });
   });
 
