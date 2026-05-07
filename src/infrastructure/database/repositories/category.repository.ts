@@ -15,7 +15,7 @@ export class CategoryRepository implements ICategoryRepository {
       id: category.id,
       code: category.code,
       name: category.name,
-      baseUnit: category.baseUnit,
+      baseUnit: category.baseUnit ?? undefined,
       additionalUnits: category.additionalUnits,
       baseUnitLabel: category.unit?.label,
       createdAt: category.createdAt,
