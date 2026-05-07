@@ -163,7 +163,7 @@ describe("UpdateProductUseCase", () => {
 
     productRepository.findById.mockResolvedValue(existingProduct);
     categoryRepository.findById.mockResolvedValue(
-      new CategoryEntity({ id: 2, name: "New Category" }),
+      new CategoryEntity({ id: 2, name: "New Category", baseUnit: "new_unit" }),
     );
     productRepository.update.mockImplementation((id, product) => {
       return Promise.resolve(
@@ -178,11 +178,9 @@ describe("UpdateProductUseCase", () => {
     const result = await useCase.execute(request);
 
     expect(result.categoryId).toBe(2);
+    expect(result.baseUnit).toBe("new_unit"); // Should be updated to new category's baseUnit
     expect(categoryRepository.findById).toHaveBeenCalledWith(2);
     expect(productRepository.update).toHaveBeenCalled();
-    // We can't easily check the updated product's categoryName here
-    // because result is UpdateProductResponse which doesn't have categoryName yet
-    // but the entity passed to update should have it.
   });
 
   it("should throw ProductNotFoundException if product does not exist", async () => {
@@ -225,21 +223,5 @@ describe("UpdateProductUseCase", () => {
     await expect(useCase.execute({ id: 1, categoryId: 999 })).rejects.toThrow(
       CategoryNotFoundException,
     );
-  });
-
-  it("should throw UnitNotFoundException if new unit does not exist", async () => {
-    const existingProduct = new ProductEntity({
-      id: 1,
-      code: "PROD001",
-      baseUnit: "m2",
-      categoryName: "Category 1",
-    });
-
-    productRepository.findById.mockResolvedValue(existingProduct);
-    unitRepository.findByCode.mockResolvedValue(null);
-
-    await expect(
-      useCase.execute({ id: 1, baseUnit: "nonexistent" }),
-    ).rejects.toThrow(UnitNotFoundException);
   });
 });

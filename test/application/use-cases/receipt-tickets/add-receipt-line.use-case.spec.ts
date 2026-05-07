@@ -39,6 +39,7 @@ describe("AddReceiptLineUseCase", () => {
     } as unknown as jest.Mocked<IProductRepository>;
     unitConversionRepository = {
       findByProductAndUnits: jest.fn(),
+      findByProductId: jest.fn(),
     } as unknown as jest.Mocked<IUnitConversionRepository>;
     unitRepository = {
       findByCode: jest.fn(),
@@ -182,11 +183,12 @@ describe("AddReceiptLineUseCase", () => {
         code: "roll",
       }),
     );
-    unitConversionRepository.findByProductAndUnits.mockResolvedValue(
+    unitConversionRepository.findByProductId.mockResolvedValue([
       new UnitConversionEntity({
+        toUnit: "roll",
         factor: new Decimal(0.5), // m2 to kg
       }),
-    );
+    ]);
     receiptTicketRepository.addLine.mockImplementation((line) =>
       Promise.resolve(
         new ReceiptTicketLineEntity({
@@ -235,11 +237,12 @@ describe("AddReceiptLineUseCase", () => {
         code: "m2",
       }),
     );
-    unitConversionRepository.findByProductAndUnits.mockResolvedValue(
+    unitConversionRepository.findByProductId.mockResolvedValue([
       new UnitConversionEntity({
+        toUnit: "m2",
         factor: new Decimal(0.5), // m2 to kg
       }),
-    );
+    ]);
     receiptTicketRepository.addLine.mockImplementation((line) =>
       Promise.resolve(
         new ReceiptTicketLineEntity({
@@ -285,11 +288,12 @@ describe("AddReceiptLineUseCase", () => {
         code: "roll",
       }),
     );
-    unitConversionRepository.findByProductAndUnits.mockResolvedValue(
+    unitConversionRepository.findByProductId.mockResolvedValue([
       new UnitConversionEntity({
+        toUnit: "roll",
         factor: new Decimal(0.5), // m2 to kg
       }),
-    );
+    ]);
     receiptTicketRepository.addLine.mockImplementation((line) =>
       Promise.resolve(
         new ReceiptTicketLineEntity({

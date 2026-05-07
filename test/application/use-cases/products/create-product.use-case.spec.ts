@@ -81,7 +81,6 @@ describe("CreateProductUseCase", () => {
       code: "PROD001",
       name: "Product 1",
       categoryId: 1,
-      baseUnit: "m2",
       basePrice: "100.500",
       length: "2.000",
       width: "1.000",
@@ -90,7 +89,7 @@ describe("CreateProductUseCase", () => {
 
     productRepository.findByCode.mockResolvedValue(null);
     categoryRepository.findById.mockResolvedValue(
-      new CategoryEntity({ id: 1, name: "Category 1" }),
+      new CategoryEntity({ id: 1, name: "Category 1", baseUnit: "m2" }),
     );
     unitRepository.findByCode.mockResolvedValue(new UnitEntity({ code: "m2" }));
     productRepository.create.mockResolvedValue(
@@ -114,19 +113,50 @@ describe("CreateProductUseCase", () => {
     expect(productRepository.create).toHaveBeenCalled();
   });
 
+  it("should create a product successfully without baseUnit (deriving from category)", async () => {
+    const request = {
+      code: "PROD_NO_UNIT",
+      name: "Product No Unit",
+      categoryId: 1,
+      basePrice: "100.500",
+    };
+
+    productRepository.findByCode.mockResolvedValue(null);
+    categoryRepository.findById.mockResolvedValue(
+      new CategoryEntity({ id: 1, name: "Category 1", baseUnit: "m2" }),
+    );
+    unitRepository.findByCode.mockResolvedValue(new UnitEntity({ code: "m2" }));
+    productRepository.create.mockResolvedValue(
+      new ProductEntity({
+        id: 1,
+        ...request,
+        baseUnit: "m2",
+        categoryName: "Category 1",
+        basePrice: new Decimal(request.basePrice),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }),
+    );
+
+    const result = await useCase.execute(request);
+
+    expect(result.code).toBe(request.code);
+    expect(result.baseUnit).toBe("m2");
+    expect(productRepository.create).toHaveBeenCalled();
+  });
+
   it("should create a product with parentProductId successfully", async () => {
     const request = {
       code: "PROD002",
       name: "Child Product",
       categoryId: 1,
-      baseUnit: "m2",
       basePrice: "100.500",
       parentProductId: 1,
     };
 
     productRepository.findByCode.mockResolvedValue(null);
     categoryRepository.findById.mockResolvedValue(
-      new CategoryEntity({ id: 1, name: "Category 1" }),
+      new CategoryEntity({ id: 1, name: "Category 1", baseUnit: "m2" }),
     );
     unitRepository.findByCode.mockResolvedValue(new UnitEntity({ code: "m2" }));
     productRepository.create.mockResolvedValue(
@@ -152,7 +182,6 @@ describe("CreateProductUseCase", () => {
       code: "PROD001",
       name: "Product 1",
       categoryId: 1,
-      baseUnit: "m2",
       basePrice: "100.500",
     };
     productRepository.findByCode.mockResolvedValue(
@@ -169,7 +198,6 @@ describe("CreateProductUseCase", () => {
       code: "PROD001",
       name: "Product 1",
       categoryId: 999,
-      baseUnit: "m2",
       basePrice: "100.500",
     };
     productRepository.findByCode.mockResolvedValue(null);
@@ -185,7 +213,6 @@ describe("CreateProductUseCase", () => {
       code: "PROD001",
       name: "Product 1",
       categoryId: 1,
-      baseUnit: "nonexistent",
       basePrice: "100.500",
     };
     productRepository.findByCode.mockResolvedValue(null);

@@ -17,4 +17,9 @@ export interface IUnitConversionRepository {
   findByProductId(productId: number): Promise<UnitConversionEntity[]>;
   findAll(productId?: number): Promise<UnitConversionEntity[]>;
   delete(id: number): Promise<void>;
+  deleteByProductId(productId: number): Promise<void>;
+  findByProductIdFiltered(
+    productId: number,
+    allowedToUnits: string[],
+  ): Promise<UnitConversionEntity[]>;
 }

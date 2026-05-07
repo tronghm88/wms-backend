@@ -15,7 +15,6 @@ export interface CreateProductRequest {
   code: string;
   name: string;
   categoryId: number;
-  baseUnit: string;
   basePrice: string;
   costPrice?: string;
   reorderThreshold?: string;
@@ -68,9 +67,14 @@ export class CreateProductUseCase {
       throw new CategoryNotFoundException(request.categoryId);
     }
 
-    const unit = await this.unitRepository.findByCode(request.baseUnit);
+    const baseUnitCode = category.baseUnit;
+    if (!baseUnitCode) {
+      throw new UnitNotFoundException("undefined");
+    }
+
+    const unit = await this.unitRepository.findByCode(baseUnitCode);
     if (!unit) {
-      throw new UnitNotFoundException(request.baseUnit);
+      throw new UnitNotFoundException(baseUnitCode);
     }
 
     const product = new ProductEntity({
@@ -78,7 +82,7 @@ export class CreateProductUseCase {
       name: request.name,
       categoryId: request.categoryId,
       categoryName: category.name,
-      baseUnit: request.baseUnit,
+      baseUnit: baseUnitCode,
       basePrice: new Decimal(request.basePrice),
       costPrice: request.costPrice ? new Decimal(request.costPrice) : null,
       reorderThreshold: new Decimal(request.reorderThreshold || 0),

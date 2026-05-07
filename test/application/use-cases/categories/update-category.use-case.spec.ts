@@ -3,6 +3,8 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { UpdateCategoryUseCase } from "../../../../src/application/use-cases/categories/update-category.use-case";
 import { CATEGORY_REPOSITORY } from "../../../../src/domain/contracts/category.repository.interface";
 import type { ICategoryRepository } from "../../../../src/domain/contracts/category.repository.interface";
+import { PRODUCT_REPOSITORY } from "../../../../src/domain/contracts/product.repository.interface";
+import { UNIT_REPOSITORY } from "../../../../src/domain/contracts/unit.repository.interface";
 import {
   CategoryCodeAlreadyExistsException,
   CategoryNotFoundException,
@@ -29,6 +31,16 @@ describe("UpdateCategoryUseCase", () => {
         {
           provide: CATEGORY_REPOSITORY,
           useValue: repository,
+        },
+        {
+          provide: UNIT_REPOSITORY,
+          useValue: { findByCode: jest.fn().mockResolvedValue(null) },
+        },
+        {
+          provide: PRODUCT_REPOSITORY,
+          useValue: {
+            updateBaseUnitByCategory: jest.fn().mockResolvedValue(0),
+          },
         },
       ],
     }).compile();

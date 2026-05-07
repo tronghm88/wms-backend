@@ -16,6 +16,9 @@ export interface IInventoryRepository {
     items: ProductStockReportItem[];
     total: number;
   }>;
+  getStockExportReport(
+    filters: StockExportReportFilters,
+  ): Promise<ProductStockExportItem[]>;
 }
 
 export interface InventorySnapshotItem {
@@ -65,4 +68,26 @@ export interface ProductStockReportItem {
   openingStockBase: Decimal;
   closingStockBase: Decimal;
   conversions: StockConversionItem[];
+}
+
+// ─── Stock Export Report ──────────────────────────────────────────────────────
+
+/** Filters for the Excel export – categoryId is mandatory. */
+export interface StockExportReportFilters {
+  startDate: Date;
+  endDate: Date;
+  categoryId: number;
+}
+
+/** Per-product row data for the Excel export. Extends the paginated report item
+ *  with period flow quantities (input / output) and extra product fields. */
+export interface ProductStockExportItem extends ProductStockReportItem {
+  specText: string | null;
+  width: Decimal | null;
+  height: Decimal | null;
+  length: Decimal | null;
+  /** SUM of positive delta_qty (IN + SPLIT_IN) within [startDate, endDate], base unit. */
+  inputQtyBase: Decimal;
+  /** SUM of absolute negative delta_qty (OUT + SPLIT_OUT) within [startDate, endDate], base unit. */
+  outputQtyBase: Decimal;
 }

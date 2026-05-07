@@ -4,8 +4,10 @@ import {
   IInventoryRepository,
   InventorySnapshotItem,
   InventoryStockReportFilters,
+  ProductStockExportItem,
   ProductStockReportItem,
   StockConversionItem,
+  StockExportReportFilters,
 } from "../../../domain/contracts/inventory.repository.interface";
 import { InventoryEntity } from "../../../domain/entities/inventory.entity";
 import { Decimal } from "decimal.js";
@@ -18,7 +20,7 @@ import { TicketTypeFilter } from "../../../domain/contracts/inventory.repository
 
 @Injectable()
 export class InventoryRepository implements IInventoryRepository {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async findByProductId(productId: number): Promise<InventoryEntity | null> {
     const inventory = await this.prisma.inventory.findUnique({
@@ -228,6 +230,131 @@ export class InventoryRepository implements IInventoryRepository {
     });
 
     return { items, total: totalCount };
+  }
+
+  // ─── Stock Export Report (Excel) ───────────────────────────────────────────
+
+  async getStockExportReport(
+    filters: StockExportReportFilters,
+  ): Promise<ProductStockExportItem[]> {
+    // ── 1. Fetch ALL products in the category (no pagination) ───────────────
+    const products = await this.prisma.product.findMany({
+      where: { categoryId: filters.categoryId },
+      orderBy: { id: "asc" },
+      include: {
+        category: { select: { id: true, name: true } },
+        unit: { select: { code: true, label: true } },
+        unitConversions: {
+          include: { to: { select: { code: true, label: true } } },
+        },
+      },
+    });
+
+    if (products.length === 0) return [];
+
+    const productIds = products.map((p) => p.id);
+
+    // ── 2. Opening balances (last qty_after strictly before startDate) ───────
+    const openingRows = await this.prisma.$queryRaw<
+      Array<{ product_id: number; qty_after: string }>
+    >`
+      SELECT DISTINCT ON (product_id) product_id, qty_after::text
+      FROM stock_movements
+      WHERE product_id = ANY(${productIds}::int[])
+        AND created_at < ${filters.startDate}
+      ORDER BY product_id, created_at DESC
+    `;
+
+    // ── 3. Closing balances (last qty_after up to endDate) ───────────────────
+    const closingRows = await this.prisma.$queryRaw<
+      Array<{ product_id: number; qty_after: string }>
+    >`
+      SELECT DISTINCT ON (product_id) product_id, qty_after::text
+      FROM stock_movements
+      WHERE product_id = ANY(${productIds}::int[])
+        AND created_at <= ${filters.endDate}
+      ORDER BY product_id, created_at DESC
+    `;
+
+    // ── 4. Period IN / OUT sums (IN + SPLIT_IN → input; OUT + SPLIT_OUT → output) ─
+    const flowRows = await this.prisma.$queryRaw<
+      Array<{
+        product_id: number;
+        input_qty: string;
+        output_qty: string;
+      }>
+    >`
+      SELECT
+        product_id,
+        COALESCE(SUM(CASE WHEN tx_type IN ('IN', 'SPLIT_IN')  AND delta_qty > 0 THEN delta_qty ELSE 0 END), 0)::text AS input_qty,
+        COALESCE(SUM(CASE WHEN tx_type IN ('OUT', 'SPLIT_OUT') AND delta_qty < 0 THEN ABS(delta_qty) ELSE 0 END), 0)::text AS output_qty
+      FROM stock_movements
+      WHERE product_id = ANY(${productIds}::int[])
+        AND created_at >= ${filters.startDate}
+        AND created_at <= ${filters.endDate}
+      GROUP BY product_id
+    `;
+
+    // ── 5. Build lookup maps ─────────────────────────────────────────────────
+    const openingMap = new Map<number, Decimal>();
+    for (const row of openingRows)
+      openingMap.set(row.product_id, new Decimal(row.qty_after));
+
+    const closingMap = new Map<number, Decimal>();
+    for (const row of closingRows)
+      closingMap.set(row.product_id, new Decimal(row.qty_after));
+
+    const flowMap = new Map<
+      number,
+      { inputQtyBase: Decimal; outputQtyBase: Decimal }
+    >();
+    for (const row of flowRows)
+      flowMap.set(row.product_id, {
+        inputQtyBase: new Decimal(row.input_qty),
+        outputQtyBase: new Decimal(row.output_qty),
+      });
+
+    // ── 6. Assemble result ───────────────────────────────────────────────────
+    return products.map((product) => {
+      const openingBase = openingMap.get(product.id) ?? new Decimal(0);
+      const closingBase = closingMap.get(product.id) ?? openingBase;
+      const flow = flowMap.get(product.id) ?? {
+        inputQtyBase: new Decimal(0),
+        outputQtyBase: new Decimal(0),
+      };
+
+      const conversions: StockConversionItem[] = product.unitConversions.map(
+        (uc) => {
+          const factor = new Decimal(uc.factor.toString());
+          return {
+            toUnit: uc.toUnit,
+            toUnitLabel: uc.to.label,
+            factor,
+            openingStock: openingBase.mul(factor),
+            closingStock: closingBase.mul(factor),
+          };
+        },
+      );
+
+      return {
+        productId: product.id,
+        productCode: product.code,
+        productName: product.name,
+        categoryId: product.category.id,
+        categoryName: product.category.name,
+        baseUnit: product.unit.code,
+        baseUnitLabel: product.unit.label,
+        openingStockBase: openingBase,
+        closingStockBase: closingBase,
+        conversions,
+        specText: product.specText ?? null,
+        width: product.width ? new Decimal(product.width.toString()) : null,
+        height: product.height ? new Decimal(product.height.toString()) : null,
+        length: product.length ? new Decimal(product.length.toString()) : null,
+        inputQtyBase: flow.inputQtyBase,
+        outputQtyBase: flow.outputQtyBase,
+      };
+    });
   }
 
   /** Maps the user-facing ticket type filter to DB enum values. */

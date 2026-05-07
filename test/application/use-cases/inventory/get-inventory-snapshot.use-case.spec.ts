@@ -64,9 +64,10 @@ describe("GetInventorySnapshotUseCase", () => {
       categoryName: mockSnapshotItem.categoryName,
       quantity: "50.123",
       unitCode: mockSnapshotItem.unitCode,
-      length: null,
-      width: null,
-      height: null,
+      length: undefined,
+      width: undefined,
+      height: undefined,
+      weight: undefined,
       lastUpdated: mockSnapshotItem.lastUpdated,
     });
   });

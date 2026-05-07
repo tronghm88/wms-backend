@@ -42,7 +42,6 @@ export interface GetProductStockDetailInput {
   productId: number;
   startDate?: string;
   endDate?: string;
-  categoryId?: number;
   ticketType?: TicketTypeFilter;
 }
 
@@ -76,7 +75,6 @@ export class GetProductStockDetailUseCase {
     const stockResult = await this.getProductStockListUseCase.execute({
       startDate: input.startDate,
       endDate: input.endDate,
-      categoryId: input.categoryId,
       ticketType: input.ticketType,
       keyword: product.code,
       page: 1,

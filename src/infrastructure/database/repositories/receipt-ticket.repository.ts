@@ -15,6 +15,8 @@ import {
 import { Injectable } from "@nestjs/common";
 import { Decimal } from "decimal.js";
 import { ReceiptStatsDto } from "../../../application/dtos/receipt-stats.dto";
+import { UnitConversionEngine } from "../../../domain/services/unit-conversion-engine";
+import { UnitConversionEntity } from "../../../domain/entities/unit-conversion.entity";
 
 @Injectable()
 export class ReceiptTicketRepository implements IReceiptTicketRepository {
@@ -513,19 +515,26 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
 
       // 2. Process each line for stock update and movement audit
       for (const line of ticket.lines) {
+        const { baseQuantity, baseUnit } = await this.calculateBaseQuantity(
+          tx,
+          line.productId,
+          new Decimal(line.quantity as unknown as Prisma.Decimal),
+          line.unitCode,
+        );
+
         // Update or Create Inventory
         const inventory = await tx.inventory.upsert({
           where: { productId: line.productId },
           update: {
             quantity: {
-              increment: line.quantity as unknown as Prisma.Decimal,
+              increment: baseQuantity as unknown as Prisma.Decimal,
             },
-            unitCode: line.unitCode,
+            unitCode: baseUnit,
           },
           create: {
             productId: line.productId,
-            quantity: line.quantity as unknown as Prisma.Decimal,
-            unitCode: line.unitCode,
+            quantity: baseQuantity as unknown as Prisma.Decimal,
+            unitCode: baseUnit,
           },
         });
 
@@ -536,7 +545,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
             txType: "IN",
             referenceId: ticket.id,
             referenceType: "RECEIPT_TICKET",
-            deltaQty: line.quantity as unknown as Prisma.Decimal,
+            deltaQty: baseQuantity as unknown as Prisma.Decimal,
             qtyAfter: inventory.quantity,
             performedBy,
             note: `Confirmed Receipt Ticket ${ticket.ticketNo}`,
@@ -583,7 +592,21 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
       // 2. Adjust stock
       if (oldLine.productId === line.productId) {
         // Same product, adjust by diff
-        const diff = line.quantity.minus(oldLine.quantity);
+        const { baseQuantity: newBaseQty, baseUnit } =
+          await this.calculateBaseQuantity(
+            tx,
+            line.productId,
+            line.quantity,
+            line.unitCode,
+          );
+        const { baseQuantity: oldBaseQty } = await this.calculateBaseQuantity(
+          tx,
+          oldLine.productId,
+          oldLine.quantity,
+          oldLine.unitCode,
+        );
+
+        const diff = newBaseQty.minus(oldBaseQty);
         if (!diff.isZero()) {
           const inv = await tx.inventory.upsert({
             where: { productId: line.productId },
@@ -595,7 +618,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
             create: {
               productId: line.productId,
               quantity: diff as unknown as Prisma.Decimal,
-              unitCode: line.unitCode,
+              unitCode: baseUnit,
             },
           });
 
@@ -614,18 +637,33 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
         }
       } else {
         // Different product!
+        const { baseQuantity: oldBaseQty, baseUnit: oldBaseUnit } =
+          await this.calculateBaseQuantity(
+            tx,
+            oldLine.productId,
+            oldLine.quantity,
+            oldLine.unitCode,
+          );
+        const { baseQuantity: newBaseQty, baseUnit: newBaseUnit } =
+          await this.calculateBaseQuantity(
+            tx,
+            line.productId,
+            line.quantity,
+            line.unitCode,
+          );
+
         // Revert old product stock
         const oldInv = await tx.inventory.upsert({
           where: { productId: oldLine.productId },
           update: {
             quantity: {
-              decrement: oldLine.quantity as unknown as Prisma.Decimal,
+              decrement: oldBaseQty as unknown as Prisma.Decimal,
             },
           },
           create: {
             productId: oldLine.productId,
-            quantity: oldLine.quantity.negated() as unknown as Prisma.Decimal,
-            unitCode: oldLine.unitCode,
+            quantity: oldBaseQty.negated() as unknown as Prisma.Decimal,
+            unitCode: oldBaseUnit,
           },
         });
 
@@ -635,7 +673,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
             txType: "ADJUST",
             referenceId: line.ticketId,
             referenceType: "RECEIPT_TICKET",
-            deltaQty: oldLine.quantity.negated() as unknown as Prisma.Decimal,
+            deltaQty: oldBaseQty.negated() as unknown as Prisma.Decimal,
             qtyAfter: oldInv.quantity,
             performedBy,
             note: `Admin Edit - Product changed (revert old)`,
@@ -647,13 +685,13 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
           where: { productId: line.productId },
           update: {
             quantity: {
-              increment: line.quantity as unknown as Prisma.Decimal,
+              increment: newBaseQty as unknown as Prisma.Decimal,
             },
           },
           create: {
             productId: line.productId,
-            quantity: line.quantity as unknown as Prisma.Decimal,
-            unitCode: line.unitCode,
+            quantity: newBaseQty as unknown as Prisma.Decimal,
+            unitCode: newBaseUnit,
           },
         });
 
@@ -663,7 +701,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
             txType: "ADJUST",
             referenceId: line.ticketId,
             referenceType: "RECEIPT_TICKET",
-            deltaQty: line.quantity as unknown as Prisma.Decimal,
+            deltaQty: newBaseQty as unknown as Prisma.Decimal,
             qtyAfter: newInv.quantity,
             performedBy,
             note: `Admin Edit - Product changed (add new)`,
@@ -703,17 +741,25 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
       });
 
       // 2. Revert stock
+      const { baseQuantity: oldBaseQty, baseUnit: oldBaseUnit } =
+        await this.calculateBaseQuantity(
+          tx,
+          oldLine.productId,
+          oldLine.quantity,
+          oldLine.unitCode,
+        );
+
       const inv = await tx.inventory.upsert({
         where: { productId: oldLine.productId },
         update: {
           quantity: {
-            decrement: oldLine.quantity as unknown as Prisma.Decimal,
+            decrement: oldBaseQty as unknown as Prisma.Decimal,
           },
         },
         create: {
           productId: oldLine.productId,
-          quantity: oldLine.quantity.negated() as unknown as Prisma.Decimal,
-          unitCode: oldLine.unitCode,
+          quantity: oldBaseQty.negated() as unknown as Prisma.Decimal,
+          unitCode: oldBaseUnit,
         },
       });
 
@@ -723,7 +769,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
           txType: "ADJUST",
           referenceId: oldLine.ticketId,
           referenceType: "RECEIPT_TICKET",
-          deltaQty: oldLine.quantity.negated() as unknown as Prisma.Decimal,
+          deltaQty: oldBaseQty.negated() as unknown as Prisma.Decimal,
           qtyAfter: inv.quantity,
           performedBy,
           note: `Admin Edit - Line deleted`,
@@ -758,17 +804,24 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
 
       // 2. Revert stock for each line
       for (const line of ticket.lines) {
+        const { baseQuantity, baseUnit } = await this.calculateBaseQuantity(
+          tx,
+          line.productId,
+          new Decimal(line.quantity as unknown as Prisma.Decimal),
+          line.unitCode,
+        );
+
         const inv = await tx.inventory.upsert({
           where: { productId: line.productId },
           update: {
             quantity: {
-              decrement: line.quantity as unknown as Prisma.Decimal,
+              decrement: baseQuantity as unknown as Prisma.Decimal,
             },
           },
           create: {
             productId: line.productId,
-            quantity: line.quantity.negated() as unknown as Prisma.Decimal,
-            unitCode: line.unitCode,
+            quantity: baseQuantity.negated() as unknown as Prisma.Decimal,
+            unitCode: baseUnit,
           },
         });
 
@@ -778,7 +831,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
             txType: "ADJUST",
             referenceId: ticket.id,
             referenceType: "RECEIPT_TICKET",
-            deltaQty: line.quantity.negated() as unknown as Prisma.Decimal,
+            deltaQty: baseQuantity.negated() as unknown as Prisma.Decimal,
             qtyAfter: inv.quantity,
             performedBy,
             note: `Admin Delete - Confirmed Receipt Ticket deleted`,
@@ -834,17 +887,24 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
 
       // 3. Revert stock for each line
       for (const line of ticket.lines) {
+        const { baseQuantity, baseUnit } = await this.calculateBaseQuantity(
+          tx,
+          line.productId,
+          new Decimal(line.quantity as unknown as Prisma.Decimal),
+          line.unitCode,
+        );
+
         const inv = await tx.inventory.upsert({
           where: { productId: line.productId },
           update: {
             quantity: {
-              decrement: line.quantity as unknown as Prisma.Decimal,
+              decrement: baseQuantity as unknown as Prisma.Decimal,
             },
           },
           create: {
             productId: line.productId,
-            quantity: line.quantity.negated() as unknown as Prisma.Decimal,
-            unitCode: line.unitCode,
+            quantity: baseQuantity.negated() as unknown as Prisma.Decimal,
+            unitCode: baseUnit,
           },
         });
 
@@ -862,7 +922,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
             txType: PrismaStockMovementType.ADJUST,
             referenceId: ticket.id,
             referenceType: "RECEIPT_TICKET",
-            deltaQty: line.quantity.negated() as unknown as Prisma.Decimal,
+            deltaQty: baseQuantity.negated() as unknown as Prisma.Decimal,
             qtyAfter: inv.quantity,
             performedBy,
             note: `Cancelled Receipt Ticket ${ticket.ticketNo}`,
@@ -913,5 +973,43 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
       pendingCount,
       totalInbound: "0",
     };
+  }
+
+  private async calculateBaseQuantity(
+    tx: Prisma.TransactionClient,
+    productId: number,
+    quantity: Decimal,
+    unitCode: string,
+  ): Promise<{ baseQuantity: Decimal; baseUnit: string }> {
+    const product = await tx.product.findUnique({
+      where: { id: productId },
+      include: { unitConversions: true },
+    });
+    if (!product) throw new Error(`Product ${productId} not found`);
+
+    const baseUnit = product.baseUnit;
+    if (unitCode === baseUnit) {
+      return { baseQuantity: quantity, baseUnit };
+    }
+
+    const conversions = product.unitConversions.map(
+      (c) =>
+        new UnitConversionEntity({
+          ...c,
+          factor: new Decimal(c.factor),
+        }),
+    );
+    const converted = UnitConversionEngine.convertToUnit(
+      quantity,
+      unitCode,
+      baseUnit,
+      conversions,
+    );
+    if (!converted) {
+      throw new Error(
+        `Cannot convert ${unitCode} to ${baseUnit} for product ${productId}`,
+      );
+    }
+    return { baseQuantity: converted, baseUnit };
   }
 }

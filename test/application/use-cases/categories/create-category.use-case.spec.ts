@@ -6,9 +6,13 @@ import type { ICategoryRepository } from "../../../../src/domain/contracts/categ
 import { CategoryCodeAlreadyExistsException } from "../../../../src/domain/exceptions/category.exceptions";
 import { CategoryEntity } from "../../../../src/domain/entities/category.entity";
 
+import { UNIT_REPOSITORY } from "../../../../src/domain/contracts/unit.repository.interface";
+import type { IUnitRepository } from "../../../../src/domain/contracts/unit.repository.interface";
+
 describe("CreateCategoryUseCase", () => {
   let useCase: CreateCategoryUseCase;
   let repository: jest.Mocked<ICategoryRepository>;
+  let unitRepository: jest.Mocked<IUnitRepository>;
 
   beforeEach(async () => {
     repository = {
@@ -18,7 +22,14 @@ describe("CreateCategoryUseCase", () => {
       create: jest.fn(),
       update: jest.fn(),
       delete: jest.fn(),
+      findByIdWithUnits: jest.fn(),
+      hasConfirmedTransactions: jest.fn(),
     } as unknown as jest.Mocked<ICategoryRepository>;
+
+    unitRepository = {
+      findByCode: jest.fn(),
+      findAll: jest.fn(),
+    } as unknown as jest.Mocked<IUnitRepository>;
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -26,6 +37,10 @@ describe("CreateCategoryUseCase", () => {
         {
           provide: CATEGORY_REPOSITORY,
           useValue: repository,
+        },
+        {
+          provide: UNIT_REPOSITORY,
+          useValue: unitRepository,
         },
       ],
     }).compile();
@@ -38,13 +53,24 @@ describe("CreateCategoryUseCase", () => {
   });
 
   it("should create a category successfully", async () => {
-    const request = { code: "ELECTRONICS", name: "Electronics" };
+    const request = {
+      code: "ELECTRONICS",
+      name: "Electronics",
+      baseUnit: "kg",
+      additionalUnits: ["g"],
+    };
     repository.findByCode.mockResolvedValue(null);
+    unitRepository.findByCode.mockResolvedValue({
+      code: "kg",
+      label: "Kilogram",
+    });
     repository.create.mockResolvedValue(
       new CategoryEntity({
         id: 1,
         code: request.code,
         name: request.name,
+        baseUnit: request.baseUnit,
+        additionalUnits: request.additionalUnits,
         createdAt: new Date(),
         updatedAt: new Date(),
       }),
@@ -59,7 +85,12 @@ describe("CreateCategoryUseCase", () => {
   });
 
   it("should throw CategoryCodeAlreadyExistsException if code exists", async () => {
-    const request = { code: "ELECTRONICS", name: "Electronics" };
+    const request = {
+      code: "ELECTRONICS",
+      name: "Electronics",
+      baseUnit: "kg",
+      additionalUnits: [],
+    };
     repository.findByCode.mockResolvedValue(
       new CategoryEntity({ code: request.code }),
     );

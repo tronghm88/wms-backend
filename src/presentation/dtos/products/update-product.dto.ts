@@ -33,14 +33,6 @@ export class UpdateProductDto {
   categoryId?: number;
 
   @ApiPropertyOptional({
-    example: "m2",
-    description: "The base unit code of the product",
-  })
-  @IsOptional()
-  @IsString()
-  baseUnit?: string;
-
-  @ApiPropertyOptional({
     example: "160.000",
     description: "The base price of the product (string for decimal precision)",
   })

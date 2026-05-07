@@ -65,6 +65,8 @@ describe("CategoriesController", () => {
           id: 1,
           code: "CAT1",
           name: "Category 1",
+          baseUnit: "kg",
+          additionalUnits: [],
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -85,6 +87,9 @@ describe("CategoriesController", () => {
         id: categoryId,
         code: "CAT1",
         name: "Category 1",
+        baseUnit: "kg",
+        baseUnitLabel: "Kilogram",
+        additionalUnits: [],
         createdAt: new Date(),
         updatedAt: new Date(),
       };

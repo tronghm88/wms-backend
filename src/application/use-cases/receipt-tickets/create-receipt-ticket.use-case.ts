@@ -67,32 +67,31 @@ export class CreateReceiptTicketUseCase {
           throw new UnitNotFoundException(line.unitCode);
         }
 
-        let m2ToKgFactor: Decimal | undefined;
-        const conversion =
-          await this.unitConversionRepository.findByProductAndUnits(
-            line.productId,
-            "m2",
-            "kg",
-          );
-        if (conversion) {
-          m2ToKgFactor = conversion.factor;
-        }
+        const conversions = await this.unitConversionRepository.findByProductId(
+          line.productId,
+        );
 
-        const metrics = UnitConversionEngine.calculateReceiptLineMetrics({
-          unitCode: line.unitCode,
-          quantity: line.quantity,
-          lengthM: line.lengthM ?? product.length,
-          width: product.width,
-          m2ToKgFactor,
-        });
+        if (line.unitCode !== product.baseUnit) {
+          const baseQty = UnitConversionEngine.convertToUnit(
+            line.quantity,
+            line.unitCode,
+            product.baseUnit,
+            conversions,
+          );
+          if (baseQty === null) {
+            throw new Error(
+              `No unit conversion found from ${line.unitCode} to base unit ${product.baseUnit} for product ${product.code}`,
+            );
+          }
+        }
 
         linesToPersist.push({
           productId: line.productId,
           quantity: line.quantity,
           unitCode: line.unitCode,
           lengthM: line.lengthM ?? product.length,
-          areaM2: metrics.areaM2,
-          weightKg: metrics.weightKg,
+          areaM2: null,
+          weightKg: null,
           note: line.note ?? null,
         });
       }

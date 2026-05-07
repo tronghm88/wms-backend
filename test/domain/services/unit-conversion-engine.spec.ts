@@ -1,96 +1,87 @@
 import { Decimal } from "decimal.js";
 import { UnitConversionEngine } from "../../../src/domain/services/unit-conversion-engine";
+import { UnitConversionEntity } from "../../../src/domain/entities/unit-conversion.entity";
 
 describe("UnitConversionEngine", () => {
-  describe("calculateReceiptLineMetrics", () => {
-    it("should calculate area correctly", () => {
+  describe("convertToUnit", () => {
+    it("should return the original quantity if fromUnit equals toUnit", () => {
+      const quantity = new Decimal(5);
+      const result = UnitConversionEngine.convertToUnit(
+        quantity,
+        "m2",
+        "m2",
+        [],
+      );
+      expect(result?.toString()).toBe("5");
+    });
+
+    it("should calculate direct conversion correctly", () => {
+      const quantity = new Decimal(2); // 2 rolls
+      const conversions = [
+        new UnitConversionEntity({
+          id: 1,
+          productId: 1,
+          fromUnit: "roll",
+          toUnit: "m2",
+          factor: new Decimal(50),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }),
+      ];
+
+      const result = UnitConversionEngine.convertToUnit(
+        quantity,
+        "roll",
+        "m2",
+        conversions,
+      );
+      expect(result?.toString()).toBe("100"); // 2 * 50
+    });
+
+    it("should calculate reverse conversion correctly", () => {
+      const quantity = new Decimal(100); // 100 m2
+      const conversions = [
+        new UnitConversionEntity({
+          id: 1,
+          productId: 1,
+          fromUnit: "roll",
+          toUnit: "m2",
+          factor: new Decimal(50),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }),
+      ];
+
+      const result = UnitConversionEngine.convertToUnit(
+        quantity,
+        "m2",
+        "roll",
+        conversions,
+      );
+      expect(result?.toString()).toBe("2"); // 100 / 50
+    });
+
+    it("should return null if no conversion can be found", () => {
       const quantity = new Decimal(2);
-      const lengthM = new Decimal(50);
-      const width = new Decimal(1.5);
+      const conversions = [
+        new UnitConversionEntity({
+          id: 1,
+          productId: 1,
+          fromUnit: "roll",
+          toUnit: "m2",
+          factor: new Decimal(50),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }),
+      ];
 
-      const result = UnitConversionEngine.calculateReceiptLineMetrics({
-        unitCode: "roll",
+      const result = UnitConversionEngine.convertToUnit(
         quantity,
-        lengthM,
-        width,
-      });
-
-      expect(result.areaM2?.toString()).toBe("150");
-      expect(result.weightKg).toBeUndefined();
-    });
-
-    it("should calculate weight correctly if m2ToKgFactor is provided", () => {
-      const quantity = new Decimal(1);
-      const lengthM = new Decimal(100);
-      const width = new Decimal(2);
-      const m2ToKgFactor = new Decimal(0.5);
-
-      const result = UnitConversionEngine.calculateReceiptLineMetrics({
-        unitCode: "roll",
-        quantity,
-        lengthM,
-        width,
-        m2ToKgFactor,
-      });
-
-      expect(result.areaM2?.toString()).toBe("200");
-      expect(result.weightKg?.toString()).toBe("100");
-    });
-
-    it("should return empty result if lengthM is missing", () => {
-      const quantity = new Decimal(1);
-      const width = new Decimal(1.5);
-
-      const result = UnitConversionEngine.calculateReceiptLineMetrics({
-        unitCode: "roll",
-        quantity,
-        width,
-      });
-
-      expect(result.areaM2).toBeUndefined();
-      expect(result.weightKg).toBeUndefined();
-    });
-
-    it("should return empty result if width is missing", () => {
-      const quantity = new Decimal(1);
-      const lengthM = new Decimal(50);
-
-      const result = UnitConversionEngine.calculateReceiptLineMetrics({
-        unitCode: "roll",
-        quantity,
-        lengthM,
-      });
-
-      expect(result.areaM2).toBeUndefined();
-      expect(result.weightKg).toBeUndefined();
-    });
-
-    it("should calculate metrics correctly for m2 unit", () => {
-      const quantity = new Decimal(100);
-      const m2ToKgFactor = new Decimal(0.5);
-
-      const result = UnitConversionEngine.calculateReceiptLineMetrics({
-        unitCode: "m2",
-        quantity,
-        m2ToKgFactor,
-      });
-
-      expect(result.areaM2?.toString()).toBe("100");
-      expect(result.weightKg?.toString()).toBe("50");
-    });
-
-    it("should calculate metrics correctly for kg unit", () => {
-      const quantity = new Decimal(50);
-      const m2ToKgFactor = new Decimal(0.5);
-
-      const result = UnitConversionEngine.calculateReceiptLineMetrics({
-        unitCode: "kg",
-        quantity,
-        m2ToKgFactor,
-      });
-
-      expect(result.weightKg?.toString()).toBe("50");
-      expect(result.areaM2?.toString()).toBe("100"); // 50 / 0.5
+        "roll",
+        "kg",
+        conversions,
+      );
+      expect(result).toBeNull();
     });
   });
 });

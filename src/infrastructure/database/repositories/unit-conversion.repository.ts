@@ -101,4 +101,23 @@ export class UnitConversionRepository implements IUnitConversionRepository {
       where: { id },
     });
   }
+
+  async deleteByProductId(productId: number): Promise<void> {
+    await this.prisma.unitConversion.deleteMany({
+      where: { productId },
+    });
+  }
+
+  async findByProductIdFiltered(
+    productId: number,
+    allowedToUnits: string[],
+  ): Promise<UnitConversionEntity[]> {
+    const conversions = await this.prisma.unitConversion.findMany({
+      where: {
+        productId,
+        toUnit: { in: allowedToUnits },
+      },
+    });
+    return conversions.map((uc) => this.mapToDomain(uc));
+  }
 }

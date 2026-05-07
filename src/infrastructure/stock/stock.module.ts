@@ -9,13 +9,16 @@ import { SearchAuditLogsUseCase } from "../../application/use-cases/stock/search
 import { GetProductStockListUseCase } from "../../application/use-cases/inventory/get-product-stock-list.use-case";
 import { GetProductStockDetailUseCase } from "../../application/use-cases/inventory/get-product-stock-detail.use-case";
 import { GetProductMovementHistoryUseCase } from "../../application/use-cases/inventory/get-product-movement-history.use-case";
+import { ExportStockReportUseCase } from "../../application/use-cases/inventory/export-stock-report.use-case";
+import { ExcelExportService } from "../services/excel-export.service";
 
 import { InventoryController } from "../../presentation/controllers/inventory.controller";
 import { AuditLogController } from "../../presentation/controllers/audit-log.controller";
 import { ProductsModule } from "../products/products.module";
+import { CategoriesModule } from "../categories/categories.module";
 
 @Module({
-  imports: [PrismaModule, forwardRef(() => ProductsModule)],
+  imports: [PrismaModule, forwardRef(() => ProductsModule), CategoriesModule],
   controllers: [InventoryController, AuditLogController],
   providers: [
     {
@@ -31,6 +34,8 @@ import { ProductsModule } from "../products/products.module";
     GetProductStockListUseCase,
     GetProductStockDetailUseCase,
     GetProductMovementHistoryUseCase,
+    ExcelExportService,
+    ExportStockReportUseCase,
   ],
   exports: [
     INVENTORY_REPOSITORY,
@@ -40,6 +45,8 @@ import { ProductsModule } from "../products/products.module";
     GetProductStockListUseCase,
     GetProductStockDetailUseCase,
     GetProductMovementHistoryUseCase,
+    ExcelExportService,
+    ExportStockReportUseCase,
   ],
 })
 export class StockModule {}

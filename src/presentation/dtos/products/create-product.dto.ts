@@ -34,14 +34,6 @@ export class CreateProductDto {
   categoryId: number;
 
   @ApiProperty({
-    example: "m2",
-    description: "The base unit code of the product",
-  })
-  @IsNotEmpty()
-  @IsString()
-  baseUnit: string;
-
-  @ApiProperty({
     example: "150.500",
     description: "The base price of the product (string for decimal precision)",
   })

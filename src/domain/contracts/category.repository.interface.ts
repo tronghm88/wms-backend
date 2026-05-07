@@ -9,7 +9,7 @@ export interface ICategoryRepository {
   create(
     category: Omit<
       CategoryEntity,
-      "id" | "createdAt" | "updatedAt" | "products" | "sizes"
+      "id" | "createdAt" | "updatedAt" | "products" | "sizes" | "baseUnitLabel"
     >,
   ): Promise<CategoryEntity>;
   update(
@@ -19,4 +19,8 @@ export interface ICategoryRepository {
   delete(id: number): Promise<void>;
   hasProducts(id: number): Promise<boolean>;
   hasSizes(id: number): Promise<boolean>;
+  findByIdWithUnits(id: number): Promise<CategoryEntity | null>;
+  hasConfirmedTransactions(categoryId: number): Promise<boolean>;
+  updateProductsBaseUnit(categoryId: number, baseUnit: string): Promise<void>;
+  deleteProductsUnitConversions(categoryId: number): Promise<void>;
 }

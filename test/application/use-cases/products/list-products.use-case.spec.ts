@@ -36,6 +36,7 @@ describe("ListProductsUseCase", () => {
       hasHistory: jest.fn(),
       findLineage: jest.fn(),
       getStats: jest.fn(),
+      updateBaseUnitByCategory: jest.fn(),
     };
 
     const module: TestingModule = await Test.createTestingModule({
@@ -68,9 +69,13 @@ describe("ListProductsUseCase", () => {
       categoryName: mockProduct.categoryName,
       baseUnit: mockProduct.baseUnit,
       basePrice: "100.000",
-      length: undefined,
-      width: undefined,
-      height: undefined,
+      costPrice: undefined,
+      description: undefined,
+      length: null,
+      width: null,
+      height: null,
+      specText: undefined,
+      reorderThreshold: "0.000",
       parentProductId: undefined,
       createdAt: mockProduct.createdAt,
       updatedAt: mockProduct.updatedAt,

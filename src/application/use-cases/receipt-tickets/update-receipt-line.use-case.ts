@@ -1,5 +1,4 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { Decimal } from "decimal.js";
 import {
   RECEIPT_TICKET_REPOSITORY,
   type IReceiptTicketRepository,
@@ -89,25 +88,22 @@ export class UpdateReceiptLineUseCase {
       throw new UnitNotFoundException(unitCode);
     }
 
-    // 5. Re-calculate metrics using UnitConversionEngine
-    let m2ToKgFactor: Decimal | undefined;
-    const conversion =
-      await this.unitConversionRepository.findByProductAndUnits(
-        productId,
-        "m2",
-        "kg",
+    // 5. Validate unit conversion to base unit
+    if (unitCode !== product.baseUnit) {
+      const conversions =
+        await this.unitConversionRepository.findByProductId(productId);
+      const baseQty = UnitConversionEngine.convertToUnit(
+        quantity,
+        unitCode,
+        product.baseUnit,
+        conversions,
       );
-    if (conversion) {
-      m2ToKgFactor = conversion.factor;
+      if (baseQty === null) {
+        throw new Error(
+          `No unit conversion found from ${unitCode} to base unit ${product.baseUnit} for product ${product.code}`,
+        );
+      }
     }
-
-    const metrics = UnitConversionEngine.calculateReceiptLineMetrics({
-      unitCode,
-      quantity,
-      lengthM,
-      width: product.width,
-      m2ToKgFactor,
-    });
 
     // 6. Update line
     const updatedLine = new ReceiptTicketLineEntity({
@@ -116,8 +112,8 @@ export class UpdateReceiptLineUseCase {
       quantity,
       unitCode,
       lengthM,
-      areaM2: metrics.areaM2,
-      weightKg: metrics.weightKg,
+      areaM2: null,
+      weightKg: null,
       note: dto.note !== undefined ? dto.note : existingLine.note,
     });
 

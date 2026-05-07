@@ -8,11 +8,16 @@ import { CategoryEntity } from "../../../domain/entities/category.entity";
 export class CategoryRepository implements ICategoryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  private mapToDomain(category: PrismaCategory): CategoryEntity {
+  private mapToDomain(
+    category: PrismaCategory & { unit?: { label: string } | null },
+  ): CategoryEntity {
     return new CategoryEntity({
       id: category.id,
       code: category.code,
       name: category.name,
+      baseUnit: category.baseUnit,
+      additionalUnits: category.additionalUnits,
+      baseUnitLabel: category.unit?.label,
       createdAt: category.createdAt,
       updatedAt: category.updatedAt,
     });
@@ -44,13 +49,15 @@ export class CategoryRepository implements ICategoryRepository {
   async create(
     category: Omit<
       CategoryEntity,
-      "id" | "createdAt" | "updatedAt" | "products" | "sizes"
+      "id" | "createdAt" | "updatedAt" | "products" | "sizes" | "baseUnitLabel"
     >,
   ): Promise<CategoryEntity> {
     const created = await this.prisma.category.create({
       data: {
         code: category.code,
         name: category.name,
+        baseUnit: category.baseUnit,
+        additionalUnits: category.additionalUnits,
       },
     });
     return this.mapToDomain(created);
@@ -65,6 +72,8 @@ export class CategoryRepository implements ICategoryRepository {
       data: {
         code: category.code,
         name: category.name,
+        baseUnit: category.baseUnit,
+        additionalUnits: category.additionalUnits,
       },
     });
     return this.mapToDomain(updated);
@@ -88,5 +97,50 @@ export class CategoryRepository implements ICategoryRepository {
       where: { categoryId: id },
     });
     return count > 0;
+  }
+
+  async findByIdWithUnits(id: number): Promise<CategoryEntity | null> {
+    const category = await this.prisma.category.findUnique({
+      where: { id },
+      include: { unit: true },
+    });
+    if (!category) return null;
+    return this.mapToDomain(category);
+  }
+
+  async hasConfirmedTransactions(categoryId: number): Promise<boolean> {
+    const receiptLinesCount = await this.prisma.receiptTicketLine.count({
+      where: {
+        product: { categoryId },
+        ticket: { status: "CONFIRMED" },
+      },
+    });
+    if (receiptLinesCount > 0) return true;
+
+    const issueLinesCount = await this.prisma.issueTicketLine.count({
+      where: {
+        product: { categoryId },
+        ticket: { status: "CONFIRMED" },
+      },
+    });
+    return issueLinesCount > 0;
+  }
+
+  async updateProductsBaseUnit(
+    categoryId: number,
+    baseUnit: string,
+  ): Promise<void> {
+    await this.prisma.product.updateMany({
+      where: { categoryId },
+      data: { baseUnit },
+    });
+  }
+
+  async deleteProductsUnitConversions(categoryId: number): Promise<void> {
+    await this.prisma.unitConversion.deleteMany({
+      where: {
+        product: { categoryId },
+      },
+    });
   }
 }

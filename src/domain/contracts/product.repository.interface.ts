@@ -30,4 +30,8 @@ export interface IProductRepository {
   delete(id: number): Promise<void>;
   hasHistory(id: number): Promise<boolean>;
   findLineage(id: number): Promise<ProductLineageEntity | null>;
+  updateBaseUnitByCategory(
+    categoryId: number,
+    newBaseUnit: string,
+  ): Promise<void>;
 }

@@ -41,3 +41,30 @@ export class CategoryHasSizesException extends CategoryException {
     );
   }
 }
+
+export class CategoryBaseUnitChangeBlockedException extends CategoryException {
+  constructor(id: number) {
+    super(
+      `Cannot change base unit of category '${id}' because it has confirmed transactions`,
+      "CATEGORY_BASE_UNIT_CHANGE_BLOCKED",
+    );
+  }
+}
+
+export class ProductCategoryChangeBlockedException extends CategoryException {
+  constructor(productId: number) {
+    super(
+      `Cannot change category of product '${productId}' because it has confirmed transactions`,
+      "PRODUCT_CATEGORY_CHANGE_BLOCKED",
+    );
+  }
+}
+
+export class InvalidCategoryUnitException extends CategoryException {
+  constructor(unitCode: string, categoryId: number) {
+    super(
+      `Unit '${unitCode}' is not configured as an additional unit for category '${categoryId}'`,
+      "INVALID_CATEGORY_UNIT",
+    );
+  }
+}

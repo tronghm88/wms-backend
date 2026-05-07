@@ -6,26 +6,38 @@ const categories = [
   {
     code: "PP_MANG_DECAL",
     name: "Màng PP / PVC Decal",
+    baseUnit: "roll",
+    additionalUnits: ["kg", "m2"],
   },
   {
     code: "LY",
     name: "Ly sứ / Ly lồng màu",
+    baseUnit: "cai",
+    additionalUnits: ["thung"],
   },
   {
     code: "GIAY_ANH_CUON",
     name: "Giấy ảnh cuộn",
+    baseUnit: "roll",
+    additionalUnits: ["kg", "m"],
   },
   {
     code: "GIAY_ANH_XAP",
     name: "Giấy ảnh xấp",
+    baseUnit: "xap",
+    additionalUnits: ["kg", "m"],
   },
   {
     code: "RUOT_PVC_VIEN",
     name: "Ruột PVC / Viền",
+    baseUnit: "cai",
+    additionalUnits: ["kg"],
   },
   {
     code: "HIFLEX",
     name: "Bạt Hiflex",
+    baseUnit: "m2",
+    additionalUnits: ["kg"],
   },
 ];
 
@@ -50,6 +62,8 @@ async function bootstrap() {
           data: {
             code: category.code,
             name: category.name,
+            baseUnit: category.baseUnit,
+            additionalUnits: category.additionalUnits,
           },
         });
         console.log(

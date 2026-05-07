@@ -40,6 +40,7 @@ describe("UpdateReceiptLineUseCase", () => {
     } as unknown as jest.Mocked<IProductRepository>;
     unitConversionRepository = {
       findByProductAndUnits: jest.fn(),
+      findByProductId: jest.fn().mockResolvedValue([]),
     } as unknown as jest.Mocked<IUnitConversionRepository>;
     unitRepository = {
       findByCode: jest.fn(),
@@ -113,6 +114,9 @@ describe("UpdateReceiptLineUseCase", () => {
     unitRepository.findByCode.mockResolvedValue(
       new UnitEntity({ code: "roll" }),
     );
+    unitConversionRepository.findByProductId.mockResolvedValue([
+      new UnitConversionEntity({ toUnit: "roll", factor: new Decimal(0.5) }),
+    ]);
     receiptTicketRepository.updateLineWithStockAdjustment.mockImplementation(
       (id, line) => Promise.resolve(line),
     );
@@ -174,9 +178,9 @@ describe("UpdateReceiptLineUseCase", () => {
     unitRepository.findByCode.mockResolvedValue(
       new UnitEntity({ code: "roll" }),
     );
-    unitConversionRepository.findByProductAndUnits.mockResolvedValue(
-      new UnitConversionEntity({ factor: new Decimal(0.5) }),
-    );
+    unitConversionRepository.findByProductId.mockResolvedValue([
+      new UnitConversionEntity({ toUnit: "roll", factor: new Decimal(0.5) }),
+    ]);
     receiptTicketRepository.updateLine.mockImplementation((id, line) =>
       Promise.resolve(line as ReceiptTicketLineEntity),
     );
@@ -190,8 +194,8 @@ describe("UpdateReceiptLineUseCase", () => {
     );
 
     expect(result.quantity.toString()).toBe("2");
-    expect(result.areaM2?.toString()).toBe("150"); // 2 * 50 * 1.5
-    expect(result.weightKg?.toString()).toBe("75"); // 150 * 0.5
+    expect(result.areaM2).toBeNull();
+    expect(result.weightKg).toBeNull();
   });
 
   it("should update product and use new product defaults if lengthM not provided", async () => {
@@ -218,6 +222,9 @@ describe("UpdateReceiptLineUseCase", () => {
     unitRepository.findByCode.mockResolvedValue(
       new UnitEntity({ code: "roll" }),
     );
+    unitConversionRepository.findByProductId.mockResolvedValue([
+      new UnitConversionEntity({ toUnit: "roll", factor: new Decimal(0.5) }),
+    ]);
     receiptTicketRepository.updateLine.mockImplementation((id, line) =>
       Promise.resolve(line as ReceiptTicketLineEntity),
     );
@@ -226,6 +233,6 @@ describe("UpdateReceiptLineUseCase", () => {
 
     expect(result.productId).toBe(2);
     expect(result.lengthM?.toString()).toBe("100");
-    expect(result.areaM2?.toString()).toBe("200"); // 1 * 100 * 2 (quantity=1 from existing)
+    expect(result.areaM2).toBeNull();
   });
 });

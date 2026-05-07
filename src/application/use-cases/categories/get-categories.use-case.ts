@@ -6,6 +6,8 @@ export interface GetCategoriesResponse {
   id: number;
   code: string;
   name: string;
+  baseUnit: string | null;
+  additionalUnits: string[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -24,6 +26,8 @@ export class GetCategoriesUseCase {
       id: category.id,
       code: category.code,
       name: category.name,
+      baseUnit: category.baseUnit ?? null,
+      additionalUnits: category.additionalUnits ?? [],
       createdAt: category.createdAt,
       updatedAt: category.updatedAt,
     }));

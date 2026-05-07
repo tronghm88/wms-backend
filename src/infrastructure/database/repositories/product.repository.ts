@@ -326,4 +326,14 @@ export class ProductRepository implements IProductRepository {
 
     return lineage;
   }
+
+  async updateBaseUnitByCategory(
+    categoryId: number,
+    newBaseUnit: string,
+  ): Promise<void> {
+    await this.prisma.product.updateMany({
+      where: { categoryId },
+      data: { baseUnit: newBaseUnit },
+    });
+  }
 }

@@ -5,6 +5,9 @@ import {
   PRODUCT_REPOSITORY,
   IProductRepository,
 } from "../../../../src/domain/contracts/product.repository.interface";
+import { INVENTORY_REPOSITORY } from "../../../../src/domain/contracts/inventory.repository.interface";
+import { UNIT_CONVERSION_REPOSITORY } from "../../../../src/domain/contracts/unit-conversion.repository.interface";
+import { UNIT_REPOSITORY } from "../../../../src/domain/contracts/unit.repository.interface";
 import { ProductEntity } from "../../../../src/domain/entities/product.entity";
 import { ProductNotFoundException } from "../../../../src/domain/exceptions/product.exceptions";
 import { Decimal } from "decimal.js";
@@ -37,6 +40,7 @@ describe("GetProductUseCase", () => {
       hasHistory: jest.fn(),
       findLineage: jest.fn(),
       getStats: jest.fn(),
+      updateBaseUnitByCategory: jest.fn(),
     };
 
     const module: TestingModule = await Test.createTestingModule({
@@ -45,6 +49,21 @@ describe("GetProductUseCase", () => {
         {
           provide: PRODUCT_REPOSITORY,
           useValue: repository,
+        },
+        {
+          provide: INVENTORY_REPOSITORY,
+          useValue: { findByProductId: jest.fn() },
+        },
+        {
+          provide: UNIT_CONVERSION_REPOSITORY,
+          useValue: { findByProductId: jest.fn().mockResolvedValue([]) },
+        },
+        {
+          provide: UNIT_REPOSITORY,
+          useValue: {
+            findByCode: jest.fn(),
+            findAll: jest.fn().mockResolvedValue([]),
+          },
         },
       ],
     }).compile();
@@ -69,11 +88,19 @@ describe("GetProductUseCase", () => {
       categoryId: mockProduct.categoryId,
       categoryName: mockProduct.categoryName,
       baseUnit: mockProduct.baseUnit,
+      baseUnitLabel: "kg",
       basePrice: "100.000",
-      length: undefined,
-      width: undefined,
-      height: undefined,
+      costPrice: undefined,
+      description: undefined,
+      length: null,
+      width: null,
+      height: null,
       parentProductId: undefined,
+      reorderThreshold: "0.000",
+      specText: undefined,
+      stock: "0.000",
+      stockConversions: [],
+      unitConversions: [],
       createdAt: mockProduct.createdAt,
       updatedAt: mockProduct.updatedAt,
     });

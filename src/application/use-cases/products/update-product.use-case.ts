@@ -18,7 +18,6 @@ export interface UpdateProductRequest {
   code?: string;
   name?: string;
   categoryId?: number;
-  baseUnit?: string;
   basePrice?: string;
   costPrice?: string;
   reorderThreshold?: string;
@@ -89,14 +88,11 @@ export class UpdateProductUseCase {
       }
       product.categoryId = request.categoryId;
       product.categoryName = category.name;
-    }
 
-    if (request.baseUnit !== undefined) {
-      const unit = await this.unitRepository.findByCode(request.baseUnit);
-      if (!unit) {
-        throw new UnitNotFoundException(request.baseUnit);
+      // Always update baseUnit if category changed
+      if (category.baseUnit) {
+        product.baseUnit = category.baseUnit;
       }
-      product.baseUnit = request.baseUnit;
     }
 
     if (request.basePrice !== undefined) {

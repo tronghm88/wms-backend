@@ -4,8 +4,10 @@ import {
   Param,
   ParseIntPipe,
   Query,
+  Res,
   UseGuards,
 } from "@nestjs/common";
+import type { Response } from "express";
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -17,6 +19,7 @@ import { GetInventorySnapshotUseCase } from "../../application/use-cases/invento
 import { GetProductStockListUseCase } from "../../application/use-cases/inventory/get-product-stock-list.use-case";
 import { GetProductStockDetailUseCase } from "../../application/use-cases/inventory/get-product-stock-detail.use-case";
 import { GetProductMovementHistoryUseCase } from "../../application/use-cases/inventory/get-product-movement-history.use-case";
+import { ExportStockReportUseCase } from "../../application/use-cases/inventory/export-stock-report.use-case";
 import { InventorySnapshotResponseDto } from "../dtos/inventory/inventory-snapshot-response.dto";
 import { InventoryStockQueryDto } from "../dtos/inventory/inventory-stock-query.dto";
 import {
@@ -24,8 +27,10 @@ import {
   ProductStockListResponseDto,
 } from "../dtos/inventory/product-stock-list-response.dto";
 import { ProductStockDetailDto } from "../dtos/inventory/product-stock-detail-response.dto";
+import { ProductStockDetailQueryDto } from "../dtos/inventory/product-stock-detail-query.dto";
 import { MovementHistoryQueryDto } from "../dtos/inventory/movement-history-query.dto";
 import { RecentMovementItemDto } from "../dtos/inventory/movement-history-item.dto";
+import { StockExportQueryDto } from "../dtos/inventory/stock-export-query.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
 import { Permissions } from "../../domain/constants/permissions.constant";
@@ -40,7 +45,40 @@ export class InventoryController {
     private readonly getProductStockListUseCase: GetProductStockListUseCase,
     private readonly getProductStockDetailUseCase: GetProductStockDetailUseCase,
     private readonly getProductMovementHistoryUseCase: GetProductMovementHistoryUseCase,
-  ) {}
+    private readonly exportStockReportUseCase: ExportStockReportUseCase,
+  ) { }
+
+  // ─── Excel export ────────────────────────────────────────────────────────────
+
+  @Get("stock/export")
+  @RequirePermissions(Permissions.INVENTORY_VIEW)
+  @ApiOperation({
+    summary: "Export Excel stock report for a category",
+    description:
+      "Export all products in a category with opening stock, closing stock, input quantity, output quantity per unit.",
+  })
+  @ApiResponse({
+    status: 200,
+    description: "Excel (.xlsx) file is returned as a binary attachment.",
+  })
+  @ApiResponse({ status: 404, description: "Category not found." })
+  async exportStock(
+    @Query() query: StockExportQueryDto,
+    @Res() res: Response,
+  ): Promise<void> {
+    const { buffer, filename } = await this.exportStockReportUseCase.execute({
+      categoryId: query.categoryId,
+      startDate: query.startDate,
+      endDate: query.endDate,
+    });
+    res.set({
+      "Content-Type":
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "Content-Disposition": `attachment; filename="${filename}"`,
+      "Content-Length": buffer.length,
+    });
+    res.end(buffer);
+  }
 
   // ─── Existing endpoint ──────────────────────────────────────────────────────
 
@@ -104,13 +142,12 @@ export class InventoryController {
   @ApiResponse({ status: 404, description: "Product not found." })
   async getStockDetail(
     @Param("productId", ParseIntPipe) productId: number,
-    @Query() query: InventoryStockQueryDto,
+    @Query() query: ProductStockDetailQueryDto,
   ): Promise<ProductStockDetailDto> {
     const result = await this.getProductStockDetailUseCase.execute({
       productId,
       startDate: query.startDate,
       endDate: query.endDate,
-      categoryId: query.categoryId,
       ticketType: query.ticketType,
     });
     return new ProductStockDetailDto(result);

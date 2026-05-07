@@ -2,6 +2,9 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { InventoryController } from "../../../src/presentation/controllers/inventory.controller";
 import { GetInventorySnapshotUseCase } from "../../../src/application/use-cases/inventory/get-inventory-snapshot.use-case";
+import { GetProductStockListUseCase } from "../../../src/application/use-cases/inventory/get-product-stock-list.use-case";
+import { GetProductStockDetailUseCase } from "../../../src/application/use-cases/inventory/get-product-stock-detail.use-case";
+import { GetProductMovementHistoryUseCase } from "../../../src/application/use-cases/inventory/get-product-movement-history.use-case";
 import { JwtAuthGuard } from "../../../src/presentation/guards/jwt-auth.guard";
 import { RbacGuard } from "../../../src/presentation/guards/rbac.guard";
 import { Permissions } from "../../../src/domain/constants/permissions.constant";
@@ -21,6 +24,18 @@ describe("InventoryController", () => {
         {
           provide: GetInventorySnapshotUseCase,
           useValue: mockGetInventorySnapshotUseCase,
+        },
+        {
+          provide: GetProductStockListUseCase,
+          useValue: { execute: jest.fn() },
+        },
+        {
+          provide: GetProductStockDetailUseCase,
+          useValue: { execute: jest.fn() },
+        },
+        {
+          provide: GetProductMovementHistoryUseCase,
+          useValue: { execute: jest.fn() },
         },
       ],
     })

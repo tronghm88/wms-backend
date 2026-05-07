@@ -99,18 +99,22 @@ model Unit {
   issueTicketLines   IssueTicketLine[]
   inventories        Inventory[]
   splitTickets       SplitTicket[]
+  categoriesAsBase   Category[]
 
   @@map("units")
 }
 
 model Category {
-  id        Int            @id @default(autoincrement())
-  code      String         @unique
-  name      String
-  createdAt DateTime       @default(now()) @map("created_at")
-  updatedAt DateTime       @updatedAt @map("updated_at")
-  products  Product[]
-  sizes     CategorySize[]
+  id              Int            @id @default(autoincrement())
+  code            String         @unique
+  name            String
+  baseUnit        String         @map("base_unit")
+  additionalUnits String[]       @map("additional_units") @default([])
+  createdAt       DateTime       @default(now()) @map("created_at")
+  updatedAt       DateTime       @updatedAt @map("updated_at")
+  products        Product[]
+  sizes           CategorySize[]
+  unit            Unit           @relation(fields: [baseUnit], references: [code])
 
   @@map("categories")
 }

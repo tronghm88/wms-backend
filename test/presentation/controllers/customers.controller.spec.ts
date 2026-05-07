@@ -95,10 +95,7 @@ describe("CustomersController", () => {
       const query = { page: 1, limit: 20 };
       const result = await controller.findAll(query);
 
-      expect(result).toEqual({
-        statusCode: 200,
-        data: mockResult,
-      });
+      expect(result).toEqual(mockResult);
       expect(getCustomersUseCase.execute).toHaveBeenCalledWith(query);
     });
   });
@@ -128,10 +125,7 @@ describe("CustomersController", () => {
       };
       const result = await controller.update(1, updateDto);
 
-      expect(result).toEqual({
-        statusCode: 200,
-        data: mockResult,
-      });
+      expect(result).toEqual(mockResult);
       expect(updateCustomerUseCase.execute).toHaveBeenCalledWith({
         id: 1,
         ...updateDto,
@@ -145,10 +139,7 @@ describe("CustomersController", () => {
 
       const result = await controller.delete(1);
 
-      expect(result).toEqual({
-        statusCode: 200,
-        data: null,
-      });
+      expect(result).toBeNull();
       expect(deleteCustomerUseCase.execute).toHaveBeenCalledWith(1);
     });
   });
