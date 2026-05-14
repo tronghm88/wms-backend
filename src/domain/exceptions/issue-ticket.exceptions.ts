@@ -26,3 +26,21 @@ export class InvalidIssueTicketStatusException extends IssueTicketException {
     );
   }
 }
+
+export class IssueTicketNotDraftException extends IssueTicketException {
+  constructor(idOrCode: number | string) {
+    super(
+      `Issue Ticket ${idOrCode} is not in DRAFT status and cannot be modified.`,
+      "ISSUE_TICKET_NOT_DRAFT",
+    );
+  }
+}
+
+export class IssueTicketLineNotFoundException extends IssueTicketException {
+  constructor(lineId: number) {
+    super(
+      `Issue Ticket Line with ID ${lineId} not found.`,
+      "ISSUE_TICKET_LINE_NOT_FOUND",
+    );
+  }
+}

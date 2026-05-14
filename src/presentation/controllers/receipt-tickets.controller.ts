@@ -9,6 +9,7 @@ import {
   Patch,
   ParseIntPipe,
   Post,
+  Put,
   Query,
   Request,
   UseGuards,
@@ -67,7 +68,7 @@ export class ReceiptTicketsController {
     private readonly getReceiptTicketStatsUseCase: GetReceiptTicketStatsUseCase,
   ) {}
 
-  @Post(":id/confirm")
+  @Put(":id/confirm")
   @RequirePermissions(Permissions.RECEIPTS_CONFIRM)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: "Confirm a Goods Receipt and update stock" })

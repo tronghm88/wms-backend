@@ -6,6 +6,11 @@ import { CreateIssueTicketUseCase } from "../../application/use-cases/issue-tick
 import { CompleteIssueTicketUseCase } from "../../application/use-cases/issue-tickets/complete-issue-ticket.use-case";
 import { GetIssueTicketUseCase } from "../../application/use-cases/issue-tickets/get-issue-ticket.use-case";
 import { CancelIssueTicketUseCase } from "../../application/use-cases/issue-tickets/cancel-issue-ticket.use-case";
+import { DeleteIssueTicketUseCase } from "../../application/use-cases/issue-tickets/delete-issue-ticket.use-case";
+import { UpdateIssueTicketUseCase } from "../../application/use-cases/issue-tickets/update-issue-ticket.use-case";
+import { AddIssueLineUseCase } from "../../application/use-cases/issue-tickets/add-issue-line.use-case";
+import { DeleteIssueLineUseCase } from "../../application/use-cases/issue-tickets/delete-issue-line.use-case";
+import { GetIssueTicketStatsUseCase } from "../../application/use-cases/issue-tickets/get-issue-ticket-stats.use-case";
 import { ProductsModule } from "../products/products.module";
 import { CustomersModule } from "../customers/customers.module";
 import { DiscountPoliciesModule } from "../discount-policies/discount-policies.module";
@@ -26,6 +31,11 @@ import { IssueTicketsController } from "../../presentation/controllers/issue-tic
     CompleteIssueTicketUseCase,
     GetIssueTicketUseCase,
     CancelIssueTicketUseCase,
+    DeleteIssueTicketUseCase,
+    UpdateIssueTicketUseCase,
+    AddIssueLineUseCase,
+    DeleteIssueLineUseCase,
+    GetIssueTicketStatsUseCase,
     {
       provide: ISSUE_TICKET_REPOSITORY,
       useClass: PrismaIssueTicketRepository,

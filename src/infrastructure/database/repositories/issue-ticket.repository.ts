@@ -5,7 +5,11 @@ import {
   DiscountType as PrismaDiscountType,
 } from "@prisma/client";
 import { PrismaService } from "../prisma.service";
-import { IIssueTicketRepository } from "../../../domain/contracts/issue-ticket.repository.interface";
+import {
+  IIssueTicketRepository,
+  IIssueTicketFindManyParams,
+  IIssueTicketStats,
+} from "../../../domain/contracts/issue-ticket.repository.interface";
 import { IssueTicketEntity } from "../../../domain/entities/issue-ticket.entity";
 import { IssueTicketLineEntity } from "../../../domain/entities/issue-ticket-line.entity";
 import { IssueTicketStatus, DiscountType } from "../../../domain/enums";
@@ -313,6 +317,180 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
         warnings,
       };
     });
+  }
+
+  async findMany(
+    params: IIssueTicketFindManyParams,
+  ): Promise<{ items: IssueTicketEntity[]; total: number }> {
+    const {
+      skip,
+      take,
+      status,
+      customerId,
+      creatorId,
+      fromDate,
+      toDate,
+      search,
+    } = params;
+
+    const where: Prisma.IssueTicketWhereInput = {
+      ...(status && { status: this.mapStatusToPrisma(status) }),
+      ...(customerId && { customerId }),
+      ...(creatorId && { createdBy: creatorId }),
+      ...(fromDate || toDate
+        ? { date: { gte: fromDate, lte: toDate } }
+        : undefined),
+      ...(search && {
+        OR: [
+          { ticketNo: { contains: search, mode: "insensitive" } },
+          { customer: { name: { contains: search, mode: "insensitive" } } },
+        ],
+      }),
+    };
+
+    const [tickets, total] = await Promise.all([
+      this.prisma.issueTicket.findMany({
+        where,
+        include: { lines: true },
+        orderBy: { createdAt: "desc" },
+        skip,
+        take,
+      }),
+      this.prisma.issueTicket.count({ where }),
+    ]);
+
+    return { items: tickets.map((t) => this.toEntity(t)), total };
+  }
+
+  async delete(id: number): Promise<void> {
+    await this.prisma.issueTicket.delete({ where: { id } });
+  }
+
+  async findLineById(lineId: number): Promise<IssueTicketLineEntity | null> {
+    const line = await this.prisma.issueTicketLine.findUnique({
+      where: { id: lineId },
+    });
+    if (!line) return null;
+
+    return new IssueTicketLineEntity({
+      id: line.id,
+      ticketId: line.ticketId,
+      productId: line.productId,
+      quantity: new Decimal(line.quantity.toString()),
+      unitCode: line.unitCode,
+      basePrice: new Decimal(line.basePrice.toString()),
+      discountType: this.mapDiscountTypeToDomain(line.discountType),
+      discountValue: new Decimal(line.discountValue.toString()),
+      finalPrice: new Decimal(line.finalPrice.toString()),
+      lineTotal: new Decimal(line.lineTotal.toString()),
+      originalPrice: line.originalPrice
+        ? new Decimal(line.originalPrice.toString())
+        : undefined,
+      isOverride: line.isOverride,
+      note: line.note ?? undefined,
+      createdAt: line.createdAt,
+      updatedAt: line.updatedAt,
+    });
+  }
+
+  async addLine(
+    ticketId: number,
+    line: Omit<
+      IssueTicketLineEntity,
+      "id" | "ticketId" | "createdAt" | "updatedAt"
+    >,
+    newTotalAmount: Decimal,
+  ): Promise<IssueTicketLineEntity> {
+    return await this.prisma.$transaction(async (tx) => {
+      const createdLine = await tx.issueTicketLine.create({
+        data: {
+          ticketId,
+          productId: line.productId,
+          quantity: line.quantity as unknown as Prisma.Decimal,
+          unitCode: line.unitCode,
+          basePrice: line.basePrice as unknown as Prisma.Decimal,
+          discountType: this.mapDiscountTypeToPrisma(line.discountType),
+          discountValue: line.discountValue as unknown as Prisma.Decimal,
+          finalPrice: line.finalPrice as unknown as Prisma.Decimal,
+          lineTotal: line.lineTotal as unknown as Prisma.Decimal,
+          originalPrice: line.originalPrice
+            ? (line.originalPrice as unknown as Prisma.Decimal)
+            : null,
+          isOverride: line.isOverride,
+          note: line.note,
+        },
+      });
+
+      await tx.issueTicket.update({
+        where: { id: ticketId },
+        data: { totalAmount: newTotalAmount as unknown as Prisma.Decimal },
+      });
+
+      return new IssueTicketLineEntity({
+        id: createdLine.id,
+        ticketId: createdLine.ticketId,
+        productId: createdLine.productId,
+        quantity: new Decimal(createdLine.quantity.toString()),
+        unitCode: createdLine.unitCode,
+        basePrice: new Decimal(createdLine.basePrice.toString()),
+        discountType: this.mapDiscountTypeToDomain(createdLine.discountType),
+        discountValue: new Decimal(createdLine.discountValue.toString()),
+        finalPrice: new Decimal(createdLine.finalPrice.toString()),
+        lineTotal: new Decimal(createdLine.lineTotal.toString()),
+        originalPrice: createdLine.originalPrice
+          ? new Decimal(createdLine.originalPrice.toString())
+          : undefined,
+        isOverride: createdLine.isOverride,
+        note: createdLine.note ?? undefined,
+        createdAt: createdLine.createdAt,
+        updatedAt: createdLine.updatedAt,
+      });
+    });
+  }
+
+  async deleteLine(
+    lineId: number,
+    ticketId: number,
+    newTotalAmount: Decimal,
+  ): Promise<void> {
+    await this.prisma.$transaction(async (tx) => {
+      await tx.issueTicketLine.delete({ where: { id: lineId } });
+      await tx.issueTicket.update({
+        where: { id: ticketId },
+        data: { totalAmount: newTotalAmount as unknown as Prisma.Decimal },
+      });
+    });
+  }
+
+  async getStats(fromDate: Date, toDate: Date): Promise<IIssueTicketStats> {
+    const [totalCount, totalLines, pendingCount, revenueResult] =
+      await Promise.all([
+        this.prisma.issueTicket.count({
+          where: { createdAt: { gte: fromDate, lte: toDate } },
+        }),
+        this.prisma.issueTicketLine.count({
+          where: { ticket: { createdAt: { gte: fromDate, lte: toDate } } },
+        }),
+        this.prisma.issueTicket.count({
+          where: {
+            status: PrismaTransactionStatus.DRAFT,
+            createdAt: { gte: fromDate, lte: toDate },
+          },
+        }),
+        this.prisma.issueTicket.aggregate({
+          where: {
+            status: PrismaTransactionStatus.CONFIRMED,
+            createdAt: { gte: fromDate, lte: toDate },
+          },
+          _sum: { totalAmount: true },
+        }),
+      ]);
+
+    const totalRevenue = revenueResult._sum.totalAmount
+      ? new Decimal(revenueResult._sum.totalAmount.toString()).toFixed(3)
+      : "0.000";
+
+    return { totalCount, totalLines, pendingCount, totalRevenue };
   }
 
   private toEntity(

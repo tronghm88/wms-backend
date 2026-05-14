@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -8,6 +9,8 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Put,
+  Query,
   Request,
   UseGuards,
 } from "@nestjs/common";
@@ -22,9 +25,19 @@ import { CreateIssueTicketUseCase } from "../../application/use-cases/issue-tick
 import { CompleteIssueTicketUseCase } from "../../application/use-cases/issue-tickets/complete-issue-ticket.use-case";
 import { GetIssueTicketUseCase } from "../../application/use-cases/issue-tickets/get-issue-ticket.use-case";
 import { CancelIssueTicketUseCase } from "../../application/use-cases/issue-tickets/cancel-issue-ticket.use-case";
+import { DeleteIssueTicketUseCase } from "../../application/use-cases/issue-tickets/delete-issue-ticket.use-case";
+import { UpdateIssueTicketUseCase } from "../../application/use-cases/issue-tickets/update-issue-ticket.use-case";
+import { AddIssueLineUseCase } from "../../application/use-cases/issue-tickets/add-issue-line.use-case";
+import { DeleteIssueLineUseCase } from "../../application/use-cases/issue-tickets/delete-issue-line.use-case";
+import { GetIssueTicketStatsUseCase } from "../../application/use-cases/issue-tickets/get-issue-ticket-stats.use-case";
 import { CreateIssueTicketDto } from "../../application/dtos/create-issue-ticket.dto";
 import { IssueTicketResponseDto } from "../dtos/issue-tickets/issue-ticket-response.dto";
+import { IssueTicketLineResponseDto } from "../dtos/issue-tickets/issue-ticket-line-response.dto";
 import { CancelIssueTicketResponseDto } from "../dtos/issue-tickets/cancel-issue-ticket-response.dto";
+import { UpdateIssueTicketRequestDto } from "../dtos/issue-tickets/update-issue-ticket-request.dto";
+import { AddIssueLineRequestDto } from "../dtos/issue-tickets/add-issue-line-request.dto";
+import { GetIssueStatsQueryDto } from "../dtos/issue-tickets/get-issue-stats-query.dto";
+import { IssueStatsResponseDto } from "../dtos/issue-tickets/issue-stats-response.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
 import { Permissions } from "../../domain/constants/permissions.constant";
@@ -39,6 +52,11 @@ export class IssueTicketsController {
     private readonly completeIssueTicketUseCase: CompleteIssueTicketUseCase,
     private readonly getIssueTicketUseCase: GetIssueTicketUseCase,
     private readonly cancelIssueTicketUseCase: CancelIssueTicketUseCase,
+    private readonly deleteIssueTicketUseCase: DeleteIssueTicketUseCase,
+    private readonly updateIssueTicketUseCase: UpdateIssueTicketUseCase,
+    private readonly addIssueLineUseCase: AddIssueLineUseCase,
+    private readonly deleteIssueLineUseCase: DeleteIssueLineUseCase,
+    private readonly getIssueTicketStatsUseCase: GetIssueTicketStatsUseCase,
   ) {}
 
   @Post()
@@ -65,6 +83,24 @@ export class IssueTicketsController {
     return new IssueTicketResponseDto(ticket);
   }
 
+  @Get("stats")
+  @RequirePermissions(Permissions.ISSUES_VIEW)
+  @ApiOperation({ summary: "Get Issue Ticket statistics for a date range" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Returns Issue Ticket statistics",
+    type: IssueStatsResponseDto,
+  })
+  async getStats(
+    @Query() query: GetIssueStatsQueryDto,
+  ): Promise<IssueStatsResponseDto> {
+    const stats = await this.getIssueTicketStatsUseCase.execute(
+      query.fromDate,
+      query.toDate,
+    );
+    return new IssueStatsResponseDto(stats);
+  }
+
   @Get(":id")
   @RequirePermissions(Permissions.ISSUES_VIEW)
   @ApiOperation({ summary: "Get Issue Ticket by ID" })
@@ -85,14 +121,125 @@ export class IssueTicketsController {
     return new IssueTicketResponseDto(ticket);
   }
 
-  @Patch(":id/complete")
-  @RequirePermissions(Permissions.ISSUES_CONFIRM)
+  @Patch(":id")
+  @RequirePermissions(Permissions.ISSUES_CREATE)
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: "Complete an Issue Ticket and update stock" })
+  @ApiOperation({
+    summary: "Update basic information of a DRAFT Issue Ticket",
+  })
   @ApiParam({ name: "id", type: Number, description: "Issue Ticket ID" })
   @ApiResponse({
     status: HttpStatus.OK,
-    description: "Issue Ticket successfully completed",
+    description: "Issue Ticket header updated successfully",
+    type: IssueTicketResponseDto,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: "Ticket not found",
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: "Ticket is not in DRAFT status",
+  })
+  async update(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() dto: UpdateIssueTicketRequestDto,
+  ): Promise<IssueTicketResponseDto> {
+    const ticket = await this.updateIssueTicketUseCase.execute(id, {
+      note: dto.note,
+      date: dto.date ? new Date(dto.date) : undefined,
+    });
+    return new IssueTicketResponseDto(ticket);
+  }
+
+  @Delete(":id")
+  @RequirePermissions(Permissions.ISSUES_DELETE)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: "Delete a DRAFT Issue Ticket" })
+  @ApiParam({ name: "id", type: Number, description: "Issue Ticket ID" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Issue Ticket successfully deleted",
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: "Ticket not found",
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: "Ticket is not in DRAFT status",
+  })
+  async delete(@Param("id", ParseIntPipe) id: number): Promise<null> {
+    await this.deleteIssueTicketUseCase.execute(id);
+    return null;
+  }
+
+  @Post(":id/lines")
+  @RequirePermissions(Permissions.ISSUES_CREATE)
+  @HttpCode(HttpStatus.CREATED)
+  @ApiOperation({ summary: "Add a new line to a DRAFT Issue Ticket" })
+  @ApiParam({ name: "id", type: Number, description: "Issue Ticket ID" })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: "Line successfully added",
+    type: IssueTicketLineResponseDto,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: "Ticket or Product not found",
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: "Ticket is not in DRAFT status or insufficient stock",
+  })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+    description: "No permission to override price",
+  })
+  async addLine(
+    @Param("id", ParseIntPipe) id: number,
+    @Request()
+    req: { user: { id: number; permissions: string[]; role: string } },
+    @Body() dto: AddIssueLineRequestDto,
+  ): Promise<IssueTicketLineResponseDto> {
+    const line = await this.addIssueLineUseCase.execute(id, dto, req.user);
+    return new IssueTicketLineResponseDto(line);
+  }
+
+  @Delete(":id/lines/:lineId")
+  @RequirePermissions(Permissions.ISSUES_CREATE)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: "Delete a line from a DRAFT Issue Ticket" })
+  @ApiParam({ name: "id", type: Number, description: "Issue Ticket ID" })
+  @ApiParam({ name: "lineId", type: Number, description: "Line ID" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Line successfully deleted",
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: "Ticket or line not found",
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: "Ticket is not in DRAFT status",
+  })
+  async deleteLine(
+    @Param("id", ParseIntPipe) id: number,
+    @Param("lineId", ParseIntPipe) lineId: number,
+  ): Promise<null> {
+    await this.deleteIssueLineUseCase.execute(id, lineId);
+    return null;
+  }
+
+  @Put(":id/confirm")
+  @RequirePermissions(Permissions.ISSUES_CONFIRM)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: "Confirm an Issue Ticket and update stock" })
+  @ApiParam({ name: "id", type: Number, description: "Issue Ticket ID" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Issue Ticket successfully confirmed",
     type: IssueTicketResponseDto,
   })
   @ApiResponse({
@@ -103,7 +250,7 @@ export class IssueTicketsController {
     status: HttpStatus.BAD_REQUEST,
     description: "Invalid status transition",
   })
-  async complete(
+  async confirm(
     @Request()
     req: { user: { id: number; permissions: string[]; role: string } },
     @Param("id", ParseIntPipe) id: number,
