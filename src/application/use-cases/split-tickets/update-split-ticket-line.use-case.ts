@@ -16,21 +16,13 @@ import {
   UNIT_CONVERSION_REPOSITORY,
   type IUnitConversionRepository,
 } from "../../../domain/contracts/unit-conversion.repository.interface";
-import { SplitTicketEntity } from "../../../domain/entities/split-ticket.entity";
+import { SplitTicketLineEntity } from "../../../domain/entities/split-ticket-line.entity";
 import { TransactionStatus } from "../../../domain/enums";
 import { Decimal } from "decimal.js";
-import { AddSplitTicketLinesDto } from "../../../presentation/dtos/split-tickets/add-split-ticket-lines.dto";
-
-interface SplitTicketLineCreateInput {
-  targetProductId: number;
-  quantity: Decimal;
-  unitCode: string;
-  isNewProduct: boolean;
-  note: string | null;
-}
+import { UpdateSplitLineRequestDto } from "../../../presentation/dtos/split-tickets/update-split-line-request.dto";
 
 @Injectable()
-export class AddSplitTicketLinesUseCase {
+export class UpdateSplitTicketLineUseCase {
   constructor(
     @Inject(SPLIT_TICKET_REPOSITORY)
     private readonly splitTicketRepository: ISplitTicketRepository,
@@ -42,9 +34,9 @@ export class AddSplitTicketLinesUseCase {
 
   async execute(
     ticketId: number,
-    dto: AddSplitTicketLinesDto,
-  ): Promise<SplitTicketEntity> {
-    // 1. Validate ticket existence and status
+    lineId: number,
+    dto: UpdateSplitLineRequestDto,
+  ): Promise<SplitTicketLineEntity> {
     const ticket = await this.splitTicketRepository.findById(ticketId);
     if (!ticket) {
       throw new NotFoundException(`Split Ticket with ID ${ticketId} not found`);
@@ -56,81 +48,91 @@ export class AddSplitTicketLinesUseCase {
       );
     }
 
-    // 2. Clear existing lines
-    await this.splitTicketRepository.deleteLines(ticketId);
+    const line = await this.splitTicketRepository.findLineById(lineId);
+    if (!line || line.ticketId !== ticketId) {
+      throw new NotFoundException(
+        `Line with ID ${lineId} not found in this ticket`,
+      );
+    }
 
-    let totalQtyInSourceUnit = new Decimal(0);
-
-    // 3. Process each line
-    const linesToCreate: SplitTicketLineCreateInput[] = [];
-    const inputLines = dto.lines;
-
-    for (const lineDto of inputLines) {
-      // Validate target product
+    if (
+      dto.targetProductId !== undefined &&
+      dto.targetProductId !== line.targetProductId
+    ) {
       const targetProduct = await this.productRepository.findById(
-        lineDto.targetProductId,
+        dto.targetProductId,
       );
       if (!targetProduct) {
         throw new NotFoundException(
-          `Target product with ID ${lineDto.targetProductId} not found`,
+          `Target product with ID ${dto.targetProductId} not found`,
         );
       }
+    }
 
-      const lineQty = new Decimal(lineDto.quantity);
+    const proposedQuantity =
+      dto.quantity !== undefined ? new Decimal(dto.quantity) : line.quantity;
+    const proposedUnitCode = dto.unitCode ?? line.unitCode;
 
-      // Calculate quantity in source unit
-      let qtyInSourceUnit = lineQty;
-      if (lineDto.unitCode !== ticket.sourceUnitCode) {
-        // Find conversion factor
+    // Calculate new total quantity to ensure it doesn't exceed sourceQty
+    let totalQtyInSourceUnit = new Decimal(0);
+    const lines = ticket.lines || [];
+
+    for (const l of lines) {
+      let lQty = l.quantity;
+      let lUnitCode = l.unitCode;
+
+      if (l.id === lineId) {
+        lQty = proposedQuantity;
+        lUnitCode = proposedUnitCode;
+      }
+
+      let qtyInSourceUnit = lQty;
+      if (lUnitCode !== ticket.sourceUnitCode) {
         const conv1 = await this.unitConversionRepository.findByProductAndUnits(
           ticket.sourceProductId,
           ticket.sourceUnitCode,
-          lineDto.unitCode,
+          lUnitCode,
         );
 
         if (conv1) {
-          qtyInSourceUnit = lineQty.div(conv1.factor);
+          qtyInSourceUnit = lQty.div(conv1.factor);
         } else {
           const conv2 =
             await this.unitConversionRepository.findByProductAndUnits(
               ticket.sourceProductId,
-              lineDto.unitCode,
+              lUnitCode,
               ticket.sourceUnitCode,
             );
 
           if (conv2) {
-            qtyInSourceUnit = lineQty.mul(conv2.factor);
+            qtyInSourceUnit = lQty.mul(conv2.factor);
           } else {
             throw new BadRequestException(
-              `No unit conversion found between ${lineDto.unitCode} and ${ticket.sourceUnitCode} for product ${ticket.sourceProductId}`,
+              `No unit conversion found between ${lUnitCode} and ${ticket.sourceUnitCode} for product ${ticket.sourceProductId}`,
             );
           }
         }
       }
 
       totalQtyInSourceUnit = totalQtyInSourceUnit.plus(qtyInSourceUnit);
-
-      linesToCreate.push({
-        targetProductId: lineDto.targetProductId,
-        quantity: lineQty,
-        unitCode: lineDto.unitCode,
-        isNewProduct: !!lineDto.isNewProduct,
-        note: lineDto.note ?? null,
-      });
     }
 
-    // 4. Validate total quantity
     if (totalQtyInSourceUnit.gt(ticket.sourceQty)) {
       throw new BadRequestException(
         `Total target quantity (${totalQtyInSourceUnit.toFixed(3)} ${ticket.sourceUnitCode}) exceeds source quantity (${ticket.sourceQty.toFixed(3)} ${ticket.sourceUnitCode})`,
       );
     }
 
-    // 5. Save lines
-    await this.splitTicketRepository.addLines(ticketId, linesToCreate);
+    const updateData: Partial<SplitTicketLineEntity> = {};
+    if (dto.targetProductId !== undefined)
+      updateData.targetProductId = dto.targetProductId;
+    if (dto.quantity !== undefined)
+      updateData.quantity = new Decimal(dto.quantity);
+    if (dto.unitCode !== undefined) updateData.unitCode = dto.unitCode;
+    if (dto.isNewProduct !== undefined)
+      updateData.isNewProduct = dto.isNewProduct;
+    if (dto.note !== undefined) updateData.note = dto.note;
 
-    // 6. Return updated ticket
-    const updatedTicket = await this.splitTicketRepository.findById(ticketId);
-    return updatedTicket!;
+    return await this.splitTicketRepository.updateLine(lineId, updateData);
   }
 }

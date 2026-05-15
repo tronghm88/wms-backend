@@ -14,7 +14,6 @@ import {
   ProductNotFoundException,
 } from "../../../../src/domain/exceptions/product.exceptions";
 import { CategoryNotFoundException } from "../../../../src/domain/exceptions/category.exceptions";
-import { UnitNotFoundException } from "../../../../src/domain/exceptions/unit.exceptions";
 import { Decimal } from "decimal.js";
 
 describe("UpdateProductUseCase", () => {

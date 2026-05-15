@@ -44,6 +44,7 @@ import { ReceiptTicketLineResponseDto } from "../dtos/receipt-tickets/receipt-ti
 import { ReceiptTicketDetailsResponseDto } from "../dtos/receipt-tickets/receipt-ticket-details-response.dto";
 import { GetReceiptStatsQueryDto } from "../dtos/receipt-tickets/get-receipt-stats-query.dto";
 import { ReceiptStatsResponseDto } from "../dtos/receipt-tickets/receipt-stats-response.dto";
+import { PaginatedReceiptTicketResponseDto } from "../dtos/receipt-tickets/paginated-receipt-ticket-response.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
 import { Permissions } from "../../domain/constants/permissions.constant";
@@ -147,10 +148,11 @@ export class ReceiptTicketsController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: "Returns a paginated list of Goods Receipts",
+    type: PaginatedReceiptTicketResponseDto,
   })
   async findAll(
     @Query() query: GetReceiptTicketsDto,
-  ): Promise<{ data: ReceiptTicketResponseDto[]; metadata: object }> {
+  ): Promise<PaginatedReceiptTicketResponseDto> {
     const result = await this.listReceiptTicketsUseCase.execute({
       ...query,
       fromDate: query.fromDate ? new Date(query.fromDate) : undefined,
@@ -161,6 +163,7 @@ export class ReceiptTicketsController {
       metadata: result.meta,
     };
   }
+
 
   @Get(":id")
   @RequirePermissions(Permissions.RECEIPTS_VIEW)

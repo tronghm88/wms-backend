@@ -30,7 +30,9 @@ import { UpdateIssueTicketUseCase } from "../../application/use-cases/issue-tick
 import { AddIssueLineUseCase } from "../../application/use-cases/issue-tickets/add-issue-line.use-case";
 import { DeleteIssueLineUseCase } from "../../application/use-cases/issue-tickets/delete-issue-line.use-case";
 import { GetIssueTicketStatsUseCase } from "../../application/use-cases/issue-tickets/get-issue-ticket-stats.use-case";
+import { ListIssueTicketsUseCase } from "../../application/use-cases/issue-tickets/list-issue-tickets.use-case";
 import { CreateIssueTicketDto } from "../../application/dtos/create-issue-ticket.dto";
+import { GetIssueTicketsDto } from "../dtos/issue-tickets/get-issue-tickets.dto";
 import { IssueTicketResponseDto } from "../dtos/issue-tickets/issue-ticket-response.dto";
 import { IssueTicketLineResponseDto } from "../dtos/issue-tickets/issue-ticket-line-response.dto";
 import { CancelIssueTicketResponseDto } from "../dtos/issue-tickets/cancel-issue-ticket-response.dto";
@@ -38,6 +40,7 @@ import { UpdateIssueTicketRequestDto } from "../dtos/issue-tickets/update-issue-
 import { AddIssueLineRequestDto } from "../dtos/issue-tickets/add-issue-line-request.dto";
 import { GetIssueStatsQueryDto } from "../dtos/issue-tickets/get-issue-stats-query.dto";
 import { IssueStatsResponseDto } from "../dtos/issue-tickets/issue-stats-response.dto";
+import { PaginatedIssueTicketResponseDto } from "../dtos/issue-tickets/paginated-issue-ticket-response.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
 import { Permissions } from "../../domain/constants/permissions.constant";
@@ -57,6 +60,7 @@ export class IssueTicketsController {
     private readonly addIssueLineUseCase: AddIssueLineUseCase,
     private readonly deleteIssueLineUseCase: DeleteIssueLineUseCase,
     private readonly getIssueTicketStatsUseCase: GetIssueTicketStatsUseCase,
+    private readonly listIssueTicketsUseCase: ListIssueTicketsUseCase,
   ) {}
 
   @Post()
@@ -81,6 +85,28 @@ export class IssueTicketsController {
   ): Promise<IssueTicketResponseDto> {
     const ticket = await this.createIssueTicketUseCase.execute(dto, req.user);
     return new IssueTicketResponseDto(ticket);
+  }
+
+  @Get()
+  @RequirePermissions(Permissions.ISSUES_VIEW)
+  @ApiOperation({ summary: "List all Goods Issues with filters" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Returns a paginated list of Goods Issues",
+    type: PaginatedIssueTicketResponseDto,
+  })
+  async findAll(
+    @Query() query: GetIssueTicketsDto,
+  ): Promise<PaginatedIssueTicketResponseDto> {
+    const result = await this.listIssueTicketsUseCase.execute({
+      ...query,
+      fromDate: query.fromDate ? new Date(query.fromDate) : undefined,
+      toDate: query.toDate ? new Date(query.toDate) : undefined,
+    });
+    return {
+      data: result.data.map((ticket) => new IssueTicketResponseDto(ticket)),
+      metadata: result.meta,
+    };
   }
 
   @Get("stats")

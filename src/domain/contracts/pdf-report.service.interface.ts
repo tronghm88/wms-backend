@@ -6,5 +6,8 @@ export interface IPdfReportService {
    * @param templateName Name of the template (e.g., 'pn', 'px', 'pt')
    * @param data Data to be injected into the template
    */
-  generatePdf(templateName: string, data: any): Promise<Buffer>;
+  generatePdf(
+    templateName: string,
+    data: Record<string, unknown>,
+  ): Promise<Buffer>;
 }

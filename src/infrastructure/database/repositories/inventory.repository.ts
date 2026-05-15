@@ -20,7 +20,7 @@ import { TicketTypeFilter } from "../../../domain/contracts/inventory.repository
 
 @Injectable()
 export class InventoryRepository implements IInventoryRepository {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async findByProductId(productId: number): Promise<InventoryEntity | null> {
     const inventory = await this.prisma.inventory.findUnique({

@@ -10,7 +10,6 @@ import {
   ProductNotFoundException,
 } from "../../../domain/exceptions/product.exceptions";
 import { CategoryNotFoundException } from "../../../domain/exceptions/category.exceptions";
-import { UnitNotFoundException } from "../../../domain/exceptions/unit.exceptions";
 import { Decimal } from "decimal.js";
 
 export interface UpdateProductRequest {

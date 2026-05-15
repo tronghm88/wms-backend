@@ -129,7 +129,7 @@ export class ExcelExportService {
       EXCEL_HEADERS.width,
       EXCEL_HEADERS.height,
       EXCEL_HEADERS.length,
-      EXCEL_HEADERS.baseUnit
+      EXCEL_HEADERS.baseUnit,
     ];
 
     // Conversion pair headers
@@ -180,7 +180,7 @@ export class ExcelExportService {
         item.width ? Number(item.width.toFixed(3)) : null,
         item.height ? Number(item.height.toFixed(3)) : null,
         item.length ? Number(item.length.toFixed(3)) : null,
-        meta.baseUnitLabel
+        meta.baseUnitLabel,
       ];
 
       // Conversion pair values: always "1" for base, factor for additional

@@ -10,6 +10,8 @@ import {
 import { SplitTicketEntity } from "../../../domain/entities/split-ticket.entity";
 import { TransactionStatus } from "../../../domain/enums";
 import { Decimal } from "decimal.js";
+import { AddSplitTicketLinesUseCase } from "./add-split-ticket-lines.use-case";
+import { AddSplitTicketLinesDto } from "../../../presentation/dtos/split-tickets/add-split-ticket-lines.dto";
 
 export interface CreateSplitTicketRequest {
   sourceProductId: number;
@@ -17,6 +19,13 @@ export interface CreateSplitTicketRequest {
   sourceQty: number;
   sourceUnitCode: string;
   note?: string;
+  lines?: {
+    targetProductId: number;
+    quantity: number;
+    unitCode: string;
+    isNewProduct?: boolean;
+    note?: string;
+  }[];
 }
 
 @Injectable()
@@ -26,6 +35,7 @@ export class CreateSplitTicketUseCase {
     private readonly splitTicketRepository: ISplitTicketRepository,
     @Inject(PRODUCT_REPOSITORY)
     private readonly productRepository: IProductRepository,
+    private readonly addSplitTicketLinesUseCase: AddSplitTicketLinesUseCase,
   ) {}
 
   async execute(
@@ -81,7 +91,16 @@ export class CreateSplitTicketUseCase {
           note: request.note,
         });
 
-        return await this.splitTicketRepository.create(ticket);
+        const createdTicket = await this.splitTicketRepository.create(ticket);
+
+        if (request.lines && request.lines.length > 0) {
+          return await this.addSplitTicketLinesUseCase.execute(
+            createdTicket.id,
+            { lines: request.lines } as unknown as AddSplitTicketLinesDto,
+          );
+        }
+
+        return createdTicket;
       } catch (err: unknown) {
         // P2002 is Prisma error for unique constraint violation
         if (

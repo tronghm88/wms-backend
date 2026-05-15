@@ -60,6 +60,24 @@ export class SplitTicketResponseDto {
   @ApiProperty({ example: "Optional note", required: false })
   note?: string;
 
+  @ApiProperty({ example: "John Doe", required: false })
+  createdByName?: string;
+
+  @ApiProperty({ example: "PRD-001", required: false })
+  sourceProductCode?: string;
+
+  @ApiProperty({ example: "Steel Pipe", required: false })
+  sourceProductName?: string;
+
+  @ApiProperty({ example: "Square Meter", required: false })
+  sourceUnitLabel?: string;
+
+  @ApiProperty({ example: "50.000", required: false })
+  totalSplitQty?: string;
+
+  @ApiProperty({ example: 2, required: false })
+  linesCount?: number;
+
   @ApiProperty({ type: [SplitTicketLineResponseDto], required: false })
   lines?: SplitTicketLineResponseDto[];
 
@@ -81,6 +99,26 @@ export class SplitTicketResponseDto {
     this.note = entity.note;
     this.createdAt = entity.createdAt;
     this.updatedAt = entity.updatedAt;
+
+    // List view metadata
+    if (entity.createdByName !== undefined) {
+      this.createdByName = entity.createdByName;
+    }
+    if (entity.sourceProductCode !== undefined) {
+      this.sourceProductCode = entity.sourceProductCode;
+    }
+    if (entity.sourceProductName !== undefined) {
+      this.sourceProductName = entity.sourceProductName;
+    }
+    if (entity.sourceUnitLabel !== undefined) {
+      this.sourceUnitLabel = entity.sourceUnitLabel;
+    }
+    if (entity.totalSplitQty !== undefined) {
+      this.totalSplitQty = entity.totalSplitQty.toFixed(3);
+    }
+    if (entity.linesCount !== undefined) {
+      this.linesCount = entity.linesCount;
+    }
     if (entity.lines) {
       this.lines = entity.lines.map((l) => new SplitTicketLineResponseDto(l));
     }

@@ -46,7 +46,7 @@ export class InventoryController {
     private readonly getProductStockDetailUseCase: GetProductStockDetailUseCase,
     private readonly getProductMovementHistoryUseCase: GetProductMovementHistoryUseCase,
     private readonly exportStockReportUseCase: ExportStockReportUseCase,
-  ) { }
+  ) {}
 
   // ─── Excel export ────────────────────────────────────────────────────────────
 

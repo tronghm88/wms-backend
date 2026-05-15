@@ -1,12 +1,16 @@
 import { ApiProperty } from "@nestjs/swagger";
 import {
+  IsArray,
   IsInt,
   IsNumber,
   IsOptional,
   IsString,
   Min,
   MaxLength,
+  ValidateNested,
 } from "class-validator";
+import { Type } from "class-transformer";
+import { AddSplitTicketLineDto } from "./add-split-ticket-lines.dto";
 
 export class CreateSplitTicketDto {
   @ApiProperty({ example: 1, description: "Source product ID" })
@@ -41,4 +45,15 @@ export class CreateSplitTicketDto {
   @IsString()
   @MaxLength(500)
   note?: string;
+
+  @ApiProperty({
+    type: [AddSplitTicketLineDto],
+    description: "List of child lines to add",
+    required: false,
+  })
+  @IsArray()
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => AddSplitTicketLineDto)
+  lines?: AddSplitTicketLineDto[];
 }

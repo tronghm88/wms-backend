@@ -4,6 +4,9 @@ import {
   SplitTicket as PrismaSplitTicket,
   SplitTicketLine as PrismaSplitTicketLine,
   TransactionStatus as PrismaTransactionStatus,
+  User as PrismaUser,
+  Product as PrismaProduct,
+  Unit as PrismaUnit,
 } from "@prisma/client";
 import { PrismaService } from "../prisma.service";
 import { ISplitTicketRepository } from "../../../domain/contracts/split-ticket.repository.interface";
@@ -11,6 +14,7 @@ import { SplitTicketEntity } from "../../../domain/entities/split-ticket.entity"
 import { SplitTicketLineEntity } from "../../../domain/entities/split-ticket-line.entity";
 import { TransactionStatus } from "../../../domain/enums";
 import { Decimal } from "decimal.js";
+import { SplitStatsDto } from "../../../application/dtos/split-stats.dto";
 
 @Injectable()
 export class SplitTicketRepository implements ISplitTicketRepository {
@@ -43,9 +47,74 @@ export class SplitTicketRepository implements ISplitTicketRepository {
       orderBy: { createdAt: "desc" },
       include: {
         lines: true,
+        creator: true,
+        sourceProduct: true,
+        unit: true,
       },
     });
     return tickets.map((t) => this.mapToEntity(t));
+  }
+
+  async findMany(params: {
+    skip?: number;
+    take?: number;
+    status?: TransactionStatus;
+    creatorId?: number;
+    fromDate?: Date;
+    toDate?: Date;
+    search?: string;
+  }): Promise<{ items: SplitTicketEntity[]; total: number }> {
+    const where: Prisma.SplitTicketWhereInput = {};
+
+    if (params.status) {
+      where.status = params.status as unknown as PrismaTransactionStatus;
+    }
+
+    if (params.creatorId) {
+      where.createdBy = params.creatorId;
+    }
+
+    if (params.fromDate || params.toDate) {
+      where.date = {};
+      if (params.fromDate) {
+        where.date.gte = params.fromDate;
+      }
+      if (params.toDate) {
+        where.date.lte = params.toDate;
+      }
+    }
+
+    if (params.search) {
+      where.OR = [
+        { ticketNo: { contains: params.search, mode: "insensitive" } },
+        {
+          sourceProduct: {
+            name: { contains: params.search, mode: "insensitive" },
+          },
+        },
+      ];
+    }
+
+    const [tickets, total] = await this.prisma.$transaction([
+      this.prisma.splitTicket.findMany({
+        where,
+        skip: params.skip,
+        take: params.take,
+        orderBy: { createdAt: "desc" },
+        include: {
+          lines: true,
+          creator: true,
+          sourceProduct: true,
+          unit: true,
+        },
+      }),
+      this.prisma.splitTicket.count({ where }),
+    ]);
+
+    return {
+      items: tickets.map((t) => this.mapToEntity(t)),
+      total,
+    };
   }
 
   async getLastTicketNo(yearMonth: string): Promise<string | null> {
@@ -140,8 +209,88 @@ export class SplitTicketRepository implements ISplitTicketRepository {
     });
   }
 
+  async findLineById(lineId: number): Promise<SplitTicketLineEntity | null> {
+    const line = await this.prisma.splitTicketLine.findUnique({
+      where: { id: lineId },
+    });
+    if (!line) return null;
+    return this.mapLineToEntity(line);
+  }
+
+  async updateLine(
+    lineId: number,
+    line: Partial<SplitTicketLineEntity>,
+  ): Promise<SplitTicketLineEntity> {
+    const data: Prisma.SplitTicketLineUncheckedUpdateInput = {};
+    if (line.targetProductId) data.targetProductId = line.targetProductId;
+    if (line.quantity)
+      data.quantity = line.quantity as unknown as Prisma.Decimal;
+    if (line.unitCode) data.unitCode = line.unitCode;
+    if (line.isNewProduct !== undefined) data.isNewProduct = line.isNewProduct;
+    if (line.note !== undefined) data.note = line.note;
+
+    const updatedLine = await this.prisma.splitTicketLine.update({
+      where: { id: lineId },
+      data,
+    });
+    return this.mapLineToEntity(updatedLine);
+  }
+
+  async deleteLine(lineId: number): Promise<void> {
+    await this.prisma.splitTicketLine.delete({
+      where: { id: lineId },
+    });
+  }
+
+  async getStats(from: Date, to: Date): Promise<SplitStatsDto> {
+    const where: Prisma.SplitTicketWhereInput = {
+      date: {
+        gte: from,
+        lte: to,
+      },
+    };
+
+    const [totalCount, pendingCount, lineCount, splitedProductCountResult] =
+      await Promise.all([
+        this.prisma.splitTicket.count({ where }),
+        this.prisma.splitTicket.count({
+          where: {
+            ...where,
+            status: PrismaTransactionStatus.DRAFT,
+          },
+        }),
+        this.prisma.splitTicketLine.count({
+          where: {
+            ticket: where,
+          },
+        }),
+        this.prisma.splitTicket.aggregate({
+          where: {
+            ...where,
+            status: PrismaTransactionStatus.CONFIRMED,
+          },
+          _sum: {
+            sourceQty: true,
+          },
+        }),
+      ]);
+
+    return {
+      totalCount,
+      totalLines: lineCount,
+      pendingCount,
+      splitedProductCount:
+        splitedProductCountResult._sum.sourceQty?.toString() || "0",
+    };
+  }
+
   private mapToEntity(
-    ticket: PrismaSplitTicket & { lines?: PrismaSplitTicketLine[] },
+    ticket: PrismaSplitTicket & {
+      lines?: PrismaSplitTicketLine[];
+      creator?: PrismaUser;
+      sourceProduct?: PrismaProduct;
+      unit?: PrismaUnit;
+    },
   ): SplitTicketEntity {
     return new SplitTicketEntity({
       id: ticket.id,
@@ -156,6 +305,14 @@ export class SplitTicketRepository implements ISplitTicketRepository {
       createdAt: ticket.createdAt,
       updatedAt: ticket.updatedAt,
       lines: ticket.lines?.map((l) => this.mapLineToEntity(l)),
+      createdByName: ticket.creator ? ticket.creator.fullName : undefined,
+      sourceProductCode: ticket.sourceProduct
+        ? ticket.sourceProduct.code
+        : undefined,
+      sourceProductName: ticket.sourceProduct
+        ? ticket.sourceProduct.name
+        : undefined,
+      sourceUnitLabel: ticket.unit ? ticket.unit.label : undefined,
     });
   }
 

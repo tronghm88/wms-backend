@@ -5,13 +5,19 @@ import {
   HttpStatus,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
+  Put,
+  Get,
+  Delete,
+  Query,
   Request,
   UseGuards,
 } from "@nestjs/common";
 import {
   ApiBearerAuth,
   ApiOperation,
+  ApiParam,
   ApiResponse,
   ApiTags,
 } from "@nestjs/swagger";
@@ -19,9 +25,23 @@ import { CreateSplitTicketUseCase } from "../../application/use-cases/split-tick
 import { AddSplitTicketLinesUseCase } from "../../application/use-cases/split-tickets/add-split-ticket-lines.use-case";
 import { ConfirmSplitTicketUseCase } from "../../application/use-cases/split-tickets/confirm-split-ticket.use-case";
 import { CancelSplitTicketUseCase } from "../../application/use-cases/split-tickets/cancel-split-ticket.use-case";
+import { ListSplitTicketsUseCase } from "../../application/use-cases/split-tickets/list-split-tickets.use-case";
+import { UpdateSplitTicketLineUseCase } from "../../application/use-cases/split-tickets/update-split-ticket-line.use-case";
+import { DeleteSplitTicketLineUseCase } from "../../application/use-cases/split-tickets/delete-split-ticket-line.use-case";
+import { UpdateSplitTicketUseCase } from "../../application/use-cases/split-tickets/update-split-ticket.use-case";
+import { GetSplitTicketStatsUseCase } from "../../application/use-cases/split-tickets/get-split-ticket-stats.use-case";
 import { CreateSplitTicketDto } from "../dtos/split-tickets/create-split-ticket.dto";
 import { AddSplitTicketLinesDto } from "../dtos/split-tickets/add-split-ticket-lines.dto";
-import { SplitTicketResponseDto } from "../dtos/split-tickets/split-ticket-response.dto";
+import { UpdateSplitLineRequestDto } from "../dtos/split-tickets/update-split-line-request.dto";
+import { UpdateSplitTicketDto } from "../dtos/split-tickets/update-split-ticket.dto";
+import { GetSplitTicketsDto } from "../dtos/split-tickets/get-split-tickets.dto";
+import { GetSplitStatsQueryDto } from "../dtos/split-tickets/get-split-stats-query.dto";
+import { SplitStatsResponseDto } from "../dtos/split-tickets/split-stats-response.dto";
+import {
+  SplitTicketResponseDto,
+  SplitTicketLineResponseDto,
+} from "../dtos/split-tickets/split-ticket-response.dto";
+import { PaginatedSplitTicketResponseDto } from "../dtos/split-tickets/paginated-split-ticket-response.dto";
 import { CancelSplitTicketResponseDto } from "../dtos/split-tickets/cancel-split-ticket-response.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
@@ -37,7 +57,52 @@ export class SplitTicketsController {
     private readonly addSplitTicketLinesUseCase: AddSplitTicketLinesUseCase,
     private readonly confirmSplitTicketUseCase: ConfirmSplitTicketUseCase,
     private readonly cancelSplitTicketUseCase: CancelSplitTicketUseCase,
+    private readonly listSplitTicketsUseCase: ListSplitTicketsUseCase,
+    private readonly updateSplitTicketLineUseCase: UpdateSplitTicketLineUseCase,
+    private readonly deleteSplitTicketLineUseCase: DeleteSplitTicketLineUseCase,
+    private readonly updateSplitTicketUseCase: UpdateSplitTicketUseCase,
+    private readonly getSplitTicketStatsUseCase: GetSplitTicketStatsUseCase,
   ) {}
+
+  @Get("stats")
+  @RequirePermissions(Permissions.INVENTORY_VIEW)
+  @ApiOperation({ summary: "Get Split Ticket statistics" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Returns statistics for Split Tickets",
+    type: SplitStatsResponseDto,
+  })
+  async getStats(
+    @Query() query: GetSplitStatsQueryDto,
+  ): Promise<SplitStatsResponseDto> {
+    const stats = await this.getSplitTicketStatsUseCase.execute(
+      query.fromDate,
+      query.toDate,
+    );
+    return new SplitStatsResponseDto(stats);
+  }
+
+  @Get()
+  @RequirePermissions(Permissions.INVENTORY_VIEW)
+  @ApiOperation({ summary: "Get all split tickets" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Returns a paginated list of split tickets",
+    type: PaginatedSplitTicketResponseDto,
+  })
+  async findAll(
+    @Query() query: GetSplitTicketsDto,
+  ): Promise<PaginatedSplitTicketResponseDto> {
+    const result = await this.listSplitTicketsUseCase.execute({
+      ...query,
+      fromDate: query.fromDate ? new Date(query.fromDate) : undefined,
+      toDate: query.toDate ? new Date(query.toDate) : undefined,
+    });
+    return {
+      data: result.data.map((ticket) => new SplitTicketResponseDto(ticket)),
+      metadata: result.meta,
+    };
+  }
 
   @Post()
   @RequirePermissions(Permissions.STOCK_SPLIT)
@@ -61,6 +126,31 @@ export class SplitTicketsController {
       dto,
       req.user.id,
     );
+    return new SplitTicketResponseDto(ticket);
+  }
+
+  @Patch(":id")
+  @RequirePermissions(Permissions.STOCK_SPLIT)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: "Update basic information of a Split Ticket" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Split Ticket basic information successfully updated",
+    type: SplitTicketResponseDto,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: "Split Ticket not found",
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: "Invalid input or Ticket is not in DRAFT status",
+  })
+  async update(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() dto: UpdateSplitTicketDto,
+  ): Promise<SplitTicketResponseDto> {
+    const ticket = await this.updateSplitTicketUseCase.execute(id, dto);
     return new SplitTicketResponseDto(ticket);
   }
 
@@ -89,7 +179,62 @@ export class SplitTicketsController {
     return new SplitTicketResponseDto(ticket);
   }
 
-  @Post(":id/confirm")
+  @Patch(":id/lines/:lineId")
+  @RequirePermissions(Permissions.STOCK_SPLIT)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: "Update an existing line item in a Split Ticket" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Line item successfully updated",
+    type: SplitTicketLineResponseDto,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: "Split Ticket or Line not found",
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: "Invalid input or Ticket is not in PENDING (DRAFT) status",
+  })
+  async updateLine(
+    @Param("id", ParseIntPipe) id: number,
+    @Param("lineId", ParseIntPipe) lineId: number,
+    @Body() dto: UpdateSplitLineRequestDto,
+  ): Promise<SplitTicketLineResponseDto> {
+    const line = await this.updateSplitTicketLineUseCase.execute(
+      id,
+      lineId,
+      dto,
+    );
+    return new SplitTicketLineResponseDto(line);
+  }
+
+  @Delete(":id/lines/:lineId")
+  @RequirePermissions(Permissions.STOCK_SPLIT)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: "Delete a line item from a Split Ticket" })
+  @ApiParam({ name: "id", description: "Split ticket ID" })
+  @ApiParam({ name: "lineId", description: "Split ticket line ID" })
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: "Line item deleted successfully",
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: "Ticket or line not found",
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: "Ticket is not in PENDING (DRAFT) status",
+  })
+  async deleteLine(
+    @Param("id", ParseIntPipe) id: number,
+    @Param("lineId", ParseIntPipe) lineId: number,
+  ): Promise<void> {
+    await this.deleteSplitTicketLineUseCase.execute(id, lineId);
+  }
+
+  @Put(":id/confirm")
   @RequirePermissions(Permissions.STOCK_SPLIT)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({

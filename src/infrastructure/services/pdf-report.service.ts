@@ -15,24 +15,27 @@ export class PdfReportService implements IPdfReportService, OnModuleInit {
   }
 
   private registerHelpers() {
-    Handlebars.registerHelper("formatDecimal", (value: any) => {
+    Handlebars.registerHelper("formatDecimal", (value: unknown) => {
       if (value === null || value === undefined) return "0.000";
       try {
-        const d = new Decimal(value.toString());
+        const d = new Decimal(String(value as string | number));
         return d.toFixed(3);
       } catch {
         return "0.000";
       }
     });
 
-    Handlebars.registerHelper("formatDate", (date: any) => {
+    Handlebars.registerHelper("formatDate", (date: unknown) => {
       if (!date) return "";
-      const d = new Date(date);
+      const d = new Date(String(date as string | number));
       return d.toLocaleString();
     });
   }
 
-  async generatePdf(templateName: string, data: any): Promise<Buffer> {
+  async generatePdf(
+    templateName: string,
+    data: Record<string, unknown>,
+  ): Promise<Buffer> {
     const templatePath = path.join(this.templatesDir, `${templateName}.hbs`);
     if (!fs.existsSync(templatePath)) {
       throw new Error(`Template not found: ${templateName}`);

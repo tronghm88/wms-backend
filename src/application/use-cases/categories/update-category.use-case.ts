@@ -102,7 +102,7 @@ export class UpdateCategoryUseCase {
       // Bulk update baseUnit for all products
       await this.categoryRepository.updateProductsBaseUnit(
         request.id,
-        category.baseUnit as string,
+        category.baseUnit,
       );
 
       // Delete all unit conversions for products in this category

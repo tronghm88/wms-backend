@@ -1,13 +1,10 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { PrismaService } from "./infrastructure/database/prisma.service";
-import * as fs from "fs";
-import * as path from "path";
 import { Decimal } from "decimal.js";
 import * as crypto from "crypto";
-
-// Types for the JSON structure
-interface ProductJson {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+interface ProductJsonData {
   code: string;
   name: string;
   categoryCode: string;
