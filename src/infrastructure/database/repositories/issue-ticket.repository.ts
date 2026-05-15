@@ -64,7 +64,7 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
   async findById(id: number): Promise<IssueTicketEntity | null> {
     const ticket = await this.prisma.issueTicket.findUnique({
       where: { id },
-      include: { lines: true },
+      include: { lines: true, customer: true, creator: true },
     });
     if (!ticket) return null;
     return this.toEntity(ticket);
@@ -73,7 +73,7 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
   async findByCode(code: string): Promise<IssueTicketEntity | null> {
     const ticket = await this.prisma.issueTicket.findUnique({
       where: { ticketNo: code },
-      include: { lines: true },
+      include: { lines: true, customer: true, creator: true },
     });
     if (!ticket) return null;
     return this.toEntity(ticket);
@@ -81,7 +81,7 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
 
   async findAll(): Promise<IssueTicketEntity[]> {
     const tickets = await this.prisma.issueTicket.findMany({
-      include: { lines: true },
+      include: { lines: true, customer: true, creator: true },
       orderBy: { createdAt: "desc" },
     });
     return tickets.map((t) => this.toEntity(t));
@@ -132,7 +132,7 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
           })),
         },
       },
-      include: { lines: true },
+      include: { lines: true, customer: true, creator: true },
     });
 
     return this.toEntity(newTicket);
@@ -179,7 +179,7 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
             },
           }),
         },
-        include: { lines: true },
+        include: { lines: true, customer: true, creator: true },
       });
 
       return this.toEntity(updatedTicket);
@@ -208,7 +208,7 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
         data: {
           status: PrismaTransactionStatus.CONFIRMED,
         },
-        include: { lines: true },
+        include: { lines: true, customer: true, creator: true },
       });
 
       // 3. Process each line for stock decrement and movement record
@@ -275,7 +275,7 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
         data: {
           status: PrismaTransactionStatus.CANCELLED,
         },
-        include: { lines: true },
+        include: { lines: true, customer: true, creator: true },
       });
 
       // 3. Revert each line (add stock back)
@@ -351,7 +351,11 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
     const [tickets, total] = await Promise.all([
       this.prisma.issueTicket.findMany({
         where,
-        include: { lines: true },
+        include: {
+          lines: true,
+          customer: true,
+          creator: true,
+        },
         orderBy: { createdAt: "desc" },
         skip,
         take,
@@ -494,7 +498,9 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
   }
 
   private toEntity(
-    prismaTicket: Prisma.IssueTicketGetPayload<{ include: { lines: true } }>,
+    prismaTicket: Prisma.IssueTicketGetPayload<{
+      include: { lines: true; customer: true; creator: true };
+    }>,
   ): IssueTicketEntity {
     return new IssueTicketEntity({
       id: prismaTicket.id,
@@ -507,6 +513,9 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
       note: prismaTicket.note ?? undefined,
       createdAt: prismaTicket.createdAt,
       updatedAt: prismaTicket.updatedAt,
+      createdByName: prismaTicket.creator?.fullName,
+      customerName: prismaTicket.customer?.name,
+      customerCode: prismaTicket.customer?.code,
       lines: (prismaTicket.lines || []).map(
         (line) =>
           new IssueTicketLineEntity({

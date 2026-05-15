@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IssueTicketResponseDto } from "./issue-ticket-response.dto";
+import { IssueTicketListItemResponseDto } from "./issue-ticket-list-item-response.dto";
 
 class PaginationMetaDto {
   @ApiProperty({ example: 100 })
@@ -13,8 +13,8 @@ class PaginationMetaDto {
 }
 
 export class PaginatedIssueTicketResponseDto {
-  @ApiProperty({ type: [IssueTicketResponseDto] })
-  data: IssueTicketResponseDto[];
+  @ApiProperty({ type: [IssueTicketListItemResponseDto] })
+  data: IssueTicketListItemResponseDto[];
 
   @ApiProperty({ type: PaginationMetaDto })
   metadata: PaginationMetaDto;

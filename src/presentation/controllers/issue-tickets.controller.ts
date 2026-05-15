@@ -40,6 +40,7 @@ import { UpdateIssueTicketRequestDto } from "../dtos/issue-tickets/update-issue-
 import { AddIssueLineRequestDto } from "../dtos/issue-tickets/add-issue-line-request.dto";
 import { GetIssueStatsQueryDto } from "../dtos/issue-tickets/get-issue-stats-query.dto";
 import { IssueStatsResponseDto } from "../dtos/issue-tickets/issue-stats-response.dto";
+import { IssueTicketListItemResponseDto } from "../dtos/issue-tickets/issue-ticket-list-item-response.dto";
 import { PaginatedIssueTicketResponseDto } from "../dtos/issue-tickets/paginated-issue-ticket-response.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
@@ -104,7 +105,9 @@ export class IssueTicketsController {
       toDate: query.toDate ? new Date(query.toDate) : undefined,
     });
     return {
-      data: result.data.map((ticket) => new IssueTicketResponseDto(ticket)),
+      data: result.data.map(
+        (ticket) => new IssueTicketListItemResponseDto(ticket),
+      ),
       metadata: result.meta,
     };
   }

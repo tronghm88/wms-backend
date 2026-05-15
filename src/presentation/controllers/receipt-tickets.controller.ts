@@ -164,7 +164,6 @@ export class ReceiptTicketsController {
     };
   }
 
-
   @Get(":id")
   @RequirePermissions(Permissions.RECEIPTS_VIEW)
   @ApiOperation({ summary: "Get Goods Receipt details by ID" })

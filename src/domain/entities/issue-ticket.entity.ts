@@ -14,6 +14,9 @@ export class IssueTicketEntity {
   createdAt: Date;
   updatedAt: Date;
   lines: IssueTicketLineEntity[];
+  createdByName?: string;
+  customerName?: string;
+  customerCode?: string;
 
   constructor(partial?: Partial<IssueTicketEntity>) {
     Object.assign(this, partial);
