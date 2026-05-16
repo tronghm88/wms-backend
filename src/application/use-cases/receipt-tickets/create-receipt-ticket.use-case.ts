@@ -52,6 +52,7 @@ export class CreateReceiptTicketUseCase {
       lengthM: Decimal | null;
       areaM2: Decimal | null;
       weightKg: Decimal | null;
+      unitCost: Decimal | null;
       note: string | null;
     }> = [];
 
@@ -89,9 +90,10 @@ export class CreateReceiptTicketUseCase {
           productId: line.productId,
           quantity: line.quantity,
           unitCode: line.unitCode,
-          lengthM: line.lengthM ?? product.length,
+          lengthM: product.length,
           areaM2: null,
           weightKg: null,
+          unitCost: line.unitCost ?? null,
           note: line.note ?? null,
         });
       }

@@ -23,6 +23,7 @@ describe("UpdateCustomerUseCase", () => {
       create: jest.fn(),
       delete: jest.fn(),
       countIssueTickets: jest.fn(),
+      findLatestCodeByPrefix: jest.fn(),
     };
 
     const module: TestingModule = await Test.createTestingModule({
@@ -47,23 +48,20 @@ describe("UpdateCustomerUseCase", () => {
 
     const updatedCustomer = new CustomerEntity({
       id: 1,
-      code: "C001-NEW",
+      code: "C001",
       name: "New Name",
     });
 
     repository.findById.mockResolvedValue(existingCustomer);
-    repository.findByCode.mockResolvedValue(null);
     repository.update.mockResolvedValue(updatedCustomer);
 
     const result = await useCase.execute({
       id: 1,
-      code: "C001-NEW",
       name: "New Name",
     });
 
     expect(result.name).toBe("New Name");
     expect(repository.findById).toHaveBeenCalledWith(1);
-    expect(repository.findByCode).toHaveBeenCalledWith("C001-NEW");
     expect(repository.update).toHaveBeenCalled();
   });
 
@@ -78,31 +76,7 @@ describe("UpdateCustomerUseCase", () => {
     ).rejects.toThrow(CustomerNotFoundException);
   });
 
-  it("should throw CustomerCodeAlreadyExistsException if code is already taken", async () => {
-    const existingCustomer = new CustomerEntity({
-      id: 1,
-      code: "C001",
-      name: "Old Name",
-    });
-
-    const anotherCustomer = new CustomerEntity({
-      id: 2,
-      code: "C002",
-      name: "Another",
-    });
-
-    repository.findById.mockResolvedValue(existingCustomer);
-    repository.findByCode.mockResolvedValue(anotherCustomer);
-
-    await expect(
-      useCase.execute({
-        id: 1,
-        code: "C002",
-      }),
-    ).rejects.toThrow(CustomerCodeAlreadyExistsException);
-  });
-
-  it("should not check code uniqueness if code is not changed", async () => {
+  it("should update customer name successfully", async () => {
     const existingCustomer = new CustomerEntity({
       id: 1,
       code: "C001",
@@ -110,15 +84,15 @@ describe("UpdateCustomerUseCase", () => {
     });
 
     repository.findById.mockResolvedValue(existingCustomer);
-    repository.update.mockResolvedValue(existingCustomer);
+    repository.update.mockResolvedValue(
+      new CustomerEntity({ ...existingCustomer, name: "New Name" }),
+    );
 
     await useCase.execute({
       id: 1,
-      code: "C001",
       name: "New Name",
     });
 
-    expect(repository.findByCode).not.toHaveBeenCalled();
     expect(repository.update).toHaveBeenCalledWith(
       1,
       expect.objectContaining({ name: "New Name" }),

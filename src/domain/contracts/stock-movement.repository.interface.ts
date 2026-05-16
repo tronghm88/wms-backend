@@ -38,6 +38,7 @@ export interface AuditLogItem {
   qtyAfter: Decimal;
   performedBy: number;
   performerName: string;
+  unitCost: Decimal | null;
   note: string | null;
   createdAt: Date;
 }
@@ -50,6 +51,7 @@ export interface RegisterMovementData {
   deltaQty: Decimal;
   unitCode: string;
   performedBy: number;
+  unitCost?: Decimal | null;
   note?: string | null;
 }
 

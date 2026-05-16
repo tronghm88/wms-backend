@@ -11,6 +11,7 @@ export class StockMovementEntity {
     public readonly deltaQty: Decimal,
     public readonly qtyAfter: Decimal,
     public readonly performedBy: number,
+    public readonly unitCost: Decimal | null,
     public readonly note: string | null,
     public readonly createdAt: Date,
   ) {}

@@ -39,6 +39,7 @@ export class SearchAuditLogsUseCase {
       qtyAfter: log.qtyAfter.toFixed(3),
       performedBy: log.performedBy,
       performerName: log.performerName,
+      unitCost: log.unitCost ? log.unitCost.toFixed(3) : null,
       note: log.note,
       createdAt: log.createdAt,
     }));

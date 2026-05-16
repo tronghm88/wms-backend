@@ -176,6 +176,7 @@ describe("AddReceiptLineUseCase", () => {
       new ProductEntity({
         id: 1,
         width: new Decimal(1.5),
+        length: new Decimal(50),
       }),
     );
     unitRepository.findByCode.mockResolvedValue(
@@ -206,7 +207,6 @@ describe("AddReceiptLineUseCase", () => {
         productId: 1,
         quantity: new Decimal(2),
         unitCode: "roll",
-        lengthM: new Decimal(50),
       },
       false,
       1,

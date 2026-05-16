@@ -265,7 +265,8 @@ model ReceiptTicketLine {
   lengthM  Decimal? @map("length_m") @db.Decimal(15, 3)
   areaM2   Decimal? @map("area_m2") @db.Decimal(15, 3)
   weightKg Decimal? @map("weight_kg") @db.Decimal(15, 3)
-  note     String?  @db.Text
+  unitCost      Decimal? @map("unit_cost") @db.Decimal(15, 3)
+  note          String?  @db.Text
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -383,6 +384,7 @@ model StockMovement {
   deltaQty      Decimal           @map("delta_qty") @db.Decimal(15, 3)
   qtyAfter      Decimal           @map("qty_after") @db.Decimal(15, 3)
   performedBy   Int               @map("performed_by")
+  unitCost      Decimal?          @map("unit_cost") @db.Decimal(15, 3)
   note          String?
   createdAt     DateTime          @default(now()) @map("created_at")
 
@@ -391,3 +393,4 @@ model StockMovement {
 
   @@map("stock_movements")
 }
+

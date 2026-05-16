@@ -24,7 +24,7 @@ export class UpdateSplitTicketLineUseCase {
     private readonly splitTicketRepository: ISplitTicketRepository,
     @Inject(PRODUCT_REPOSITORY)
     private readonly productRepository: IProductRepository,
-  ) {}
+  ) { }
 
   async execute(
     ticketId: number,
@@ -63,13 +63,8 @@ export class UpdateSplitTicketLineUseCase {
       }
     }
 
-    const proposedQuantity =
-      dto.quantity !== undefined ? new Decimal(dto.quantity) : line.quantity;
-    const proposedUnitCode = dto.unitCode ?? line.unitCode;
-
     // Note: We no longer automatically calculate conversion between target and source products.
     // The user is responsible for ensuring the split logic makes sense outside the system.
-
 
     const updateData: Partial<SplitTicketLineEntity> = {};
     if (dto.targetProductId !== undefined)

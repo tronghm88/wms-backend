@@ -95,6 +95,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
           lengthM: line.lengthM,
           areaM2: line.areaM2,
           weightKg: line.weightKg,
+          unitCost: line.unitCost,
           note: line.note ?? null,
           productName: line.product.name,
           productCode: line.product.code,
@@ -258,6 +259,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
           lengthM: line.lengthM as unknown as Prisma.Decimal,
           areaM2: line.areaM2 as unknown as Prisma.Decimal,
           weightKg: line.weightKg as unknown as Prisma.Decimal,
+          unitCost: line.unitCost as unknown as Prisma.Decimal,
           note: line.note,
         })),
       };
@@ -294,6 +296,9 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
             areaM2: line.areaM2 ? new Decimal(line.areaM2.toString()) : null,
             weightKg: line.weightKg
               ? new Decimal(line.weightKg.toString())
+              : null,
+            unitCost: line.unitCost
+              ? new Decimal(line.unitCost.toString())
               : null,
             note: line.note ?? null,
             productName: line.product.name,
@@ -347,6 +352,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
         lengthM: line.lengthM,
         areaM2: line.areaM2,
         weightKg: line.weightKg,
+        unitCost: line.unitCost as unknown as Prisma.Decimal,
         note: line.note,
       },
       include: {
@@ -361,6 +367,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
       lengthM: newLine.lengthM,
       areaM2: newLine.areaM2,
       weightKg: newLine.weightKg,
+      unitCost: newLine.unitCost,
       note: newLine.note ?? null,
       productName: newLine.product.name,
       productCode: newLine.product.code,
@@ -383,6 +390,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
           lengthM: line.lengthM as unknown as Prisma.Decimal,
           areaM2: line.areaM2 as unknown as Prisma.Decimal,
           weightKg: line.weightKg as unknown as Prisma.Decimal,
+          unitCost: line.unitCost as unknown as Prisma.Decimal,
           note: line.note,
         },
         include: {
@@ -415,6 +423,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
           deltaQty: line.quantity as unknown as Prisma.Decimal,
           qtyAfter: inv.quantity,
           performedBy,
+          unitCost: line.unitCost as unknown as Prisma.Decimal,
           note: `Admin Edit - Line added to confirmed ticket`,
         },
       });
@@ -428,6 +437,9 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
         areaM2: newLine.areaM2 ? new Decimal(newLine.areaM2.toString()) : null,
         weightKg: newLine.weightKg
           ? new Decimal(newLine.weightKg.toString())
+          : null,
+        unitCost: newLine.unitCost
+          ? new Decimal(newLine.unitCost.toString())
           : null,
         note: newLine.note ?? null,
         productName: newLine.product.name,
@@ -452,6 +464,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
       lengthM: line.lengthM,
       areaM2: line.areaM2,
       weightKg: line.weightKg,
+      unitCost: line.unitCost,
       note: line.note ?? null,
       productName: line.product.name,
       productCode: line.product.code,
@@ -472,6 +485,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
         lengthM: line.lengthM,
         areaM2: line.areaM2,
         weightKg: line.weightKg,
+        unitCost: line.unitCost as unknown as Prisma.Decimal,
         note: line.note,
       },
       include: {
@@ -486,6 +500,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
       lengthM: updatedLine.lengthM,
       areaM2: updatedLine.areaM2,
       weightKg: updatedLine.weightKg,
+      unitCost: updatedLine.unitCost,
       note: updatedLine.note ?? null,
       productName: updatedLine.product.name,
       productCode: updatedLine.product.code,
@@ -548,6 +563,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
             deltaQty: baseQuantity as unknown as Prisma.Decimal,
             qtyAfter: inventory.quantity,
             performedBy,
+            unitCost: line.unitCost as unknown as Prisma.Decimal,
             note: `Confirmed Receipt Ticket ${ticket.ticketNo}`,
           },
         });
@@ -581,6 +597,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
           lengthM: line.lengthM as unknown as Prisma.Decimal,
           areaM2: line.areaM2 as unknown as Prisma.Decimal,
           weightKg: line.weightKg as unknown as Prisma.Decimal,
+          unitCost: line.unitCost as unknown as Prisma.Decimal,
           note: line.note,
         },
         include: {
@@ -631,6 +648,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
               deltaQty: diff as unknown as Prisma.Decimal,
               qtyAfter: inv.quantity,
               performedBy,
+              unitCost: line.unitCost as unknown as Prisma.Decimal,
               note: `Admin Edit - Line updated`,
             },
           });
@@ -676,6 +694,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
             deltaQty: oldBaseQty.negated() as unknown as Prisma.Decimal,
             qtyAfter: oldInv.quantity,
             performedBy,
+            unitCost: oldLine.unitCost as unknown as Prisma.Decimal,
             note: `Admin Edit - Product changed (revert old)`,
           },
         });
@@ -704,6 +723,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
             deltaQty: newBaseQty as unknown as Prisma.Decimal,
             qtyAfter: newInv.quantity,
             performedBy,
+            unitCost: line.unitCost as unknown as Prisma.Decimal,
             note: `Admin Edit - Product changed (add new)`,
           },
         });
@@ -720,6 +740,9 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
           : null,
         weightKg: updatedLine.weightKg
           ? new Decimal(updatedLine.weightKg.toString())
+          : null,
+        unitCost: updatedLine.unitCost
+          ? new Decimal(updatedLine.unitCost.toString())
           : null,
         note: updatedLine.note ?? null,
         productName: updatedLine.product.name,
@@ -772,6 +795,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
           deltaQty: oldBaseQty.negated() as unknown as Prisma.Decimal,
           qtyAfter: inv.quantity,
           performedBy,
+          unitCost: oldLine.unitCost as unknown as Prisma.Decimal,
           note: `Admin Edit - Line deleted`,
         },
       });
@@ -834,6 +858,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
             deltaQty: baseQuantity.negated() as unknown as Prisma.Decimal,
             qtyAfter: inv.quantity,
             performedBy,
+            unitCost: line.unitCost as unknown as Prisma.Decimal,
             note: `Admin Delete - Confirmed Receipt Ticket deleted`,
           },
         });
@@ -925,6 +950,7 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
             deltaQty: baseQuantity.negated() as unknown as Prisma.Decimal,
             qtyAfter: inv.quantity,
             performedBy,
+            unitCost: line.unitCost as unknown as Prisma.Decimal,
             note: `Cancelled Receipt Ticket ${ticket.ticketNo}`,
           },
         });

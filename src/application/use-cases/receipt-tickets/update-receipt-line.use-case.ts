@@ -69,7 +69,8 @@ export class UpdateReceiptLineUseCase {
     const productId = dto.productId ?? existingLine.productId;
     const unitCode = dto.unitCode ?? existingLine.unitCode;
     const quantity = dto.quantity ?? existingLine.quantity;
-    let lengthM = dto.lengthM ?? existingLine.lengthM;
+    let lengthM = existingLine.lengthM;
+    const unitCost = dto.unitCost ?? existingLine.unitCost;
 
     // If product changed, we need its dimensions
     const product = await this.productRepository.findById(productId);
@@ -77,8 +78,8 @@ export class UpdateReceiptLineUseCase {
       throw new ProductNotFoundException(productId);
     }
 
-    // If product changed and lengthM was not provided in DTO, use new product's length
-    if (dto.productId && !dto.lengthM) {
+    // If product changed, use new product's length
+    if (dto.productId) {
       lengthM = product.length;
     }
 
@@ -114,6 +115,7 @@ export class UpdateReceiptLineUseCase {
       lengthM,
       areaM2: null,
       weightKg: null,
+      unitCost,
       note: dto.note !== undefined ? dto.note : existingLine.note,
     });
 

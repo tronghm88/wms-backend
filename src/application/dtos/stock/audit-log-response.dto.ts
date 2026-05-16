@@ -15,6 +15,7 @@ export interface AuditLogResponse {
   qtyAfter: string;
   performedBy: number;
   performerName: string;
+  unitCost: string | null;
   note: string | null;
   createdAt: Date;
 }

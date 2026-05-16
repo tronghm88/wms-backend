@@ -265,7 +265,6 @@ describe("ReceiptTicketsController", () => {
               productId: 1,
               quantity: new Decimal("1.000"),
               unitCode: "roll",
-              lengthM: undefined,
             },
           ],
         },
@@ -281,7 +280,6 @@ describe("ReceiptTicketsController", () => {
         productId: 1,
         quantity: "1.000",
         unitCode: "roll",
-        lengthM: "50.000",
       };
       const req = { user: { role: UserRole.WAREHOUSE_STAFF, id: 1 } };
       const expectedResult = new ReceiptTicketLineEntity({
@@ -309,7 +307,6 @@ describe("ReceiptTicketsController", () => {
         {
           ...dto,
           quantity: new Decimal("1.000"),
-          lengthM: new Decimal("50.000"),
         },
         false,
         1,

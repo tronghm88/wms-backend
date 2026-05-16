@@ -28,6 +28,7 @@ describe("SearchAuditLogsUseCase", () => {
     qtyAfter: new Decimal("100.000"),
     performedBy: 1,
     performerName: "Admin User",
+    unitCost: new Decimal("50.000"),
     note: "Initial stock",
     createdAt: new Date(),
   };
@@ -85,6 +86,7 @@ describe("SearchAuditLogsUseCase", () => {
       qtyAfter: "100.000",
       performedBy: mockLogItem.performedBy,
       performerName: mockLogItem.performerName,
+      unitCost: "50.000",
       note: mockLogItem.note,
       createdAt: mockLogItem.createdAt,
     });

@@ -90,9 +90,10 @@ export class AddReceiptLineUseCase {
       productId: dto.productId,
       quantity: dto.quantity,
       unitCode: dto.unitCode,
-      lengthM: dto.lengthM ?? product.length,
+      lengthM: product.length,
       areaM2: null,
       weightKg: null,
+      unitCost: dto.unitCost ?? null,
       note: dto.note,
     });
 

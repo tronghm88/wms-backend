@@ -4,6 +4,6 @@ export class UpdateReceiptLineDto {
   productId?: number;
   quantity?: Decimal;
   unitCode?: string;
-  lengthM?: Decimal;
+  unitCost?: Decimal;
   note?: string;
 }

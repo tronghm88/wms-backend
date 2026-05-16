@@ -205,7 +205,7 @@ export class ReceiptTicketsController {
       lines: dto.lines.map((line) => ({
         ...line,
         quantity: new Decimal(line.quantity),
-        lengthM: line.lengthM ? new Decimal(line.lengthM) : undefined,
+        unitCost: line.unitCost ? new Decimal(line.unitCost) : undefined,
       })),
     };
     const ticket = await this.createReceiptTicketUseCase.execute(
@@ -270,7 +270,7 @@ export class ReceiptTicketsController {
       {
         ...dto,
         quantity: new Decimal(dto.quantity),
-        lengthM: dto.lengthM ? new Decimal(dto.lengthM) : undefined,
+        unitCost: dto.unitCost ? new Decimal(dto.unitCost) : undefined,
       },
       isAdmin,
       req.user.id,
@@ -310,7 +310,7 @@ export class ReceiptTicketsController {
       {
         ...dto,
         quantity: dto.quantity ? new Decimal(dto.quantity) : undefined,
-        lengthM: dto.lengthM ? new Decimal(dto.lengthM) : undefined,
+        unitCost: dto.unitCost ? new Decimal(dto.unitCost) : undefined,
       },
       isAdmin,
       req.user.id,

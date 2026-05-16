@@ -164,7 +164,6 @@ export class ConfirmSplitTicketUseCase {
       });
     }
 
-
     // 8. Update ticket status to CONFIRMED
     const confirmedTicket = await this.splitTicketRepository.update(id, {
       status: TransactionStatus.CONFIRMED,

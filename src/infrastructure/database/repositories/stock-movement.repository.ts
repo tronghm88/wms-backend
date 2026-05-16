@@ -59,6 +59,7 @@ export class StockMovementRepository implements IStockMovementRepository {
         deltaQty: movement.deltaQty as unknown as Prisma.Decimal,
         qtyAfter: movement.qtyAfter as unknown as Prisma.Decimal,
         performedBy: movement.performedBy,
+        unitCost: movement.unitCost as unknown as Prisma.Decimal,
         note: movement.note,
       },
     });
@@ -198,6 +199,7 @@ export class StockMovementRepository implements IStockMovementRepository {
         qtyAfter: new Decimal(m.qtyAfter.toString()),
         performedBy: m.performedBy,
         performerName: m.performer.fullName,
+        unitCost: m.unitCost ? new Decimal(m.unitCost.toString()) : null,
         note: m.note,
         createdAt: m.createdAt,
       });
@@ -237,6 +239,7 @@ export class StockMovementRepository implements IStockMovementRepository {
         deltaQty: data.deltaQty as unknown as Prisma.Decimal,
         qtyAfter: inv.quantity,
         performedBy: data.performedBy,
+        unitCost: data.unitCost as unknown as Prisma.Decimal,
         note: data.note,
       },
     });
@@ -254,6 +257,7 @@ export class StockMovementRepository implements IStockMovementRepository {
       new Decimal(m.deltaQty.toString()),
       new Decimal(m.qtyAfter.toString()),
       m.performedBy,
+      m.unitCost ? new Decimal(m.unitCost.toString()) : null,
       m.note,
       m.createdAt,
     );
@@ -375,6 +379,7 @@ export class StockMovementRepository implements IStockMovementRepository {
         qtyAfter: new Decimal(m.qtyAfter.toString()),
         performedBy: m.performedBy,
         performerName: m.performer.fullName,
+        unitCost: m.unitCost ? new Decimal(m.unitCost.toString()) : null,
         note: m.note,
         createdAt: m.createdAt,
       };

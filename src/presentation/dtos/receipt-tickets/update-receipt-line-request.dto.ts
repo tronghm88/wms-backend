@@ -32,12 +32,12 @@ export class UpdateReceiptLineRequestDto {
   unitCode?: string;
 
   @ApiPropertyOptional({
-    example: "50.000",
-    description: "The length of the roll in meters",
+    example: "150.500",
+    description: "The cost per unit paid to buy/import",
   })
   @IsOptional()
   @IsNumberString()
-  lengthM?: string;
+  unitCost?: string;
 
   @ApiPropertyOptional({
     example: "Updated line note",

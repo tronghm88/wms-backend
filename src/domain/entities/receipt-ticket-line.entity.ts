@@ -9,6 +9,7 @@ export class ReceiptTicketLineEntity {
   lengthM: Decimal | null;
   areaM2: Decimal | null;
   weightKg: Decimal | null;
+  unitCost: Decimal | null;
   note: string | null;
   productName?: string;
   productCode?: string;
@@ -24,6 +25,7 @@ export class ReceiptTicketLineEntity {
     this.lengthM = partial?.lengthM ? new Decimal(partial.lengthM) : null;
     this.areaM2 = partial?.areaM2 ? new Decimal(partial.areaM2) : null;
     this.weightKg = partial?.weightKg ? new Decimal(partial.weightKg) : null;
+    this.unitCost = partial?.unitCost ? new Decimal(partial.unitCost) : null;
     this.note = partial?.note ?? null;
   }
 }

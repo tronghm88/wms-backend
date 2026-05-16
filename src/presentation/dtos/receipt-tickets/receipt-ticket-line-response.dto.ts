@@ -26,6 +26,9 @@ export class ReceiptTicketLineResponseDto {
   @ApiPropertyOptional({ example: "15.000" })
   weightKg?: string;
 
+  @ApiPropertyOptional({ example: "150.500" })
+  unitCost?: string;
+
   @ApiPropertyOptional({ example: "Defect at the end of roll" })
   note?: string | null;
 
@@ -53,6 +56,7 @@ export class ReceiptTicketLineResponseDto {
     this.lengthM = entity.lengthM?.toFixed(3);
     this.areaM2 = entity.areaM2?.toFixed(3);
     this.weightKg = entity.weightKg?.toFixed(3);
+    this.unitCost = entity.unitCost?.toFixed(3);
     this.note = entity.note;
     this.productName = entity.productName;
     this.productCode = entity.productCode;
