@@ -155,4 +155,13 @@ export class CustomerRepository implements ICustomerRepository {
       where: { customerId: id },
     });
   }
+
+  async findLatestCodeByPrefix(prefix: string): Promise<string | null> {
+    const customer = await this.prisma.customer.findFirst({
+      where: { code: { startsWith: prefix } },
+      select: { code: true },
+      orderBy: { id: "desc" },
+    });
+    return customer?.code ?? null;
+  }
 }

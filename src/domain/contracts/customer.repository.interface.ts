@@ -27,4 +27,5 @@ export interface ICustomerRepository {
   ): Promise<CustomerEntity>;
   delete(id: number): Promise<void>;
   countIssueTickets(id: number): Promise<number>;
+  findLatestCodeByPrefix(prefix: string): Promise<string | null>;
 }

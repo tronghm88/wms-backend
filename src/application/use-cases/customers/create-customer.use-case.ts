@@ -2,8 +2,6 @@ import { Injectable, Inject } from "@nestjs/common";
 import { CUSTOMER_REPOSITORY } from "../../../domain/contracts/customer.repository.interface";
 import type { ICustomerRepository } from "../../../domain/contracts/customer.repository.interface";
 import { CustomerEntity } from "../../../domain/entities/customer.entity";
-import { CustomerCodeAlreadyExistsException } from "../../../domain/exceptions/customer.exceptions";
-
 import { CustomerType, CustomerStatus } from "../../../domain/enums";
 
 export interface CreateCustomerRequest {
@@ -48,7 +46,7 @@ export class CreateCustomerUseCase {
     private readonly customerRepository: ICustomerRepository,
   ) {}
 
-  private generateCode(name: string): string {
+  private generateBaseCode(name: string): string {
     const initials = name
       .trim()
       .split(/\s+/)
@@ -57,14 +55,23 @@ export class CreateCustomerUseCase {
     return `CTM-${initials}`;
   }
 
+  private resolveCode(baseCode: string, latestCode: string | null): string {
+    if (!latestCode) return baseCode;
+
+    const match = latestCode.match(new RegExp(`^${baseCode}(?:-(\\d+))?$`));
+    if (!match) return baseCode;
+
+    const currentSuffix = match[1] === undefined ? 0 : parseInt(match[1], 10);
+    return `${baseCode}-${currentSuffix + 1}`;
+  }
+
   async execute(
     request: CreateCustomerRequest,
   ): Promise<CreateCustomerResponse> {
-    const code = this.generateCode(request.name);
-    const existing = await this.customerRepository.findByCode(code);
-    if (existing) {
-      throw new CustomerCodeAlreadyExistsException(code);
-    }
+    const baseCode = this.generateBaseCode(request.name);
+    const latestCode =
+      await this.customerRepository.findLatestCodeByPrefix(baseCode);
+    const code = this.resolveCode(baseCode, latestCode);
 
     const customer = new CustomerEntity({
       code,
