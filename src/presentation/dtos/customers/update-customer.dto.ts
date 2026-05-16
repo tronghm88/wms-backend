@@ -4,14 +4,6 @@ import { CustomerType } from "../../../domain/enums";
 
 export class UpdateCustomerDto {
   @ApiPropertyOptional({
-    example: "CUST001",
-    description: "The unique manual code of the customer",
-  })
-  @IsOptional()
-  @IsString()
-  code?: string;
-
-  @ApiPropertyOptional({
     example: "ABC Corp",
     description: "The name of the customer",
   })

@@ -7,17 +7,10 @@ import {
   IsEnum,
   IsInt,
 } from "class-validator";
+
 import { CustomerType } from "../../../domain/enums";
 
 export class CreateCustomerDto {
-  @ApiProperty({
-    example: "CUST001",
-    description: "The unique manual code of the customer",
-  })
-  @IsNotEmpty()
-  @IsString()
-  code: string;
-
   @ApiProperty({
     example: "ABC Corp",
     description: "The name of the customer",

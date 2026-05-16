@@ -104,7 +104,6 @@ export class CustomersController {
   @ApiResponse({ status: 401, description: "Unauthorized" })
   @ApiResponse({ status: 403, description: "Forbidden" })
   @ApiResponse({ status: 404, description: "Not Found" })
-  @ApiResponse({ status: 409, description: "Conflict - Code already exists" })
   async update(
     @Param("id", ParseIntPipe) id: number,
     @Body() updateCustomerDto: UpdateCustomerDto,

@@ -7,7 +7,6 @@ import { CustomerCodeAlreadyExistsException } from "../../../domain/exceptions/c
 import { CustomerType, CustomerStatus } from "../../../domain/enums";
 
 export interface CreateCustomerRequest {
-  code: string;
   name: string;
   type?: CustomerType;
   companyName?: string;
@@ -49,16 +48,26 @@ export class CreateCustomerUseCase {
     private readonly customerRepository: ICustomerRepository,
   ) {}
 
+  private generateCode(name: string): string {
+    const initials = name
+      .trim()
+      .split(/\s+/)
+      .map((word) => word[0].toUpperCase())
+      .join("");
+    return `CTM-${initials}`;
+  }
+
   async execute(
     request: CreateCustomerRequest,
   ): Promise<CreateCustomerResponse> {
-    const existing = await this.customerRepository.findByCode(request.code);
+    const code = this.generateCode(request.name);
+    const existing = await this.customerRepository.findByCode(code);
     if (existing) {
-      throw new CustomerCodeAlreadyExistsException(request.code);
+      throw new CustomerCodeAlreadyExistsException(code);
     }
 
     const customer = new CustomerEntity({
-      code: request.code,
+      code,
       name: request.name,
       type: request.type,
       companyName: request.companyName,

@@ -1,16 +1,12 @@
 import { Injectable, Inject } from "@nestjs/common";
 import { CUSTOMER_REPOSITORY } from "../../../domain/contracts/customer.repository.interface";
 import type { ICustomerRepository } from "../../../domain/contracts/customer.repository.interface";
-import {
-  CustomerCodeAlreadyExistsException,
-  CustomerNotFoundException,
-} from "../../../domain/exceptions/customer.exceptions";
+import { CustomerNotFoundException } from "../../../domain/exceptions/customer.exceptions";
 
 import { CustomerType, CustomerStatus } from "../../../domain/enums";
 
 export interface UpdateCustomerRequest {
   id: number;
-  code?: string;
   name?: string;
   type?: CustomerType;
   companyName?: string;
@@ -60,15 +56,7 @@ export class UpdateCustomerUseCase {
       throw new CustomerNotFoundException(request.id);
     }
 
-    if (request.code && request.code !== customer.code) {
-      const existing = await this.customerRepository.findByCode(request.code);
-      if (existing) {
-        throw new CustomerCodeAlreadyExistsException(request.code);
-      }
-    }
-
     const updated = await this.customerRepository.update(request.id, {
-      code: request.code,
       name: request.name,
       type: request.type,
       companyName: request.companyName,
