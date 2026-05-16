@@ -19,10 +19,14 @@ export class DeleteUnitUseCase {
       throw new UnitNotFoundException(code);
     }
 
+    const usedByProducts = await this.unitRepository.isUsedByProducts(code);
+    if (usedByProducts) {
+      throw new UnitInUseException(code);
+    }
+
     try {
       await this.unitRepository.delete(code);
     } catch (error: unknown) {
-      // Prisma error code for foreign key constraint violation
       if (
         error &&
         typeof error === "object" &&

@@ -8,4 +8,5 @@ export interface IUnitRepository {
   create(unit: UnitEntity): Promise<UnitEntity>;
   update(code: string, unit: Partial<UnitEntity>): Promise<UnitEntity>;
   delete(code: string): Promise<void>;
+  isUsedByProducts(code: string): Promise<boolean>;
 }

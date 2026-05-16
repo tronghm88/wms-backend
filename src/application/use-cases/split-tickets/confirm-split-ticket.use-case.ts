@@ -20,8 +20,14 @@ import {
   PRODUCT_REPOSITORY,
   type IProductRepository,
 } from "../../../domain/contracts/product.repository.interface";
+import {
+  UNIT_CONVERSION_REPOSITORY,
+  type IUnitConversionRepository,
+} from "../../../domain/contracts/unit-conversion.repository.interface";
 import { SplitTicketEntity } from "../../../domain/entities/split-ticket.entity";
 import { TransactionStatus, StockMovementType } from "../../../domain/enums";
+import { UnitConversionEngine } from "../../../domain/services/unit-conversion-engine";
+import { Decimal } from "decimal.js";
 
 @Injectable()
 export class ConfirmSplitTicketUseCase {
@@ -34,6 +40,8 @@ export class ConfirmSplitTicketUseCase {
     private readonly stockMovementRepository: IStockMovementRepository,
     @Inject(PRODUCT_REPOSITORY)
     private readonly productRepository: IProductRepository,
+    @Inject(UNIT_CONVERSION_REPOSITORY)
+    private readonly unitConversionRepository: IUnitConversionRepository,
   ) {}
 
   async execute(id: number, userId: number): Promise<SplitTicketEntity> {
@@ -55,13 +63,41 @@ export class ConfirmSplitTicketUseCase {
       );
     }
 
-    // 4. Validate source inventory exists and has enough quantity
+    // 4. Validate source inventory (converted to base unit)
+    const sourceProduct = await this.productRepository.findById(
+      ticket.sourceProductId,
+    );
+    if (!sourceProduct) {
+      throw new NotFoundException(
+        `Source product with ID ${ticket.sourceProductId} not found`,
+      );
+    }
+
+    const sourceConversions =
+      await this.unitConversionRepository.findByProductId(
+        ticket.sourceProductId,
+      );
+    const sourceQtyBase = UnitConversionEngine.convertToUnit(
+      ticket.sourceQty,
+      ticket.sourceUnitCode,
+      sourceProduct.baseUnit,
+      sourceConversions,
+    );
+
+    if (sourceQtyBase === null) {
+      throw new BadRequestException(
+        `Cannot convert source quantity from ${ticket.sourceUnitCode} to base unit ${sourceProduct.baseUnit}`,
+      );
+    }
+
     const sourceInventory = await this.inventoryRepository.findByProductId(
       ticket.sourceProductId,
     );
-    if (!sourceInventory || sourceInventory.quantity.lt(ticket.sourceQty)) {
+    const availableQty = sourceInventory?.quantity ?? new Decimal(0);
+
+    if (sourceQtyBase.gt(availableQty)) {
       throw new BadRequestException(
-        `Insufficient stock for source product ${ticket.sourceProductId}. Available: ${sourceInventory?.quantity.toFixed(3) ?? 0}, Required: ${ticket.sourceQty.toFixed(3)}`,
+        `Insufficient stock for source product. Available: ${availableQty.toFixed(3)} ${sourceProduct.baseUnit}, Required: ${sourceQtyBase.toFixed(3)} ${sourceProduct.baseUnit}`,
       );
     }
 
@@ -73,8 +109,8 @@ export class ConfirmSplitTicketUseCase {
       txType: StockMovementType.SPLIT_OUT,
       referenceId: ticket.id,
       referenceType: "SplitTicket",
-      deltaQty: ticket.sourceQty.negated(),
-      unitCode: ticket.sourceUnitCode,
+      deltaQty: sourceQtyBase.negated(),
+      unitCode: sourceProduct.baseUnit,
       performedBy: userId,
       note: `Split Ticket ${ticket.ticketNo} confirmation`,
     });
@@ -88,18 +124,46 @@ export class ConfirmSplitTicketUseCase {
         });
       }
 
-      // b & c. Create StockMovement for target product (SPLIT_IN) - handles inventory update
+      // b. Validate target product and convert to base unit
+      const targetProduct = await this.productRepository.findById(
+        line.targetProductId,
+      );
+      if (!targetProduct) {
+        throw new NotFoundException(
+          `Target product with ID ${line.targetProductId} not found`,
+        );
+      }
+
+      const targetConversions =
+        await this.unitConversionRepository.findByProductId(
+          line.targetProductId,
+        );
+      const lineQtyBase = UnitConversionEngine.convertToUnit(
+        line.quantity,
+        line.unitCode,
+        targetProduct.baseUnit,
+        targetConversions,
+      );
+
+      if (lineQtyBase === null) {
+        throw new BadRequestException(
+          `Cannot convert line quantity for product ${line.targetProductId} from ${line.unitCode} to base unit ${targetProduct.baseUnit}`,
+        );
+      }
+
+      // c. Create StockMovement for target product (SPLIT_IN) - handles inventory update
       await this.stockMovementRepository.registerMovement({
         productId: line.targetProductId,
         txType: StockMovementType.SPLIT_IN,
         referenceId: ticket.id,
         referenceType: "SplitTicket",
-        deltaQty: line.quantity,
-        unitCode: line.unitCode,
+        deltaQty: lineQtyBase,
+        unitCode: targetProduct.baseUnit,
         performedBy: userId,
         note: `Split Ticket ${ticket.ticketNo} confirmation`,
       });
     }
+
 
     // 8. Update ticket status to CONFIRMED
     const confirmedTicket = await this.splitTicketRepository.update(id, {

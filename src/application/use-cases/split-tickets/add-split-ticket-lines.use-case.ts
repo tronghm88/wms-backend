@@ -12,10 +12,6 @@ import {
   PRODUCT_REPOSITORY,
   type IProductRepository,
 } from "../../../domain/contracts/product.repository.interface";
-import {
-  UNIT_CONVERSION_REPOSITORY,
-  type IUnitConversionRepository,
-} from "../../../domain/contracts/unit-conversion.repository.interface";
 import { SplitTicketEntity } from "../../../domain/entities/split-ticket.entity";
 import { TransactionStatus } from "../../../domain/enums";
 import { Decimal } from "decimal.js";
@@ -36,8 +32,6 @@ export class AddSplitTicketLinesUseCase {
     private readonly splitTicketRepository: ISplitTicketRepository,
     @Inject(PRODUCT_REPOSITORY)
     private readonly productRepository: IProductRepository,
-    @Inject(UNIT_CONVERSION_REPOSITORY)
-    private readonly unitConversionRepository: IUnitConversionRepository,
   ) {}
 
   async execute(
@@ -59,8 +53,6 @@ export class AddSplitTicketLinesUseCase {
     // 2. Clear existing lines
     await this.splitTicketRepository.deleteLines(ticketId);
 
-    let totalQtyInSourceUnit = new Decimal(0);
-
     // 3. Process each line
     const linesToCreate: SplitTicketLineCreateInput[] = [];
     const inputLines = dto.lines;
@@ -78,37 +70,8 @@ export class AddSplitTicketLinesUseCase {
 
       const lineQty = new Decimal(lineDto.quantity);
 
-      // Calculate quantity in source unit
-      let qtyInSourceUnit = lineQty;
-      if (lineDto.unitCode !== ticket.sourceUnitCode) {
-        // Find conversion factor
-        const conv1 = await this.unitConversionRepository.findByProductAndUnits(
-          ticket.sourceProductId,
-          ticket.sourceUnitCode,
-          lineDto.unitCode,
-        );
-
-        if (conv1) {
-          qtyInSourceUnit = lineQty.div(conv1.factor);
-        } else {
-          const conv2 =
-            await this.unitConversionRepository.findByProductAndUnits(
-              ticket.sourceProductId,
-              lineDto.unitCode,
-              ticket.sourceUnitCode,
-            );
-
-          if (conv2) {
-            qtyInSourceUnit = lineQty.mul(conv2.factor);
-          } else {
-            throw new BadRequestException(
-              `No unit conversion found between ${lineDto.unitCode} and ${ticket.sourceUnitCode} for product ${ticket.sourceProductId}`,
-            );
-          }
-        }
-      }
-
-      totalQtyInSourceUnit = totalQtyInSourceUnit.plus(qtyInSourceUnit);
+      // Note: We no longer automatically calculate conversion between target and source products.
+      // The user is responsible for ensuring the split logic makes sense outside the system.
 
       linesToCreate.push({
         targetProductId: lineDto.targetProductId,
@@ -117,13 +80,6 @@ export class AddSplitTicketLinesUseCase {
         isNewProduct: !!lineDto.isNewProduct,
         note: lineDto.note ?? null,
       });
-    }
-
-    // 4. Validate total quantity
-    if (totalQtyInSourceUnit.gt(ticket.sourceQty)) {
-      throw new BadRequestException(
-        `Total target quantity (${totalQtyInSourceUnit.toFixed(3)} ${ticket.sourceUnitCode}) exceeds source quantity (${ticket.sourceQty.toFixed(3)} ${ticket.sourceUnitCode})`,
-      );
     }
 
     // 5. Save lines

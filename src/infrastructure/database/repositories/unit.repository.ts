@@ -55,4 +55,11 @@ export class UnitRepository implements IUnitRepository {
       where: { code },
     });
   }
+
+  async isUsedByProducts(code: string): Promise<boolean> {
+    const count = await this.prisma.product.count({
+      where: { baseUnit: code },
+    });
+    return count > 0;
+  }
 }
