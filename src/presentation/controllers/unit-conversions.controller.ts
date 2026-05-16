@@ -70,7 +70,7 @@ export class UnitConversionsController {
   }
 
   @Post()
-  @RequirePermissions(Permissions.UNITS_MANAGE)
+  @RequirePermissions(Permissions.UNITS_CREATE)
   @ApiOperation({ summary: "Create a new unit conversion" })
   @ApiResponse({
     status: 201,
@@ -91,7 +91,7 @@ export class UnitConversionsController {
   }
 
   @Patch(":id")
-  @RequirePermissions(Permissions.UNITS_MANAGE)
+  @RequirePermissions(Permissions.UNITS_UPDATE)
   @ApiOperation({ summary: "Update an existing unit conversion" })
   @ApiResponse({
     status: 200,
@@ -118,7 +118,7 @@ export class UnitConversionsController {
 
   @Delete(":id")
   @HttpCode(200)
-  @RequirePermissions(Permissions.UNITS_MANAGE)
+  @RequirePermissions(Permissions.UNITS_DELETE)
   @ApiOperation({ summary: "Delete a unit conversion" })
   @ApiResponse({
     status: 200,

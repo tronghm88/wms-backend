@@ -119,7 +119,7 @@ export class ProductsController {
   }
 
   @Post()
-  @RequirePermissions(Permissions.PRODUCTS_MANAGE)
+  @RequirePermissions(Permissions.PRODUCTS_CREATE)
   @ApiOperation({ summary: "Create a new product" })
   @ApiResponse({
     status: 201,
@@ -135,7 +135,7 @@ export class ProductsController {
   }
 
   @Patch(":id")
-  @RequirePermissions(Permissions.PRODUCTS_MANAGE)
+  @RequirePermissions(Permissions.PRODUCTS_UPDATE)
   @ApiOperation({ summary: "Update an existing product" })
   @ApiResponse({
     status: 200,
@@ -161,7 +161,7 @@ export class ProductsController {
 
   @Delete(":id")
   @HttpCode(200)
-  @RequirePermissions(Permissions.PRODUCTS_MANAGE)
+  @RequirePermissions(Permissions.PRODUCTS_DELETE)
   @ApiOperation({ summary: "Delete a product" })
   @ApiResponse({
     status: 200,

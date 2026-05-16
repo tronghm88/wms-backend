@@ -37,7 +37,7 @@ export class UnitsController {
   ) {}
 
   @Post()
-  @RequirePermissions(Permissions.UNITS_MANAGE)
+  @RequirePermissions(Permissions.UNITS_CREATE)
   @ApiOperation({ summary: "Create a new unit" })
   @ApiResponse({
     status: 201,
@@ -51,7 +51,7 @@ export class UnitsController {
   }
 
   @Get()
-  @RequirePermissions(Permissions.UNITS_MANAGE)
+  @RequirePermissions(Permissions.UNITS_VIEW)
   @ApiOperation({ summary: "List all units" })
   @ApiResponse({
     status: 200,
@@ -64,7 +64,7 @@ export class UnitsController {
   }
 
   @Get(":code")
-  @RequirePermissions(Permissions.UNITS_MANAGE)
+  @RequirePermissions(Permissions.UNITS_VIEW)
   @ApiOperation({ summary: "Get a unit by code" })
   @ApiResponse({
     status: 200,
@@ -79,7 +79,7 @@ export class UnitsController {
 
   @Delete(":code")
   @HttpCode(HttpStatus.OK)
-  @RequirePermissions(Permissions.UNITS_MANAGE)
+  @RequirePermissions(Permissions.UNITS_DELETE)
   @ApiOperation({ summary: "Delete a unit by code" })
   @ApiResponse({
     status: 200,

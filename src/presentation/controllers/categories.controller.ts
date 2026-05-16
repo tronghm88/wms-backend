@@ -42,7 +42,7 @@ export class CategoriesController {
   ) {}
 
   @Post()
-  @RequirePermissions(Permissions.CATEGORIES_MANAGE)
+  @RequirePermissions(Permissions.CATEGORIES_CREATE)
   @ApiOperation({ summary: "Create a new product category" })
   @ApiResponse({
     status: 201,
@@ -57,7 +57,7 @@ export class CategoriesController {
   }
 
   @Patch(":id")
-  @RequirePermissions(Permissions.CATEGORIES_MANAGE)
+  @RequirePermissions(Permissions.CATEGORIES_UPDATE)
   @ApiOperation({ summary: "Update an existing product category" })
   @ApiResponse({
     status: 200,
@@ -83,7 +83,7 @@ export class CategoriesController {
   }
 
   @Get()
-  @RequirePermissions(Permissions.CATEGORIES_MANAGE)
+  @RequirePermissions(Permissions.CATEGORIES_VIEW)
   @ApiOperation({ summary: "List all product categories" })
   @ApiResponse({
     status: 200,
@@ -96,7 +96,7 @@ export class CategoriesController {
   }
 
   @Get(":id")
-  @RequirePermissions(Permissions.CATEGORIES_MANAGE)
+  @RequirePermissions(Permissions.CATEGORIES_VIEW)
   @ApiOperation({ summary: "Get a product category by ID" })
   @ApiResponse({
     status: 200,
@@ -112,7 +112,7 @@ export class CategoriesController {
 
   @Delete(":id")
   @HttpCode(200)
-  @RequirePermissions(Permissions.CATEGORIES_MANAGE)
+  @RequirePermissions(Permissions.CATEGORIES_DELETE)
   @ApiOperation({ summary: "Delete a product category" })
   @ApiResponse({
     status: 200,

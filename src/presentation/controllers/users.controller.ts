@@ -52,7 +52,7 @@ export class UsersController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  @RequirePermissions(Permissions.USERS_MANAGE)
+  @RequirePermissions(Permissions.USERS_VIEW)
   @ApiOperation({
     summary: "Get a list of users with pagination and filtering",
   })
@@ -76,7 +76,7 @@ export class UsersController {
 
   @Get("stats")
   @HttpCode(HttpStatus.OK)
-  @RequirePermissions(Permissions.USERS_MANAGE)
+  @RequirePermissions(Permissions.USERS_VIEW)
   @ApiOperation({ summary: "Get user statistics" })
   @ApiResponse({
     status: 200,
@@ -91,7 +91,7 @@ export class UsersController {
 
   @Get(":id")
   @HttpCode(HttpStatus.OK)
-  @RequirePermissions(Permissions.USERS_MANAGE)
+  @RequirePermissions(Permissions.USERS_VIEW)
   @ApiOperation({ summary: "Get user by ID" })
   @ApiResponse({
     status: 200,
@@ -107,7 +107,7 @@ export class UsersController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  @RequirePermissions(Permissions.USERS_MANAGE)
+  @RequirePermissions(Permissions.USERS_CREATE)
   @ApiOperation({ summary: "Create a new user (Admin only)" })
   @ApiResponse({
     status: 201,
@@ -118,7 +118,7 @@ export class UsersController {
   @ApiResponse({ status: 401, description: "Unauthorized" })
   @ApiResponse({
     status: 403,
-    description: "Forbidden - requires users:manage permission",
+    description: "Forbidden - requires users:create permission",
   })
   @ApiResponse({ status: 409, description: "Email or username already exists" })
   async createUser(@Body() createUserDto: CreateUserDto) {
@@ -136,7 +136,7 @@ export class UsersController {
 
   @Patch(":id")
   @HttpCode(HttpStatus.OK)
-  @RequirePermissions(Permissions.USERS_MANAGE)
+  @RequirePermissions(Permissions.USERS_UPDATE)
   @ApiOperation({ summary: "Update user information (Admin only)" })
   @ApiResponse({
     status: 200,
@@ -164,7 +164,7 @@ export class UsersController {
 
   @Patch(":id/active")
   @HttpCode(HttpStatus.OK)
-  @RequirePermissions(Permissions.USERS_MANAGE)
+  @RequirePermissions(Permissions.USERS_ACTIVATE)
   @ApiOperation({ summary: "Activate a user account (Admin only)" })
   @ApiResponse({
     status: 200,
@@ -174,7 +174,7 @@ export class UsersController {
   @ApiResponse({ status: 401, description: "Unauthorized" })
   @ApiResponse({
     status: 403,
-    description: "Forbidden - requires users:manage permission",
+    description: "Forbidden - requires users:activate permission",
   })
   @ApiResponse({ status: 404, description: "User not found" })
   async activateUser(@Param("id", ParseIntPipe) id: number) {
@@ -186,7 +186,7 @@ export class UsersController {
 
   @Patch(":id/inactive")
   @HttpCode(HttpStatus.OK)
-  @RequirePermissions(Permissions.USERS_MANAGE)
+  @RequirePermissions(Permissions.USERS_ACTIVATE)
   @ApiOperation({ summary: "Deactivate a user account (Admin only)" })
   @ApiResponse({
     status: 200,
@@ -196,7 +196,7 @@ export class UsersController {
   @ApiResponse({ status: 401, description: "Unauthorized" })
   @ApiResponse({
     status: 403,
-    description: "Forbidden - requires users:manage permission",
+    description: "Forbidden - requires users:activate permission",
   })
   @ApiResponse({ status: 404, description: "User not found" })
   async deactivateUser(@Param("id", ParseIntPipe) id: number) {
@@ -208,7 +208,7 @@ export class UsersController {
 
   @Post(":id/reset-password")
   @HttpCode(HttpStatus.OK)
-  @RequirePermissions(Permissions.USERS_MANAGE)
+  @RequirePermissions(Permissions.USERS_RESET_PASSWORD)
   @ApiOperation({
     summary: "Reset user password by Admin (no old password required)",
   })

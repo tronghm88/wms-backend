@@ -73,7 +73,7 @@ export class CustomersController {
   }
 
   @Post()
-  @RequirePermissions(Permissions.CUSTOMERS_MANAGE)
+  @RequirePermissions(Permissions.CUSTOMERS_CREATE)
   @ApiOperation({ summary: "Create a new customer" })
   @ApiResponse({
     status: 201,
@@ -94,7 +94,7 @@ export class CustomersController {
   }
 
   @Patch(":id")
-  @RequirePermissions(Permissions.CUSTOMERS_MANAGE)
+  @RequirePermissions(Permissions.CUSTOMERS_UPDATE)
   @ApiOperation({ summary: "Update an existing customer" })
   @ApiResponse({
     status: 200,
@@ -116,7 +116,7 @@ export class CustomersController {
   }
 
   @Patch(":id/active")
-  @RequirePermissions(Permissions.CUSTOMERS_MANAGE)
+  @RequirePermissions(Permissions.CUSTOMERS_ACTIVATE)
   @ApiOperation({ summary: "Activate an existing customer" })
   @ApiResponse({
     status: 200,
@@ -133,7 +133,7 @@ export class CustomersController {
   }
 
   @Patch(":id/inactive")
-  @RequirePermissions(Permissions.CUSTOMERS_MANAGE)
+  @RequirePermissions(Permissions.CUSTOMERS_ACTIVATE)
   @ApiOperation({ summary: "Deactivate an existing customer" })
   @ApiResponse({
     status: 200,
@@ -150,7 +150,7 @@ export class CustomersController {
   }
 
   @Delete(":id")
-  @RequirePermissions(Permissions.CUSTOMERS_MANAGE)
+  @RequirePermissions(Permissions.CUSTOMERS_DELETE)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: "Delete an existing customer" })
   @ApiResponse({

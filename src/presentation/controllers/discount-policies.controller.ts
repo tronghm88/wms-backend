@@ -41,7 +41,7 @@ export class DiscountPoliciesController {
   ) {}
 
   @Post()
-  @RequirePermissions(Permissions.DISCOUNT_POLICIES_MANAGE)
+  @RequirePermissions(Permissions.DISCOUNT_POLICIES_CREATE)
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: "Create a new discount policy for a customer" })
   @ApiResponse({
@@ -79,7 +79,7 @@ export class DiscountPoliciesController {
   }
 
   @Patch(":id")
-  @RequirePermissions(Permissions.DISCOUNT_POLICIES_MANAGE)
+  @RequirePermissions(Permissions.DISCOUNT_POLICIES_UPDATE)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: "Update an existing discount policy" })
   @ApiResponse({
@@ -105,7 +105,7 @@ export class DiscountPoliciesController {
   }
 
   @Delete(":id")
-  @RequirePermissions(Permissions.DISCOUNT_POLICIES_MANAGE)
+  @RequirePermissions(Permissions.DISCOUNT_POLICIES_DELETE)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: "Soft delete a discount policy" })
   @ApiResponse({
