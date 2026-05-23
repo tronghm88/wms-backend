@@ -4,10 +4,7 @@ import { UpdateCustomerUseCase } from "../../../../src/application/use-cases/cus
 import { CUSTOMER_REPOSITORY } from "../../../../src/domain/contracts/customer.repository.interface";
 import type { ICustomerRepository } from "../../../../src/domain/contracts/customer.repository.interface";
 import { CustomerEntity } from "../../../../src/domain/entities/customer.entity";
-import {
-  CustomerCodeAlreadyExistsException,
-  CustomerNotFoundException,
-} from "../../../../src/domain/exceptions/customer.exceptions";
+import { CustomerNotFoundException } from "../../../../src/domain/exceptions/customer.exceptions";
 
 describe("UpdateCustomerUseCase", () => {
   let useCase: UpdateCustomerUseCase;

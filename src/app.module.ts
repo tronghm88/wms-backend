@@ -1,4 +1,5 @@
 import { Module } from "@nestjs/common";
+import { APP_INTERCEPTOR } from "@nestjs/core";
 import { AppController } from "./presentation/controllers/app.controller";
 import { AppService } from "./application/use-cases/app.service";
 import { PrismaModule } from "./infrastructure/database/prisma.module";
@@ -19,9 +20,12 @@ import KeyvRedis from "@keyv/redis";
 import { KeyvCacheableMemory } from "cacheable";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { CacheModule } from "@nestjs/cache-manager";
+import { LoggerModule } from "./infrastructure/logging/logger.module";
+import { LoggingInterceptor } from "./presentation/interceptors/logging.interceptor";
 
 @Module({
   imports: [
+    LoggerModule,
     ConfigModule.forRoot({ isGlobal: true }),
     CacheModule.registerAsync({
       isGlobal: true,
@@ -55,6 +59,12 @@ import { CacheModule } from "@nestjs/cache-manager";
     StockModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
+    },
+  ],
 })
 export class AppModule {}

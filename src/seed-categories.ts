@@ -6,7 +6,7 @@ const categories = [
   {
     code: "PP_MANG_DECAL",
     name: "Màng PP / PVC Decal",
-    baseUnit: "roll",
+    baseUnit: "cuon",
     additionalUnits: ["kg", "m2"],
   },
   {
@@ -18,7 +18,7 @@ const categories = [
   {
     code: "GIAY_ANH_CUON",
     name: "Giấy ảnh cuộn",
-    baseUnit: "roll",
+    baseUnit: "cuon",
     additionalUnits: ["kg", "m"],
   },
   {
