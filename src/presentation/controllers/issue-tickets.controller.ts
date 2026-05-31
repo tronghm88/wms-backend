@@ -12,12 +12,15 @@ import {
   Put,
   Query,
   Request,
+  Res,
   UseGuards,
 } from "@nestjs/common";
+import type { Response } from "express";
 import {
   ApiBearerAuth,
   ApiOperation,
   ApiParam,
+  ApiQuery,
   ApiResponse,
   ApiTags,
 } from "@nestjs/swagger";
@@ -31,6 +34,7 @@ import { AddIssueLineUseCase } from "../../application/use-cases/issue-tickets/a
 import { DeleteIssueLineUseCase } from "../../application/use-cases/issue-tickets/delete-issue-line.use-case";
 import { GetIssueTicketStatsUseCase } from "../../application/use-cases/issue-tickets/get-issue-ticket-stats.use-case";
 import { ListIssueTicketsUseCase } from "../../application/use-cases/issue-tickets/list-issue-tickets.use-case";
+import { ExportIssueTicketUseCase } from "../../application/use-cases/issue-tickets/export-issue-ticket.use-case";
 import { CreateIssueTicketDto } from "../../application/dtos/create-issue-ticket.dto";
 import { GetIssueTicketsDto } from "../dtos/issue-tickets/get-issue-tickets.dto";
 import { IssueTicketResponseDto } from "../dtos/issue-tickets/issue-ticket-response.dto";
@@ -45,6 +49,10 @@ import { PaginatedIssueTicketResponseDto } from "../dtos/issue-tickets/paginated
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
 import { RbacGuard, RequirePermissions } from "../guards/rbac.guard";
 import { Permissions } from "../../domain/constants/permissions.constant";
+import {
+  PaymentMethod,
+  DEFAULT_PAYMENT_METHOD,
+} from "../../domain/constants/payment-method.constant";
 
 @ApiTags("Issue Tickets")
 @Controller("api/v1/issue-tickets")
@@ -62,6 +70,7 @@ export class IssueTicketsController {
     private readonly deleteIssueLineUseCase: DeleteIssueLineUseCase,
     private readonly getIssueTicketStatsUseCase: GetIssueTicketStatsUseCase,
     private readonly listIssueTicketsUseCase: ListIssueTicketsUseCase,
+    private readonly exportIssueTicketUseCase: ExportIssueTicketUseCase,
   ) {}
 
   @Post()
@@ -128,6 +137,49 @@ export class IssueTicketsController {
       query.toDate,
     );
     return new IssueStatsResponseDto(stats);
+  }
+
+  @Get(":id/export")
+  @RequirePermissions(Permissions.ISSUES_VIEW)
+  @ApiOperation({
+    summary: "Export Issue Ticket as Excel (PHIẾU GIAO HÀNG)",
+    description:
+      "Downloads the filled PHIẾU GIAO HÀNG template as an .xlsx file. " +
+      "Sum rows are grouped per distinct unit code. " +
+      `Defaults to payment method '${DEFAULT_PAYMENT_METHOD}' when not provided.`,
+  })
+  @ApiParam({ name: "id", type: Number, description: "Issue Ticket ID" })
+  @ApiQuery({
+    name: "paymentMethod",
+    enum: PaymentMethod,
+    required: false,
+    description:
+      "Payment method shown on the ticket (defaults to BANK_TRANSFER)",
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Excel (.xlsx) file returned as a binary attachment",
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: "Ticket not found",
+  })
+  async exportExcel(
+    @Param("id", ParseIntPipe) id: number,
+    @Query("paymentMethod") paymentMethod: PaymentMethod | undefined,
+    @Res() res: Response,
+  ): Promise<void> {
+    const { buffer, filename } = await this.exportIssueTicketUseCase.execute(
+      id,
+      paymentMethod,
+    );
+    res.set({
+      "Content-Type":
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "Content-Disposition": `attachment; filename="${filename}"`,
+      "Content-Length": buffer.length,
+    });
+    res.end(buffer);
   }
 
   @Get(":id")

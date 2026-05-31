@@ -64,10 +64,14 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
   async findById(id: number): Promise<IssueTicketEntity | null> {
     const ticket = await this.prisma.issueTicket.findUnique({
       where: { id },
-      include: { lines: true, customer: true, creator: true },
+      include: {
+        lines: { include: { product: true } },
+        customer: true,
+        creator: true,
+      },
     });
     if (!ticket) return null;
-    return this.toEntity(ticket);
+    return this.toEntityWithProduct(ticket);
   }
 
   async findByCode(code: string): Promise<IssueTicketEntity | null> {
@@ -516,6 +520,9 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
       createdByName: prismaTicket.creator?.fullName,
       customerName: prismaTicket.customer?.name,
       customerCode: prismaTicket.customer?.code,
+      customerAddress: prismaTicket.customer?.address ?? null,
+      customerTaxCode: prismaTicket.customer?.taxCode ?? null,
+      customerPhone: prismaTicket.customer?.phone ?? null,
       lines: (prismaTicket.lines || []).map(
         (line) =>
           new IssueTicketLineEntity({
@@ -536,6 +543,69 @@ export class PrismaIssueTicketRepository implements IIssueTicketRepository {
             note: line.note ?? undefined,
             createdAt: line.createdAt,
             updatedAt: line.updatedAt,
+          }),
+      ),
+    });
+  }
+
+  /**
+   * Variant of toEntity used by findById, which includes `lines.product`
+   * for product dimension and name enrichment.
+   */
+  private toEntityWithProduct(
+    prismaTicket: Prisma.IssueTicketGetPayload<{
+      include: {
+        lines: { include: { product: true } };
+        customer: true;
+        creator: true;
+      };
+    }>,
+  ): IssueTicketEntity {
+    return new IssueTicketEntity({
+      id: prismaTicket.id,
+      code: prismaTicket.ticketNo,
+      date: prismaTicket.date,
+      customerId: prismaTicket.customerId,
+      status: this.mapStatusToDomain(prismaTicket.status),
+      createdBy: prismaTicket.createdBy,
+      totalAmount: new Decimal(prismaTicket.totalAmount.toString()),
+      note: prismaTicket.note ?? undefined,
+      createdAt: prismaTicket.createdAt,
+      updatedAt: prismaTicket.updatedAt,
+      createdByName: prismaTicket.creator?.fullName,
+      customerName: prismaTicket.customer?.name,
+      customerCode: prismaTicket.customer?.code,
+      customerAddress: prismaTicket.customer?.address ?? null,
+      customerTaxCode: prismaTicket.customer?.taxCode ?? null,
+      customerPhone: prismaTicket.customer?.phone ?? null,
+      lines: (prismaTicket.lines || []).map(
+        (line) =>
+          new IssueTicketLineEntity({
+            id: line.id,
+            ticketId: line.ticketId,
+            productId: line.productId,
+            quantity: new Decimal(line.quantity.toString()),
+            unitCode: line.unitCode,
+            basePrice: new Decimal(line.basePrice.toString()),
+            discountType: this.mapDiscountTypeToDomain(line.discountType),
+            discountValue: new Decimal(line.discountValue.toString()),
+            finalPrice: new Decimal(line.finalPrice.toString()),
+            lineTotal: new Decimal(line.lineTotal.toString()),
+            originalPrice: line.originalPrice
+              ? new Decimal(line.originalPrice.toString())
+              : undefined,
+            isOverride: line.isOverride,
+            note: line.note ?? undefined,
+            createdAt: line.createdAt,
+            updatedAt: line.updatedAt,
+            // Enrichment from product join
+            productName: line.product?.name ?? undefined,
+            productWidth: line.product?.width
+              ? new Decimal(line.product.width.toString())
+              : null,
+            productHeight: line.product?.height
+              ? new Decimal(line.product.height.toString())
+              : null,
           }),
       ),
     });

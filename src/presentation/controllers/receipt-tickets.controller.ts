@@ -12,11 +12,14 @@ import {
   Put,
   Query,
   Request,
+  Res,
   UseGuards,
 } from "@nestjs/common";
+import type { Response } from "express";
 import {
   ApiBearerAuth,
   ApiOperation,
+  ApiParam,
   ApiResponse,
   ApiTags,
 } from "@nestjs/swagger";
@@ -32,6 +35,7 @@ import { CancelReceiptTicketUseCase } from "../../application/use-cases/receipt-
 import { DeleteReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/delete-receipt-ticket.use-case";
 import { UpdateReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/update-receipt-ticket.use-case";
 import { GetReceiptTicketStatsUseCase } from "../../application/use-cases/receipt-tickets/get-receipt-ticket-stats.use-case";
+import { ExportReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/export-receipt-ticket.use-case";
 import { CreateReceiptTicketDto } from "../../application/dtos/create-receipt-ticket.dto";
 import { CreateReceiptTicketRequestDto } from "../dtos/receipt-tickets/create-receipt-ticket-request.dto";
 import { GetReceiptTicketsDto } from "../dtos/receipt-tickets/get-receipt-tickets.dto";
@@ -67,6 +71,7 @@ export class ReceiptTicketsController {
     private readonly deleteReceiptTicketUseCase: DeleteReceiptTicketUseCase,
     private readonly updateReceiptTicketUseCase: UpdateReceiptTicketUseCase,
     private readonly getReceiptTicketStatsUseCase: GetReceiptTicketStatsUseCase,
+    private readonly exportReceiptTicketUseCase: ExportReceiptTicketUseCase,
   ) {}
 
   @Put(":id/confirm")
@@ -167,6 +172,7 @@ export class ReceiptTicketsController {
   @Get(":id")
   @RequirePermissions(Permissions.RECEIPTS_VIEW)
   @ApiOperation({ summary: "Get Goods Receipt details by ID" })
+  @ApiParam({ name: "id", type: Number, description: "Receipt Ticket ID" })
   @ApiResponse({
     status: HttpStatus.OK,
     description: "Returns the Goods Receipt details including line items",
@@ -181,6 +187,37 @@ export class ReceiptTicketsController {
   ): Promise<ReceiptTicketDetailsResponseDto> {
     const result = await this.getReceiptTicketUseCase.execute(id);
     return new ReceiptTicketDetailsResponseDto(result);
+  }
+
+  @Get(":id/export")
+  @RequirePermissions(Permissions.RECEIPTS_VIEW)
+  @ApiOperation({
+    summary: "Export Receipt Ticket as Excel (PHIẾU NHẬP HÀNG)",
+    description:
+      "Downloads the filled PHIẾU NHẬP HÀNG template as an .xlsx file.",
+  })
+  @ApiParam({ name: "id", type: Number, description: "Receipt Ticket ID" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Excel (.xlsx) file returned as a binary attachment",
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: "Ticket not found",
+  })
+  async exportExcel(
+    @Param("id", ParseIntPipe) id: number,
+    @Res() res: Response,
+  ): Promise<void> {
+    const { buffer, filename } =
+      await this.exportReceiptTicketUseCase.execute(id);
+    res.set({
+      "Content-Type":
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "Content-Disposition": `attachment; filename="${filename}"`,
+      "Content-Length": buffer.length,
+    });
+    res.end(buffer);
   }
 
   @Post()

@@ -13,6 +13,9 @@ export class ReceiptTicketLineEntity {
   note: string | null;
   productName?: string;
   productCode?: string;
+  productWidth?: Decimal | null;
+  productHeight?: Decimal | null;
+  productLength?: Decimal | null;
   unitLabel?: string;
   createdAt: Date;
   updatedAt: Date;

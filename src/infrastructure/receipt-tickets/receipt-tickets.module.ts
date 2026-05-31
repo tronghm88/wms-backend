@@ -13,10 +13,12 @@ import { CancelReceiptTicketUseCase } from "../../application/use-cases/receipt-
 import { DeleteReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/delete-receipt-ticket.use-case";
 import { UpdateReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/update-receipt-ticket.use-case";
 import { GetReceiptTicketStatsUseCase } from "../../application/use-cases/receipt-tickets/get-receipt-ticket-stats.use-case";
+import { ExportReceiptTicketUseCase } from "../../application/use-cases/receipt-tickets/export-receipt-ticket.use-case";
 import { ReceiptTicketsController } from "../../presentation/controllers/receipt-tickets.controller";
 import { ProductsModule } from "../products/products.module";
 import { UnitConversionsModule } from "../unit-conversions/unit-conversions.module";
 import { UnitsModule } from "../units/units.module";
+import { ExcelExportService } from "../services/excel-export.service";
 
 @Module({
   imports: [PrismaModule, ProductsModule, UnitConversionsModule, UnitsModule],
@@ -33,6 +35,8 @@ import { UnitsModule } from "../units/units.module";
     DeleteReceiptTicketUseCase,
     UpdateReceiptTicketUseCase,
     GetReceiptTicketStatsUseCase,
+    ExportReceiptTicketUseCase,
+    ExcelExportService,
     {
       provide: RECEIPT_TICKET_REPOSITORY,
       useClass: ReceiptTicketRepository,

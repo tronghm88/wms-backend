@@ -13,11 +13,13 @@ import {
   Query,
   Request,
   UseGuards,
+  Res,
 } from "@nestjs/common";
 import {
   ApiBearerAuth,
   ApiOperation,
   ApiParam,
+  ApiProduces,
   ApiResponse,
   ApiTags,
 } from "@nestjs/swagger";
@@ -30,6 +32,7 @@ import { UpdateSplitTicketLineUseCase } from "../../application/use-cases/split-
 import { DeleteSplitTicketLineUseCase } from "../../application/use-cases/split-tickets/delete-split-ticket-line.use-case";
 import { UpdateSplitTicketUseCase } from "../../application/use-cases/split-tickets/update-split-ticket.use-case";
 import { GetSplitTicketStatsUseCase } from "../../application/use-cases/split-tickets/get-split-ticket-stats.use-case";
+import { ExportSplitTicketUseCase } from "../../application/use-cases/split-tickets/export-split-ticket.use-case";
 import { CreateSplitTicketDto } from "../dtos/split-tickets/create-split-ticket.dto";
 import { AddSplitTicketLinesDto } from "../dtos/split-tickets/add-split-ticket-lines.dto";
 import { UpdateSplitLineRequestDto } from "../dtos/split-tickets/update-split-line-request.dto";
@@ -62,6 +65,7 @@ export class SplitTicketsController {
     private readonly deleteSplitTicketLineUseCase: DeleteSplitTicketLineUseCase,
     private readonly updateSplitTicketUseCase: UpdateSplitTicketUseCase,
     private readonly getSplitTicketStatsUseCase: GetSplitTicketStatsUseCase,
+    private readonly exportSplitTicketUseCase: ExportSplitTicketUseCase,
   ) {}
 
   @Get("stats")
@@ -292,5 +296,36 @@ export class SplitTicketsController {
       req.user.id,
     );
     return new CancelSplitTicketResponseDto(ticket, warnings);
+  }
+
+  @Get(":id/export")
+  @RequirePermissions(Permissions.INVENTORY_VIEW)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: "Export a split ticket to Excel (.xlsx)" })
+  @ApiParam({ name: "id", description: "Split ticket ID" })
+  @ApiProduces(
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  )
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Returns the split ticket as an Excel file",
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: "Split ticket not found",
+  })
+  async exportToExcel(
+    @Param("id", ParseIntPipe) id: number,
+    @Res() res: import("express").Response,
+  ): Promise<void> {
+    const { buffer, filename } =
+      await this.exportSplitTicketUseCase.execute(id);
+
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    );
+    res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
+    res.end(buffer);
   }
 }

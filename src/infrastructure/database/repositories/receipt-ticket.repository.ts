@@ -51,6 +51,9 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
               select: {
                 name: true,
                 code: true,
+                width: true,
+                height: true,
+                length: true,
               },
             },
             unit: {
@@ -99,6 +102,15 @@ export class ReceiptTicketRepository implements IReceiptTicketRepository {
           note: line.note ?? null,
           productName: line.product.name,
           productCode: line.product.code,
+          productWidth: line.product.width
+            ? new Decimal(line.product.width.toString())
+            : null,
+          productHeight: line.product.height
+            ? new Decimal(line.product.height.toString())
+            : null,
+          productLength: line.product.length
+            ? new Decimal(line.product.length.toString())
+            : null,
           unitLabel: line.unit.label,
         }),
     );

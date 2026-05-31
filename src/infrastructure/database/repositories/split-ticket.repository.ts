@@ -31,6 +31,55 @@ export class SplitTicketRepository implements ISplitTicketRepository {
     return this.mapToEntity(ticket);
   }
 
+  async findByIdForExport(id: number): Promise<SplitTicketEntity | null> {
+    const ticket = await this.prisma.splitTicket.findUnique({
+      where: { id },
+      include: {
+        sourceProduct: true,
+        unit: true,
+        lines: {
+          include: {
+            targetProduct: {
+              include: { unit: true },
+            },
+          },
+        },
+      },
+    });
+    if (!ticket) return null;
+
+    const entity = new SplitTicketEntity({
+      id: ticket.id,
+      ticketNo: ticket.ticketNo,
+      date: ticket.date,
+      status: ticket.status as unknown as TransactionStatus,
+      createdBy: ticket.createdBy,
+      sourceProductId: ticket.sourceProductId,
+      sourceQty: new Decimal(ticket.sourceQty.toString()),
+      sourceUnitCode: ticket.sourceUnitCode,
+      note: ticket.note ?? undefined,
+      createdAt: ticket.createdAt,
+      updatedAt: ticket.updatedAt,
+      sourceProductName: ticket.sourceProduct?.name,
+      sourceUnitLabel: ticket.unit?.label,
+    });
+
+    entity.lines = ticket.lines.map((l) =>
+      this.mapLineToEntityWithProduct(
+        l as PrismaSplitTicketLine & {
+          targetProduct: (PrismaProduct & { unit: PrismaUnit }) | null;
+        },
+      ),
+    );
+    entity.linesCount = entity.lines.length;
+    entity.totalSplitQty = entity.lines.reduce(
+      (sum, line) => sum.plus(line.quantity),
+      new Decimal(0),
+    );
+
+    return entity;
+  }
+
   async findByTicketNo(ticketNo: string): Promise<SplitTicketEntity | null> {
     const ticket = await this.prisma.splitTicket.findUnique({
       where: { ticketNo },
@@ -327,6 +376,35 @@ export class SplitTicketRepository implements ISplitTicketRepository {
       note: line.note ?? undefined,
       createdAt: line.createdAt,
       updatedAt: line.updatedAt,
+    });
+  }
+
+  private mapLineToEntityWithProduct(
+    line: PrismaSplitTicketLine & {
+      targetProduct: (PrismaProduct & { unit: PrismaUnit }) | null;
+    },
+  ): SplitTicketLineEntity {
+    return new SplitTicketLineEntity({
+      id: line.id,
+      ticketId: line.ticketId,
+      targetProductId: line.targetProductId,
+      quantity: new Decimal(line.quantity.toString()),
+      unitCode: line.unitCode,
+      isNewProduct: line.isNewProduct,
+      note: line.note ?? undefined,
+      createdAt: line.createdAt,
+      updatedAt: line.updatedAt,
+      targetProductName: line.targetProduct?.name,
+      productWidth: line.targetProduct?.width
+        ? new Decimal(line.targetProduct.width.toString())
+        : undefined,
+      productLength: line.targetProduct?.length
+        ? new Decimal(line.targetProduct.length.toString())
+        : undefined,
+      productHeight: line.targetProduct?.height
+        ? new Decimal(line.targetProduct.height.toString())
+        : undefined,
+      unitLabel: line.targetProduct?.unit?.label ?? line.unitCode,
     });
   }
 }

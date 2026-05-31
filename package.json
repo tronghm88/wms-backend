@@ -29,7 +29,9 @@
     "seed:units": "node dist/seed-units",
     "seed:units:dev": "ts-node src/seed-units.ts",
     "seed:products": "node dist/seed-products",
-    "seed:products:dev": "ts-node src/seed-products.ts"
+    "seed:products:dev": "ts-node src/seed-products.ts",
+    "seed:customer": "node dist/seed-customer",
+    "seed:customer:dev": "ts-node src/seed-customer.ts"
   },
   "dependencies": {
     "@keyv/redis": "^5.1.6",

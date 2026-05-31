@@ -17,6 +17,8 @@ import { CustomersModule } from "../customers/customers.module";
 import { DiscountPoliciesModule } from "../discount-policies/discount-policies.module";
 import { StockModule } from "../stock/stock.module";
 import { IssueTicketsController } from "../../presentation/controllers/issue-tickets.controller";
+import { ExportIssueTicketUseCase } from "../../application/use-cases/issue-tickets/export-issue-ticket.use-case";
+import { ExcelExportService } from "../services/excel-export.service";
 
 @Module({
   imports: [
@@ -38,6 +40,8 @@ import { IssueTicketsController } from "../../presentation/controllers/issue-tic
     DeleteIssueLineUseCase,
     GetIssueTicketStatsUseCase,
     ListIssueTicketsUseCase,
+    ExportIssueTicketUseCase,
+    ExcelExportService,
     {
       provide: ISSUE_TICKET_REPOSITORY,
       useClass: PrismaIssueTicketRepository,

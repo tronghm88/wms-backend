@@ -18,6 +18,11 @@ export class IssueTicketEntity {
   customerName?: string;
   customerCode?: string;
 
+  /** Enrichment fields — populated from the customer join, not stored on the ticket */
+  customerAddress?: string | null;
+  customerTaxCode?: string | null;
+  customerPhone?: string | null;
+
   constructor(partial?: Partial<IssueTicketEntity>) {
     Object.assign(this, partial);
     if (partial?.totalAmount) {

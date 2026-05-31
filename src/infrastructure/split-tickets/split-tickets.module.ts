@@ -11,10 +11,12 @@ import { UpdateSplitTicketLineUseCase } from "../../application/use-cases/split-
 import { DeleteSplitTicketLineUseCase } from "../../application/use-cases/split-tickets/delete-split-ticket-line.use-case";
 import { UpdateSplitTicketUseCase } from "../../application/use-cases/split-tickets/update-split-ticket.use-case";
 import { GetSplitTicketStatsUseCase } from "../../application/use-cases/split-tickets/get-split-ticket-stats.use-case";
+import { ExportSplitTicketUseCase } from "../../application/use-cases/split-tickets/export-split-ticket.use-case";
 import { SplitTicketsController } from "../../presentation/controllers/split-tickets.controller";
 import { ProductsModule } from "../products/products.module";
 import { UnitConversionsModule } from "../unit-conversions/unit-conversions.module";
 import { StockModule } from "../stock/stock.module";
+import { ExcelExportService } from "../services/excel-export.service";
 
 @Module({
   imports: [PrismaModule, ProductsModule, UnitConversionsModule, StockModule],
@@ -29,6 +31,8 @@ import { StockModule } from "../stock/stock.module";
     DeleteSplitTicketLineUseCase,
     UpdateSplitTicketUseCase,
     GetSplitTicketStatsUseCase,
+    ExportSplitTicketUseCase,
+    ExcelExportService,
     {
       provide: SPLIT_TICKET_REPOSITORY,
       useClass: SplitTicketRepository,

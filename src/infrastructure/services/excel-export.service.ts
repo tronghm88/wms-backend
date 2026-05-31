@@ -1,8 +1,18 @@
 import { Injectable } from "@nestjs/common";
 import * as ExcelJS from "exceljs";
+import * as path from "path";
 import { Decimal } from "decimal.js";
 import type { ProductStockExportItem } from "../../domain/contracts/inventory.repository.interface";
 import { EXCEL_HEADERS } from "./excel-column-headers";
+import type { IssueTicketEntity } from "../../domain/entities/issue-ticket.entity";
+import type { ReceiptTicketEntity } from "../../domain/entities/receipt-ticket.entity";
+import type { ReceiptTicketLineEntity } from "../../domain/entities/receipt-ticket-line.entity";
+import type { SplitTicketEntity } from "../../domain/entities/split-ticket.entity";
+import {
+  type PaymentMethod,
+  PAYMENT_METHOD_LABEL,
+  DEFAULT_PAYMENT_METHOD,
+} from "../../domain/constants/payment-method.constant";
 
 export interface ExcelStockReportMeta {
   categoryCode: string;
@@ -233,11 +243,394 @@ export class ExcelExportService {
     return Buffer.from(arrayBuffer);
   }
 
-  /** Build a safe filename for the export. */
+  /** Build a safe filename for the stock export. */
   buildFilename(categoryCode: string, startDate: Date, endDate: Date): string {
     const pad = (n: number) => n.toString().padStart(2, "0");
     const fmt = (d: Date) =>
       `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}`;
     return `stock_report_${categoryCode}_${fmt(startDate)}_${fmt(endDate)}.xlsx`;
+  }
+
+  // ─── Issue Ticket Export ──────────────────────────────────────────────────────
+
+  /**
+   * Fills the PHIẾU GIAO HÀNG template with live ticket data and returns an xlsx buffer.
+   *
+   * Layout strategy:
+   *   Rows 1–9  : Static template content (kept as-is)
+   *   Row 10..N : One row per ticket line
+   *   Row N+1   : Blank separator
+   *   Row N+2..N+1+U : One summary row per distinct unitCode (U = number of units)
+   *   Row N+2+U : Disclaimer text
+   *   Row N+3+U : Signature row 1
+   *   Row N+4+U : Signature row 2
+   *   Row N+5+U : Signature row 3
+   */
+  async generateIssueTicketExport(
+    ticket: IssueTicketEntity,
+    paymentMethod?: PaymentMethod,
+  ): Promise<Buffer> {
+    const templatePath = path.resolve(
+      process.cwd(),
+      "excel_templates",
+      "issue_ticket_template.xlsx",
+    );
+
+    const workbook = new ExcelJS.Workbook();
+    await workbook.xlsx.readFile(templatePath);
+
+    const sheet = workbook.getWorksheet("Phiếu Xuất");
+    if (!sheet) {
+      throw new Error('Worksheet "Phiếu Xuất" not found in template');
+    }
+
+    const effectivePaymentMethod = paymentMethod ?? DEFAULT_PAYMENT_METHOD;
+
+    // ── 1. Fill header cells ──────────────────────────────────────────────────
+
+    // Row 5: date — "Ngày DD Tháng MM Năm YYYY"
+    const d = ticket.createdAt;
+    const dateStr = `Ngày ${d.getDate()} Tháng ${d.getMonth() + 1} Năm ${d.getFullYear()}`;
+    sheet.getCell("F5").value = dateStr;
+
+    // Row 6: customer name (A6) | tax/phone (D6)
+    const taxAndPhone = [
+      ticket.customerTaxCode || "-",
+      ticket.customerPhone || "-",
+    ];
+    sheet.getCell("C6").value = ticket.customerName ?? "";
+    sheet.getCell("E6").value = taxAndPhone.join(" / ");
+
+    // Row 7: address (A7) | payment method (D7) | ticket number (H7)
+    sheet.getCell("C7").value = ticket.customerAddress ?? "";
+    sheet.getCell("E7").value = PAYMENT_METHOD_LABEL[effectivePaymentMethod];
+    sheet.getCell("H7").value = ticket.code;
+
+    // ── 2. Save template row-10 style for new data rows ───────────────────────
+
+    const templateDataRow = sheet.getRow(10);
+    const templateCellStyles: ExcelJS.Style[] = [];
+    for (let c = 1; c <= 9; c++) {
+      const cell = templateDataRow.getCell(c);
+      // Deep-copy the style object
+      templateCellStyles[c] = JSON.parse(
+        JSON.stringify(cell.style),
+      ) as ExcelJS.Style;
+    }
+
+    // ── 4. Write ticket lines ─────────────────────────────────────────────────
+
+    const DATA_START = 10;
+    const lines = ticket.lines ?? [];
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+
+      // Build the row values array (columns 1–9)
+      const rowValues: ExcelJS.CellValue[] = [
+        i + 1, // col 1: STT
+        null, // col 2: blank
+        line.productName ?? "", // col 3: Mã Hàng / product name
+        line.productWidth ? Number(line.productWidth.toFixed(3)) : null, // col 4: Rộng
+        line.productHeight ? Number(line.productHeight.toFixed(3)) : null, // col 5: Dài
+        Number(line.quantity.toFixed(3)), // col 6: SL
+        line.unitCode, // col 7: DV
+        Number(line.finalPrice.toFixed(3)), // col 8: Đơn giá
+        Number(line.lineTotal.toFixed(3)), // col 9: Thành Tiền
+      ];
+
+      // Insert the row at the correct position (after previously inserted rows)
+      const insertAt = DATA_START + i;
+      sheet.insertRow(insertAt, rowValues);
+
+      // Apply template styles to each cell in the new row
+      const newRow = sheet.getRow(insertAt);
+      newRow.height = 21;
+      for (let c = 1; c <= 9; c++) {
+        if (templateCellStyles[c]) {
+          newRow.getCell(c).style = JSON.parse(
+            JSON.stringify(templateCellStyles[c]),
+          ) as ExcelJS.Style;
+        }
+      }
+      newRow.commit();
+    }
+
+    // ── 5. Sum row with SUM formulas ──────────────────────────────────────────
+
+    const dataEndRow = DATA_START + lines.length - 1;
+    const blankRowNum = dataEndRow + 1;
+    const sumStartRow = blankRowNum + 2;
+
+    // Blank separator row
+    sheet.getRow(blankRowNum).height = 21;
+
+    // Write one sum row per unit
+    const sumRow = sheet.getRow(sumStartRow);
+    sumRow.height = 21;
+
+    // F{sumRowNum} = SUM(F10:F{dataEndRow}) — total quantity
+    sumRow.getCell(6).value = {
+      formula: `SUM(F${DATA_START}:F${dataEndRow})`,
+    };
+
+    // I{sumRowNum} = SUM(I10:I{dataEndRow}) — total amount
+    sumRow.getCell(9).value = {
+      formula: `SUM(I${DATA_START}:I${dataEndRow})`,
+    };
+
+    sumRow.commit();
+
+    // ── 7. Write to buffer ────────────────────────────────────────────────────
+
+    const arrayBuffer = await workbook.xlsx.writeBuffer();
+    return Buffer.from(arrayBuffer);
+  }
+
+  /** Build a filename for the issue ticket export. */
+  buildIssueTicketFilename(ticketCode: string, createdAt: Date): string {
+    const pad = (n: number) => n.toString().padStart(2, "0");
+    const datePart = `${createdAt.getFullYear()}${pad(createdAt.getMonth() + 1)}${pad(createdAt.getDate())}`;
+    // Replace "/" and spaces that could appear in ticket codes
+    const safeCode = ticketCode.replace(/[^a-zA-Z0-9-_]/g, "_");
+    return `phieu_giao_hang_${safeCode}_${datePart}.xlsx`;
+  }
+
+  // ─── Receipt Ticket Export ────────────────────────────────────────────────────
+
+  /**
+   * Fills the receipt ticket template with live ticket data and returns an xlsx buffer.
+   *
+   * Layout strategy:
+   *   Cell F6 : created_at formatted as dd/MM/yyyy
+   *   Cell F7 : ticket code (ticketNo)
+   *   Row 9..N: One row per ticket line
+   *     col 1: product name
+   *     col 2: width
+   *     col 3: length
+   *     col 4: height
+   *     col 5: quantity
+   *     col 6: note
+   *   Row N+1 : SUM formula =SUM(E9:EN)
+   */
+  async generateReceiptTicketExport(
+    ticket: ReceiptTicketEntity,
+    lines: ReceiptTicketLineEntity[],
+  ): Promise<Buffer> {
+    const templatePath = path.resolve(
+      process.cwd(),
+      "excel_templates",
+      "receipt_ticket_template.xlsx",
+    );
+
+    const workbook = new ExcelJS.Workbook();
+    await workbook.xlsx.readFile(templatePath);
+
+    const sheet = workbook.worksheets[0];
+    if (!sheet) {
+      throw new Error("No worksheet found in receipt ticket template");
+    }
+
+    // ── 1. Fill header cells ──────────────────────────────────────────────────
+
+    // F6: created_at formatted dd/MM/yyyy
+    const d = ticket.createdAt;
+    const pad = (n: number) => n.toString().padStart(2, "0");
+    const dateStr = `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`;
+    sheet.getCell("F6").value = dateStr;
+
+    // F7: ticket code
+    sheet.getCell("F7").value = ticket.ticketNo;
+
+    // ── 2. Save template row-9 style for inserted data rows ──────────────────
+
+    const DATA_START_ROW = 9;
+    const templateDataRow = sheet.getRow(DATA_START_ROW);
+    const templateCellStyles: ExcelJS.Style[] = [];
+    for (let c = 1; c <= 6; c++) {
+      templateCellStyles[c] = JSON.parse(
+        JSON.stringify(templateDataRow.getCell(c).style),
+      ) as ExcelJS.Style;
+    }
+
+    // ── 3. Insert ticket lines ────────────────────────────────────────────────
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+
+      const rowValues: ExcelJS.CellValue[] = [
+        line.productName ?? "", // col 1: product name
+        line.productWidth ? Number(line.productWidth.toFixed(3)) : null, // col 2: width
+        line.productLength ? Number(line.productLength.toFixed(3)) : null, // col 3: length
+        line.productHeight ? Number(line.productHeight.toFixed(3)) : null, // col 4: height
+        Number(line.quantity.toFixed(3)), // col 5: quantity
+        line.note ?? "", // col 6: note
+      ];
+
+      const insertAt = DATA_START_ROW + i;
+      sheet.insertRow(insertAt, rowValues);
+
+      // Apply template styles to the newly inserted row
+      const newRow = sheet.getRow(insertAt);
+      newRow.height = 21;
+      for (let c = 1; c <= 6; c++) {
+        if (templateCellStyles[c]) {
+          newRow.getCell(c).style = JSON.parse(
+            JSON.stringify(templateCellStyles[c]),
+          ) as ExcelJS.Style;
+        }
+      }
+      newRow.commit();
+    }
+
+    // ── 4. Write SUM formula for quantity column ───────────────────────────────
+
+    const dataEndRow = DATA_START_ROW + lines.length - 1;
+    const sumRowNum = dataEndRow + 2;
+    const sumRow = sheet.getRow(sumRowNum);
+    sumRow.getCell(5).value = {
+      formula: `SUM(E${DATA_START_ROW}:E${dataEndRow})`,
+    };
+    sumRow.commit();
+
+    // ── 4. Write to buffer ────────────────────────────────────────────────────
+
+    const arrayBuffer = await workbook.xlsx.writeBuffer();
+    return Buffer.from(arrayBuffer);
+  }
+
+  /** Build a filename for the receipt ticket export. */
+  buildReceiptTicketFilename(ticketNo: string, createdAt: Date): string {
+    const pad = (n: number) => n.toString().padStart(2, "0");
+    const datePart = `${createdAt.getFullYear()}${pad(createdAt.getMonth() + 1)}${pad(createdAt.getDate())}`;
+    const safeCode = ticketNo.replace(/[^a-zA-Z0-9-_]/g, "_");
+    return `phieu_nhap_hang_${safeCode}_${datePart}.xlsx`;
+  }
+
+  // ─── Split Ticket Export ──────────────────────────────────────────────────────
+
+  /**
+   * Fills the split ticket template with live ticket data and returns an xlsx buffer.
+   *
+   * Layout strategy:
+   *   Cell H7 : created_at formatted dd/MM/yyyy
+   *   Cell H8 : ticket code (ticketNo)
+   *   Cell B7 : source product name
+   *   Cell B8 : source quantity
+   *   Cell B9 : ticket note
+   *   Row 12..N: One row per ticket line
+   *     col 1: ordering number
+   *     col 2: destination product name
+   *     col 3: width
+   *     col 4: length
+   *     col 5: height
+   *     col 6: quantity
+   *     col 7: unit
+   *     col 8: note
+   *   Row N+2 : SUM formula =SUM(F12:FN)
+   */
+  async generateSplitTicketExport(ticket: SplitTicketEntity): Promise<Buffer> {
+    const templatePath = path.resolve(
+      process.cwd(),
+      "excel_templates",
+      "split_ticket_template.xlsx",
+    );
+
+    const workbook = new ExcelJS.Workbook();
+    await workbook.xlsx.readFile(templatePath);
+
+    const sheet = workbook.worksheets[0];
+    if (!sheet) {
+      throw new Error("No worksheet found in split ticket template");
+    }
+
+    // ── 1. Fill header cells ──────────────────────────────────────────────────
+
+    const d = ticket.createdAt;
+    const pad = (n: number) => n.toString().padStart(2, "0");
+    const dateStr = `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`;
+
+    // H7: created_at formatted dd/MM/yyyy
+    sheet.getCell("H7").value = dateStr;
+
+    // H8: ticket code
+    sheet.getCell("H8").value = ticket.ticketNo;
+
+    // B7: source product name
+    sheet.getCell("B7").value = ticket.sourceProductName ?? "";
+
+    // B8: source quantity
+    sheet.getCell("B8").value = Number(ticket.sourceQty.toFixed(3));
+
+    // B9: ticket note
+    sheet.getCell("B9").value = ticket.note ?? "";
+
+    // ── 2. Save template row-12 style for inserted data rows ──────────────────
+
+    const DATA_START_ROW = 12;
+    const templateDataRow = sheet.getRow(DATA_START_ROW);
+    const templateCellStyles: ExcelJS.Style[] = [];
+    for (let c = 1; c <= 8; c++) {
+      templateCellStyles[c] = JSON.parse(
+        JSON.stringify(templateDataRow.getCell(c).style),
+      ) as ExcelJS.Style;
+    }
+
+    // ── 3. Insert ticket lines ────────────────────────────────────────────────
+
+    const lines = ticket.lines ?? [];
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+
+      const rowValues: ExcelJS.CellValue[] = [
+        i + 1, // col 1: ordering number
+        line.targetProductName ?? "", // col 2: destination product name
+        line.productWidth ? Number(line.productWidth.toFixed(3)) : null, // col 3: width
+        line.productLength ? Number(line.productLength.toFixed(3)) : null, // col 4: length
+        line.productHeight ? Number(line.productHeight.toFixed(3)) : null, // col 5: height
+        Number(line.quantity.toFixed(3)), // col 6: quantity
+        line.unitLabel ?? line.unitCode, // col 7: unit
+        line.note ?? "", // col 8: note
+      ];
+
+      const insertAt = DATA_START_ROW + i;
+      sheet.insertRow(insertAt, rowValues);
+
+      // Apply template styles to the newly inserted row
+      const newRow = sheet.getRow(insertAt);
+      newRow.height = 21;
+      for (let c = 1; c <= 8; c++) {
+        if (templateCellStyles[c]) {
+          newRow.getCell(c).style = JSON.parse(
+            JSON.stringify(templateCellStyles[c]),
+          ) as ExcelJS.Style;
+        }
+      }
+      newRow.commit();
+    }
+
+    // ── 4. Write SUM formula for quantity column ───────────────────────────────
+
+    const dataEndRow = DATA_START_ROW + lines.length - 1;
+    const sumRowNum = dataEndRow + 2;
+    const sumRow = sheet.getRow(sumRowNum);
+    sumRow.getCell(6).value = {
+      formula: `SUM(F${DATA_START_ROW}:F${dataEndRow})`,
+    };
+    sumRow.commit();
+
+    // ── 5. Write to buffer ────────────────────────────────────────────────────
+
+    const arrayBuffer = await workbook.xlsx.writeBuffer();
+    return Buffer.from(arrayBuffer);
+  }
+
+  /** Build a filename for the split ticket export. */
+  buildSplitTicketFilename(ticketNo: string, createdAt: Date): string {
+    const pad = (n: number) => n.toString().padStart(2, "0");
+    const datePart = `${createdAt.getFullYear()}${pad(createdAt.getMonth() + 1)}${pad(createdAt.getDate())}`;
+    const safeCode = ticketNo.replace(/[^a-zA-Z0-9-_]/g, "_");
+    return `phieu_tach_${safeCode}_${datePart}.xlsx`;
   }
 }

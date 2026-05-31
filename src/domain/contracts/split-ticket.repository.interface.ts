@@ -7,6 +7,7 @@ export const SPLIT_TICKET_REPOSITORY = "SPLIT_TICKET_REPOSITORY";
 
 export interface ISplitTicketRepository {
   findById(id: number): Promise<SplitTicketEntity | null>;
+  findByIdForExport(id: number): Promise<SplitTicketEntity | null>;
   findByTicketNo(ticketNo: string): Promise<SplitTicketEntity | null>;
   findAll(): Promise<SplitTicketEntity[]>;
   findMany(params: {

@@ -24,7 +24,7 @@ export class UpdateSplitTicketLineUseCase {
     private readonly splitTicketRepository: ISplitTicketRepository,
     @Inject(PRODUCT_REPOSITORY)
     private readonly productRepository: IProductRepository,
-  ) { }
+  ) {}
 
   async execute(
     ticketId: number,
