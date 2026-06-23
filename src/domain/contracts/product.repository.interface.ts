@@ -8,6 +8,13 @@ export interface FindAllProductsFilters {
   categoryId?: number;
   baseUnit?: string;
   lowStock?: boolean;
+  skip?: number;
+  take?: number;
+}
+
+export interface FindAllProductsResult {
+  items: ProductEntity[];
+  total: number;
 }
 
 export interface ProductStats {
@@ -21,7 +28,7 @@ export interface IProductRepository {
   findById(id: number): Promise<ProductEntity | null>;
   findByIds(ids: number[]): Promise<ProductEntity[]>;
   findByCode(code: string): Promise<ProductEntity | null>;
-  findAll(filters?: FindAllProductsFilters): Promise<ProductEntity[]>;
+  findAll(filters?: FindAllProductsFilters): Promise<FindAllProductsResult>;
   getStats(): Promise<ProductStats>;
   create(
     product: Omit<ProductEntity, "id" | "createdAt" | "updatedAt">,

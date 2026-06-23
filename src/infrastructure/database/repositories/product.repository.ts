@@ -4,6 +4,7 @@ import { Product as PrismaProduct, Prisma } from "@prisma/client";
 import {
   IProductRepository,
   FindAllProductsFilters,
+  FindAllProductsResult,
   ProductStats,
 } from "../../../domain/contracts/product.repository.interface";
 import { ProductEntity } from "../../../domain/entities/product.entity";
@@ -75,7 +76,9 @@ export class ProductRepository implements IProductRepository {
     return this.mapToDomain(product);
   }
 
-  async findAll(filters?: FindAllProductsFilters): Promise<ProductEntity[]> {
+  async findAll(
+    filters?: FindAllProductsFilters,
+  ): Promise<FindAllProductsResult> {
     let where: Prisma.ProductWhereInput = {};
 
     if (filters?.lowStock) {
@@ -88,9 +91,9 @@ export class ProductRepository implements IProductRepository {
       `;
       const lowStockProductIds = lowStockProducts.map((p) => p.id);
 
-      // If no products match, return empty array immediately
+      // If no products match, return empty result immediately
       if (lowStockProductIds.length === 0) {
-        return [];
+        return { items: [], total: 0 };
       }
 
       where = {
@@ -112,11 +115,21 @@ export class ProductRepository implements IProductRepository {
       where.baseUnit = filters.baseUnit;
     }
 
-    const products = await this.prisma.product.findMany({
-      where,
-      include: { category: true },
-    });
-    return products.map((p) => this.mapToDomain(p));
+    const [total, products] = await this.prisma.$transaction([
+      this.prisma.product.count({ where }),
+      this.prisma.product.findMany({
+        where,
+        include: { category: true },
+        orderBy: { createdAt: "desc" },
+        skip: filters?.skip,
+        take: filters?.take,
+      }),
+    ]);
+
+    return {
+      items: products.map((p) => this.mapToDomain(p)),
+      total,
+    };
   }
 
   async getStats(): Promise<ProductStats> {
