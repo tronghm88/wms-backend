@@ -11,9 +11,7 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
-  UseInterceptors,
 } from "@nestjs/common";
-import { CacheInterceptor, CacheTTL } from "@nestjs/cache-manager";
 import {
   ApiTags,
   ApiOperation,
@@ -31,6 +29,7 @@ import { GetProductsDto } from "../dtos/products/get-products.dto";
 import { CreateProductDto } from "../dtos/products/create-product.dto";
 import { UpdateProductDto } from "../dtos/products/update-product.dto";
 import { ProductResponseDto } from "../dtos/products/product-response.dto";
+import { PaginatedProductResponseDto } from "../dtos/products/product-list-response.dto";
 import { ProductStatsDto } from "../dtos/products/product-stats.dto";
 import { ProductLineageResponseDto } from "../dtos/products/product-lineage-response.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
@@ -53,19 +52,24 @@ export class ProductsController {
   ) {}
 
   @Get()
-  @UseInterceptors(CacheInterceptor)
-  @CacheTTL(300000) // 5 minutes in milliseconds
   @RequirePermissions(Permissions.PRODUCTS_VIEW)
-  @ApiOperation({ summary: "List all products" })
+  @ApiOperation({ summary: "List products with pagination" })
   @ApiResponse({
     status: 200,
-    description: "Returns all products with category name and unit code.",
-    type: [ProductResponseDto],
+    description:
+      "Returns a paginated list of products with category name and unit code.",
+    type: PaginatedProductResponseDto,
   })
   @ApiResponse({ status: 401, description: "Unauthorized" })
   @ApiResponse({ status: 403, description: "Forbidden" })
-  async findAll(@Query() query: GetProductsDto): Promise<ProductResponseDto[]> {
-    return await this.listProductsUseCase.execute(query);
+  async findAll(
+    @Query() query: GetProductsDto,
+  ): Promise<PaginatedProductResponseDto> {
+    const result = await this.listProductsUseCase.execute(query);
+    return {
+      data: result.data,
+      metadata: result.meta,
+    };
   }
 
   @Get("stats")
