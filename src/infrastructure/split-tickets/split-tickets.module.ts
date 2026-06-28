@@ -12,6 +12,7 @@ import { DeleteSplitTicketLineUseCase } from "../../application/use-cases/split-
 import { UpdateSplitTicketUseCase } from "../../application/use-cases/split-tickets/update-split-ticket.use-case";
 import { GetSplitTicketStatsUseCase } from "../../application/use-cases/split-tickets/get-split-ticket-stats.use-case";
 import { ExportSplitTicketUseCase } from "../../application/use-cases/split-tickets/export-split-ticket.use-case";
+import { GetSplitTicketUseCase } from "../../application/use-cases/split-tickets/get-split-ticket.use-case";
 import { SplitTicketsController } from "../../presentation/controllers/split-tickets.controller";
 import { ProductsModule } from "../products/products.module";
 import { UnitConversionsModule } from "../unit-conversions/unit-conversions.module";
@@ -27,6 +28,7 @@ import { ExcelExportService } from "../services/excel-export.service";
     ConfirmSplitTicketUseCase,
     CancelSplitTicketUseCase,
     ListSplitTicketsUseCase,
+    GetSplitTicketUseCase,
     UpdateSplitTicketLineUseCase,
     DeleteSplitTicketLineUseCase,
     UpdateSplitTicketUseCase,

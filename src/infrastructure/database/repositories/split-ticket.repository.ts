@@ -18,7 +18,7 @@ import { SplitStatsDto } from "../../../application/dtos/split-stats.dto";
 
 @Injectable()
 export class SplitTicketRepository implements ISplitTicketRepository {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async findById(id: number): Promise<SplitTicketEntity | null> {
     const ticket = await this.prisma.splitTicket.findUnique({
@@ -29,6 +29,58 @@ export class SplitTicketRepository implements ISplitTicketRepository {
     });
     if (!ticket) return null;
     return this.mapToEntity(ticket);
+  }
+
+  async findWithDetails(
+    id: number,
+  ): Promise<(SplitTicketEntity & { lines: SplitTicketLineEntity[] }) | null> {
+    const ticket = await this.prisma.splitTicket.findUnique({
+      where: { id },
+      include: {
+        creator: true,
+        sourceProduct: true,
+        unit: true,
+        lines: {
+          include: {
+            targetProduct: {
+              include: { unit: true },
+            },
+          },
+          orderBy: { id: "asc" },
+        },
+      },
+    });
+
+    if (!ticket) return null;
+
+    const lines = ticket.lines.map((l) =>
+      this.mapLineToEntityWithProduct(
+        l as PrismaSplitTicketLine & {
+          targetProduct: (PrismaProduct & { unit: PrismaUnit }) | null;
+        },
+      ),
+    );
+
+    const entity = new SplitTicketEntity({
+      id: ticket.id,
+      ticketNo: ticket.ticketNo,
+      date: ticket.date,
+      status: ticket.status as unknown as TransactionStatus,
+      createdBy: ticket.createdBy,
+      sourceProductId: ticket.sourceProductId,
+      sourceQty: new Decimal(ticket.sourceQty.toString()),
+      sourceUnitCode: ticket.sourceUnitCode,
+      note: ticket.note ?? undefined,
+      createdAt: ticket.createdAt,
+      updatedAt: ticket.updatedAt,
+      createdByName: ticket.creator?.fullName,
+      sourceProductCode: ticket.sourceProduct?.code,
+      sourceProductName: ticket.sourceProduct?.name,
+      sourceUnitLabel: ticket.unit?.label,
+      lines,
+    });
+
+    return entity as SplitTicketEntity & { lines: SplitTicketLineEntity[] };
   }
 
   async findByIdForExport(id: number): Promise<SplitTicketEntity | null> {

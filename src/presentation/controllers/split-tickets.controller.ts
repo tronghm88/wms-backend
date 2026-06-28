@@ -33,6 +33,7 @@ import { DeleteSplitTicketLineUseCase } from "../../application/use-cases/split-
 import { UpdateSplitTicketUseCase } from "../../application/use-cases/split-tickets/update-split-ticket.use-case";
 import { GetSplitTicketStatsUseCase } from "../../application/use-cases/split-tickets/get-split-ticket-stats.use-case";
 import { ExportSplitTicketUseCase } from "../../application/use-cases/split-tickets/export-split-ticket.use-case";
+import { GetSplitTicketUseCase } from "../../application/use-cases/split-tickets/get-split-ticket.use-case";
 import { CreateSplitTicketDto } from "../dtos/split-tickets/create-split-ticket.dto";
 import { AddSplitTicketLinesDto } from "../dtos/split-tickets/add-split-ticket-lines.dto";
 import { UpdateSplitLineRequestDto } from "../dtos/split-tickets/update-split-line-request.dto";
@@ -44,6 +45,7 @@ import {
   SplitTicketResponseDto,
   SplitTicketLineResponseDto,
 } from "../dtos/split-tickets/split-ticket-response.dto";
+import { SplitTicketDetailsResponseDto } from "../dtos/split-tickets/split-ticket-details-response.dto";
 import { PaginatedSplitTicketResponseDto } from "../dtos/split-tickets/paginated-split-ticket-response.dto";
 import { CancelSplitTicketResponseDto } from "../dtos/split-tickets/cancel-split-ticket-response.dto";
 import { JwtAuthGuard } from "../guards/jwt-auth.guard";
@@ -61,6 +63,7 @@ export class SplitTicketsController {
     private readonly confirmSplitTicketUseCase: ConfirmSplitTicketUseCase,
     private readonly cancelSplitTicketUseCase: CancelSplitTicketUseCase,
     private readonly listSplitTicketsUseCase: ListSplitTicketsUseCase,
+    private readonly getSplitTicketUseCase: GetSplitTicketUseCase,
     private readonly updateSplitTicketLineUseCase: UpdateSplitTicketLineUseCase,
     private readonly deleteSplitTicketLineUseCase: DeleteSplitTicketLineUseCase,
     private readonly updateSplitTicketUseCase: UpdateSplitTicketUseCase,
@@ -69,7 +72,7 @@ export class SplitTicketsController {
   ) {}
 
   @Get("stats")
-  @RequirePermissions(Permissions.INVENTORY_VIEW)
+  @RequirePermissions(Permissions.SPLITS_VIEW)
   @ApiOperation({ summary: "Get Split Ticket statistics" })
   @ApiResponse({
     status: HttpStatus.OK,
@@ -87,7 +90,7 @@ export class SplitTicketsController {
   }
 
   @Get()
-  @RequirePermissions(Permissions.INVENTORY_VIEW)
+  @RequirePermissions(Permissions.SPLITS_VIEW)
   @ApiOperation({ summary: "Get all split tickets" })
   @ApiResponse({
     status: HttpStatus.OK,
@@ -108,8 +111,29 @@ export class SplitTicketsController {
     };
   }
 
+  @Get(":id")
+  @RequirePermissions(Permissions.SPLITS_VIEW)
+  @ApiOperation({ summary: "Get Split Ticket details by ID" })
+  @ApiParam({ name: "id", type: Number, description: "Split Ticket ID" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description:
+      "Returns the Split Ticket details including all child lines with product information",
+    type: SplitTicketDetailsResponseDto,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: "Split Ticket not found",
+  })
+  async findOne(
+    @Param("id", ParseIntPipe) id: number,
+  ): Promise<SplitTicketDetailsResponseDto> {
+    const result = await this.getSplitTicketUseCase.execute(id);
+    return new SplitTicketDetailsResponseDto(result);
+  }
+
   @Post()
-  @RequirePermissions(Permissions.STOCK_SPLIT)
+  @RequirePermissions(Permissions.SPLITS_CREATE)
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: "Create a new Split Ticket Draft" })
   @ApiResponse({
@@ -134,7 +158,7 @@ export class SplitTicketsController {
   }
 
   @Patch(":id")
-  @RequirePermissions(Permissions.STOCK_SPLIT)
+  @RequirePermissions(Permissions.SPLITS_CREATE)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: "Update basic information of a Split Ticket" })
   @ApiResponse({
@@ -159,7 +183,7 @@ export class SplitTicketsController {
   }
 
   @Post(":id/lines")
-  @RequirePermissions(Permissions.STOCK_SPLIT)
+  @RequirePermissions(Permissions.SPLITS_CREATE)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: "Add multiple child lines to a split ticket" })
   @ApiResponse({
@@ -184,7 +208,7 @@ export class SplitTicketsController {
   }
 
   @Patch(":id/lines/:lineId")
-  @RequirePermissions(Permissions.STOCK_SPLIT)
+  @RequirePermissions(Permissions.SPLITS_CREATE)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: "Update an existing line item in a Split Ticket" })
   @ApiResponse({
@@ -214,7 +238,7 @@ export class SplitTicketsController {
   }
 
   @Delete(":id/lines/:lineId")
-  @RequirePermissions(Permissions.STOCK_SPLIT)
+  @RequirePermissions(Permissions.SPLITS_DELETE)
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: "Delete a line item from a Split Ticket" })
   @ApiParam({ name: "id", description: "Split ticket ID" })
@@ -239,7 +263,7 @@ export class SplitTicketsController {
   }
 
   @Put(":id/confirm")
-  @RequirePermissions(Permissions.STOCK_SPLIT)
+  @RequirePermissions(Permissions.SPLITS_CONFIRM)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: "Confirm a split ticket to execute stock movements",
@@ -269,7 +293,7 @@ export class SplitTicketsController {
   }
 
   @Post(":id/cancel")
-  @RequirePermissions(Permissions.STOCK_CANCEL)
+  @RequirePermissions(Permissions.SPLITS_CANCEL)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: "Cancel a confirmed split ticket to undo product breakdown",
@@ -299,7 +323,7 @@ export class SplitTicketsController {
   }
 
   @Get(":id/export")
-  @RequirePermissions(Permissions.INVENTORY_VIEW)
+  @RequirePermissions(Permissions.SPLITS_VIEW)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: "Export a split ticket to Excel (.xlsx)" })
   @ApiParam({ name: "id", description: "Split ticket ID" })

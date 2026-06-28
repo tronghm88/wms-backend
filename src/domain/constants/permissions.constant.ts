@@ -52,8 +52,11 @@ export const Permissions = {
   ISSUES_CONFIRM: "issues:confirm",
   ISSUES_CANCEL: "issues:cancel",
   ISSUES_PRICE_OVERRIDE: "issues:price-override",
-  STOCK_SPLIT: "stock:split",
-  STOCK_CANCEL: "stock:cancel",
+  SPLITS_VIEW: "splits:view",
+  SPLITS_CREATE: "splits:create",
+  SPLITS_DELETE: "splits:delete",
+  SPLITS_CONFIRM: "splits:confirm",
+  SPLITS_CANCEL: "splits:cancel",
 
   // Analytics & Reports
   INVENTORY_VIEW: "inventory:view",
@@ -81,7 +84,10 @@ export const RolePermissions: Record<string, string[]> = {
     Permissions.ISSUES_CREATE,
     Permissions.ISSUES_DELETE,
     Permissions.ISSUES_CONFIRM,
-    Permissions.STOCK_SPLIT,
+    Permissions.SPLITS_VIEW,
+    Permissions.SPLITS_CREATE,
+    Permissions.SPLITS_DELETE,
+    Permissions.SPLITS_CONFIRM,
     Permissions.REPORTS_EXPORT,
   ],
 };
