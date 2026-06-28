@@ -51,7 +51,6 @@ export class SplitTicketRepository implements ISplitTicketRepository {
       },
     });
 
-    console.log(JSON.stringify(ticket));
     if (!ticket) return null;
 
     const lines = ticket.lines.map((l) =>

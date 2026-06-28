@@ -72,12 +72,6 @@ export class SplitTicketResponseDto {
   @ApiProperty({ example: "Square Meter", required: false })
   sourceUnitLabel?: string;
 
-  @ApiProperty({ example: "50.000", required: false })
-  totalSplitQty?: string;
-
-  @ApiProperty({ example: 2, required: false })
-  linesCount?: number;
-
   @ApiProperty({ type: [SplitTicketLineResponseDto], required: false })
   lines?: SplitTicketLineResponseDto[];
 
@@ -112,12 +106,6 @@ export class SplitTicketResponseDto {
     }
     if (entity.sourceUnitLabel !== undefined) {
       this.sourceUnitLabel = entity.sourceUnitLabel;
-    }
-    if (entity.totalSplitQty !== undefined) {
-      this.totalSplitQty = entity.totalSplitQty.toFixed(3);
-    }
-    if (entity.linesCount !== undefined) {
-      this.linesCount = entity.linesCount;
     }
     if (entity.lines) {
       this.lines = entity.lines.map((l) => new SplitTicketLineResponseDto(l));
