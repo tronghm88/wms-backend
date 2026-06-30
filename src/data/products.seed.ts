@@ -18,6742 +18,6742 @@ export interface SeedProduct {
 // PP_MANG_DECAL — 110 products
 export const ppMangDecal: SeedProduct[] = [
   {
-    "name": "PP tự dính 180",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 83,
-    "conversions": [
+    name: "PP tự dính 180",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 83,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "PP_TU_DINH_180_0_914_50"
+    code: "PP_TU_DINH_180_0_914_50",
   },
   {
-    "name": "PP tự dính 180",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 39,
-    "conversions": [
+    name: "PP tự dính 180",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 39,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "PP_TU_DINH_180_1_07_50"
+    code: "PP_TU_DINH_180_1_07_50",
   },
   {
-    "name": "PP tự dính 180",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 79,
-    "conversions": [
+    name: "PP tự dính 180",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 79,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "PP_TU_DINH_180_1_27_50"
+    code: "PP_TU_DINH_180_1_27_50",
   },
   {
-    "name": "PP tự dính 180",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.52,
-    "specText": "1.52*50m",
-    "initialStock": 24,
-    "conversions": [
+    name: "PP tự dính 180",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.52,
+    specText: "1.52*50m",
+    initialStock: 24,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 76.0
-      }
+        toUnit: "m2",
+        factor: 76.0,
+      },
     ],
-    "code": "PP_TU_DINH_180_1_52_50"
+    code: "PP_TU_DINH_180_1_52_50",
   },
   {
-    "name": "PP tự dính 160",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 441,
-    "conversions": [
+    name: "PP tự dính 160",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 441,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "PP_TU_DINH_160_0_914_50"
+    code: "PP_TU_DINH_160_0_914_50",
   },
   {
-    "name": "PP tự dính 160",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 49,
-    "conversions": [
+    name: "PP tự dính 160",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 49,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "PP_TU_DINH_160_1_07_50"
+    code: "PP_TU_DINH_160_1_07_50",
   },
   {
-    "name": "PP tự dính 160",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 114,
-    "conversions": [
+    name: "PP tự dính 160",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 114,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "PP_TU_DINH_160_1_27_50"
+    code: "PP_TU_DINH_160_1_27_50",
   },
   {
-    "name": "PP tự dính 160",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.52,
-    "specText": "1.52*50m",
-    "initialStock": 0,
-    "conversions": [
+    name: "PP tự dính 160",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.52,
+    specText: "1.52*50m",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 76.0
-      }
+        toUnit: "m2",
+        factor: 76.0,
+      },
     ],
-    "code": "PP_TU_DINH_160_1_52_50"
+    code: "PP_TU_DINH_160_1_52_50",
   },
   {
-    "name": "PP mã BS180",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 103,
-    "conversions": [
+    name: "PP mã BS180",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 103,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "PP_MA_BS180_0_914_50"
+    code: "PP_MA_BS180_0_914_50",
   },
   {
-    "name": "PP mã BS180",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 8,
-    "conversions": [
+    name: "PP mã BS180",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 8,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "PP_MA_BS180_1_07_50"
+    code: "PP_MA_BS180_1_07_50",
   },
   {
-    "name": "PP mã BS180",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 59,
-    "conversions": [
+    name: "PP mã BS180",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 59,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "PP_MA_BS180_1_27_50"
+    code: "PP_MA_BS180_1_27_50",
   },
   {
-    "name": "PP mã WP180",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.61,
-    "specText": "0.61*50m",
-    "initialStock": 61,
-    "conversions": [
+    name: "PP mã WP180",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.61,
+    specText: "0.61*50m",
+    initialStock: 61,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 30.5
-      }
+        toUnit: "m2",
+        factor: 30.5,
+      },
     ],
-    "code": "PP_MA_WP180_0_61_50"
+    code: "PP_MA_WP180_0_61_50",
   },
   {
-    "name": "PP mã WP180",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.76,
-    "specText": "0.76*50m",
-    "initialStock": 0,
-    "conversions": [
+    name: "PP mã WP180",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.76,
+    specText: "0.76*50m",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 38.0
-      }
+        toUnit: "m2",
+        factor: 38.0,
+      },
     ],
-    "code": "PP_MA_WP180_0_76_50"
+    code: "PP_MA_WP180_0_76_50",
   },
   {
-    "name": "PP mã WP180",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 71,
-    "conversions": [
+    name: "PP mã WP180",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 71,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "PP_MA_WP180_0_914_50"
+    code: "PP_MA_WP180_0_914_50",
   },
   {
-    "name": "PP tự dính mã điều",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 0,
-    "conversions": [
+    name: "PP tự dính mã điều",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "PP_TU_DINH_MA_DIEU_1_27_50"
+    code: "PP_TU_DINH_MA_DIEU_1_27_50",
   },
   {
-    "name": "PP tự dính dày",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.61,
-    "specText": "0.61*50m",
-    "initialStock": 96,
-    "conversions": [
+    name: "PP tự dính dày",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.61,
+    specText: "0.61*50m",
+    initialStock: 96,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 30.5
-      }
+        toUnit: "m2",
+        factor: 30.5,
+      },
     ],
-    "code": "PP_TU_DINH_DAY_0_61_50"
+    code: "PP_TU_DINH_DAY_0_61_50",
   },
   {
-    "name": "PP tự dính - hàng đặt",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.61,
-    "specText": "0.61*50m",
-    "initialStock": 0,
-    "conversions": [
+    name: "PP tự dính - hàng đặt",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.61,
+    specText: "0.61*50m",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 30.5
-      }
+        toUnit: "m2",
+        factor: 30.5,
+      },
     ],
-    "code": "PP_TU_DINH_HANG_DAT_0_61_50"
+    code: "PP_TU_DINH_HANG_DAT_0_61_50",
   },
   {
-    "name": "PP tự dính - hàng đặt",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.76,
-    "specText": "0.76*50m",
-    "initialStock": 0,
-    "conversions": [
+    name: "PP tự dính - hàng đặt",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.76,
+    specText: "0.76*50m",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 38.0
-      }
+        toUnit: "m2",
+        factor: 38.0,
+      },
     ],
-    "code": "PP_TU_DINH_HANG_DAT_0_76_50"
+    code: "PP_TU_DINH_HANG_DAT_0_76_50",
   },
   {
-    "name": "PP tự dính - hàng đặt",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 0,
-    "conversions": [
+    name: "PP tự dính - hàng đặt",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "PP_TU_DINH_HANG_DAT_0_914_50"
+    code: "PP_TU_DINH_HANG_DAT_0_914_50",
   },
   {
-    "name": "PP tự dính - hàng đặt",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.12,
-    "specText": "1.12*50m",
-    "initialStock": 0,
-    "conversions": [
+    name: "PP tự dính - hàng đặt",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.12,
+    specText: "1.12*50m",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 56.0
-      }
+        toUnit: "m2",
+        factor: 56.0,
+      },
     ],
-    "code": "PP_TU_DINH_HANG_DAT_1_12_50"
+    code: "PP_TU_DINH_HANG_DAT_1_12_50",
   },
   {
-    "name": "PP mã WP190",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 30.0,
-    "width": 0.914,
-    "specText": "0.914*30m",
-    "initialStock": 0,
-    "conversions": [
+    name: "PP mã WP190",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 30.0,
+    width: 0.914,
+    specText: "0.914*30m",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 30.0
+        toUnit: "m",
+        factor: 30.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 27.42
-      }
+        toUnit: "m2",
+        factor: 27.42,
+      },
     ],
-    "code": "PP_MA_WP190_0_914_30"
+    code: "PP_MA_WP190_0_914_30",
   },
   {
-    "name": "PP mã WP190",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 0,
-    "conversions": [
+    name: "PP mã WP190",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "PP_MA_WP190_1_27_50"
+    code: "PP_MA_WP190_1_27_50",
   },
   {
-    "name": "PP tự dính ECO160",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 33,
-    "conversions": [
+    name: "PP tự dính ECO160",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 33,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "PP_TU_DINH_ECO160_0_914_50"
+    code: "PP_TU_DINH_ECO160_0_914_50",
   },
   {
-    "name": "PP tự dính ECO160",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 20,
-    "conversions": [
+    name: "PP tự dính ECO160",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 20,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "PP_TU_DINH_ECO160_1_07_50"
+    code: "PP_TU_DINH_ECO160_1_07_50",
   },
   {
-    "name": "PP tự dính ECO160",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 22,
-    "conversions": [
+    name: "PP tự dính ECO160",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 22,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "PP_TU_DINH_ECO160_1_27_50"
+    code: "PP_TU_DINH_ECO160_1_27_50",
   },
   {
-    "name": "PP tự dính ECO160",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.52,
-    "specText": "1.52*50m",
-    "initialStock": 2,
-    "conversions": [
+    name: "PP tự dính ECO160",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.52,
+    specText: "1.52*50m",
+    initialStock: 2,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 76.0
-      }
+        toUnit: "m2",
+        factor: 76.0,
+      },
     ],
-    "code": "PP_TU_DINH_ECO160_1_52_50"
+    code: "PP_TU_DINH_ECO160_1_52_50",
   },
   {
-    "name": "PP tự dính ECO190",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 28,
-    "conversions": [
+    name: "PP tự dính ECO190",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 28,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "PP_TU_DINH_ECO190_0_914_50"
+    code: "PP_TU_DINH_ECO190_0_914_50",
   },
   {
-    "name": "PP tự dính ECO190",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 78,
-    "conversions": [
+    name: "PP tự dính ECO190",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 78,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "PP_TU_DINH_ECO190_1_07_50"
+    code: "PP_TU_DINH_ECO190_1_07_50",
   },
   {
-    "name": "PP tự dính ECO190",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 99,
-    "conversions": [
+    name: "PP tự dính ECO190",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 99,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "PP_TU_DINH_ECO190_1_27_50"
+    code: "PP_TU_DINH_ECO190_1_27_50",
   },
   {
-    "name": "PP tự dính ECO190",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.52,
-    "specText": "1.52*50m",
-    "initialStock": 19,
-    "conversions": [
+    name: "PP tự dính ECO190",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.52,
+    specText: "1.52*50m",
+    initialStock: 19,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 76.0
-      }
+        toUnit: "m2",
+        factor: 76.0,
+      },
     ],
-    "code": "PP_TU_DINH_ECO190_1_52_50"
+    code: "PP_TU_DINH_ECO190_1_52_50",
   },
   {
-    "name": "PP ECO200",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 35,
-    "conversions": [
+    name: "PP ECO200",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 35,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "PP_ECO200_0_914_50"
+    code: "PP_ECO200_0_914_50",
   },
   {
-    "name": "PP ECO200",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 4,
-    "conversions": [
+    name: "PP ECO200",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 4,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "PP_ECO200_1_07_50"
+    code: "PP_ECO200_1_07_50",
   },
   {
-    "name": "PP ECO200",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 42,
-    "conversions": [
+    name: "PP ECO200",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 42,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "PP_ECO200_1_27_50"
+    code: "PP_ECO200_1_27_50",
   },
   {
-    "name": "PP mã backlit",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 67,
-    "conversions": [
+    name: "PP mã backlit",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 67,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "PP_MA_BACKLIT_0_914_50"
+    code: "PP_MA_BACKLIT_0_914_50",
   },
   {
-    "name": "PP mã backlit",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 74,
-    "conversions": [
+    name: "PP mã backlit",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 74,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "PP_MA_BACKLIT_1_07_50"
+    code: "PP_MA_BACKLIT_1_07_50",
   },
   {
-    "name": "PP mã backlit",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 41,
-    "conversions": [
+    name: "PP mã backlit",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 41,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "PP_MA_BACKLIT_1_27_50"
+    code: "PP_MA_BACKLIT_1_27_50",
   },
   {
-    "name": "PVC mặt bóng - đế vàng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 208,
-    "conversions": [
+    name: "PVC mặt bóng - đế vàng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 208,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "PVC_MAT_BONG_DE_VANG_0_914_50"
+    code: "PVC_MAT_BONG_DE_VANG_0_914_50",
   },
   {
-    "name": "PVC mặt bóng - đế vàng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 148,
-    "conversions": [
+    name: "PVC mặt bóng - đế vàng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 148,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "PVC_MAT_BONG_DE_VANG_1_07_50"
+    code: "PVC_MAT_BONG_DE_VANG_1_07_50",
   },
   {
-    "name": "PVC mặt bóng - đế vàng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 177,
-    "conversions": [
+    name: "PVC mặt bóng - đế vàng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 177,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "PVC_MAT_BONG_DE_VANG_1_27_50"
+    code: "PVC_MAT_BONG_DE_VANG_1_27_50",
   },
   {
-    "name": "PVC mặt bóng - đế vàng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.52,
-    "specText": "1.52*50m",
-    "initialStock": 18,
-    "conversions": [
+    name: "PVC mặt bóng - đế vàng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.52,
+    specText: "1.52*50m",
+    initialStock: 18,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 76.0
-      }
+        toUnit: "m2",
+        factor: 76.0,
+      },
     ],
-    "code": "PVC_MAT_BONG_DE_VANG_1_52_50"
+    code: "PVC_MAT_BONG_DE_VANG_1_52_50",
   },
   {
-    "name": "PVC mặt bóng - đế trắng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.635,
-    "specText": "0.635*50m",
-    "initialStock": 44,
-    "conversions": [
+    name: "PVC mặt bóng - đế trắng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.635,
+    specText: "0.635*50m",
+    initialStock: 44,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 31.75
-      }
+        toUnit: "m2",
+        factor: 31.75,
+      },
     ],
-    "code": "PVC_MAT_BONG_DE_TRANG_0_635_50"
+    code: "PVC_MAT_BONG_DE_TRANG_0_635_50",
   },
   {
-    "name": "PVC mặt bóng - đế trắng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 214,
-    "conversions": [
+    name: "PVC mặt bóng - đế trắng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 214,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "PVC_MAT_BONG_DE_TRANG_0_914_50"
+    code: "PVC_MAT_BONG_DE_TRANG_0_914_50",
   },
   {
-    "name": "PVC mặt bóng - đế trắng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 101,
-    "conversions": [
+    name: "PVC mặt bóng - đế trắng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 101,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "PVC_MAT_BONG_DE_TRANG_1_07_50"
+    code: "PVC_MAT_BONG_DE_TRANG_1_07_50",
   },
   {
-    "name": "PVC mặt bóng - đế trắng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 247,
-    "conversions": [
+    name: "PVC mặt bóng - đế trắng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 247,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "PVC_MAT_BONG_DE_TRANG_1_27_50"
+    code: "PVC_MAT_BONG_DE_TRANG_1_27_50",
   },
   {
-    "name": "PVC mặt bóng - đế trắng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.52,
-    "specText": "1.52*50m",
-    "initialStock": 55,
-    "conversions": [
+    name: "PVC mặt bóng - đế trắng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.52,
+    specText: "1.52*50m",
+    initialStock: 55,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 76.0
-      }
+        toUnit: "m2",
+        factor: 76.0,
+      },
     ],
-    "code": "PVC_MAT_BONG_DE_TRANG_1_52_50"
+    code: "PVC_MAT_BONG_DE_TRANG_1_52_50",
   },
   {
-    "name": "PVC mặt bóng - đế trắng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 20.0,
-    "width": 1.52,
-    "specText": "1.52*20m",
-    "initialStock": 1,
-    "conversions": [
+    name: "PVC mặt bóng - đế trắng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 20.0,
+    width: 1.52,
+    specText: "1.52*20m",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 20.0
+        toUnit: "m",
+        factor: 20.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 30.4
-      }
+        toUnit: "m2",
+        factor: 30.4,
+      },
     ],
-    "code": "PVC_MAT_BONG_DE_TRANG_1_52_20"
+    code: "PVC_MAT_BONG_DE_TRANG_1_52_20",
   },
   {
-    "name": "PVC mặt bóng - mỏng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 138,
-    "conversions": [
+    name: "PVC mặt bóng - mỏng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 138,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "PVC_MAT_BONG_MONG_0_914_50-001"
+    code: "PVC_MAT_BONG_MONG_0_914_50-001",
   },
   {
-    "name": "PVC mặt bóng - mỏng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 6,
-    "conversions": [
+    name: "PVC mặt bóng - mỏng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 6,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "PVC_MAT_BONG_MONG_0_914_50-002"
+    code: "PVC_MAT_BONG_MONG_0_914_50-002",
   },
   {
-    "name": "PVC mặt bóng - mỏng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 127,
-    "conversions": [
+    name: "PVC mặt bóng - mỏng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 127,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "PVC_MAT_BONG_MONG_1_07_50-001"
+    code: "PVC_MAT_BONG_MONG_1_07_50-001",
   },
   {
-    "name": "PVC mặt bóng - mỏng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 11,
-    "conversions": [
+    name: "PVC mặt bóng - mỏng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 11,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "PVC_MAT_BONG_MONG_1_07_50-002"
+    code: "PVC_MAT_BONG_MONG_1_07_50-002",
   },
   {
-    "name": "PVC mặt bóng - mỏng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 45.0,
-    "width": 1.07,
-    "specText": "1.07*45m",
-    "initialStock": 1,
-    "conversions": [
+    name: "PVC mặt bóng - mỏng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 45.0,
+    width: 1.07,
+    specText: "1.07*45m",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 45.0
+        toUnit: "m",
+        factor: 45.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 48.15
-      }
+        toUnit: "m2",
+        factor: 48.15,
+      },
     ],
-    "code": "PVC_MAT_BONG_MONG_1_07_45"
+    code: "PVC_MAT_BONG_MONG_1_07_45",
   },
   {
-    "name": "PVC mặt bóng - mỏng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 127,
-    "conversions": [
+    name: "PVC mặt bóng - mỏng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 127,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "PVC_MAT_BONG_MONG_1_27_50-001"
+    code: "PVC_MAT_BONG_MONG_1_27_50-001",
   },
   {
-    "name": "PVC mặt bóng - mỏng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 10,
-    "conversions": [
+    name: "PVC mặt bóng - mỏng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 10,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "PVC_MAT_BONG_MONG_1_27_50-002"
+    code: "PVC_MAT_BONG_MONG_1_27_50-002",
   },
   {
-    "name": "PVC mặt mờ - đế trắng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.635,
-    "specText": "0.635*50m",
-    "initialStock": 110,
-    "conversions": [
+    name: "PVC mặt mờ - đế trắng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.635,
+    specText: "0.635*50m",
+    initialStock: 110,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 31.75
-      }
+        toUnit: "m2",
+        factor: 31.75,
+      },
     ],
-    "code": "PVC_MAT_MO_DE_TRANG_0_635_50-001"
+    code: "PVC_MAT_MO_DE_TRANG_0_635_50-001",
   },
   {
-    "name": "PVC mặt mờ - đế trắng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.635,
-    "specText": "0.635*50m",
-    "initialStock": 40,
-    "conversions": [
+    name: "PVC mặt mờ - đế trắng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.635,
+    specText: "0.635*50m",
+    initialStock: 40,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 31.75
-      }
+        toUnit: "m2",
+        factor: 31.75,
+      },
     ],
-    "code": "PVC_MAT_MO_DE_TRANG_0_635_50-002"
+    code: "PVC_MAT_MO_DE_TRANG_0_635_50-002",
   },
   {
-    "name": "PVC mặt mờ - đế trắng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 168,
-    "conversions": [
+    name: "PVC mặt mờ - đế trắng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 168,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "PVC_MAT_MO_DE_TRANG_0_914_50"
+    code: "PVC_MAT_MO_DE_TRANG_0_914_50",
   },
   {
-    "name": "PVC mặt mờ - đế trắng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 97,
-    "conversions": [
+    name: "PVC mặt mờ - đế trắng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 97,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "PVC_MAT_MO_DE_TRANG_1_07_50"
+    code: "PVC_MAT_MO_DE_TRANG_1_07_50",
   },
   {
-    "name": "PVC mặt mờ - đế trắng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 187,
-    "conversions": [
+    name: "PVC mặt mờ - đế trắng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 187,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "PVC_MAT_MO_DE_TRANG_1_27_50"
+    code: "PVC_MAT_MO_DE_TRANG_1_27_50",
   },
   {
-    "name": "PVC mặt mờ - đế trắng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.52,
-    "specText": "1.52*50m",
-    "initialStock": 38,
-    "conversions": [
+    name: "PVC mặt mờ - đế trắng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.52,
+    specText: "1.52*50m",
+    initialStock: 38,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 76.0
-      }
+        toUnit: "m2",
+        factor: 76.0,
+      },
     ],
-    "code": "PVC_MAT_MO_DE_TRANG_1_52_50"
+    code: "PVC_MAT_MO_DE_TRANG_1_52_50",
   },
   {
-    "name": "PVC mặt mờ - mỏng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.635,
-    "specText": "0.635*50m",
-    "initialStock": 50,
-    "conversions": [
+    name: "PVC mặt mờ - mỏng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.635,
+    specText: "0.635*50m",
+    initialStock: 50,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 31.75
-      }
+        toUnit: "m2",
+        factor: 31.75,
+      },
     ],
-    "code": "PVC_MAT_MO_MONG_0_635_50"
+    code: "PVC_MAT_MO_MONG_0_635_50",
   },
   {
-    "name": "PVC mặt mờ - mỏng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 76,
-    "conversions": [
+    name: "PVC mặt mờ - mỏng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 76,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "PVC_MAT_MO_MONG_0_914_50-001"
+    code: "PVC_MAT_MO_MONG_0_914_50-001",
   },
   {
-    "name": "PVC mặt mờ - mỏng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 2,
-    "conversions": [
+    name: "PVC mặt mờ - mỏng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 2,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "PVC_MAT_MO_MONG_0_914_50-002"
+    code: "PVC_MAT_MO_MONG_0_914_50-002",
   },
   {
-    "name": "PVC mặt mờ - mỏng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 78,
-    "conversions": [
+    name: "PVC mặt mờ - mỏng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 78,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "PVC_MAT_MO_MONG_1_07_50-001"
+    code: "PVC_MAT_MO_MONG_1_07_50-001",
   },
   {
-    "name": "PVC mặt mờ - mỏng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 2,
-    "conversions": [
+    name: "PVC mặt mờ - mỏng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 2,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "PVC_MAT_MO_MONG_1_07_50-002"
+    code: "PVC_MAT_MO_MONG_1_07_50-002",
   },
   {
-    "name": "PVC mặt mờ - mỏng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 47,
-    "conversions": [
+    name: "PVC mặt mờ - mỏng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 47,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "PVC_MAT_MO_MONG_1_27_50-001"
+    code: "PVC_MAT_MO_MONG_1_27_50-001",
   },
   {
-    "name": "PVC mặt mờ - mỏng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 5,
-    "conversions": [
+    name: "PVC mặt mờ - mỏng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 5,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "PVC_MAT_MO_MONG_1_27_50-002"
+    code: "PVC_MAT_MO_MONG_1_27_50-002",
   },
   {
-    "name": "PVC mặt mờ - đế vàng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 54,
-    "conversions": [
+    name: "PVC mặt mờ - đế vàng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 54,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "PVC_MAT_MO_DE_VANG_0_914_50"
+    code: "PVC_MAT_MO_DE_VANG_0_914_50",
   },
   {
-    "name": "PVC mặt mờ - đế vàng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 116,
-    "conversions": [
+    name: "PVC mặt mờ - đế vàng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 116,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "PVC_MAT_MO_DE_VANG_1_07_50"
+    code: "PVC_MAT_MO_DE_VANG_1_07_50",
   },
   {
-    "name": "PVC mặt mờ - đế vàng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 158,
-    "conversions": [
+    name: "PVC mặt mờ - đế vàng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 158,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "PVC_MAT_MO_DE_VANG_1_27_50"
+    code: "PVC_MAT_MO_DE_VANG_1_27_50",
   },
   {
-    "name": "PVC mặt mờ - đế vàng",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.52,
-    "specText": "1.52*50m",
-    "initialStock": 56,
-    "conversions": [
+    name: "PVC mặt mờ - đế vàng",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.52,
+    specText: "1.52*50m",
+    initialStock: 56,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 76.0
-      }
+        toUnit: "m2",
+        factor: 76.0,
+      },
     ],
-    "code": "PVC_MAT_MO_DE_VANG_1_52_50"
+    code: "PVC_MAT_MO_DE_VANG_1_52_50",
   },
   {
-    "name": "PVC nhám",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 3,
-    "conversions": [
+    name: "PVC nhám",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 3,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "PVC_NHAM_1_27_50"
+    code: "PVC_NHAM_1_27_50",
   },
   {
-    "name": "PVC kim tuyến",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.635,
-    "specText": "0.635*50m",
-    "initialStock": 10,
-    "conversions": [
+    name: "PVC kim tuyến",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.635,
+    specText: "0.635*50m",
+    initialStock: 10,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 31.75
-      }
+        toUnit: "m2",
+        factor: 31.75,
+      },
     ],
-    "code": "PVC_KIM_TUYEN_0_635_50"
+    code: "PVC_KIM_TUYEN_0_635_50",
   },
   {
-    "name": "PVC kim tuyến",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 3,
-    "conversions": [
+    name: "PVC kim tuyến",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 3,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "PVC_KIM_TUYEN_1_27_50"
+    code: "PVC_KIM_TUYEN_1_27_50",
   },
   {
-    "name": "Màng PET",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 2,
-    "conversions": [
+    name: "Màng PET",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 2,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "MANG_PET_0_914_50"
+    code: "MANG_PET_0_914_50",
   },
   {
-    "name": "Màng PET",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 2,
-    "conversions": [
+    name: "Màng PET",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 2,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "MANG_PET_1_07_50"
+    code: "MANG_PET_1_07_50",
   },
   {
-    "name": "Màng PET",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 2,
-    "conversions": [
+    name: "Màng PET",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 2,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "MANG_PET_1_27_50"
+    code: "MANG_PET_1_27_50",
   },
   {
-    "name": "Màng PET",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.52,
-    "specText": "1.52*50m",
-    "initialStock": 0,
-    "conversions": [
+    name: "Màng PET",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.52,
+    specText: "1.52*50m",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 76.0
-      }
+        toUnit: "m2",
+        factor: 76.0,
+      },
     ],
-    "code": "MANG_PET_1_52_50"
+    code: "MANG_PET_1_52_50",
   },
   {
-    "name": "Màng PVC decal - hàng đều",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 0,
-    "conversions": [
+    name: "Màng PVC decal - hàng đều",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "MANG_PVC_DECAL_HANG_DEU_0_914_50"
+    code: "MANG_PVC_DECAL_HANG_DEU_0_914_50",
   },
   {
-    "name": "Màng PVC decal - hàng đều",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 0,
-    "conversions": [
+    name: "Màng PVC decal - hàng đều",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "MANG_PVC_DECAL_HANG_DEU_1_07_50"
+    code: "MANG_PVC_DECAL_HANG_DEU_1_07_50",
   },
   {
-    "name": "Màng PVC decal - hàng đều",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 0,
-    "conversions": [
+    name: "Màng PVC decal - hàng đều",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "MANG_PVC_DECAL_HANG_DEU_1_27_50"
+    code: "MANG_PVC_DECAL_HANG_DEU_1_27_50",
   },
   {
-    "name": "Màng PVC decal - hàng đều",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.52,
-    "specText": "1.52*50m",
-    "initialStock": 0,
-    "conversions": [
+    name: "Màng PVC decal - hàng đều",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.52,
+    specText: "1.52*50m",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 76.0
-      }
+        toUnit: "m2",
+        factor: 76.0,
+      },
     ],
-    "code": "MANG_PVC_DECAL_HANG_DEU_1_52_50"
+    code: "MANG_PVC_DECAL_HANG_DEU_1_52_50",
   },
   {
-    "name": "Màng PVC decal PVC120",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 0,
-    "conversions": [
+    name: "Màng PVC decal PVC120",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "MANG_PVC_DECAL_PVC120_0_914_50"
+    code: "MANG_PVC_DECAL_PVC120_0_914_50",
   },
   {
-    "name": "Màng PVC decal PVC120",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.52,
-    "specText": "1.52*50m",
-    "initialStock": 0,
-    "conversions": [
+    name: "Màng PVC decal PVC120",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.52,
+    specText: "1.52*50m",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 76.0
-      }
+        toUnit: "m2",
+        factor: 76.0,
+      },
     ],
-    "code": "MANG_PVC_DECAL_PVC120_1_52_50"
+    code: "MANG_PVC_DECAL_PVC120_1_52_50",
   },
   {
-    "name": "Màng PVC decal PVC140",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 6,
-    "conversions": [
+    name: "Màng PVC decal PVC140",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 6,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "MANG_PVC_DECAL_PVC140_0_914_50"
+    code: "MANG_PVC_DECAL_PVC140_0_914_50",
   },
   {
-    "name": "Màng PVC decal PVC140",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 34,
-    "conversions": [
+    name: "Màng PVC decal PVC140",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 34,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "MANG_PVC_DECAL_PVC140_1_07_50"
+    code: "MANG_PVC_DECAL_PVC140_1_07_50",
   },
   {
-    "name": "Màng PVC decal PVC140",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 77,
-    "conversions": [
+    name: "Màng PVC decal PVC140",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 77,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "MANG_PVC_DECAL_PVC140_1_27_50"
+    code: "MANG_PVC_DECAL_PVC140_1_27_50",
   },
   {
-    "name": "Màng PVC decal PVC140",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.52,
-    "specText": "1.52*50m",
-    "initialStock": 30,
-    "conversions": [
+    name: "Màng PVC decal PVC140",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.52,
+    specText: "1.52*50m",
+    initialStock: 30,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 76.0
-      }
+        toUnit: "m2",
+        factor: 76.0,
+      },
     ],
-    "code": "MANG_PVC_DECAL_PVC140_1_52_50"
+    code: "MANG_PVC_DECAL_PVC140_1_52_50",
   },
   {
-    "name": "Màng PVC decal - không logo",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 9,
-    "conversions": [
+    name: "Màng PVC decal - không logo",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 9,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "MANG_PVC_DECAL_KHONG_LOGO_0_914_50"
+    code: "MANG_PVC_DECAL_KHONG_LOGO_0_914_50",
   },
   {
-    "name": "Màng PVC decal - không logo",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 48,
-    "conversions": [
+    name: "Màng PVC decal - không logo",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 48,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "MANG_PVC_DECAL_KHONG_LOGO_1_07_50"
+    code: "MANG_PVC_DECAL_KHONG_LOGO_1_07_50",
   },
   {
-    "name": "Màng PVC decal - không logo",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 22,
-    "conversions": [
+    name: "Màng PVC decal - không logo",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 22,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "MANG_PVC_DECAL_KHONG_LOGO_1_27_50"
+    code: "MANG_PVC_DECAL_KHONG_LOGO_1_27_50",
   },
   {
-    "name": "Màng PVC decal - không logo",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.52,
-    "specText": "1.52*50m",
-    "initialStock": 16,
-    "conversions": [
+    name: "Màng PVC decal - không logo",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.52,
+    specText: "1.52*50m",
+    initialStock: 16,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 76.0
-      }
+        toUnit: "m2",
+        factor: 76.0,
+      },
     ],
-    "code": "MANG_PVC_DECAL_KHONG_LOGO_1_52_50"
+    code: "MANG_PVC_DECAL_KHONG_LOGO_1_52_50",
   },
   {
-    "name": "Màng PVC decal - KHH120",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 18,
-    "conversions": [
+    name: "Màng PVC decal - KHH120",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 18,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "MANG_PVC_DECAL_KHH120_0_914_50"
+    code: "MANG_PVC_DECAL_KHH120_0_914_50",
   },
   {
-    "name": "Màng PVC decal - KHH120",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 58,
-    "conversions": [
+    name: "Màng PVC decal - KHH120",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 58,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "MANG_PVC_DECAL_KHH120_1_07_50"
+    code: "MANG_PVC_DECAL_KHH120_1_07_50",
   },
   {
-    "name": "Màng PVC decal - KHH120",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 39,
-    "conversions": [
+    name: "Màng PVC decal - KHH120",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 39,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "MANG_PVC_DECAL_KHH120_1_27_50"
+    code: "MANG_PVC_DECAL_KHH120_1_27_50",
   },
   {
-    "name": "Màng PVC decal - KHH120",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.52,
-    "specText": "1.52*50m",
-    "initialStock": 31,
-    "conversions": [
+    name: "Màng PVC decal - KHH120",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.52,
+    specText: "1.52*50m",
+    initialStock: 31,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 76.0
-      }
+        toUnit: "m2",
+        factor: 76.0,
+      },
     ],
-    "code": "MANG_PVC_DECAL_KHH120_1_52_50"
+    code: "MANG_PVC_DECAL_KHH120_1_52_50",
   },
   {
-    "name": "Màng PVC decal - KHH150",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 17,
-    "conversions": [
+    name: "Màng PVC decal - KHH150",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 17,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "MANG_PVC_DECAL_KHH150_0_914_50"
+    code: "MANG_PVC_DECAL_KHH150_0_914_50",
   },
   {
-    "name": "Màng PVC decal - KHH150",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 53,
-    "conversions": [
+    name: "Màng PVC decal - KHH150",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 53,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "MANG_PVC_DECAL_KHH150_1_07_50"
+    code: "MANG_PVC_DECAL_KHH150_1_07_50",
   },
   {
-    "name": "Màng PVC decal - KHH150",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 45,
-    "conversions": [
+    name: "Màng PVC decal - KHH150",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 45,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "MANG_PVC_DECAL_KHH150_1_27_50"
+    code: "MANG_PVC_DECAL_KHH150_1_27_50",
   },
   {
-    "name": "Màng PVC decal - KHH150",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.52,
-    "specText": "1.52*50m",
-    "initialStock": 30,
-    "conversions": [
+    name: "Màng PVC decal - KHH150",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.52,
+    specText: "1.52*50m",
+    initialStock: 30,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 76.0
-      }
+        toUnit: "m2",
+        factor: 76.0,
+      },
     ],
-    "code": "MANG_PVC_DECAL_KHH150_1_52_50"
+    code: "MANG_PVC_DECAL_KHH150_1_52_50",
   },
   {
-    "name": "Màng PVC decal - KHH-P150",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 5,
-    "conversions": [
+    name: "Màng PVC decal - KHH-P150",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 5,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "MANG_PVC_DECAL_KHH_P150_0_914_50"
+    code: "MANG_PVC_DECAL_KHH_P150_0_914_50",
   },
   {
-    "name": "Màng PVC decal - KHH-P150",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 52,
-    "conversions": [
+    name: "Màng PVC decal - KHH-P150",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 52,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "MANG_PVC_DECAL_KHH_P150_1_07_50"
+    code: "MANG_PVC_DECAL_KHH_P150_1_07_50",
   },
   {
-    "name": "Màng PVC decal - KHH-P150",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 105,
-    "conversions": [
+    name: "Màng PVC decal - KHH-P150",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 105,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "MANG_PVC_DECAL_KHH_P150_1_27_50"
+    code: "MANG_PVC_DECAL_KHH_P150_1_27_50",
   },
   {
-    "name": "Màng PVC decal - KHH-P150",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.52,
-    "specText": "1.52*50m",
-    "initialStock": 18,
-    "conversions": [
+    name: "Màng PVC decal - KHH-P150",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.52,
+    specText: "1.52*50m",
+    initialStock: 18,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 76.0
-      }
+        toUnit: "m2",
+        factor: 76.0,
+      },
     ],
-    "code": "MANG_PVC_DECAL_KHH_P150_1_52_50"
+    code: "MANG_PVC_DECAL_KHH_P150_1_52_50",
   },
   {
-    "name": "Màng PVC trong",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 0,
-    "conversions": [
+    name: "Màng PVC trong",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "MANG_PVC_TRONG_0_914_50-001"
+    code: "MANG_PVC_TRONG_0_914_50-001",
   },
   {
-    "name": "Màng PVC trong",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 0,
-    "conversions": [
+    name: "Màng PVC trong",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "MANG_PVC_TRONG_1_07_50-001"
+    code: "MANG_PVC_TRONG_1_07_50-001",
   },
   {
-    "name": "Màng PVC trong",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 17,
-    "conversions": [
+    name: "Màng PVC trong",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 17,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "MANG_PVC_TRONG_1_27_50-001"
+    code: "MANG_PVC_TRONG_1_27_50-001",
   },
   {
-    "name": "Màng PVC trong",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.52,
-    "specText": "1.52*50m",
-    "initialStock": 0,
-    "conversions": [
+    name: "Màng PVC trong",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.52,
+    specText: "1.52*50m",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 76.0
-      }
+        toUnit: "m2",
+        factor: 76.0,
+      },
     ],
-    "code": "MANG_PVC_TRONG_1_52_50"
+    code: "MANG_PVC_TRONG_1_52_50",
   },
   {
-    "name": "Màng PVC trong",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 0.914,
-    "specText": "0.914*50m",
-    "initialStock": 0,
-    "conversions": [
+    name: "Màng PVC trong",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 0.914,
+    specText: "0.914*50m",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 45.7
-      }
+        toUnit: "m2",
+        factor: 45.7,
+      },
     ],
-    "code": "MANG_PVC_TRONG_0_914_50-002"
+    code: "MANG_PVC_TRONG_0_914_50-002",
   },
   {
-    "name": "Màng PVC trong",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.07,
-    "specText": "1.07*50m",
-    "initialStock": 36,
-    "conversions": [
+    name: "Màng PVC trong",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.07,
+    specText: "1.07*50m",
+    initialStock: 36,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 53.5
-      }
+        toUnit: "m2",
+        factor: 53.5,
+      },
     ],
-    "code": "MANG_PVC_TRONG_1_07_50-002"
+    code: "MANG_PVC_TRONG_1_07_50-002",
   },
   {
-    "name": "Màng PVC trong",
-    "categoryCode": "PP_MANG_DECAL",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 1.27,
-    "specText": "1.27*50m",
-    "initialStock": 24,
-    "conversions": [
+    name: "Màng PVC trong",
+    categoryCode: "PP_MANG_DECAL",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 1.27,
+    specText: "1.27*50m",
+    initialStock: 24,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 63.5
-      }
+        toUnit: "m2",
+        factor: 63.5,
+      },
     ],
-    "code": "MANG_PVC_TRONG_1_27_50-002"
-  }
+    code: "MANG_PVC_TRONG_1_27_50-002",
+  },
 ];
 
 // GIAY_ANH_CUON — 22 products
 export const giayAnhCuon: SeedProduct[] = [
   {
-    "name": "Giấy in ảnh kodak mặt bóng",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 30.0,
-    "width": 0.61,
-    "specText": "0.61*30m",
-    "initialStock": 0,
-    "conversions": [
+    name: "Giấy in ảnh kodak mặt bóng",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 30.0,
+    width: 0.61,
+    specText: "0.61*30m",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 30.0
+        toUnit: "m",
+        factor: 30.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 18.3
+        toUnit: "m2",
+        factor: 18.3,
       },
       {
-        "toUnit": "kg",
-        "factor": 5.4
-      }
+        toUnit: "kg",
+        factor: 5.4,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_BONG_0_61_30"
+    code: "GIAY_IN_ANH_KODAK_MAT_BONG_0_61_30",
   },
   {
-    "name": "Giấy in ảnh kodak mặt bóng",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 30.0,
-    "width": 0.762,
-    "specText": "0.762*30m",
-    "initialStock": 2,
-    "conversions": [
+    name: "Giấy in ảnh kodak mặt bóng",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 30.0,
+    width: 0.762,
+    specText: "0.762*30m",
+    initialStock: 2,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 30.0
+        toUnit: "m",
+        factor: 30.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 22.86
+        toUnit: "m2",
+        factor: 22.86,
       },
       {
-        "toUnit": "kg",
-        "factor": 6.7
-      }
+        toUnit: "kg",
+        factor: 6.7,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_BONG_0_762_30"
+    code: "GIAY_IN_ANH_KODAK_MAT_BONG_0_762_30",
   },
   {
-    "name": "Giấy in ảnh kodak mặt bóng",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 30.0,
-    "width": 0.914,
-    "specText": "0.914*30m",
-    "initialStock": 36,
-    "conversions": [
+    name: "Giấy in ảnh kodak mặt bóng",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 30.0,
+    width: 0.914,
+    specText: "0.914*30m",
+    initialStock: 36,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 30.0
+        toUnit: "m",
+        factor: 30.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 27.42
+        toUnit: "m2",
+        factor: 27.42,
       },
       {
-        "toUnit": "kg",
-        "factor": 8.0
-      }
+        toUnit: "kg",
+        factor: 8.0,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_BONG_0_914_30"
+    code: "GIAY_IN_ANH_KODAK_MAT_BONG_0_914_30",
   },
   {
-    "name": "Giấy in ảnh Kodak  mặt mờ",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 30.0,
-    "width": 0.61,
-    "specText": "0.61*30m",
-    "initialStock": 44,
-    "conversions": [
+    name: "Giấy in ảnh Kodak  mặt mờ",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 30.0,
+    width: 0.61,
+    specText: "0.61*30m",
+    initialStock: 44,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 30.0
+        toUnit: "m",
+        factor: 30.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 18.3
+        toUnit: "m2",
+        factor: 18.3,
       },
       {
-        "toUnit": "kg",
-        "factor": 5.5
-      }
+        toUnit: "kg",
+        factor: 5.5,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_MO_0_61_30"
+    code: "GIAY_IN_ANH_KODAK_MAT_MO_0_61_30",
   },
   {
-    "name": "Giấy in ảnh Kodak  mặt mờ",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 30.0,
-    "width": 0.762,
-    "specText": "0.762*30m",
-    "initialStock": 105,
-    "conversions": [
+    name: "Giấy in ảnh Kodak  mặt mờ",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 30.0,
+    width: 0.762,
+    specText: "0.762*30m",
+    initialStock: 105,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 30.0
+        toUnit: "m",
+        factor: 30.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 22.86
+        toUnit: "m2",
+        factor: 22.86,
       },
       {
-        "toUnit": "kg",
-        "factor": 6.8
-      }
+        toUnit: "kg",
+        factor: 6.8,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_MO_0_762_30"
+    code: "GIAY_IN_ANH_KODAK_MAT_MO_0_762_30",
   },
   {
-    "name": "Giáy in ảnh mặt bóng 260g không logo",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 30.0,
-    "width": 0.762,
-    "specText": "0.762*30m",
-    "initialStock": 32,
-    "conversions": [
+    name: "Giáy in ảnh mặt bóng 260g không logo",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 30.0,
+    width: 0.762,
+    specText: "0.762*30m",
+    initialStock: 32,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 30.0
+        toUnit: "m",
+        factor: 30.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 22.86
+        toUnit: "m2",
+        factor: 22.86,
       },
       {
-        "toUnit": "kg",
-        "factor": 6.6
-      }
+        toUnit: "kg",
+        factor: 6.6,
+      },
     ],
-    "code": "GIAY_IN_ANH_MAT_BONG_260G_KHONG_LOGO_0_762_30"
+    code: "GIAY_IN_ANH_MAT_BONG_260G_KHONG_LOGO_0_762_30",
   },
   {
-    "name": "Giáy in ảnh mặt bóng 260g không logo",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 30.0,
-    "width": 0.914,
-    "specText": "0.914*30m",
-    "initialStock": 139,
-    "conversions": [
+    name: "Giáy in ảnh mặt bóng 260g không logo",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 30.0,
+    width: 0.914,
+    specText: "0.914*30m",
+    initialStock: 139,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 30.0
+        toUnit: "m",
+        factor: 30.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 27.42
+        toUnit: "m2",
+        factor: 27.42,
       },
       {
-        "toUnit": "kg",
-        "factor": 8.7
-      }
+        toUnit: "kg",
+        factor: 8.7,
+      },
     ],
-    "code": "GIAY_IN_ANH_MAT_BONG_260G_KHONG_LOGO_0_914_30"
+    code: "GIAY_IN_ANH_MAT_BONG_260G_KHONG_LOGO_0_914_30",
   },
   {
-    "name": "Giấy in ảnh mặt bóng 240g không logo",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 30.0,
-    "width": 0.762,
-    "specText": "0.762*30m",
-    "initialStock": 18,
-    "conversions": [
+    name: "Giấy in ảnh mặt bóng 240g không logo",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 30.0,
+    width: 0.762,
+    specText: "0.762*30m",
+    initialStock: 18,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 30.0
+        toUnit: "m",
+        factor: 30.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 22.86
+        toUnit: "m2",
+        factor: 22.86,
       },
       {
-        "toUnit": "kg",
-        "factor": 6.5
-      }
+        toUnit: "kg",
+        factor: 6.5,
+      },
     ],
-    "code": "GIAY_IN_ANH_MAT_BONG_240G_KHONG_LOGO_0_762_30"
+    code: "GIAY_IN_ANH_MAT_BONG_240G_KHONG_LOGO_0_762_30",
   },
   {
-    "name": "Giấy in ảnh mặt bóng 240g không logo",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 30.0,
-    "width": 0.914,
-    "specText": "0.914*30m",
-    "initialStock": 213,
-    "conversions": [
+    name: "Giấy in ảnh mặt bóng 240g không logo",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 30.0,
+    width: 0.914,
+    specText: "0.914*30m",
+    initialStock: 213,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 30.0
+        toUnit: "m",
+        factor: 30.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 27.42
+        toUnit: "m2",
+        factor: 27.42,
       },
       {
-        "toUnit": "kg",
-        "factor": 7.9
-      }
+        toUnit: "kg",
+        factor: 7.9,
+      },
     ],
-    "code": "GIAY_IN_ANH_MAT_BONG_240G_KHONG_LOGO_0_914_30"
+    code: "GIAY_IN_ANH_MAT_BONG_240G_KHONG_LOGO_0_914_30",
   },
   {
-    "name": "Giấy in ảnh mặt mờ 240g không logo",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 30.0,
-    "width": 0.61,
-    "specText": "0.61*30m",
-    "initialStock": 17,
-    "conversions": [
+    name: "Giấy in ảnh mặt mờ 240g không logo",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 30.0,
+    width: 0.61,
+    specText: "0.61*30m",
+    initialStock: 17,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 30.0
+        toUnit: "m",
+        factor: 30.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 18.3
+        toUnit: "m2",
+        factor: 18.3,
       },
       {
-        "toUnit": "kg",
-        "factor": 5.0
-      }
+        toUnit: "kg",
+        factor: 5.0,
+      },
     ],
-    "code": "GIAY_IN_ANH_MAT_MO_240G_KHONG_LOGO_0_61_30"
+    code: "GIAY_IN_ANH_MAT_MO_240G_KHONG_LOGO_0_61_30",
   },
   {
-    "name": "Giấy in ảnh Lucky mặt mờ",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 30.0,
-    "width": 0.508,
-    "specText": "0.508*30m",
-    "initialStock": 10,
-    "conversions": [
+    name: "Giấy in ảnh Lucky mặt mờ",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 30.0,
+    width: 0.508,
+    specText: "0.508*30m",
+    initialStock: 10,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 30.0
+        toUnit: "m",
+        factor: 30.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 15.24
+        toUnit: "m2",
+        factor: 15.24,
       },
       {
-        "toUnit": "kg",
-        "factor": 4.425
-      }
+        toUnit: "kg",
+        factor: 4.425,
+      },
     ],
-    "code": "GIAY_IN_ANH_LUCKY_MAT_MO_0_508_30"
+    code: "GIAY_IN_ANH_LUCKY_MAT_MO_0_508_30",
   },
   {
-    "name": "Giấy in ảnh Lucky mặt mờ",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 40.0,
-    "width": 0.508,
-    "specText": "0.508*40m",
-    "initialStock": 54,
-    "conversions": [
+    name: "Giấy in ảnh Lucky mặt mờ",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 40.0,
+    width: 0.508,
+    specText: "0.508*40m",
+    initialStock: 54,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 40.0
+        toUnit: "m",
+        factor: 40.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 20.32
+        toUnit: "m2",
+        factor: 20.32,
       },
       {
-        "toUnit": "kg",
-        "factor": 5.825
-      }
+        toUnit: "kg",
+        factor: 5.825,
+      },
     ],
-    "code": "GIAY_IN_ANH_LUCKY_MAT_MO_0_508_40"
+    code: "GIAY_IN_ANH_LUCKY_MAT_MO_0_508_40",
   },
   {
-    "name": "Giấy in ảnh Lucky mặt mờ",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 30.0,
-    "width": 0.914,
-    "specText": "0.914*30m",
-    "initialStock": 165,
-    "conversions": [
+    name: "Giấy in ảnh Lucky mặt mờ",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 30.0,
+    width: 0.914,
+    specText: "0.914*30m",
+    initialStock: 165,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 30.0
+        toUnit: "m",
+        factor: 30.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 27.42
+        toUnit: "m2",
+        factor: 27.42,
       },
       {
-        "toUnit": "kg",
-        "factor": 8.075
-      }
+        toUnit: "kg",
+        factor: 8.075,
+      },
     ],
-    "code": "GIAY_IN_ANH_LUCKY_MAT_MO_0_914_30"
+    code: "GIAY_IN_ANH_LUCKY_MAT_MO_0_914_30",
   },
   {
-    "name": "Giấy in ảnh Lucky mặt mờ",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 40.0,
-    "width": 0.914,
-    "specText": "0.914*40m",
-    "initialStock": 80,
-    "conversions": [
+    name: "Giấy in ảnh Lucky mặt mờ",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 40.0,
+    width: 0.914,
+    specText: "0.914*40m",
+    initialStock: 80,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 40.0
+        toUnit: "m",
+        factor: 40.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 36.56
+        toUnit: "m2",
+        factor: 36.56,
       },
       {
-        "toUnit": "kg",
-        "factor": 10.225
-      }
+        toUnit: "kg",
+        factor: 10.225,
+      },
     ],
-    "code": "GIAY_IN_ANH_LUCKY_MAT_MO_0_914_40"
+    code: "GIAY_IN_ANH_LUCKY_MAT_MO_0_914_40",
   },
   {
-    "name": "Giấy in ảnh Lucky mặt bóng",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 100.0,
-    "width": 0.127,
-    "specText": "0.127*100m",
-    "initialStock": 30,
-    "conversions": [
+    name: "Giấy in ảnh Lucky mặt bóng",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 100.0,
+    width: 0.127,
+    specText: "0.127*100m",
+    initialStock: 30,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 100.0
+        toUnit: "m",
+        factor: 100.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 12.7
+        toUnit: "m2",
+        factor: 12.7,
       },
       {
-        "toUnit": "kg",
-        "factor": 3.5
-      }
+        toUnit: "kg",
+        factor: 3.5,
+      },
     ],
-    "code": "GIAY_IN_ANH_LUCKY_MAT_BONG_0_127_100"
+    code: "GIAY_IN_ANH_LUCKY_MAT_BONG_0_127_100",
   },
   {
-    "name": "Giấy in ảnh Lucky mặt bóng",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 40.0,
-    "width": 0.51,
-    "specText": "0.51*40m",
-    "initialStock": 120,
-    "conversions": [
+    name: "Giấy in ảnh Lucky mặt bóng",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 40.0,
+    width: 0.51,
+    specText: "0.51*40m",
+    initialStock: 120,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 40.0
+        toUnit: "m",
+        factor: 40.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 20.4
+        toUnit: "m2",
+        factor: 20.4,
       },
       {
-        "toUnit": "kg",
-        "factor": 5.675
-      }
+        toUnit: "kg",
+        factor: 5.675,
+      },
     ],
-    "code": "GIAY_IN_ANH_LUCKY_MAT_BONG_0_51_40"
+    code: "GIAY_IN_ANH_LUCKY_MAT_BONG_0_51_40",
   },
   {
-    "name": "Giấy in ảnh Lucky mặt bóng",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 40.0,
-    "width": 0.508,
-    "specText": "0.508*40m",
-    "initialStock": 32,
-    "conversions": [
+    name: "Giấy in ảnh Lucky mặt bóng",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 40.0,
+    width: 0.508,
+    specText: "0.508*40m",
+    initialStock: 32,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 40.0
+        toUnit: "m",
+        factor: 40.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 20.32
+        toUnit: "m2",
+        factor: 20.32,
       },
       {
-        "toUnit": "kg",
-        "factor": 5.75
-      }
+        toUnit: "kg",
+        factor: 5.75,
+      },
     ],
-    "code": "GIAY_IN_ANH_LUCKY_MAT_BONG_0_508_40"
+    code: "GIAY_IN_ANH_LUCKY_MAT_BONG_0_508_40",
   },
   {
-    "name": "Giấy in ảnh Lucky mặt bóng",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 40.0,
-    "width": 0.61,
-    "specText": "0.61*40m",
-    "initialStock": 138,
-    "conversions": [
+    name: "Giấy in ảnh Lucky mặt bóng",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 40.0,
+    width: 0.61,
+    specText: "0.61*40m",
+    initialStock: 138,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 40.0
+        toUnit: "m",
+        factor: 40.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 24.4
+        toUnit: "m2",
+        factor: 24.4,
       },
       {
-        "toUnit": "kg",
-        "factor": 6.875
-      }
+        toUnit: "kg",
+        factor: 6.875,
+      },
     ],
-    "code": "GIAY_IN_ANH_LUCKY_MAT_BONG_0_61_40"
+    code: "GIAY_IN_ANH_LUCKY_MAT_BONG_0_61_40",
   },
   {
-    "name": "Giấy in ảnh Lucky mặt bóng",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 30.0,
-    "width": 0.762,
-    "specText": "0.762*30m",
-    "initialStock": 1,
-    "conversions": [
+    name: "Giấy in ảnh Lucky mặt bóng",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 30.0,
+    width: 0.762,
+    specText: "0.762*30m",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 30.0
+        toUnit: "m",
+        factor: 30.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 22.86
+        toUnit: "m2",
+        factor: 22.86,
       },
       {
-        "toUnit": "kg",
-        "factor": 6.9
-      }
+        toUnit: "kg",
+        factor: 6.9,
+      },
     ],
-    "code": "GIAY_IN_ANH_LUCKY_MAT_BONG_0_762_30"
+    code: "GIAY_IN_ANH_LUCKY_MAT_BONG_0_762_30",
   },
   {
-    "name": "Giấy in ảnh Lucky mặt bóng",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 30.0,
-    "width": 0.914,
-    "specText": "0.914*30m",
-    "initialStock": 6,
-    "conversions": [
+    name: "Giấy in ảnh Lucky mặt bóng",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 30.0,
+    width: 0.914,
+    specText: "0.914*30m",
+    initialStock: 6,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 30.0
+        toUnit: "m",
+        factor: 30.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 27.42
+        toUnit: "m2",
+        factor: 27.42,
       },
       {
-        "toUnit": "kg",
-        "factor": 8.3
-      }
+        toUnit: "kg",
+        factor: 8.3,
+      },
     ],
-    "code": "GIAY_IN_ANH_LUCKY_MAT_BONG_0_914_30"
+    code: "GIAY_IN_ANH_LUCKY_MAT_BONG_0_914_30",
   },
   {
-    "name": "Giấy in ảnh Lucky mặt bóng",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 40.0,
-    "width": 0.914,
-    "specText": "0.914*40m",
-    "initialStock": 28,
-    "conversions": [
+    name: "Giấy in ảnh Lucky mặt bóng",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 40.0,
+    width: 0.914,
+    specText: "0.914*40m",
+    initialStock: 28,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 40.0
+        toUnit: "m",
+        factor: 40.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 36.56
+        toUnit: "m2",
+        factor: 36.56,
       },
       {
-        "toUnit": "kg",
-        "factor": 10.275
-      }
+        toUnit: "kg",
+        factor: 10.275,
+      },
     ],
-    "code": "GIAY_IN_ANH_LUCKY_MAT_BONG_0_914_40"
+    code: "GIAY_IN_ANH_LUCKY_MAT_BONG_0_914_40",
   },
   {
-    "name": "Giấy in ảnh Lucky mặt bóng",
-    "categoryCode": "GIAY_ANH_CUON",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 30.0,
-    "width": 1.22,
-    "specText": "1.22*30m",
-    "initialStock": 26,
-    "conversions": [
+    name: "Giấy in ảnh Lucky mặt bóng",
+    categoryCode: "GIAY_ANH_CUON",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 30.0,
+    width: 1.22,
+    specText: "1.22*30m",
+    initialStock: 26,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 30.0
+        toUnit: "m",
+        factor: 30.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 36.6
+        toUnit: "m2",
+        factor: 36.6,
       },
       {
-        "toUnit": "kg",
-        "factor": 11.15
-      }
+        toUnit: "kg",
+        factor: 11.15,
+      },
     ],
-    "code": "GIAY_IN_ANH_LUCKY_MAT_BONG_1_22_30"
-  }
+    code: "GIAY_IN_ANH_LUCKY_MAT_BONG_1_22_30",
+  },
 ];
 
 // LY — 60 products
 export const ly: SeedProduct[] = [
   {
-    "name": "LY SỨ TRẮNG",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "Chữ Đen （普通白杯）",
-    "initialStock": 34506,
-    "conversions": [],
-    "code": "LY_SU_TRANG_CHU_DEN"
+    name: "LY SỨ TRẮNG",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "Chữ Đen （普通白杯）",
+    initialStock: 34506,
+    conversions: [],
+    code: "LY_SU_TRANG_CHU_DEN",
   },
   {
-    "name": "LY SỨ TRẮNG",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "Ly Dày",
-    "initialStock": 9405,
-    "conversions": [],
-    "code": "LY_SU_TRANG_LY_DAY"
+    name: "LY SỨ TRẮNG",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "Ly Dày",
+    initialStock: 9405,
+    conversions: [],
+    code: "LY_SU_TRANG_LY_DAY",
   },
   {
-    "name": "LY LỒNG MÀU SỌC QUAI",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "ĐỎ",
-    "initialStock": 1074,
-    "conversions": [],
-    "code": "LY_LONG_MAU_SOC_QUAI_DO"
+    name: "LY LỒNG MÀU SỌC QUAI",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "ĐỎ",
+    initialStock: 1074,
+    conversions: [],
+    code: "LY_LONG_MAU_SOC_QUAI_DO",
   },
   {
-    "name": "LY LỒNG MÀU SỌC QUAI",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "ĐEN",
-    "initialStock": 817,
-    "conversions": [],
-    "code": "LY_LONG_MAU_SOC_QUAI_DEN"
+    name: "LY LỒNG MÀU SỌC QUAI",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "ĐEN",
+    initialStock: 817,
+    conversions: [],
+    code: "LY_LONG_MAU_SOC_QUAI_DEN",
   },
   {
-    "name": "LY LỒNG MÀU SỌC QUAI",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "CAM",
-    "initialStock": 1074,
-    "conversions": [],
-    "code": "LY_LONG_MAU_SOC_QUAI_CAM"
+    name: "LY LỒNG MÀU SỌC QUAI",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "CAM",
+    initialStock: 1074,
+    conversions: [],
+    code: "LY_LONG_MAU_SOC_QUAI_CAM",
   },
   {
-    "name": "LY LỒNG MÀU SỌC QUAI",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "VÀNG",
-    "initialStock": 1074,
-    "conversions": [],
-    "code": "LY_LONG_MAU_SOC_QUAI_VANG"
+    name: "LY LỒNG MÀU SỌC QUAI",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "VÀNG",
+    initialStock: 1074,
+    conversions: [],
+    code: "LY_LONG_MAU_SOC_QUAI_VANG",
   },
   {
-    "name": "LY LỒNG MÀU SỌC QUAI",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "XANH CỐM",
-    "initialStock": 1074,
-    "conversions": [],
-    "code": "LY_LONG_MAU_SOC_QUAI_XANH_COM"
+    name: "LY LỒNG MÀU SỌC QUAI",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "XANH CỐM",
+    initialStock: 1074,
+    conversions: [],
+    code: "LY_LONG_MAU_SOC_QUAI_XANH_COM",
   },
   {
-    "name": "LY LỒNG MÀU SỌC QUAI",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "XANH BIỂN",
-    "initialStock": 1074,
-    "conversions": [],
-    "code": "LY_LONG_MAU_SOC_QUAI_XANH_BIEN"
+    name: "LY LỒNG MÀU SỌC QUAI",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "XANH BIỂN",
+    initialStock: 1074,
+    conversions: [],
+    code: "LY_LONG_MAU_SOC_QUAI_XANH_BIEN",
   },
   {
-    "name": "LY LỒNG MÀU SỌC QUAI",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "HỒNG",
-    "initialStock": 1074,
-    "conversions": [],
-    "code": "LY_LONG_MAU_SOC_QUAI_HONG"
+    name: "LY LỒNG MÀU SỌC QUAI",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "HỒNG",
+    initialStock: 1074,
+    conversions: [],
+    code: "LY_LONG_MAU_SOC_QUAI_HONG",
   },
   {
-    "name": "LY MUỖNG MÀU 12oz - BẦU",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "ĐỎ",
-    "initialStock": 0,
-    "conversions": [],
-    "code": "LY_MUONG_MAU_12OZ_BAU_DO"
+    name: "LY MUỖNG MÀU 12oz - BẦU",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "ĐỎ",
+    initialStock: 0,
+    conversions: [],
+    code: "LY_MUONG_MAU_12OZ_BAU_DO",
   },
   {
-    "name": "LY MUỖNG MÀU 12oz - BẦU",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "ĐEN",
-    "initialStock": 1002,
-    "conversions": [],
-    "code": "LY_MUONG_MAU_12OZ_BAU_DEN"
+    name: "LY MUỖNG MÀU 12oz - BẦU",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "ĐEN",
+    initialStock: 1002,
+    conversions: [],
+    code: "LY_MUONG_MAU_12OZ_BAU_DEN",
   },
   {
-    "name": "LY MUỖNG MÀU 12oz - BẦU",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "CAM",
-    "initialStock": 825,
-    "conversions": [],
-    "code": "LY_MUONG_MAU_12OZ_BAU_CAM"
+    name: "LY MUỖNG MÀU 12oz - BẦU",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "CAM",
+    initialStock: 825,
+    conversions: [],
+    code: "LY_MUONG_MAU_12OZ_BAU_CAM",
   },
   {
-    "name": "LY MUỖNG MÀU 12oz - BẦU",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "VÀNG",
-    "initialStock": 636,
-    "conversions": [],
-    "code": "LY_MUONG_MAU_12OZ_BAU_VANG"
+    name: "LY MUỖNG MÀU 12oz - BẦU",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "VÀNG",
+    initialStock: 636,
+    conversions: [],
+    code: "LY_MUONG_MAU_12OZ_BAU_VANG",
   },
   {
-    "name": "LY MUỖNG MÀU 12oz - BẦU",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "XANH CỐM",
-    "initialStock": 947,
-    "conversions": [],
-    "code": "LY_MUONG_MAU_12OZ_BAU_XANH_COM"
+    name: "LY MUỖNG MÀU 12oz - BẦU",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "XANH CỐM",
+    initialStock: 947,
+    conversions: [],
+    code: "LY_MUONG_MAU_12OZ_BAU_XANH_COM",
   },
   {
-    "name": "LY MUỖNG MÀU 12oz - BẦU",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "XANH BIỂN",
-    "initialStock": 575,
-    "conversions": [],
-    "code": "LY_MUONG_MAU_12OZ_BAU_XANH_BIEN"
+    name: "LY MUỖNG MÀU 12oz - BẦU",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "XANH BIỂN",
+    initialStock: 575,
+    conversions: [],
+    code: "LY_MUONG_MAU_12OZ_BAU_XANH_BIEN",
   },
   {
-    "name": "LY MUỖNG MÀU 12oz - BẦU",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "HỒNG",
-    "initialStock": 899,
-    "conversions": [],
-    "code": "LY_MUONG_MAU_12OZ_BAU_HONG"
+    name: "LY MUỖNG MÀU 12oz - BẦU",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "HỒNG",
+    initialStock: 899,
+    conversions: [],
+    code: "LY_MUONG_MAU_12OZ_BAU_HONG",
   },
   {
-    "name": "LY LỒNG MÀU - QUAI TRẮNG",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "ĐỎ",
-    "initialStock": 432,
-    "conversions": [],
-    "code": "LY_LONG_MAU_QUAI_TRANG_DO"
+    name: "LY LỒNG MÀU - QUAI TRẮNG",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "ĐỎ",
+    initialStock: 432,
+    conversions: [],
+    code: "LY_LONG_MAU_QUAI_TRANG_DO",
   },
   {
-    "name": "LY LỒNG MÀU - QUAI TRẮNG",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "ĐEN",
-    "initialStock": 297,
-    "conversions": [],
-    "code": "LY_LONG_MAU_QUAI_TRANG_DEN"
+    name: "LY LỒNG MÀU - QUAI TRẮNG",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "ĐEN",
+    initialStock: 297,
+    conversions: [],
+    code: "LY_LONG_MAU_QUAI_TRANG_DEN",
   },
   {
-    "name": "LY LỒNG MÀU - QUAI TRẮNG",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "CAM",
-    "initialStock": 108,
-    "conversions": [],
-    "code": "LY_LONG_MAU_QUAI_TRANG_CAM"
+    name: "LY LỒNG MÀU - QUAI TRẮNG",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "CAM",
+    initialStock: 108,
+    conversions: [],
+    code: "LY_LONG_MAU_QUAI_TRANG_CAM",
   },
   {
-    "name": "LY LỒNG MÀU - QUAI TRẮNG",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "VÀNG",
-    "initialStock": 108,
-    "conversions": [],
-    "code": "LY_LONG_MAU_QUAI_TRANG_VANG"
+    name: "LY LỒNG MÀU - QUAI TRẮNG",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "VÀNG",
+    initialStock: 108,
+    conversions: [],
+    code: "LY_LONG_MAU_QUAI_TRANG_VANG",
   },
   {
-    "name": "LY LỒNG MÀU - QUAI TRẮNG",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "XANH CỐM",
-    "initialStock": 144,
-    "conversions": [],
-    "code": "LY_LONG_MAU_QUAI_TRANG_XANH_COM"
+    name: "LY LỒNG MÀU - QUAI TRẮNG",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "XANH CỐM",
+    initialStock: 144,
+    conversions: [],
+    code: "LY_LONG_MAU_QUAI_TRANG_XANH_COM",
   },
   {
-    "name": "LY LỒNG MÀU - QUAI TRẮNG",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "XANH BIỂN",
-    "initialStock": 144,
-    "conversions": [],
-    "code": "LY_LONG_MAU_QUAI_TRANG_XANH_BIEN"
+    name: "LY LỒNG MÀU - QUAI TRẮNG",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "XANH BIỂN",
+    initialStock: 144,
+    conversions: [],
+    code: "LY_LONG_MAU_QUAI_TRANG_XANH_BIEN",
   },
   {
-    "name": "LY LỒNG MÀU - QUAI TRẮNG",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "HỒNG",
-    "initialStock": 8,
-    "conversions": [],
-    "code": "LY_LONG_MAU_QUAI_TRANG_HONG"
+    name: "LY LỒNG MÀU - QUAI TRẮNG",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "HỒNG",
+    initialStock: 8,
+    conversions: [],
+    code: "LY_LONG_MAU_QUAI_TRANG_HONG",
   },
   {
-    "name": "LY ĐỔI MÀU MỜ - LỒNG MÀU (2 CHẤM)",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "ĐỎ",
-    "initialStock": 710,
-    "conversions": [],
-    "code": "LY_DOI_MAU_MO_LONG_MAU_DO"
+    name: "LY ĐỔI MÀU MỜ - LỒNG MÀU (2 CHẤM)",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "ĐỎ",
+    initialStock: 710,
+    conversions: [],
+    code: "LY_DOI_MAU_MO_LONG_MAU_DO",
   },
   {
-    "name": "LY ĐỔI MÀU MỜ - LỒNG MÀU (2 CHẤM)",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "CAM",
-    "initialStock": 716,
-    "conversions": [],
-    "code": "LY_DOI_MAU_MO_LONG_MAU_CAM"
+    name: "LY ĐỔI MÀU MỜ - LỒNG MÀU (2 CHẤM)",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "CAM",
+    initialStock: 716,
+    conversions: [],
+    code: "LY_DOI_MAU_MO_LONG_MAU_CAM",
   },
   {
-    "name": "LY ĐỔI MÀU MỜ - LỒNG MÀU (2 CHẤM)",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "VÀNG",
-    "initialStock": 708,
-    "conversions": [],
-    "code": "LY_DOI_MAU_MO_LONG_MAU_VANG"
+    name: "LY ĐỔI MÀU MỜ - LỒNG MÀU (2 CHẤM)",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "VÀNG",
+    initialStock: 708,
+    conversions: [],
+    code: "LY_DOI_MAU_MO_LONG_MAU_VANG",
   },
   {
-    "name": "LY ĐỔI MÀU MỜ - LỒNG MÀU (2 CHẤM)",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "XANH CỐM",
-    "initialStock": 715,
-    "conversions": [],
-    "code": "LY_DOI_MAU_MO_LONG_MAU_XANH_COM"
+    name: "LY ĐỔI MÀU MỜ - LỒNG MÀU (2 CHẤM)",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "XANH CỐM",
+    initialStock: 715,
+    conversions: [],
+    code: "LY_DOI_MAU_MO_LONG_MAU_XANH_COM",
   },
   {
-    "name": "LY ĐỔI MÀU MỜ - LỒNG MÀU (2 CHẤM)",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "XANH BIỂN",
-    "initialStock": 436,
-    "conversions": [],
-    "code": "LY_DOI_MAU_MO_LONG_MAU_XANH_BIEN"
+    name: "LY ĐỔI MÀU MỜ - LỒNG MÀU (2 CHẤM)",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "XANH BIỂN",
+    initialStock: 436,
+    conversions: [],
+    code: "LY_DOI_MAU_MO_LONG_MAU_XANH_BIEN",
   },
   {
-    "name": "LY ĐỔI MÀU MỜ - LỒNG MÀU (2 CHẤM)",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "HỒNG",
-    "initialStock": 715,
-    "conversions": [],
-    "code": "LY_DOI_MAU_MO_LONG_MAU_HONG"
+    name: "LY ĐỔI MÀU MỜ - LỒNG MÀU (2 CHẤM)",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "HỒNG",
+    initialStock: 715,
+    conversions: [],
+    code: "LY_DOI_MAU_MO_LONG_MAU_HONG",
   },
   {
-    "name": "LY VIỀN MÀU - QUAI MÀU",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "CAM",
-    "initialStock": 108,
-    "conversions": [],
-    "code": "LY_VIEN_MAU_QUAI_MAU_CAM"
+    name: "LY VIỀN MÀU - QUAI MÀU",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "CAM",
+    initialStock: 108,
+    conversions: [],
+    code: "LY_VIEN_MAU_QUAI_MAU_CAM",
   },
   {
-    "name": "LY VIỀN MÀU - QUAI MÀU",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "XANH CỐM",
-    "initialStock": 324,
-    "conversions": [],
-    "code": "LY_VIEN_MAU_QUAI_MAU_XANH_COM"
+    name: "LY VIỀN MÀU - QUAI MÀU",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "XANH CỐM",
+    initialStock: 324,
+    conversions: [],
+    code: "LY_VIEN_MAU_QUAI_MAU_XANH_COM",
   },
   {
-    "name": "LY VIỀN MÀU - QUAI MÀU",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "VÀNG",
-    "initialStock": 246,
-    "conversions": [],
-    "code": "LY_VIEN_MAU_QUAI_MAU_VANG"
+    name: "LY VIỀN MÀU - QUAI MÀU",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "VÀNG",
+    initialStock: 246,
+    conversions: [],
+    code: "LY_VIEN_MAU_QUAI_MAU_VANG",
   },
   {
-    "name": "LY VIỀN MÀU - QUAI MÀU",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "ĐỎ",
-    "initialStock": 606,
-    "conversions": [],
-    "code": "LY_VIEN_MAU_QUAI_MAU_DO"
+    name: "LY VIỀN MÀU - QUAI MÀU",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "ĐỎ",
+    initialStock: 606,
+    conversions: [],
+    code: "LY_VIEN_MAU_QUAI_MAU_DO",
   },
   {
-    "name": "LY VIỀN MÀU - QUAI MÀU",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "XANH BIỂN",
-    "initialStock": 252,
-    "conversions": [],
-    "code": "LY_VIEN_MAU_QUAI_MAU_XANH_BIEN"
+    name: "LY VIỀN MÀU - QUAI MÀU",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "XANH BIỂN",
+    initialStock: 252,
+    conversions: [],
+    code: "LY_VIEN_MAU_QUAI_MAU_XANH_BIEN",
   },
   {
-    "name": "LY VIỀN MÀU - QUAI MÀU",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "HỒNG",
-    "initialStock": 363,
-    "conversions": [],
-    "code": "LY_VIEN_MAU_QUAI_MAU_HONG"
+    name: "LY VIỀN MÀU - QUAI MÀU",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "HỒNG",
+    initialStock: 363,
+    conversions: [],
+    code: "LY_VIEN_MAU_QUAI_MAU_HONG",
   },
   {
-    "name": "LY LỒNG MÀU -  QUAI MÀU",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "ĐỎ",
-    "initialStock": 0,
-    "conversions": [],
-    "code": "LY_LONG_MAU_QUAI_MAU_DO"
+    name: "LY LỒNG MÀU -  QUAI MÀU",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "ĐỎ",
+    initialStock: 0,
+    conversions: [],
+    code: "LY_LONG_MAU_QUAI_MAU_DO",
   },
   {
-    "name": "LY LỒNG MÀU -  QUAI MÀU",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "XANH CỐM",
-    "initialStock": 0,
-    "conversions": [],
-    "code": "LY_LONG_MAU_QUAI_MAU_XANH_COM"
+    name: "LY LỒNG MÀU -  QUAI MÀU",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "XANH CỐM",
+    initialStock: 0,
+    conversions: [],
+    code: "LY_LONG_MAU_QUAI_MAU_XANH_COM",
   },
   {
-    "name": "LY LỒNG MÀU -  QUAI MÀU",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "VÀNG",
-    "initialStock": 0,
-    "conversions": [],
-    "code": "LY_LONG_MAU_QUAI_MAU_VANG"
+    name: "LY LỒNG MÀU -  QUAI MÀU",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "VÀNG",
+    initialStock: 0,
+    conversions: [],
+    code: "LY_LONG_MAU_QUAI_MAU_VANG",
   },
   {
-    "name": "LY LỒNG MÀU -  QUAI MÀU",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "XANH BIỂN",
-    "initialStock": 141,
-    "conversions": [],
-    "code": "LY_LONG_MAU_QUAI_MAU_XANH_BIEN"
+    name: "LY LỒNG MÀU -  QUAI MÀU",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "XANH BIỂN",
+    initialStock: 141,
+    conversions: [],
+    code: "LY_LONG_MAU_QUAI_MAU_XANH_BIEN",
   },
   {
-    "name": "LY LỒNG MÀU -  QUAI MÀU",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "XANH TÍM",
-    "initialStock": 550,
-    "conversions": [],
-    "code": "LY_LONG_MAU_QUAI_MAU_XANH_TIM"
+    name: "LY LỒNG MÀU -  QUAI MÀU",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "XANH TÍM",
+    initialStock: 550,
+    conversions: [],
+    code: "LY_LONG_MAU_QUAI_MAU_XANH_TIM",
   },
   {
-    "name": "LY LỒNG MÀU -  QUAI MÀU",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "HỒNG",
-    "initialStock": 319,
-    "conversions": [],
-    "code": "LY_LONG_MAU_QUAI_MAU_HONG"
+    name: "LY LỒNG MÀU -  QUAI MÀU",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "HỒNG",
+    initialStock: 319,
+    conversions: [],
+    code: "LY_LONG_MAU_QUAI_MAU_HONG",
   },
   {
-    "name": "LY LỒNG MÀU -  QUAI MÀU",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "CAM",
-    "initialStock": 0,
-    "conversions": [],
-    "code": "LY_LONG_MAU_QUAI_MAU_CAM"
+    name: "LY LỒNG MÀU -  QUAI MÀU",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "CAM",
+    initialStock: 0,
+    conversions: [],
+    code: "LY_LONG_MAU_QUAI_MAU_CAM",
   },
   {
-    "name": "LY VIỀN MÀU - QUAI TIM",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "ĐỎ",
-    "initialStock": 0,
-    "conversions": [],
-    "code": "LY_VIEN_MAU_QUAI_TIM_DO-001"
+    name: "LY VIỀN MÀU - QUAI TIM",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "ĐỎ",
+    initialStock: 0,
+    conversions: [],
+    code: "LY_VIEN_MAU_QUAI_TIM_DO-001",
   },
   {
-    "name": "LY VIỀN MÀU - QUAI TIM",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "CAM",
-    "initialStock": 584,
-    "conversions": [],
-    "code": "LY_VIEN_MAU_QUAI_TIM_CAM"
+    name: "LY VIỀN MÀU - QUAI TIM",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "CAM",
+    initialStock: 584,
+    conversions: [],
+    code: "LY_VIEN_MAU_QUAI_TIM_CAM",
   },
   {
-    "name": "LY VIỀN MÀU - QUAI TIM",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "XANH CỐM",
-    "initialStock": 434,
-    "conversions": [],
-    "code": "LY_VIEN_MAU_QUAI_TIM_XANH_COM"
+    name: "LY VIỀN MÀU - QUAI TIM",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "XANH CỐM",
+    initialStock: 434,
+    conversions: [],
+    code: "LY_VIEN_MAU_QUAI_TIM_XANH_COM",
   },
   {
-    "name": "LY VIỀN MÀU - QUAI TIM",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "VÀNG",
-    "initialStock": 524,
-    "conversions": [],
-    "code": "LY_VIEN_MAU_QUAI_TIM_VANG"
+    name: "LY VIỀN MÀU - QUAI TIM",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "VÀNG",
+    initialStock: 524,
+    conversions: [],
+    code: "LY_VIEN_MAU_QUAI_TIM_VANG",
   },
   {
-    "name": "LY VIỀN MÀU - QUAI TIM",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "XANH BIỂN",
-    "initialStock": 390,
-    "conversions": [],
-    "code": "LY_VIEN_MAU_QUAI_TIM_XANH_BIEN"
+    name: "LY VIỀN MÀU - QUAI TIM",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "XANH BIỂN",
+    initialStock: 390,
+    conversions: [],
+    code: "LY_VIEN_MAU_QUAI_TIM_XANH_BIEN",
   },
   {
-    "name": "LY VIỀN MÀU - QUAI TIM",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "HỒNG",
-    "initialStock": 112,
-    "conversions": [],
-    "code": "LY_VIEN_MAU_QUAI_TIM_HONG"
+    name: "LY VIỀN MÀU - QUAI TIM",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "HỒNG",
+    initialStock: 112,
+    conversions: [],
+    code: "LY_VIEN_MAU_QUAI_TIM_HONG",
   },
   {
-    "name": "LY VIỀN MÀU - QUAI TIM",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "ĐỎ",
-    "initialStock": 716,
-    "conversions": [],
-    "code": "LY_VIEN_MAU_QUAI_TIM_DO-002"
+    name: "LY VIỀN MÀU - QUAI TIM",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "ĐỎ",
+    initialStock: 716,
+    conversions: [],
+    code: "LY_VIEN_MAU_QUAI_TIM_DO-002",
   },
   {
-    "name": "LY LỒNG MÀU - MUỖNG",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "CAM",
-    "initialStock": 229,
-    "conversions": [],
-    "code": "LY_LONG_MAU_MUONG_CAM"
+    name: "LY LỒNG MÀU - MUỖNG",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "CAM",
+    initialStock: 229,
+    conversions: [],
+    code: "LY_LONG_MAU_MUONG_CAM",
   },
   {
-    "name": "LY LỒNG MÀU - MUỖNG",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "XANH TÍM",
-    "initialStock": 475,
-    "conversions": [],
-    "code": "LY_LONG_MAU_MUONG_XANH_TIM"
+    name: "LY LỒNG MÀU - MUỖNG",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "XANH TÍM",
+    initialStock: 475,
+    conversions: [],
+    code: "LY_LONG_MAU_MUONG_XANH_TIM",
   },
   {
-    "name": "LY LỒNG MÀU - MUỖNG",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "XANH BIỂN",
-    "initialStock": 461,
-    "conversions": [],
-    "code": "LY_LONG_MAU_MUONG_XANH_BIEN"
+    name: "LY LỒNG MÀU - MUỖNG",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "XANH BIỂN",
+    initialStock: 461,
+    conversions: [],
+    code: "LY_LONG_MAU_MUONG_XANH_BIEN",
   },
   {
-    "name": "LY LỒNG MÀU - MUỖNG",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "VÀNG",
-    "initialStock": 166,
-    "conversions": [],
-    "code": "LY_LONG_MAU_MUONG_VANG"
+    name: "LY LỒNG MÀU - MUỖNG",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "VÀNG",
+    initialStock: 166,
+    conversions: [],
+    code: "LY_LONG_MAU_MUONG_VANG",
   },
   {
-    "name": "LY LỒNG MÀU - MUỖNG",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "HỒNG",
-    "initialStock": 189,
-    "conversions": [],
-    "code": "LY_LONG_MAU_MUONG_HONG"
+    name: "LY LỒNG MÀU - MUỖNG",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "HỒNG",
+    initialStock: 189,
+    conversions: [],
+    code: "LY_LONG_MAU_MUONG_HONG",
   },
   {
-    "name": "MUỖNG",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "CAM",
-    "initialStock": 226,
-    "conversions": [],
-    "code": "MUONG_CAM"
+    name: "MUỖNG",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "CAM",
+    initialStock: 226,
+    conversions: [],
+    code: "MUONG_CAM",
   },
   {
-    "name": "MUỖNG",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "ĐỎ",
-    "initialStock": 3,
-    "conversions": [],
-    "code": "MUONG_DO"
+    name: "MUỖNG",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "ĐỎ",
+    initialStock: 3,
+    conversions: [],
+    code: "MUONG_DO",
   },
   {
-    "name": "MUỖNG",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "VÀNG",
-    "initialStock": 171,
-    "conversions": [],
-    "code": "MUONG_VANG"
+    name: "MUỖNG",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "VÀNG",
+    initialStock: 171,
+    conversions: [],
+    code: "MUONG_VANG",
   },
   {
-    "name": "MUỖNG",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "HỒNG",
-    "initialStock": 188,
-    "conversions": [],
-    "code": "MUONG_HONG"
+    name: "MUỖNG",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "HỒNG",
+    initialStock: 188,
+    conversions: [],
+    code: "MUONG_HONG",
   },
   {
-    "name": "MUỖNG",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "XANH CỐM",
-    "initialStock": 5,
-    "conversions": [],
-    "code": "MUONG_XANH_COM"
+    name: "MUỖNG",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "XANH CỐM",
+    initialStock: 5,
+    conversions: [],
+    code: "MUONG_XANH_COM",
   },
   {
-    "name": "MUỖNG",
-    "categoryCode": "LY",
-    "baseUnit": "cai",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "NÂU",
-    "initialStock": 12,
-    "conversions": [],
-    "code": "MUONG_NAU"
-  }
+    name: "MUỖNG",
+    categoryCode: "LY",
+    baseUnit: "cai",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "NÂU",
+    initialStock: 12,
+    conversions: [],
+    code: "MUONG_NAU",
+  },
 ];
 
 // GIAY_ANH_XAP — 30 products
 export const giayAnhXap: SeedProduct[] = [
   {
-    "name": "Giấy in ảnh Kodak mặt bóng 260g",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A4",
-    "initialStock": 1100,
-    "conversions": [
+    name: "Giấy in ảnh Kodak mặt bóng 260g",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A4",
+    initialStock: 1100,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 20.0
+        toUnit: "to",
+        factor: 20.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 1.2474
+        toUnit: "m2",
+        factor: 1.2474,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.316
-      }
+        toUnit: "kg",
+        factor: 0.316,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_BONG_260G_A4"
+    code: "GIAY_IN_ANH_KODAK_MAT_BONG_260G_A4",
   },
   {
-    "name": "Giấy in ảnh Kodak mặt bóng 260g",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A3",
-    "initialStock": 1110,
-    "conversions": [
+    name: "Giấy in ảnh Kodak mặt bóng 260g",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A3",
+    initialStock: 1110,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 20.0
+        toUnit: "to",
+        factor: 20.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 2.4948
+        toUnit: "m2",
+        factor: 2.4948,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.636667
-      }
+        toUnit: "kg",
+        factor: 0.636667,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_BONG_260G_A3-001"
+    code: "GIAY_IN_ANH_KODAK_MAT_BONG_260G_A3-001",
   },
   {
-    "name": "Giấy in ảnh Kodak mặt bóng 260g",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A3",
-    "initialStock": 210,
-    "conversions": [
+    name: "Giấy in ảnh Kodak mặt bóng 260g",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A3",
+    initialStock: 210,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 20.0
+        toUnit: "to",
+        factor: 20.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 2.4948
+        toUnit: "m2",
+        factor: 2.4948,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.676667
-      }
+        toUnit: "kg",
+        factor: 0.676667,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_BONG_260G_A3-002"
+    code: "GIAY_IN_ANH_KODAK_MAT_BONG_260G_A3-002",
   },
   {
-    "name": "Giấy in ảnh Kodak mặt bóng 260g",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A3",
-    "initialStock": 420,
-    "conversions": [
+    name: "Giấy in ảnh Kodak mặt bóng 260g",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A3",
+    initialStock: 420,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 20.0
+        toUnit: "to",
+        factor: 20.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 2.4948
+        toUnit: "m2",
+        factor: 2.4948,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.676667
-      }
+        toUnit: "kg",
+        factor: 0.676667,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_BONG_260G_A3-003"
+    code: "GIAY_IN_ANH_KODAK_MAT_BONG_260G_A3-003",
   },
   {
-    "name": "Giấy in ảnh Kodak mặt bóng 240g",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A6",
-    "initialStock": 80,
-    "conversions": [
+    name: "Giấy in ảnh Kodak mặt bóng 240g",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A6",
+    initialStock: 80,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 100.0
+        toUnit: "to",
+        factor: 100.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 1.5504
+        toUnit: "m2",
+        factor: 1.5504,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.395
-      }
+        toUnit: "kg",
+        factor: 0.395,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_BONG_240G_A6"
+    code: "GIAY_IN_ANH_KODAK_MAT_BONG_240G_A6",
   },
   {
-    "name": "Giấy in ảnh Kodak mặt bóng 240g",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A4",
-    "initialStock": 650,
-    "conversions": [
+    name: "Giấy in ảnh Kodak mặt bóng 240g",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A4",
+    initialStock: 650,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 20.0
+        toUnit: "to",
+        factor: 20.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 1.2474
+        toUnit: "m2",
+        factor: 1.2474,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.322
-      }
+        toUnit: "kg",
+        factor: 0.322,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_BONG_240G_A4"
+    code: "GIAY_IN_ANH_KODAK_MAT_BONG_240G_A4",
   },
   {
-    "name": "Giấy in ảnh Kodak mặt bóng 240g",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A3",
-    "initialStock": 360,
-    "conversions": [
+    name: "Giấy in ảnh Kodak mặt bóng 240g",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A3",
+    initialStock: 360,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 20.0
+        toUnit: "to",
+        factor: 20.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 2.4948
+        toUnit: "m2",
+        factor: 2.4948,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.54
-      }
+        toUnit: "kg",
+        factor: 0.54,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_BONG_240G_A3"
+    code: "GIAY_IN_ANH_KODAK_MAT_BONG_240G_A3",
   },
   {
-    "name": "Giấy in ảnh Kodak mặt bóng 240g",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "13*18 - 5R",
-    "initialStock": 660,
-    "conversions": [
+    name: "Giấy in ảnh Kodak mặt bóng 240g",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "13*18 - 5R",
+    initialStock: 660,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 100.0
+        toUnit: "to",
+        factor: 100.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 2.2606
+        toUnit: "m2",
+        factor: 2.2606,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.573333
-      }
+        toUnit: "kg",
+        factor: 0.573333,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_BONG_240G_13_18_5R"
+    code: "GIAY_IN_ANH_KODAK_MAT_BONG_240G_13_18_5R",
   },
   {
-    "name": "Giấy in ảnh Kodak mặt bóng 260g - NEW",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "4R",
-    "initialStock": 960,
-    "conversions": [
+    name: "Giấy in ảnh Kodak mặt bóng 260g - NEW",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "4R",
+    initialStock: 960,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 100.0
+        toUnit: "to",
+        factor: 100.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 1.5504
+        toUnit: "m2",
+        factor: 1.5504,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.4325
-      }
+        toUnit: "kg",
+        factor: 0.4325,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_BONG_260G_NEW_4R"
+    code: "GIAY_IN_ANH_KODAK_MAT_BONG_260G_NEW_4R",
   },
   {
-    "name": "Giấy in ảnh Kodak mặt bóng 260g - NEW",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A4",
-    "initialStock": 800,
-    "conversions": [
+    name: "Giấy in ảnh Kodak mặt bóng 260g - NEW",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A4",
+    initialStock: 800,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 20.0
+        toUnit: "to",
+        factor: 20.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 1.2474
+        toUnit: "m2",
+        factor: 1.2474,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.354
-      }
+        toUnit: "kg",
+        factor: 0.354,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_BONG_260G_NEW_A4"
+    code: "GIAY_IN_ANH_KODAK_MAT_BONG_260G_NEW_A4",
   },
   {
-    "name": "Giấy in ảnh Kodak mặt bóng 260g - NEW",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A3",
-    "initialStock": 480,
-    "conversions": [
+    name: "Giấy in ảnh Kodak mặt bóng 260g - NEW",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A3",
+    initialStock: 480,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 20.0
+        toUnit: "to",
+        factor: 20.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 2.4948
+        toUnit: "m2",
+        factor: 2.4948,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.696667
-      }
+        toUnit: "kg",
+        factor: 0.696667,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_BONG_260G_NEW_A3"
+    code: "GIAY_IN_ANH_KODAK_MAT_BONG_260G_NEW_A3",
   },
   {
-    "name": "Giấy in ảnh Kodak mặt bóng 260g - NEW",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "13*18 - 5R",
-    "initialStock": 120,
-    "conversions": [
+    name: "Giấy in ảnh Kodak mặt bóng 260g - NEW",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "13*18 - 5R",
+    initialStock: 120,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 100.0
+        toUnit: "to",
+        factor: 100.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 2.2606
+        toUnit: "m2",
+        factor: 2.2606,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.626667
-      }
+        toUnit: "kg",
+        factor: 0.626667,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_BONG_260G_NEW_13_18_5R"
+    code: "GIAY_IN_ANH_KODAK_MAT_BONG_260G_NEW_13_18_5R",
   },
   {
-    "name": "Giấy in ảnh Kodak mặt mờ 260g",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A6 - 4R",
-    "initialStock": 0,
-    "conversions": [
+    name: "Giấy in ảnh Kodak mặt mờ 260g",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A6 - 4R",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 100.0
+        toUnit: "to",
+        factor: 100.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 1.5504
+        toUnit: "m2",
+        factor: 1.5504,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.4075
-      }
+        toUnit: "kg",
+        factor: 0.4075,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_MO_260G_A6_4R"
+    code: "GIAY_IN_ANH_KODAK_MAT_MO_260G_A6_4R",
   },
   {
-    "name": "Giấy in ảnh Kodak mặt mờ 260g",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "4R",
-    "initialStock": 920,
-    "conversions": [
+    name: "Giấy in ảnh Kodak mặt mờ 260g",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "4R",
+    initialStock: 920,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 100.0
+        toUnit: "to",
+        factor: 100.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 1.6
+        toUnit: "m2",
+        factor: 1.6,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.4125
-      }
+        toUnit: "kg",
+        factor: 0.4125,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_MO_260G_4R"
+    code: "GIAY_IN_ANH_KODAK_MAT_MO_260G_4R",
   },
   {
-    "name": "Giấy in ảnh Kodak mặt mờ 260g",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A4",
-    "initialStock": 3000,
-    "conversions": [
+    name: "Giấy in ảnh Kodak mặt mờ 260g",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A4",
+    initialStock: 3000,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 20.0
+        toUnit: "to",
+        factor: 20.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 1.2474
+        toUnit: "m2",
+        factor: 1.2474,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.335
-      }
+        toUnit: "kg",
+        factor: 0.335,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_MO_260G_A4-001"
+    code: "GIAY_IN_ANH_KODAK_MAT_MO_260G_A4-001",
   },
   {
-    "name": "Giấy in ảnh Kodak mặt mờ 260g",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A4",
-    "initialStock": 1000,
-    "conversions": [
+    name: "Giấy in ảnh Kodak mặt mờ 260g",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A4",
+    initialStock: 1000,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 20.0
+        toUnit: "to",
+        factor: 20.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 1.2474
+        toUnit: "m2",
+        factor: 1.2474,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.336
-      }
+        toUnit: "kg",
+        factor: 0.336,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_MO_260G_A4-002"
+    code: "GIAY_IN_ANH_KODAK_MAT_MO_260G_A4-002",
   },
   {
-    "name": "Giấy in ảnh Kodak mặt mờ 260g",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "13*18 - 5R",
-    "initialStock": 569,
-    "conversions": [
+    name: "Giấy in ảnh Kodak mặt mờ 260g",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "13*18 - 5R",
+    initialStock: 569,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 100.0
+        toUnit: "to",
+        factor: 100.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 2.2606
+        toUnit: "m2",
+        factor: 2.2606,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.6
-      }
+        toUnit: "kg",
+        factor: 0.6,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_MO_260G_13_18_5R"
+    code: "GIAY_IN_ANH_KODAK_MAT_MO_260G_13_18_5R",
   },
   {
-    "name": "Giấy in ảnh Kodak mặt mờ 260g",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A3",
-    "initialStock": 960,
-    "conversions": [
+    name: "Giấy in ảnh Kodak mặt mờ 260g",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A3",
+    initialStock: 960,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 20.0
+        toUnit: "to",
+        factor: 20.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 2.4948
+        toUnit: "m2",
+        factor: 2.4948,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.653333
-      }
+        toUnit: "kg",
+        factor: 0.653333,
+      },
     ],
-    "code": "GIAY_IN_ANH_KODAK_MAT_MO_260G_A3"
+    code: "GIAY_IN_ANH_KODAK_MAT_MO_260G_A3",
   },
   {
-    "name": "Mira - bóng 260",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A4",
-    "initialStock": 960,
-    "conversions": [
+    name: "Mira - bóng 260",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A4",
+    initialStock: 960,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 20.0
+        toUnit: "to",
+        factor: 20.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 1.2474
+        toUnit: "m2",
+        factor: 1.2474,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.5
-      }
+        toUnit: "kg",
+        factor: 0.5,
+      },
     ],
-    "code": "MIRA_BONG_260_A4"
+    code: "MIRA_BONG_260_A4",
   },
   {
-    "name": "Giấy ảnh 1 mặt bóng -  CT 230",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A4",
-    "initialStock": 1568,
-    "conversions": [
+    name: "Giấy ảnh 1 mặt bóng -  CT 230",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A4",
+    initialStock: 1568,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 50.0
+        toUnit: "to",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 3.1185
+        toUnit: "m2",
+        factor: 3.1185,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.728571
-      }
+        toUnit: "kg",
+        factor: 0.728571,
+      },
     ],
-    "code": "GIAY_ANH_1_MAT_BONG_CT_230_A4"
+    code: "GIAY_ANH_1_MAT_BONG_CT_230_A4",
   },
   {
-    "name": "Giấy ảnh 1 mặt bóng -  CT 230",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "21*60",
-    "initialStock": 84,
-    "conversions": [
+    name: "Giấy ảnh 1 mặt bóng -  CT 230",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "21*60",
+    initialStock: 84,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 50.0
+        toUnit: "to",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 6.3
+        toUnit: "m2",
+        factor: 6.3,
       },
       {
-        "toUnit": "kg",
-        "factor": 1.478571
-      }
+        toUnit: "kg",
+        factor: 1.478571,
+      },
     ],
-    "code": "GIAY_ANH_1_MAT_BONG_CT_230_21_60"
+    code: "GIAY_ANH_1_MAT_BONG_CT_230_21_60",
   },
   {
-    "name": "Giấy ảnh 1 mặt bóng -  CT 230",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A3",
-    "initialStock": 0,
-    "conversions": [
+    name: "Giấy ảnh 1 mặt bóng -  CT 230",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A3",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 50.0
+        toUnit: "to",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 6.237
+        toUnit: "m2",
+        factor: 6.237,
       },
       {
-        "toUnit": "kg",
-        "factor": 1.471429
-      }
+        toUnit: "kg",
+        factor: 1.471429,
+      },
     ],
-    "code": "GIAY_ANH_1_MAT_BONG_CT_230_A3"
+    code: "GIAY_ANH_1_MAT_BONG_CT_230_A3",
   },
   {
-    "name": "Giấy ảnh 1 mặt bóng -  CT 115g",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A4",
-    "initialStock": 0,
-    "conversions": [
+    name: "Giấy ảnh 1 mặt bóng -  CT 115g",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A4",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 50.0
+        toUnit: "to",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 3.1185
+        toUnit: "m2",
+        factor: 3.1185,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.355
-      }
+        toUnit: "kg",
+        factor: 0.355,
+      },
     ],
-    "code": "GIAY_ANH_1_MAT_BONG_CT_115G_A4"
+    code: "GIAY_ANH_1_MAT_BONG_CT_115G_A4",
   },
   {
-    "name": "Giấy ảnh 1 mặt bóng -  CT 115g",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A3",
-    "initialStock": 0,
-    "conversions": [
+    name: "Giấy ảnh 1 mặt bóng -  CT 115g",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A3",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 50.0
+        toUnit: "to",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 6.237
+        toUnit: "m2",
+        factor: 6.237,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.505
-      }
+        toUnit: "kg",
+        factor: 0.505,
+      },
     ],
-    "code": "GIAY_ANH_1_MAT_BONG_CT_115G_A3"
+    code: "GIAY_ANH_1_MAT_BONG_CT_115G_A3",
   },
   {
-    "name": "Giấy ảnh 1 mặt bóng -  CT 135g",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A4",
-    "initialStock": 0,
-    "conversions": [
+    name: "Giấy ảnh 1 mặt bóng -  CT 135g",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A4",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 50.0
+        toUnit: "to",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 3.1185
+        toUnit: "m2",
+        factor: 3.1185,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.4025
-      }
+        toUnit: "kg",
+        factor: 0.4025,
+      },
     ],
-    "code": "GIAY_ANH_1_MAT_BONG_CT_135G_A4"
+    code: "GIAY_ANH_1_MAT_BONG_CT_135G_A4",
   },
   {
-    "name": "Giấy ảnh 1 mặt bóng -  CT 160g",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A4",
-    "initialStock": 640,
-    "conversions": [
+    name: "Giấy ảnh 1 mặt bóng -  CT 160g",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A4",
+    initialStock: 640,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 50.0
+        toUnit: "to",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 3.1185
+        toUnit: "m2",
+        factor: 3.1185,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.4875
-      }
+        toUnit: "kg",
+        factor: 0.4875,
+      },
     ],
-    "code": "GIAY_ANH_1_MAT_BONG_CT_160G_A4"
+    code: "GIAY_ANH_1_MAT_BONG_CT_160G_A4",
   },
   {
-    "name": "Giấy ảnh 1 mặt bóng -  CT 180g",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A4",
-    "initialStock": 200,
-    "conversions": [
+    name: "Giấy ảnh 1 mặt bóng -  CT 180g",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A4",
+    initialStock: 200,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 100.0
+        toUnit: "to",
+        factor: 100.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 6.237
+        toUnit: "m2",
+        factor: 6.237,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.633333
-      }
+        toUnit: "kg",
+        factor: 0.633333,
+      },
     ],
-    "code": "GIAY_ANH_1_MAT_BONG_CT_180G_A4"
+    code: "GIAY_ANH_1_MAT_BONG_CT_180G_A4",
   },
   {
-    "name": "Giấy ảnh 1 mặt bóng -  CT 180g",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A3",
-    "initialStock": 200,
-    "conversions": [
+    name: "Giấy ảnh 1 mặt bóng -  CT 180g",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A3",
+    initialStock: 200,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 100.0
+        toUnit: "to",
+        factor: 100.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 12.474
+        toUnit: "m2",
+        factor: 12.474,
       },
       {
-        "toUnit": "kg",
-        "factor": 1.255556
-      }
+        toUnit: "kg",
+        factor: 1.255556,
+      },
     ],
-    "code": "GIAY_ANH_1_MAT_BONG_CT_180G_A3"
+    code: "GIAY_ANH_1_MAT_BONG_CT_180G_A3",
   },
   {
-    "name": "Màng Plastic",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "8C",
-    "initialStock": 594,
-    "conversions": [
+    name: "Màng Plastic",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "8C",
+    initialStock: 594,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 100.0
+        toUnit: "to",
+        factor: 100.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 6.776
+        toUnit: "m2",
+        factor: 6.776,
       },
       {
-        "toUnit": "kg",
-        "factor": 1.8
-      }
+        toUnit: "kg",
+        factor: 1.8,
+      },
     ],
-    "code": "MANG_PLASTIC_8C"
+    code: "MANG_PLASTIC_8C",
   },
   {
-    "name": "Giấy ảnh 2 mặt bóng -  CT 300",
-    "categoryCode": "GIAY_ANH_XAP",
-    "baseUnit": "xap",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "A4",
-    "initialStock": 1411,
-    "conversions": [
+    name: "Giấy ảnh 2 mặt bóng -  CT 300",
+    categoryCode: "GIAY_ANH_XAP",
+    baseUnit: "xap",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "A4",
+    initialStock: 1411,
+    conversions: [
       {
-        "toUnit": "to",
-        "factor": 50.0
+        toUnit: "to",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 3.1185
+        toUnit: "m2",
+        factor: 3.1185,
       },
       {
-        "toUnit": "kg",
-        "factor": 0.99
-      }
+        toUnit: "kg",
+        factor: 0.99,
+      },
     ],
-    "code": "GIAY_ANH_2_MAT_BONG_CT_300_A4"
-  }
+    code: "GIAY_ANH_2_MAT_BONG_CT_300_A4",
+  },
 ];
 
 // RUOT_PVC_VIEN — 17 products
 export const ruotPvcVien: SeedProduct[] = [
   {
-    "name": "PVC 0.5",
-    "categoryCode": "RUOT_PVC_VIEN",
-    "baseUnit": "to",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "21x21",
-    "initialStock": 16800,
-    "conversions": [
+    name: "PVC 0.5",
+    categoryCode: "RUOT_PVC_VIEN",
+    baseUnit: "to",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "21x21",
+    initialStock: 16800,
+    conversions: [
       {
-        "toUnit": "m2",
-        "factor": 0.0441
-      }
+        toUnit: "m2",
+        factor: 0.0441,
+      },
     ],
-    "code": "PVC_0_5_21X21"
+    code: "PVC_0_5_21X21",
   },
   {
-    "name": "PVC 0.5",
-    "categoryCode": "RUOT_PVC_VIEN",
-    "baseUnit": "to",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "21x31",
-    "initialStock": 16000,
-    "conversions": [
+    name: "PVC 0.5",
+    categoryCode: "RUOT_PVC_VIEN",
+    baseUnit: "to",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "21x31",
+    initialStock: 16000,
+    conversions: [
       {
-        "toUnit": "m2",
-        "factor": 0.0651
-      }
+        toUnit: "m2",
+        factor: 0.0651,
+      },
     ],
-    "code": "PVC_0_5_21X31"
+    code: "PVC_0_5_21X31",
   },
   {
-    "name": "PVC 0.5",
-    "categoryCode": "RUOT_PVC_VIEN",
-    "baseUnit": "to",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "26x26",
-    "initialStock": 20000,
-    "conversions": [
+    name: "PVC 0.5",
+    categoryCode: "RUOT_PVC_VIEN",
+    baseUnit: "to",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "26x26",
+    initialStock: 20000,
+    conversions: [
       {
-        "toUnit": "m2",
-        "factor": 0.0676
-      }
+        toUnit: "m2",
+        factor: 0.0676,
+      },
     ],
-    "code": "PVC_0_5_26X26"
+    code: "PVC_0_5_26X26",
   },
   {
-    "name": "PVC 0.5",
-    "categoryCode": "RUOT_PVC_VIEN",
-    "baseUnit": "to",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "26x36",
-    "initialStock": 41600,
-    "conversions": [
+    name: "PVC 0.5",
+    categoryCode: "RUOT_PVC_VIEN",
+    baseUnit: "to",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "26x36",
+    initialStock: 41600,
+    conversions: [
       {
-        "toUnit": "m2",
-        "factor": 0.0936
-      }
+        toUnit: "m2",
+        factor: 0.0936,
+      },
     ],
-    "code": "PVC_0_5_26X36-001"
+    code: "PVC_0_5_26X36-001",
   },
   {
-    "name": "PVC 0.5",
-    "categoryCode": "RUOT_PVC_VIEN",
-    "baseUnit": "to",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "26x36",
-    "initialStock": 49000,
-    "conversions": [
+    name: "PVC 0.5",
+    categoryCode: "RUOT_PVC_VIEN",
+    baseUnit: "to",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "26x36",
+    initialStock: 49000,
+    conversions: [
       {
-        "toUnit": "m2",
-        "factor": 0.0936
-      }
+        toUnit: "m2",
+        factor: 0.0936,
+      },
     ],
-    "code": "PVC_0_5_26X36-002"
+    code: "PVC_0_5_26X36-002",
   },
   {
-    "name": "PVC 0.5",
-    "categoryCode": "RUOT_PVC_VIEN",
-    "baseUnit": "to",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "31x31",
-    "initialStock": 48800,
-    "conversions": [
+    name: "PVC 0.5",
+    categoryCode: "RUOT_PVC_VIEN",
+    baseUnit: "to",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "31x31",
+    initialStock: 48800,
+    conversions: [
       {
-        "toUnit": "m2",
-        "factor": 0.0961
-      }
+        toUnit: "m2",
+        factor: 0.0961,
+      },
     ],
-    "code": "PVC_0_5_31X31-001"
+    code: "PVC_0_5_31X31-001",
   },
   {
-    "name": "PVC 0.5",
-    "categoryCode": "RUOT_PVC_VIEN",
-    "baseUnit": "to",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "31x31",
-    "initialStock": 24500,
-    "conversions": [
+    name: "PVC 0.5",
+    categoryCode: "RUOT_PVC_VIEN",
+    baseUnit: "to",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "31x31",
+    initialStock: 24500,
+    conversions: [
       {
-        "toUnit": "m2",
-        "factor": 0.0961
-      }
+        toUnit: "m2",
+        factor: 0.0961,
+      },
     ],
-    "code": "PVC_0_5_31X31-002"
+    code: "PVC_0_5_31X31-002",
   },
   {
-    "name": "PVC 0.5",
-    "categoryCode": "RUOT_PVC_VIEN",
-    "baseUnit": "to",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "31x41",
-    "initialStock": 10000,
-    "conversions": [
+    name: "PVC 0.5",
+    categoryCode: "RUOT_PVC_VIEN",
+    baseUnit: "to",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "31x41",
+    initialStock: 10000,
+    conversions: [
       {
-        "toUnit": "m2",
-        "factor": 0.1271
-      }
+        toUnit: "m2",
+        factor: 0.1271,
+      },
     ],
-    "code": "PVC_0_5_31X41"
+    code: "PVC_0_5_31X41",
   },
   {
-    "name": "PVC 0.5",
-    "categoryCode": "RUOT_PVC_VIEN",
-    "baseUnit": "to",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "63x93",
-    "initialStock": 3100,
-    "conversions": [
+    name: "PVC 0.5",
+    categoryCode: "RUOT_PVC_VIEN",
+    baseUnit: "to",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "63x93",
+    initialStock: 3100,
+    conversions: [
       {
-        "toUnit": "m2",
-        "factor": 0.5859
-      }
+        toUnit: "m2",
+        factor: 0.5859,
+      },
     ],
-    "code": "PVC_0_5_63X93-001"
+    code: "PVC_0_5_63X93-001",
   },
   {
-    "name": "PVC 0.5",
-    "categoryCode": "RUOT_PVC_VIEN",
-    "baseUnit": "to",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "63x93",
-    "initialStock": 1500,
-    "conversions": [
+    name: "PVC 0.5",
+    categoryCode: "RUOT_PVC_VIEN",
+    baseUnit: "to",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "63x93",
+    initialStock: 1500,
+    conversions: [
       {
-        "toUnit": "m2",
-        "factor": 0.5859
-      }
+        toUnit: "m2",
+        factor: 0.5859,
+      },
     ],
-    "code": "PVC_0_5_63X93-002"
+    code: "PVC_0_5_63X93-002",
   },
   {
-    "name": "PVC hàng đặt",
-    "categoryCode": "RUOT_PVC_VIEN",
-    "baseUnit": "to",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "63x93",
-    "initialStock": 0,
-    "conversions": [
+    name: "PVC hàng đặt",
+    categoryCode: "RUOT_PVC_VIEN",
+    baseUnit: "to",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "63x93",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m2",
-        "factor": 0.5859
-      }
+        toUnit: "m2",
+        factor: 0.5859,
+      },
     ],
-    "code": "PVC_HANG_DAT_63X93"
+    code: "PVC_HANG_DAT_63X93",
   },
   {
-    "name": "Sợi PVC - U9",
-    "categoryCode": "RUOT_PVC_VIEN",
-    "baseUnit": "to",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "VÀNG",
-    "initialStock": 0,
-    "conversions": [
+    name: "Sợi PVC - U9",
+    categoryCode: "RUOT_PVC_VIEN",
+    baseUnit: "to",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "VÀNG",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m2",
-        "factor": 1.0
-      }
+        toUnit: "m2",
+        factor: 1.0,
+      },
     ],
-    "code": "SOI_PVC_U9_VANG"
+    code: "SOI_PVC_U9_VANG",
   },
   {
-    "name": "Sợi PVC - U9",
-    "categoryCode": "RUOT_PVC_VIEN",
-    "baseUnit": "to",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "BẠC",
-    "initialStock": 0,
-    "conversions": [
+    name: "Sợi PVC - U9",
+    categoryCode: "RUOT_PVC_VIEN",
+    baseUnit: "to",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "BẠC",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m2",
-        "factor": 1.0
-      }
+        toUnit: "m2",
+        factor: 1.0,
+      },
     ],
-    "code": "SOI_PVC_U9_BAC"
+    code: "SOI_PVC_U9_BAC",
   },
   {
-    "name": "Sợi PVC - U13",
-    "categoryCode": "RUOT_PVC_VIEN",
-    "baseUnit": "to",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "VÀNG",
-    "initialStock": 0,
-    "conversions": [
+    name: "Sợi PVC - U13",
+    categoryCode: "RUOT_PVC_VIEN",
+    baseUnit: "to",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "VÀNG",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m2",
-        "factor": 1.0
-      }
+        toUnit: "m2",
+        factor: 1.0,
+      },
     ],
-    "code": "SOI_PVC_U13_VANG"
+    code: "SOI_PVC_U13_VANG",
   },
   {
-    "name": "Sợi PVC - U13",
-    "categoryCode": "RUOT_PVC_VIEN",
-    "baseUnit": "to",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "BẠC",
-    "initialStock": 0,
-    "conversions": [
+    name: "Sợi PVC - U13",
+    categoryCode: "RUOT_PVC_VIEN",
+    baseUnit: "to",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "BẠC",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m2",
-        "factor": 1.0
-      }
+        toUnit: "m2",
+        factor: 1.0,
+      },
     ],
-    "code": "SOI_PVC_U13_BAC"
+    code: "SOI_PVC_U13_BAC",
   },
   {
-    "name": "PVC 0.3",
-    "categoryCode": "RUOT_PVC_VIEN",
-    "baseUnit": "to",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "26x36",
-    "initialStock": 24000,
-    "conversions": [
+    name: "PVC 0.3",
+    categoryCode: "RUOT_PVC_VIEN",
+    baseUnit: "to",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "26x36",
+    initialStock: 24000,
+    conversions: [
       {
-        "toUnit": "m2",
-        "factor": 0.0936
-      }
+        toUnit: "m2",
+        factor: 0.0936,
+      },
     ],
-    "code": "PVC_0_3_26X36"
+    code: "PVC_0_3_26X36",
   },
   {
-    "name": "PVC 0.3",
-    "categoryCode": "RUOT_PVC_VIEN",
-    "baseUnit": "to",
-    "basePrice": "0",
-    "length": null,
-    "width": null,
-    "specText": "63x93",
-    "initialStock": 500,
-    "conversions": [
+    name: "PVC 0.3",
+    categoryCode: "RUOT_PVC_VIEN",
+    baseUnit: "to",
+    basePrice: "0",
+    length: null,
+    width: null,
+    specText: "63x93",
+    initialStock: 500,
+    conversions: [
       {
-        "toUnit": "m2",
-        "factor": 0.5859
-      }
+        toUnit: "m2",
+        factor: 0.5859,
+      },
     ],
-    "code": "PVC_0_3_63X93"
-  }
+    code: "PVC_0_3_63X93",
+  },
 ];
 
 // HIFLEX — 86 products
 export const hiflex: SeedProduct[] = [
   {
-    "name": "Bạt 0.30mm  E  (240G)",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 2.2,
-    "specText": "0.24",
-    "initialStock": 3,
-    "conversions": [
+    name: "Bạt 0.30mm  E  (240G)",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 2.2,
+    specText: "0.24",
+    initialStock: 3,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 176.0
+        toUnit: "m2",
+        factor: 176.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 41.5
-      }
+        toUnit: "kg",
+        factor: 41.5,
+      },
     ],
-    "code": "BAT_0_30MM_E_0_24_2_2_80"
+    code: "BAT_0_30MM_E_0_24_2_2_80",
   },
   {
-    "name": "Bạt 0.30mm  E  (240G)",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 72.0,
-    "width": 2.6,
-    "specText": "0.24",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.30mm  E  (240G)",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 72.0,
+    width: 2.6,
+    specText: "0.24",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 72.0
+        toUnit: "m",
+        factor: 72.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 187.2
+        toUnit: "m2",
+        factor: 187.2,
       },
       {
-        "toUnit": "kg",
-        "factor": 45.1
-      }
+        toUnit: "kg",
+        factor: 45.1,
+      },
     ],
-    "code": "BAT_0_30MM_E_0_24_2_6_72"
+    code: "BAT_0_30MM_E_0_24_2_6_72",
   },
   {
-    "name": "Bạt 0.30mm  E  (240G)",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 2.6,
-    "specText": "0.24",
-    "initialStock": 19,
-    "conversions": [
+    name: "Bạt 0.30mm  E  (240G)",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 2.6,
+    specText: "0.24",
+    initialStock: 19,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 208.0
+        toUnit: "m2",
+        factor: 208.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 49.1
-      }
+        toUnit: "kg",
+        factor: 49.1,
+      },
     ],
-    "code": "BAT_0_30MM_E_0_24_2_6_80"
+    code: "BAT_0_30MM_E_0_24_2_6_80",
   },
   {
-    "name": "Bạt 0.30mm  E  (240G)",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 70.0,
-    "width": 2.8,
-    "specText": "0.24",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.30mm  E  (240G)",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 70.0,
+    width: 2.8,
+    specText: "0.24",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 70.0
+        toUnit: "m",
+        factor: 70.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 196.0
+        toUnit: "m2",
+        factor: 196.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 50.4
-      }
+        toUnit: "kg",
+        factor: 50.4,
+      },
     ],
-    "code": "BAT_0_30MM_E_0_24_2_8_70"
+    code: "BAT_0_30MM_E_0_24_2_8_70",
   },
   {
-    "name": "Bạt 0.30mm  E  (240G)",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 2.8,
-    "specText": "0.24",
-    "initialStock": 17,
-    "conversions": [
+    name: "Bạt 0.30mm  E  (240G)",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 2.8,
+    specText: "0.24",
+    initialStock: 17,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 224.0
+        toUnit: "m2",
+        factor: 224.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 54.6
-      }
+        toUnit: "kg",
+        factor: 54.6,
+      },
     ],
-    "code": "BAT_0_30MM_E_0_24_2_8_80"
+    code: "BAT_0_30MM_E_0_24_2_8_80",
   },
   {
-    "name": "Bạt 0.30mm  E  (240G)",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 3.1,
-    "specText": "0.24",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.30mm  E  (240G)",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 3.1,
+    specText: "0.24",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 248.0
+        toUnit: "m2",
+        factor: 248.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 58.8
-      }
+        toUnit: "kg",
+        factor: 58.8,
+      },
     ],
-    "code": "BAT_0_30MM_E_0_24_3_1_80"
+    code: "BAT_0_30MM_E_0_24_3_1_80",
   },
   {
-    "name": "Bạt 0.30mm  E  (240G)",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 62.0,
-    "width": 3.1,
-    "specText": "0.24",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.30mm  E  (240G)",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 62.0,
+    width: 3.1,
+    specText: "0.24",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 62.0
+        toUnit: "m",
+        factor: 62.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 192.2
+        toUnit: "m2",
+        factor: 192.2,
       },
       {
-        "toUnit": "kg",
-        "factor": 45.7
-      }
+        toUnit: "kg",
+        factor: 45.7,
+      },
     ],
-    "code": "BAT_0_30MM_E_0_24_3_1_62"
+    code: "BAT_0_30MM_E_0_24_3_1_62",
   },
   {
-    "name": "Bạt 0.30mm  E  (240G)",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 3.2,
-    "specText": "0.24",
-    "initialStock": 55,
-    "conversions": [
+    name: "Bạt 0.30mm  E  (240G)",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 3.2,
+    specText: "0.24",
+    initialStock: 55,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 256.0
+        toUnit: "m2",
+        factor: 256.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 60.2
-      }
+        toUnit: "kg",
+        factor: 60.2,
+      },
     ],
-    "code": "BAT_0_30MM_E_0_24_3_2_80"
+    code: "BAT_0_30MM_E_0_24_3_2_80",
   },
   {
-    "name": "Bạt 0.30mm  E  (240G)",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 70.0,
-    "width": 3.2,
-    "specText": "0.24",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.30mm  E  (240G)",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 70.0,
+    width: 3.2,
+    specText: "0.24",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 70.0
+        toUnit: "m",
+        factor: 70.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 224.0
-      }
+        toUnit: "m2",
+        factor: 224.0,
+      },
     ],
-    "code": "BAT_0_30MM_E_0_24_3_2_70"
+    code: "BAT_0_30MM_E_0_24_3_2_70",
   },
   {
-    "name": "Bạt 0.32mm (280g) -C",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 2.1,
-    "specText": "0.28",
-    "initialStock": 43,
-    "conversions": [
+    name: "Bạt 0.32mm (280g) -C",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 2.1,
+    specText: "0.28",
+    initialStock: 43,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 168.0
+        toUnit: "m2",
+        factor: 168.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 52.5
-      }
+        toUnit: "kg",
+        factor: 52.5,
+      },
     ],
-    "code": "BAT_0_32MM_C_0_28_2_1_80"
+    code: "BAT_0_32MM_C_0_28_2_1_80",
   },
   {
-    "name": "Bạt 0.32mm (280g) -C",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 63.0,
-    "width": 2.1,
-    "specText": "0.28",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (280g) -C",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 63.0,
+    width: 2.1,
+    specText: "0.28",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 63.0
+        toUnit: "m",
+        factor: 63.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 132.3
+        toUnit: "m2",
+        factor: 132.3,
       },
       {
-        "toUnit": "kg",
-        "factor": 41.5
-      }
+        toUnit: "kg",
+        factor: 41.5,
+      },
     ],
-    "code": "BAT_0_32MM_C_0_28_2_1_63"
+    code: "BAT_0_32MM_C_0_28_2_1_63",
   },
   {
-    "name": "Bạt 0.32mm (280g) -C",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 70.0,
-    "width": 2.1,
-    "specText": "0.28",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (280g) -C",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 70.0,
+    width: 2.1,
+    specText: "0.28",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 70.0
+        toUnit: "m",
+        factor: 70.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 147.0
-      }
+        toUnit: "m2",
+        factor: 147.0,
+      },
     ],
-    "code": "BAT_0_32MM_C_0_28_2_1_70"
+    code: "BAT_0_32MM_C_0_28_2_1_70",
   },
   {
-    "name": "Bạt 0.32mm (280g) -C",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 2.2,
-    "specText": "0.28",
-    "initialStock": 11,
-    "conversions": [
+    name: "Bạt 0.32mm (280g) -C",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 2.2,
+    specText: "0.28",
+    initialStock: 11,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 176.0
+        toUnit: "m2",
+        factor: 176.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 54.0
-      }
+        toUnit: "kg",
+        factor: 54.0,
+      },
     ],
-    "code": "BAT_0_32MM_C_0_28_2_2_80"
+    code: "BAT_0_32MM_C_0_28_2_2_80",
   },
   {
-    "name": "Bạt 0.32mm (280g) -C",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 69.0,
-    "width": 2.2,
-    "specText": "0.28",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (280g) -C",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 69.0,
+    width: 2.2,
+    specText: "0.28",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 69.0
+        toUnit: "m",
+        factor: 69.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 151.8
+        toUnit: "m2",
+        factor: 151.8,
       },
       {
-        "toUnit": "kg",
-        "factor": 47.0
-      }
+        toUnit: "kg",
+        factor: 47.0,
+      },
     ],
-    "code": "BAT_0_32MM_C_0_28_2_2_69"
+    code: "BAT_0_32MM_C_0_28_2_2_69",
   },
   {
-    "name": "Bạt 0.32mm (280g) -C",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 2.6,
-    "specText": "0.28",
-    "initialStock": 52,
-    "conversions": [
+    name: "Bạt 0.32mm (280g) -C",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 2.6,
+    specText: "0.28",
+    initialStock: 52,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 208.0
+        toUnit: "m2",
+        factor: 208.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 63.1
-      }
+        toUnit: "kg",
+        factor: 63.1,
+      },
     ],
-    "code": "BAT_0_32MM_C_0_28_2_6_80"
+    code: "BAT_0_32MM_C_0_28_2_6_80",
   },
   {
-    "name": "Bạt 0.32mm (280g) -C",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 65.0,
-    "width": 2.6,
-    "specText": "0.28",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (280g) -C",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 65.0,
+    width: 2.6,
+    specText: "0.28",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 65.0
+        toUnit: "m",
+        factor: 65.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 169.0
+        toUnit: "m2",
+        factor: 169.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 53.0
-      }
+        toUnit: "kg",
+        factor: 53.0,
+      },
     ],
-    "code": "BAT_0_32MM_C_0_28_2_6_65"
+    code: "BAT_0_32MM_C_0_28_2_6_65",
   },
   {
-    "name": "Bạt 0.32mm (280g) -C",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 2.8,
-    "specText": "0.28",
-    "initialStock": 21,
-    "conversions": [
+    name: "Bạt 0.32mm (280g) -C",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 2.8,
+    specText: "0.28",
+    initialStock: 21,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 224.0
+        toUnit: "m2",
+        factor: 224.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 68.9
-      }
+        toUnit: "kg",
+        factor: 68.9,
+      },
     ],
-    "code": "BAT_0_32MM_C_0_28_2_8_80"
+    code: "BAT_0_32MM_C_0_28_2_8_80",
   },
   {
-    "name": "Bạt 0.32mm (280g) -C",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 74.0,
-    "width": 2.8,
-    "specText": "0.28",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (280g) -C",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 74.0,
+    width: 2.8,
+    specText: "0.28",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 74.0
+        toUnit: "m",
+        factor: 74.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 207.2
+        toUnit: "m2",
+        factor: 207.2,
       },
       {
-        "toUnit": "kg",
-        "factor": 60.9
-      }
+        toUnit: "kg",
+        factor: 60.9,
+      },
     ],
-    "code": "BAT_0_32MM_C_0_28_2_8_74"
+    code: "BAT_0_32MM_C_0_28_2_8_74",
   },
   {
-    "name": "Bạt 0.32mm (280g) -C",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 3.0,
-    "specText": "0.28",
-    "initialStock": 34,
-    "conversions": [
+    name: "Bạt 0.32mm (280g) -C",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 3.0,
+    specText: "0.28",
+    initialStock: 34,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 240.0
+        toUnit: "m2",
+        factor: 240.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 72.7
-      }
+        toUnit: "kg",
+        factor: 72.7,
+      },
     ],
-    "code": "BAT_0_32MM_C_0_28_3_80"
+    code: "BAT_0_32MM_C_0_28_3_80",
   },
   {
-    "name": "Bạt 0.32mm (280g) -C",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 65.0,
-    "width": 3.1,
-    "specText": "0.28",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (280g) -C",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 65.0,
+    width: 3.1,
+    specText: "0.28",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 65.0
+        toUnit: "m",
+        factor: 65.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 201.5
+        toUnit: "m2",
+        factor: 201.5,
       },
       {
-        "toUnit": "kg",
-        "factor": 59.2
-      }
+        toUnit: "kg",
+        factor: 59.2,
+      },
     ],
-    "code": "BAT_0_32MM_C_0_28_3_1_65"
+    code: "BAT_0_32MM_C_0_28_3_1_65",
   },
   {
-    "name": "Bạt 0.32mm (280g) -C",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 3.1,
-    "specText": "0.28",
-    "initialStock": 50,
-    "conversions": [
+    name: "Bạt 0.32mm (280g) -C",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 3.1,
+    specText: "0.28",
+    initialStock: 50,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 248.0
+        toUnit: "m2",
+        factor: 248.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 75.3
-      }
+        toUnit: "kg",
+        factor: 75.3,
+      },
     ],
-    "code": "BAT_0_32MM_C_0_28_3_1_80"
+    code: "BAT_0_32MM_C_0_28_3_1_80",
   },
   {
-    "name": "Bạt 0.32mm (280g) -C",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 3.2,
-    "specText": "0.28",
-    "initialStock": 61,
-    "conversions": [
+    name: "Bạt 0.32mm (280g) -C",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 3.2,
+    specText: "0.28",
+    initialStock: 61,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 256.0
+        toUnit: "m2",
+        factor: 256.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 78.1
-      }
+        toUnit: "kg",
+        factor: 78.1,
+      },
     ],
-    "code": "BAT_0_32MM_C_0_28_3_2_80"
+    code: "BAT_0_32MM_C_0_28_3_2_80",
   },
   {
-    "name": "Bạt 0.32mm (280g) -C",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 70.0,
-    "width": 3.2,
-    "specText": "0.28",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (280g) -C",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 70.0,
+    width: 3.2,
+    specText: "0.28",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 70.0
+        toUnit: "m",
+        factor: 70.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 224.0
+        toUnit: "m2",
+        factor: 224.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 66.7
-      }
+        toUnit: "kg",
+        factor: 66.7,
+      },
     ],
-    "code": "BAT_0_32MM_C_0_28_3_2_70"
+    code: "BAT_0_32MM_C_0_28_3_2_70",
   },
   {
-    "name": "Bạt 0.32mm (280g) -C",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 75.0,
-    "width": 3.2,
-    "specText": "0.28",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (280g) -C",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 75.0,
+    width: 3.2,
+    specText: "0.28",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 75.0
+        toUnit: "m",
+        factor: 75.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 240.0
-      }
+        toUnit: "m2",
+        factor: 240.0,
+      },
     ],
-    "code": "BAT_0_32MM_C_0_28_3_2_75"
+    code: "BAT_0_32MM_C_0_28_3_2_75",
   },
   {
-    "name": "Bạt 0.32mm (280g) -C",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 68.0,
-    "width": 3.2,
-    "specText": "0.28",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (280g) -C",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 68.0,
+    width: 3.2,
+    specText: "0.28",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 68.0
+        toUnit: "m",
+        factor: 68.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 217.6
-      }
+        toUnit: "m2",
+        factor: 217.6,
+      },
     ],
-    "code": "BAT_0_32MM_C_0_28_3_2_68"
+    code: "BAT_0_32MM_C_0_28_3_2_68",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 1.0,
-    "specText": "0.3",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 1.0,
+    specText: "0.3",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 80.0
+        toUnit: "m2",
+        factor: 80.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 27.0
-      }
+        toUnit: "kg",
+        factor: 27.0,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_1_80"
+    code: "BAT_0_32MM_D_0_3_1_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 0.9,
-    "specText": "0.3",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 0.9,
+    specText: "0.3",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 72.0
+        toUnit: "m2",
+        factor: 72.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 24.6
-      }
+        toUnit: "kg",
+        factor: 24.6,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_0_9_80"
+    code: "BAT_0_32MM_D_0_3_0_9_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 79.0,
-    "width": 0.9,
-    "specText": "0.3",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 79.0,
+    width: 0.9,
+    specText: "0.3",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 79.0
+        toUnit: "m",
+        factor: 79.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 71.1
-      }
+        toUnit: "m2",
+        factor: 71.1,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_0_9_79"
+    code: "BAT_0_32MM_D_0_3_0_9_79",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 76.0,
-    "width": 0.9,
-    "specText": "0.3",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 76.0,
+    width: 0.9,
+    specText: "0.3",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 76.0
+        toUnit: "m",
+        factor: 76.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 68.4
-      }
+        toUnit: "m2",
+        factor: 68.4,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_0_9_76"
+    code: "BAT_0_32MM_D_0_3_0_9_76",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 1.3,
-    "specText": "0.3",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 1.3,
+    specText: "0.3",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 104.0
+        toUnit: "m2",
+        factor: 104.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 33.2
-      }
+        toUnit: "kg",
+        factor: 33.2,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_1_3_80"
+    code: "BAT_0_32MM_D_0_3_1_3_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 70.0,
-    "width": 1.3,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 70.0,
+    width: 1.3,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 70.0
+        toUnit: "m",
+        factor: 70.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 91.0
+        toUnit: "m2",
+        factor: 91.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 29.5
-      }
+        toUnit: "kg",
+        factor: 29.5,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_1_3_70"
+    code: "BAT_0_32MM_D_0_3_1_3_70",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 1.4,
-    "specText": "0.3",
-    "initialStock": 17,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 1.4,
+    specText: "0.3",
+    initialStock: 17,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 112.0
+        toUnit: "m2",
+        factor: 112.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 35.9
-      }
+        toUnit: "kg",
+        factor: 35.9,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_1_4_80"
+    code: "BAT_0_32MM_D_0_3_1_4_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 65.0,
-    "width": 1.4,
-    "specText": "0.3",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 65.0,
+    width: 1.4,
+    specText: "0.3",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 65.0
+        toUnit: "m",
+        factor: 65.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 91.0
+        toUnit: "m2",
+        factor: 91.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 29.7
-      }
+        toUnit: "kg",
+        factor: 29.7,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_1_4_65"
+    code: "BAT_0_32MM_D_0_3_1_4_65",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 1.5,
-    "specText": "0.3",
-    "initialStock": 37,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 1.5,
+    specText: "0.3",
+    initialStock: 37,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 120.0
+        toUnit: "m2",
+        factor: 120.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 38.2
-      }
+        toUnit: "kg",
+        factor: 38.2,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_1_5_80"
+    code: "BAT_0_32MM_D_0_3_1_5_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 73.0,
-    "width": 1.5,
-    "specText": "0.3",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 73.0,
+    width: 1.5,
+    specText: "0.3",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 73.0
+        toUnit: "m",
+        factor: 73.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 109.5
+        toUnit: "m2",
+        factor: 109.5,
       },
       {
-        "toUnit": "kg",
-        "factor": 35.0
-      }
+        toUnit: "kg",
+        factor: 35.0,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_1_5_73"
+    code: "BAT_0_32MM_D_0_3_1_5_73",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 75.0,
-    "width": 1.5,
-    "specText": "0.3",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 75.0,
+    width: 1.5,
+    specText: "0.3",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 75.0
+        toUnit: "m",
+        factor: 75.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 112.5
+        toUnit: "m2",
+        factor: 112.5,
       },
       {
-        "toUnit": "kg",
-        "factor": 36.3
-      }
+        toUnit: "kg",
+        factor: 36.3,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_1_5_75"
+    code: "BAT_0_32MM_D_0_3_1_5_75",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 1.6,
-    "specText": "0.3",
-    "initialStock": 29,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 1.6,
+    specText: "0.3",
+    initialStock: 29,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 128.0
+        toUnit: "m2",
+        factor: 128.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 41.4
-      }
+        toUnit: "kg",
+        factor: 41.4,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_1_6_80"
+    code: "BAT_0_32MM_D_0_3_1_6_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 65.0,
-    "width": 1.6,
-    "specText": "0.3",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 65.0,
+    width: 1.6,
+    specText: "0.3",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 65.0
+        toUnit: "m",
+        factor: 65.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 104.0
+        toUnit: "m2",
+        factor: 104.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 33.7
-      }
+        toUnit: "kg",
+        factor: 33.7,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_1_6_65"
+    code: "BAT_0_32MM_D_0_3_1_6_65",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 1.7,
-    "specText": "0.3",
-    "initialStock": 40,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 1.7,
+    specText: "0.3",
+    initialStock: 40,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 136.0
+        toUnit: "m2",
+        factor: 136.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 43.6
-      }
+        toUnit: "kg",
+        factor: 43.6,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_1_7_80"
+    code: "BAT_0_32MM_D_0_3_1_7_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 70.0,
-    "width": 1.7,
-    "specText": "0.3",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 70.0,
+    width: 1.7,
+    specText: "0.3",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 70.0
+        toUnit: "m",
+        factor: 70.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 119.0
+        toUnit: "m2",
+        factor: 119.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 38.6
-      }
+        toUnit: "kg",
+        factor: 38.6,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_1_7_70"
+    code: "BAT_0_32MM_D_0_3_1_7_70",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 1.8,
-    "specText": "0.3",
-    "initialStock": 23,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 1.8,
+    specText: "0.3",
+    initialStock: 23,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 144.0
+        toUnit: "m2",
+        factor: 144.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 46.1
-      }
+        toUnit: "kg",
+        factor: 46.1,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_1_8_80"
+    code: "BAT_0_32MM_D_0_3_1_8_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 70.0,
-    "width": 1.8,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 70.0,
+    width: 1.8,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 70.0
+        toUnit: "m",
+        factor: 70.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 126.0
+        toUnit: "m2",
+        factor: 126.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 42.5
-      }
+        toUnit: "kg",
+        factor: 42.5,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_1_8_70"
+    code: "BAT_0_32MM_D_0_3_1_8_70",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 74.0,
-    "width": 1.8,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 74.0,
+    width: 1.8,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 74.0
+        toUnit: "m",
+        factor: 74.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 133.2
-      }
+        toUnit: "m2",
+        factor: 133.2,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_1_8_74"
+    code: "BAT_0_32MM_D_0_3_1_8_74",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 63.0,
-    "width": 1.8,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 63.0,
+    width: 1.8,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 63.0
+        toUnit: "m",
+        factor: 63.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 113.4
-      }
+        toUnit: "m2",
+        factor: 113.4,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_1_8_63"
+    code: "BAT_0_32MM_D_0_3_1_8_63",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 1.9,
-    "specText": "0.3",
-    "initialStock": 6,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 1.9,
+    specText: "0.3",
+    initialStock: 6,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 152.0
+        toUnit: "m2",
+        factor: 152.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 48.9
-      }
+        toUnit: "kg",
+        factor: 48.9,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_1_9_80"
+    code: "BAT_0_32MM_D_0_3_1_9_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 2.0,
-    "specText": "0.3",
-    "initialStock": 21,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 2.0,
+    specText: "0.3",
+    initialStock: 21,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 160.0
+        toUnit: "m2",
+        factor: 160.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 51.9
-      }
+        toUnit: "kg",
+        factor: 51.9,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_80"
+    code: "BAT_0_32MM_D_0_3_2_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 72.0,
-    "width": 2.0,
-    "specText": "0.3",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 72.0,
+    width: 2.0,
+    specText: "0.3",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 72.0
+        toUnit: "m",
+        factor: 72.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 144.0
+        toUnit: "m2",
+        factor: 144.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 46.6
-      }
+        toUnit: "kg",
+        factor: 46.6,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_72"
+    code: "BAT_0_32MM_D_0_3_2_72",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 2.1,
-    "specText": "0.3",
-    "initialStock": 18,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 2.1,
+    specText: "0.3",
+    initialStock: 18,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 168.0
+        toUnit: "m2",
+        factor: 168.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 53.4
-      }
+        toUnit: "kg",
+        factor: 53.4,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_1_80"
+    code: "BAT_0_32MM_D_0_3_2_1_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 75.0,
-    "width": 2.1,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 75.0,
+    width: 2.1,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 75.0
+        toUnit: "m",
+        factor: 75.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 157.5
+        toUnit: "m2",
+        factor: 157.5,
       },
       {
-        "toUnit": "kg",
-        "factor": 50.9
-      }
+        toUnit: "kg",
+        factor: 50.9,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_1_75"
+    code: "BAT_0_32MM_D_0_3_2_1_75",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 50.0,
-    "width": 2.1,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 50.0,
+    width: 2.1,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 50.0
+        toUnit: "m",
+        factor: 50.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 105.0
+        toUnit: "m2",
+        factor: 105.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 34.7
-      }
+        toUnit: "kg",
+        factor: 34.7,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_1_50"
+    code: "BAT_0_32MM_D_0_3_2_1_50",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 2.2,
-    "specText": "0.3",
-    "initialStock": 37,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 2.2,
+    specText: "0.3",
+    initialStock: 37,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 176.0
+        toUnit: "m2",
+        factor: 176.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 57.4
-      }
+        toUnit: "kg",
+        factor: 57.4,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_2_80"
+    code: "BAT_0_32MM_D_0_3_2_2_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 61.0,
-    "width": 2.2,
-    "specText": "0.3",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 61.0,
+    width: 2.2,
+    specText: "0.3",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 61.0
+        toUnit: "m",
+        factor: 61.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 134.2
+        toUnit: "m2",
+        factor: 134.2,
       },
       {
-        "toUnit": "kg",
-        "factor": 44.0
-      }
+        toUnit: "kg",
+        factor: 44.0,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_2_61"
+    code: "BAT_0_32MM_D_0_3_2_2_61",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 70.0,
-    "width": 2.2,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 70.0,
+    width: 2.2,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 70.0
+        toUnit: "m",
+        factor: 70.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 154.0
+        toUnit: "m2",
+        factor: 154.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 50.3
-      }
+        toUnit: "kg",
+        factor: 50.3,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_2_70"
+    code: "BAT_0_32MM_D_0_3_2_2_70",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 2.3,
-    "specText": "0.3",
-    "initialStock": 32,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 2.3,
+    specText: "0.3",
+    initialStock: 32,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 184.0
+        toUnit: "m2",
+        factor: 184.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 59.1
-      }
+        toUnit: "kg",
+        factor: 59.1,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_3_80"
+    code: "BAT_0_32MM_D_0_3_2_3_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 70.0,
-    "width": 2.3,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 70.0,
+    width: 2.3,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 70.0
+        toUnit: "m",
+        factor: 70.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 161.0
+        toUnit: "m2",
+        factor: 161.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 53.2
-      }
+        toUnit: "kg",
+        factor: 53.2,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_3_70"
+    code: "BAT_0_32MM_D_0_3_2_3_70",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 77.0,
-    "width": 2.3,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 77.0,
+    width: 2.3,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 77.0
+        toUnit: "m",
+        factor: 77.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 177.1
+        toUnit: "m2",
+        factor: 177.1,
       },
       {
-        "toUnit": "kg",
-        "factor": 57.2
-      }
+        toUnit: "kg",
+        factor: 57.2,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_3_77"
+    code: "BAT_0_32MM_D_0_3_2_3_77",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 68.0,
-    "width": 2.3,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 68.0,
+    width: 2.3,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 68.0
+        toUnit: "m",
+        factor: 68.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 156.4
+        toUnit: "m2",
+        factor: 156.4,
       },
       {
-        "toUnit": "kg",
-        "factor": 50.7
-      }
+        toUnit: "kg",
+        factor: 50.7,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_3_68"
+    code: "BAT_0_32MM_D_0_3_2_3_68",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 64.0,
-    "width": 2.3,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 64.0,
+    width: 2.3,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 64.0
+        toUnit: "m",
+        factor: 64.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 147.2
+        toUnit: "m2",
+        factor: 147.2,
       },
       {
-        "toUnit": "kg",
-        "factor": 48.5
-      }
+        toUnit: "kg",
+        factor: 48.5,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_3_64"
+    code: "BAT_0_32MM_D_0_3_2_3_64",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 2.4,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 2.4,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 192.0
+        toUnit: "m2",
+        factor: 192.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 63.7
-      }
+        toUnit: "kg",
+        factor: 63.7,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_4_80"
+    code: "BAT_0_32MM_D_0_3_2_4_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 67.0,
-    "width": 2.4,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 67.0,
+    width: 2.4,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 67.0
+        toUnit: "m",
+        factor: 67.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 160.8
+        toUnit: "m2",
+        factor: 160.8,
       },
       {
-        "toUnit": "kg",
-        "factor": 52.0
-      }
+        toUnit: "kg",
+        factor: 52.0,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_4_67"
+    code: "BAT_0_32MM_D_0_3_2_4_67",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 2.5,
-    "specText": "0.3",
-    "initialStock": 6,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 2.5,
+    specText: "0.3",
+    initialStock: 6,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 200.0
+        toUnit: "m2",
+        factor: 200.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 62.3
-      }
+        toUnit: "kg",
+        factor: 62.3,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_5_80"
+    code: "BAT_0_32MM_D_0_3_2_5_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 79.0,
-    "width": 2.5,
-    "specText": "0.3",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 79.0,
+    width: 2.5,
+    specText: "0.3",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 79.0
+        toUnit: "m",
+        factor: 79.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 197.5
-      }
+        toUnit: "m2",
+        factor: 197.5,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_5_79"
+    code: "BAT_0_32MM_D_0_3_2_5_79",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 2.6,
-    "specText": "0.3",
-    "initialStock": 10,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 2.6,
+    specText: "0.3",
+    initialStock: 10,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 208.0
+        toUnit: "m2",
+        factor: 208.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 66.5
-      }
+        toUnit: "kg",
+        factor: 66.5,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_6_80"
+    code: "BAT_0_32MM_D_0_3_2_6_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 75.0,
-    "width": 2.6,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 75.0,
+    width: 2.6,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 75.0
+        toUnit: "m",
+        factor: 75.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 195.0
+        toUnit: "m2",
+        factor: 195.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 63.0
-      }
+        toUnit: "kg",
+        factor: 63.0,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_6_75"
+    code: "BAT_0_32MM_D_0_3_2_6_75",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 65.0,
-    "width": 2.6,
-    "specText": "0.3",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 65.0,
+    width: 2.6,
+    specText: "0.3",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 65.0
+        toUnit: "m",
+        factor: 65.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 169.0
+        toUnit: "m2",
+        factor: 169.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 54.7
-      }
+        toUnit: "kg",
+        factor: 54.7,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_6_65"
+    code: "BAT_0_32MM_D_0_3_2_6_65",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 66.0,
-    "width": 2.6,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 66.0,
+    width: 2.6,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 66.0
+        toUnit: "m",
+        factor: 66.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 171.6
+        toUnit: "m2",
+        factor: 171.6,
       },
       {
-        "toUnit": "kg",
-        "factor": 57.4
-      }
+        toUnit: "kg",
+        factor: 57.4,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_6_66"
+    code: "BAT_0_32MM_D_0_3_2_6_66",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 70.0,
-    "width": 2.6,
-    "specText": "0.3",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 70.0,
+    width: 2.6,
+    specText: "0.3",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 70.0
+        toUnit: "m",
+        factor: 70.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 182.0
+        toUnit: "m2",
+        factor: 182.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 58.8
-      }
+        toUnit: "kg",
+        factor: 58.8,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_6_70"
+    code: "BAT_0_32MM_D_0_3_2_6_70",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 78.0,
-    "width": 2.6,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 78.0,
+    width: 2.6,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 78.0
+        toUnit: "m",
+        factor: 78.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 202.8
-      }
+        toUnit: "m2",
+        factor: 202.8,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_6_78"
+    code: "BAT_0_32MM_D_0_3_2_6_78",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 2.7,
-    "specText": "0.3",
-    "initialStock": 18,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 2.7,
+    specText: "0.3",
+    initialStock: 18,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 216.0
+        toUnit: "m2",
+        factor: 216.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 68.4
-      }
+        toUnit: "kg",
+        factor: 68.4,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_7_80"
+    code: "BAT_0_32MM_D_0_3_2_7_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 73.0,
-    "width": 2.7,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 73.0,
+    width: 2.7,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 73.0
+        toUnit: "m",
+        factor: 73.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 197.1
+        toUnit: "m2",
+        factor: 197.1,
       },
       {
-        "toUnit": "kg",
-        "factor": 62.6
-      }
+        toUnit: "kg",
+        factor: 62.6,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_7_73"
+    code: "BAT_0_32MM_D_0_3_2_7_73",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 60.0,
-    "width": 2.7,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 60.0,
+    width: 2.7,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 60.0
+        toUnit: "m",
+        factor: 60.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 162.0
+        toUnit: "m2",
+        factor: 162.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 52.3
-      }
+        toUnit: "kg",
+        factor: 52.3,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_7_60"
+    code: "BAT_0_32MM_D_0_3_2_7_60",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 2.8,
-    "specText": "0.3",
-    "initialStock": 27,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 2.8,
+    specText: "0.3",
+    initialStock: 27,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 224.0
+        toUnit: "m2",
+        factor: 224.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 72.1
-      }
+        toUnit: "kg",
+        factor: 72.1,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_8_80"
+    code: "BAT_0_32MM_D_0_3_2_8_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 70.0,
-    "width": 2.8,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 70.0,
+    width: 2.8,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 70.0
+        toUnit: "m",
+        factor: 70.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 196.0
-      }
+        toUnit: "m2",
+        factor: 196.0,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_8_70"
+    code: "BAT_0_32MM_D_0_3_2_8_70",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 2.9,
-    "specText": "0.3",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 2.9,
+    specText: "0.3",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 232.0
+        toUnit: "m2",
+        factor: 232.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 73.4
-      }
+        toUnit: "kg",
+        factor: 73.4,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_2_9_80"
+    code: "BAT_0_32MM_D_0_3_2_9_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 3.0,
-    "specText": "0.3",
-    "initialStock": 34,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 3.0,
+    specText: "0.3",
+    initialStock: 34,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 240.0
+        toUnit: "m2",
+        factor: 240.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 75.0
-      }
+        toUnit: "kg",
+        factor: 75.0,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_3_80"
+    code: "BAT_0_32MM_D_0_3_3_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 75.0,
-    "width": 3.0,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 75.0,
+    width: 3.0,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 75.0
+        toUnit: "m",
+        factor: 75.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 225.0
+        toUnit: "m2",
+        factor: 225.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 71.8
-      }
+        toUnit: "kg",
+        factor: 71.8,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_3_75"
+    code: "BAT_0_32MM_D_0_3_3_75",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 65.0,
-    "width": 3.0,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 65.0,
+    width: 3.0,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 65.0
+        toUnit: "m",
+        factor: 65.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 195.0
+        toUnit: "m2",
+        factor: 195.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 71.8
-      }
+        toUnit: "kg",
+        factor: 71.8,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_3_65"
+    code: "BAT_0_32MM_D_0_3_3_65",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 3.1,
-    "specText": "0.3",
-    "initialStock": 9,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 3.1,
+    specText: "0.3",
+    initialStock: 9,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 248.0
+        toUnit: "m2",
+        factor: 248.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 80.2
-      }
+        toUnit: "kg",
+        factor: 80.2,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_3_1_80"
+    code: "BAT_0_32MM_D_0_3_3_1_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 74.0,
-    "width": 3.1,
-    "specText": "0.3",
-    "initialStock": 0,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 74.0,
+    width: 3.1,
+    specText: "0.3",
+    initialStock: 0,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 74.0
+        toUnit: "m",
+        factor: 74.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 229.4
+        toUnit: "m2",
+        factor: 229.4,
       },
       {
-        "toUnit": "kg",
-        "factor": 74.6
-      }
+        toUnit: "kg",
+        factor: 74.6,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_3_1_74"
+    code: "BAT_0_32MM_D_0_3_3_1_74",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 80.0,
-    "width": 3.2,
-    "specText": "0.3",
-    "initialStock": 75,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 80.0,
+    width: 3.2,
+    specText: "0.3",
+    initialStock: 75,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 80.0
+        toUnit: "m",
+        factor: 80.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 256.0
+        toUnit: "m2",
+        factor: 256.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 82.5
-      }
+        toUnit: "kg",
+        factor: 82.5,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_3_2_80"
+    code: "BAT_0_32MM_D_0_3_3_2_80",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 73.0,
-    "width": 3.2,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 73.0,
+    width: 3.2,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 73.0
+        toUnit: "m",
+        factor: 73.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 233.6
+        toUnit: "m2",
+        factor: 233.6,
       },
       {
-        "toUnit": "kg",
-        "factor": 75.0
-      }
+        toUnit: "kg",
+        factor: 75.0,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_3_2_73"
+    code: "BAT_0_32MM_D_0_3_3_2_73",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 60.0,
-    "width": 3.2,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 60.0,
+    width: 3.2,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 60.0
+        toUnit: "m",
+        factor: 60.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 192.0
+        toUnit: "m2",
+        factor: 192.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 63.7
-      }
+        toUnit: "kg",
+        factor: 63.7,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_3_2_60-001"
+    code: "BAT_0_32MM_D_0_3_3_2_60-001",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 65.0,
-    "width": 3.2,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 65.0,
+    width: 3.2,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 65.0
+        toUnit: "m",
+        factor: 65.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 208.0
+        toUnit: "m2",
+        factor: 208.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 67.4
-      }
+        toUnit: "kg",
+        factor: 67.4,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_3_2_65"
+    code: "BAT_0_32MM_D_0_3_3_2_65",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 75.0,
-    "width": 3.2,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 75.0,
+    width: 3.2,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 75.0
+        toUnit: "m",
+        factor: 75.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 240.0
+        toUnit: "m2",
+        factor: 240.0,
       },
       {
-        "toUnit": "kg",
-        "factor": 78.8
-      }
+        toUnit: "kg",
+        factor: 78.8,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_3_2_75"
+    code: "BAT_0_32MM_D_0_3_3_2_75",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 63.0,
-    "width": 3.2,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 63.0,
+    width: 3.2,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 63.0
+        toUnit: "m",
+        factor: 63.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 201.6
-      }
+        toUnit: "m2",
+        factor: 201.6,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_3_2_63"
+    code: "BAT_0_32MM_D_0_3_3_2_63",
   },
   {
-    "name": "Bạt 0.32mm (300g) -D",
-    "categoryCode": "HIFLEX",
-    "baseUnit": "cuon",
-    "basePrice": "0",
-    "length": 60.0,
-    "width": 3.2,
-    "specText": "0.3",
-    "initialStock": 1,
-    "conversions": [
+    name: "Bạt 0.32mm (300g) -D",
+    categoryCode: "HIFLEX",
+    baseUnit: "cuon",
+    basePrice: "0",
+    length: 60.0,
+    width: 3.2,
+    specText: "0.3",
+    initialStock: 1,
+    conversions: [
       {
-        "toUnit": "m",
-        "factor": 60.0
+        toUnit: "m",
+        factor: 60.0,
       },
       {
-        "toUnit": "m2",
-        "factor": 192.0
-      }
+        toUnit: "m2",
+        factor: 192.0,
+      },
     ],
-    "code": "BAT_0_32MM_D_0_3_3_2_60-002"
-  }
+    code: "BAT_0_32MM_D_0_3_3_2_60-002",
+  },
 ];
 
 const products: SeedProduct[] = [

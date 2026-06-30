@@ -86,9 +86,30 @@ export class UpdateUserUseCase {
       customPermissions: request.customPermissions,
     });
 
-    // Invalidate Redis cache to ensure immediate access revocation or update
-    await this.cacheService.del(`session:user_data:${user.id}`);
-    await this.cacheService.del(`session:refresh_token:${user.id}`);
+    // If security-sensitive fields (role/customPermissions) changed,
+    // update session:user_data in-place so new permissions take effect immediately
+    // without forcing the user to re-login.
+    const securityFieldsChanged =
+      request.role !== undefined || request.customPermissions !== undefined;
+
+    if (securityFieldsChanged) {
+      const newActivePermissions =
+        updatedUser.customPermissions !== null &&
+        updatedUser.customPermissions !== undefined
+          ? updatedUser.customPermissions
+          : [updatedUser.role];
+
+      // Overwrite cache with updated role/permissions — effective on next request
+      await this.cacheService.set(
+        `session:user_data:${user.id}`,
+        {
+          id: updatedUser.id,
+          role: updatedUser.role,
+          permissions: newActivePermissions,
+        },
+        7 * 24 * 60 * 60,
+      );
+    }
 
     return {
       id: updatedUser.id,

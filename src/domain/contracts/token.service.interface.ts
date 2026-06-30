@@ -14,5 +14,6 @@ export interface ITokens {
 export interface ITokenService {
   generateTokens(payload: ITokenPayload): Promise<ITokens>;
   generateRefreshToken(): string;
-  hashToken(token: string): Promise<string>;
+  /** SHA-256 hash of a token — used as a Redis lookup key for opaque refresh tokens */
+  sha256Token(token: string): string;
 }

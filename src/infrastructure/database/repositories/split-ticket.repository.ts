@@ -18,7 +18,7 @@ import { SplitStatsDto } from "../../../application/dtos/split-stats.dto";
 
 @Injectable()
 export class SplitTicketRepository implements ISplitTicketRepository {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async findById(id: number): Promise<SplitTicketEntity | null> {
     const ticket = await this.prisma.splitTicket.findUnique({

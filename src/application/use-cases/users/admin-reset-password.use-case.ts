@@ -43,6 +43,13 @@ export class AdminResetPasswordUseCase {
 
     // Force re-login with the new password
     await this.cacheService.del(`session:user_data:${user.id}`);
-    await this.cacheService.del(`session:refresh_token:${user.id}`);
+    // Revoke refresh token via reverse index (opaque token two-key pattern)
+    const tokenHash = await this.cacheService.get<string>(
+      `session:refresh_token_ref:${user.id}`,
+    );
+    if (tokenHash) {
+      await this.cacheService.del(`session:refresh_token:${tokenHash}`);
+    }
+    await this.cacheService.del(`session:refresh_token_ref:${user.id}`);
   }
 }

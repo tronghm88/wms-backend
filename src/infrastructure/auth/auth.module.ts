@@ -5,6 +5,8 @@ import { PassportModule } from "@nestjs/passport";
 import { AuthController } from "../../presentation/controllers/auth.controller";
 import { LoginUseCase } from "../../application/use-cases/auth/login.use-case";
 import { ResetPasswordUseCase } from "../../application/use-cases/auth/reset-password.use-case";
+import { RefreshTokenUseCase } from "../../application/use-cases/auth/refresh-token.use-case";
+import { LogoutUseCase } from "../../application/use-cases/auth/logout.use-case";
 import { JwtTokenService } from "./jwt-token.service";
 import { BcryptPasswordHasher } from "./bcrypt-password-hasher.service";
 import { JwtStrategy } from "./jwt.strategy";
@@ -36,6 +38,8 @@ import { CACHE_SERVICE } from "../../domain/contracts/cache.service.interface";
   providers: [
     LoginUseCase,
     ResetPasswordUseCase,
+    RefreshTokenUseCase,
+    LogoutUseCase,
     JwtStrategy,
     {
       provide: USER_REPOSITORY,

@@ -52,7 +52,14 @@ export class UpdateUserStatusUseCase {
 
     // Invalidate Redis session cache so change takes effect immediately
     await this.cacheService.del(`session:user_data:${user.id}`);
-    await this.cacheService.del(`session:refresh_token:${user.id}`);
+    // Revoke refresh token via reverse index (opaque token two-key pattern)
+    const tokenHash = await this.cacheService.get<string>(
+      `session:refresh_token_ref:${user.id}`,
+    );
+    if (tokenHash) {
+      await this.cacheService.del(`session:refresh_token:${tokenHash}`);
+    }
+    await this.cacheService.del(`session:refresh_token_ref:${user.id}`);
 
     return {
       id: updatedUser.id,

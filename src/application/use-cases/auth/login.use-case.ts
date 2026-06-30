@@ -65,12 +65,20 @@ export class LoginUseCase {
       role: user.role,
     });
 
-    const hashedRefreshToken = await this.tokenService.hashToken(
+    const hashedRefreshToken = this.tokenService.sha256Token(
       tokens.refreshToken,
     );
 
+    // Key 1: lookup by token hash → contains user identity
     await this.cacheService.set(
-      `session:refresh_token:${user.id}`,
+      `session:refresh_token:${hashedRefreshToken}`,
+      { userId: user.id, email: user.email, role: user.role },
+      604800,
+    );
+
+    // Key 2: reverse index by userId → for admin-initiated revocation
+    await this.cacheService.set(
+      `session:refresh_token_ref:${user.id}`,
       hashedRefreshToken,
       604800,
     );
